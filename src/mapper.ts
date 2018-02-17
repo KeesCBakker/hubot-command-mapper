@@ -6,7 +6,7 @@ import {
   convertCommandIntoRegexString,
   convertToolIntoRegexString
 } from "./regex";
-import defaultOption from "./options";
+import defaultOption from "./defaultOptions";
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;

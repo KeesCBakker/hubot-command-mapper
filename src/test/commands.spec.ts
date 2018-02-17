@@ -2,18 +2,7 @@ import mapper from "./../mapper";
 import { expect } from "chai";
 import "mocha";
 
-import MockedBot from "./mocks/mocked-bot";
-
-import defaultOption from "./../options";
-
-function createNewRobotAndMapTool(name: string, tool: ITool) {
-  let option = { ...defaultOption };
-  option.verbose = false;
-
-  const robot = new MockedBot(name);
-  mapper(robot, tool, option);
-  return robot;
-}
+import createNewRobotAndMapTool from "./mocks/creator"
 
 describe("Default commands", () => {
   const robot = createNewRobotAndMapTool("Kees", {

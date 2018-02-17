@@ -1,6 +1,6 @@
 import mapper from "./../../mapper";
 import MockedBot from "./mocked-bot";
-import defaultOptions from "./../../options";
+import defaultOptions from "./../../defaultOptions";
 
 export default function createNewRobotAndMapTool(name: string, tool: ITool) {
   const options = { ...defaultOptions };
