@@ -4,15 +4,20 @@ import "mocha";
 
 import MockedBot from "./mocks/mocked-bot";
 
+import defaultOption from "./../options";
+
 function createNewRobotAndMapTool(name: string, tool: ITool) {
+  let option = { ...defaultOption };
+  option.verbose = false;
+
   const robot = new MockedBot(name);
-  mapper(robot, tool, false);
+  mapper(robot, tool, option);
   return robot;
 }
 
 describe("Default commands", () => {
   const robot = createNewRobotAndMapTool("Kees", {
-    name: "Test",
+    name: "test",
     commands: [
       {
         name: "dummy",
@@ -24,11 +29,11 @@ describe("Default commands", () => {
   it("Debug", done => {
     robot.onReply.one((robot, message) => {
       expect(message).to.eq(
-        'The tool "Test" uses the following commands:\n' +
-          "- dummy: ^@?Kees Test( dummy)$\n" +
-          "- debug: ^@?Kees Test( debug)$\n" +
-          "- reload: ^@?Kees Test( reload)$\n" +
-          "- help: ^@?Kees Test( help| \\?| \\/\\?| \\-\\-help)$"
+        'The tool "test" uses the following commands:\n' +
+          "- dummy: ^@?Kees test( dummy)$\n" +
+          "- debug: ^@?Kees test( debug)$\n" +
+          "- reload: ^@?Kees test( reload)$\n" +
+          "- help: ^@?Kees test( help| \\?| \\/\\?| \\-\\-help)$"
       );
       done();
     });
@@ -43,11 +48,32 @@ describe("Default commands", () => {
     robot.receive("@Kees test help", "1337", "42");
   });
 
-  it("Reload", done => {
+  it("Invalid command", done => {
     robot.onReply.one((robot, message) => {
       //cannot be tested
+      expect(message).to.eq("invalid syntax.");
       done();
     });
+    robot.receive("@Kees test invalid", "1337", "42");
+  });
+
+  it("Reload", done => {
+    const robot = createNewRobotAndMapTool("Kees", {
+      name: "test",
+      commands: [
+        {
+          name: "dummy",
+          invoke: (tool, robot, res) => {}
+        }
+      ]
+    });
+
+    robot.onReply.one((robot, message) => {
+      //cannot be tested
+      expect(message).to.eq('Tool "test" has been reloaded!');
+      done();
+    });
+
     robot.receive("@Kees test reload", "1337", "42");
   });
 });

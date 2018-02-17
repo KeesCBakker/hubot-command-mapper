@@ -6,7 +6,7 @@ import {
   convertCommandIntoRegexString,
   convertToolIntoRegexString
 } from "./regex";
-import { version } from "punycode";
+import defaultOption from "./options";
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;
@@ -18,9 +18,13 @@ delete require.cache[__filename];
  * @export
  * @param {IRobot} robot
  * @param {ITool} tool
- * @param {boolean} [verbose=true] Indicates if the tool should be verbose echoing details to the console log.
+ * @param {IOptions} [options]
  */
-export default function mapper(robot: IRobot, tool: ITool, verbose = true) {
+export default function mapper(
+  robot: IRobot,
+  tool: ITool,
+  options: IOptions = defaultOption
+) {
   if (!robot) throw "Argument 'robot' is empty.";
   if (!tool) throw "Argument 'tool' is empty.";
 
@@ -28,14 +32,21 @@ export default function mapper(robot: IRobot, tool: ITool, verbose = true) {
 
   //add a debug command
   tool.registrations = [];
-  tool.commands.push(createDebugCommand());
+
+  if (options.addDebugCommand) {
+    tool.commands.push(createDebugCommand());
+  }
 
   //add a reload command
-  tool.commands.push(createReloadCommand(caller, verbose));
+  if (options.addReloadCommand) {
+    tool.commands.push(createReloadCommand(caller, options.verbose));
+  }
 
   //add help
   const helpCommand = createHelpCommand();
-  tool.commands.push(helpCommand);
+  if (options.addReloadCommand) {
+    tool.commands.push(helpCommand);
+  }
 
   //init every command
   tool.commands.forEach(cmd => {
@@ -50,7 +61,7 @@ export default function mapper(robot: IRobot, tool: ITool, verbose = true) {
 
     cmd.validationRegex = new RegExp(strValidationRegex, "i");
 
-    if (verbose) {
+    if (options.verbose) {
       console.log(
         `Mapping '${tool.name}.${cmd.name}' as '${strValidationRegex}'.`
       );
@@ -69,7 +80,7 @@ export default function mapper(robot: IRobot, tool: ITool, verbose = true) {
   robot.respond(toolRegex, res => {
     //don't do anything with muted tools. They are here as
     //part of a reload.
-    if (tool.mute) {
+    if (tool.mute === true) {
       return;
     }
 
@@ -81,9 +92,18 @@ export default function mapper(robot: IRobot, tool: ITool, verbose = true) {
 
     //if no commands matched, show help command
     if (matchingCommands.length == 0) {
-      let msg = "sorry, I don't understand. Maybe you could try: \n- ";
-      let msg2 = "invalid syntax.";
-      helpCommand.invoke(tool, robot, res, null, msg, msg2);
+      if (options.showHelpOnInvalidSyntax) {
+        helpCommand.invoke(
+          tool,
+          robot,
+          res,
+          null,
+          options.invalidSystaxHelpPrefix,
+          options.invalidSyntaxMessage
+        );
+      } else if (options.showInvalidSyntax) {
+        res.reply(options.invalidSyntaxMessage);
+      }
       return;
     }
 
@@ -95,7 +115,7 @@ export default function mapper(robot: IRobot, tool: ITool, verbose = true) {
 
     var match = cmd.validationRegex.exec(msg);
 
-    if (verbose) {
+    if (options.verbose) {
       var debug = {
         User: res.message.user.name,
         UserId: res.message.user.id,

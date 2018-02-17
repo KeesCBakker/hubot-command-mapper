@@ -9,6 +9,7 @@
 export function convertToolIntoRegexString(tool: ITool) {
   let regexString = " ";
   regexString += escapeRegExp(tool.name);
+  regexString = " ";
   return regexString;
 }
 

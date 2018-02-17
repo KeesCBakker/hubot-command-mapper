@@ -2,13 +2,7 @@ import mapper from "./../mapper";
 import { expect } from "chai";
 import "mocha";
 
-import MockedBot from "./mocks/mocked-bot";
-
-function createNewRobotAndMapTool(name: string, tool: ITool) {
-  const robot = new MockedBot(name);
-  mapper(robot, tool, false);
-  return robot;
-}
+import createNewRobotAndMapTool from "./mocks/creator";
 
 describe("Default commands", () => {
   const robot = createNewRobotAndMapTool("Kees", {
