@@ -1,6 +1,6 @@
 {
   "name": "hubot-command-mapper",
-  "version": "1.0.6",
+  "version": "1.0.7",
   "description": "Helps with mapping tools and commands to hubot",
   "main": "dist/index.js",
   "scripts": {
