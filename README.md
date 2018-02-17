@@ -3,7 +3,7 @@ _Helps with the mapping of tools and commands for your Hubot_
 
 A _tool_ is a collection of _commands_ that can be invoked. A convention is used to map the command into the Hubot. The direct question `@hubot clear screen` will launch the `screen` command of the `clear` tool.
 
-_<small>Why? </small>_<small>Writing regular expressions for commands is hard. You have to spend some time to prevent some expressions from colliding with others. Now the mapper takes care of that problem.</small>
+_Why?_ Writing regular expressions for commands is hard. You have to spend some time to prevent some expressions from colliding with others. Now the mapper takes care of that problem.
 
 ## Installation
 Install the command mapper like this: `npm install hubot-command-mapper -save`
