@@ -38,45 +38,15 @@ Each tool has a view extra options that will be added by the mapper:
 - `@hubot tool-name reload`: will reload the script without having to restart the Hubot. This makes development easier.
 
 ## Full specification
-A **tool** has the following specification:
-```
-interface ITool
-{
-    /** Name of the tool. A required property. */
-    name: string;
-
-    /** The command that are supported by the tool.
-     *  Only tools with at least 1 command can be mapped. */
-    commands: Array<ICommand>;
-    
-    /** Used for user-name based authorization. Only the specificed 
-     * users may access the tool. */
-    auth?: Array<string>;
-}
-```
+A **tool** is an object with the following:
+- `name:string`: Name of the tool. A required property.
+- `commands:Array<Command>`: The commands that are supported by the tool. Only tools with at least 1 command can be mapped.
+- `auth:Array<string>`: Used for user-name based authorization. Only the specificed users may access the tool. Optional.
 
 A **command** has the following specification:
-```
-interface ICommand {
-  
-  /** The name of the command. Required property. */
-  name: string;
-
-  /** A list of usernames that will be used to authorize access to the command.
-   * This is optional. */
-  auth?: Array<string>;
-  
-  /** A list of aliases of the command. Can be used to support multiple names to
-   * trigger the command like: ["del", "rm"]. An empty alias is also possible to
-   * add default commands to tools. The alias is optional.
-   */
-  alias?: Array<string>;
-
-  /** A regex that can be used to match values behind a command.*/
-  capture?: string;
-  
-  /** Called when the command is invoked. The parameters show the scope in which
-   * the command was called. The match contains captured information. */
-  invoke(tool?: ITool, robot?: any, res?: any, match?: RegExpMatchArray): void;
-}
-```
+- `name: string`: The name of the command. Required property.
+- `invoke(tool?: ITool, robot?: any, res?: any, match?: RegExpMatchArray): void`: Called when the command is invoked. The parameters show the scope in which the command was called. The match contains captured information.
+- `auth: Array<string>`: A list of usernames that will be used to authorize access to the command. Optional.
+- `capture: string`: A regex that can be used to match values behind a command.
+- `alias: Array<string>`: A list of aliases of the command. Can be used to support multiple names to trigger the command like: ["del", "rm"]. An empty alias is also possible to add default commands to tools. The alias is optional.
+- `auth:Array<string>`: Used for user-name based authorization. Only the specificed users may access the command. Optional.
