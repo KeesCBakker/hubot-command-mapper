@@ -7,5 +7,6 @@ interface IOptions
     showInvalidSyntax: boolean,
     showHelpOnInvalidSyntax: boolean,
     invalidSyntaxMessage: string,
-    invalidSystaxHelpPrefix: string
+    invalidSystaxHelpPrefix: string,
+    notAuthorizedMessage: string
 }

@@ -130,7 +130,7 @@ export default function mapper(
     }
 
     if (!authorized) {
-      res.reply("sorry, you are not authorized to use this command.");
+      res.reply(options.notAuthorizedMessage);
       return;
     }
 

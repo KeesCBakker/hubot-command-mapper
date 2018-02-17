@@ -6,6 +6,7 @@ const defaultOptions: IOptions = {
     showHelpOnInvalidSyntax: true,
     invalidSyntaxMessage: "invalid syntax.",
     invalidSystaxHelpPrefix: "sorry, I don't understand. Maybe you could try: \n- ",
+    notAuthorizedMessage: "sorry, you are not authorized to use this command.",
     verbose: true
 };
 
