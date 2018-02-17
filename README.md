@@ -6,8 +6,7 @@ A _tool_ is a collection of _commands_ that can be invoked. A convention is used
 _<small>Why? </small>_<small>Writing regular expressions for commands is hard. You have to spend some time to prevent some expressions from colliding with others. Now the mapper takes care of that problem.</small>
 
 ## Installation
-Install the command mapper like this:<br/>
-`npm install hubot-command-mapper -save`
+Install the command mapper like this: `npm install hubot-command-mapper -save`
 
 ## A simple example
 Let's define the _clear screen_ command by replying with 48 space-lines:
@@ -79,7 +78,5 @@ interface ICommand {
   /** Called when the command is invoked. The parameters show the scope in which
    * the command was called. The match contains captured information. */
   invoke(tool?: ITool, robot?: any, res?: any, match?: RegExpMatchArray): void;
-
-  validationRegex?: RegExp;
 }
 ```
