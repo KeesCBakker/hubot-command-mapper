@@ -6,6 +6,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "build": "tsc",
+    "prepublish": "npm version patch",
     "postpublish": "git push origin --tags"
   },
   "repository": {
