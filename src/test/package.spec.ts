@@ -1,0 +1,12 @@
+import { expect } from "chai";
+import "mocha";
+
+import mapper from "./../"
+
+describe("Package", () => {
+    it("index.js", ()=>{
+
+        expect(mapper).to.be.not.null;
+        expect(mapper).to.be.a("function");
+    });
+});
