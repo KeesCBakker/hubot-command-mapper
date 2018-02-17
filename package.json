@@ -6,7 +6,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "build": "tsc",
-    "prepublishOnly": "npm test & npm version patch",
+    "prepublishOnly": "npm run build & npm test & npm version patch",
     "postpublish": "git push origin --tags"
   },
   "repository": {
@@ -34,6 +34,6 @@
     "typescript": "^2.7.2"
   },
   "dependencies": {
-    "strongly-typed-events": "^1.0.3"
+    "strongly-typed-events": "^1.0.4"
   }
 }
