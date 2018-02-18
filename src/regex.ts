@@ -1,17 +1,9 @@
 /**
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
- *
- * @export
- * @param {ITool} tool The tool.
- * @returns
  */
 export function convertToolIntoRegexString(robotName: string, tool: ITool) {
-  let regexString = "^@?";
-  regexString += escapeRegExp(robotName);
-  regexString += " ";
-  regexString += escapeRegExp(tool.name);
-  
+  let regexString = escapeRegExp(tool.name);
   return regexString;
 }
 
