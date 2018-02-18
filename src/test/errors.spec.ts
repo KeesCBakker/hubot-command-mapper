@@ -2,7 +2,7 @@ import { mapper } from "./../mapper";
 import { expect } from "chai";
 import "mocha";
 
-import MockedBot from "./mocks/mocked-bot";
+import { MockedBot } from "./mocks/mocked-bot";
 
 describe("erros.spec.ts / Errors", () => {
   it("No robot", done => {

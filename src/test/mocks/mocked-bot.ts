@@ -1,6 +1,6 @@
 import { EventDispatcher, IEvent } from "strongly-typed-events";
 
-export default class MockedBot implements IRobot {
+export class MockedBot implements IRobot {
   alias = "";
 
   _replies = new EventDispatcher<IRobot, string>();
