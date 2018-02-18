@@ -75,9 +75,11 @@ export function mapper(
   });
 
   //listen for invocation of tool
-  const toolRegexString = convertToolIntoRegexString(tool);
+  const toolRegexString = convertToolIntoRegexString(robot.name, tool);
   const toolRegex = new RegExp(toolRegexString, "i");
+
   robot.respond(toolRegex, res => {
+
     //don't do anything with muted tools. They are here as
     //part of a reload.
     if (tool.mute === true) {

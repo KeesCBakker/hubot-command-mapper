@@ -6,10 +6,12 @@
  * @param {ITool} tool The tool.
  * @returns
  */
-export function convertToolIntoRegexString(tool: ITool) {
-  let regexString = " ";
+export function convertToolIntoRegexString(robotName: string, tool: ITool) {
+  let regexString = "^@?";
+  regexString += escapeRegExp(robotName);
+  regexString += " ";
   regexString += escapeRegExp(tool.name);
-  regexString = " ";
+  
   return regexString;
 }
 
