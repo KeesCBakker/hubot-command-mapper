@@ -1,3 +1,4 @@
-import mapper from "./mapper";
+import { mapper } from "./mapper";
+import { defaultOptions, Options } from "./options";
 
-export default mapper;
+export { mapper, defaultOptions, Options };

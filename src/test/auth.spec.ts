@@ -1,10 +1,10 @@
-import mapper from "./../mapper";
+import { mapper } from "./../";
 import { expect } from "chai";
 import "mocha";
 
 import createNewRobotAndMapTool from "./mocks/creator";
 
-describe("Default commands", () => {
+describe("auth.spec.ts / Default commands", () => {
   const robot = createNewRobotAndMapTool("Kees", {
     name: "test",
     auth: ["user1", "user2"],

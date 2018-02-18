@@ -6,7 +6,7 @@ import {
   convertCommandIntoRegexString,
   convertToolIntoRegexString
 } from "./regex";
-import defaultOption from "./defaultOptions";
+import { defaultOptions } from "./options";
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;
@@ -20,10 +20,10 @@ delete require.cache[__filename];
  * @param {ITool} tool
  * @param {IOptions} [options]
  */
-export default function mapper(
+export function mapper(
   robot: IRobot,
   tool: ITool,
-  options: IOptions = defaultOption
+  options: IOptions = defaultOptions
 ) {
   if (!robot) throw "Argument 'robot' is empty.";
   if (!tool) throw "Argument 'tool' is empty.";

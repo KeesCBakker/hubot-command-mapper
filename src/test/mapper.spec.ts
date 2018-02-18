@@ -1,9 +1,9 @@
-import mapper from "./../mapper";
+import { mapper } from "./../mapper";
 import { expect } from "chai";
 import "mocha";
-import createNewRobotAndMapTool from "./mocks/creator"
+import createNewRobotAndMapTool from "./mocks/creator";
 
-describe("Command mapping", () => {
+describe("mapper.spec.ts / Command mapping", () => {
   it("Basic command mapping and invocation", () => {
     let i = 0;
     let robot = createNewRobotAndMapTool("Kees", {

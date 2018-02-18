@@ -1,4 +1,4 @@
-import mapper from "./../mapper";
+import { mapper } from "./../mapper";
 import { expect } from "chai";
 import "mocha";
 

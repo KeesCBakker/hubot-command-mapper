@@ -1,10 +1,10 @@
-import mapper from "./../mapper";
+import { mapper } from "./../mapper";
 import { expect } from "chai";
 import "mocha";
 
 import MockedBot from "./mocks/mocked-bot";
 
-describe("Errors", () => {
+describe("erros.spec.ts / Errors", () => {
   it("No robot", done => {
     try {
       mapper(null, null);
