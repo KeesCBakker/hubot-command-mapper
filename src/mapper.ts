@@ -39,7 +39,7 @@ export function mapper(
 
   //add a reload command
   if (options.addReloadCommand) {
-    tool.commands.push(createReloadCommand(caller, options.verbose));
+    tool.commands.push(createReloadCommand(caller, module, options.verbose));
   }
 
   //add help

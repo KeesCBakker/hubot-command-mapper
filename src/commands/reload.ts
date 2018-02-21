@@ -1,7 +1,17 @@
 const path = require("path");
 
+/**
+ * Creates the reload command.
+ * 
+ * @export
+ * @param {NodeModule} caller The original caller. This is the script that called the mapper to register the tool.
+ * @param {NodeModule} mapperModule The module of the mapper. This prevents reloading of the command mapper.
+ * @param {boolean} [verbose=true] Indicates to add verbose logging. 
+ * @returns {ICommand} The command.
+ */
 export default function createReloadCommand(
   caller: NodeModule,
+  mapperModule: NodeModule,
   verbose = true
 ): ICommand {
   return {
@@ -16,7 +26,7 @@ export default function createReloadCommand(
       //delete the caller from the require cache, it should
       //be reloaded from drive otherwise changes are not
       //picked up
-      uncache(caller, verbose);
+      uncache(caller, verbose, mapperModule);
 
       //use a timeout - otherwise you'll get an infinite number
       //of requests stating to reload the plugin. When this happens
@@ -30,16 +40,17 @@ export default function createReloadCommand(
         const p = path.dirname(toolFileName);
         const fn = path.basename(toolFileName);
 
-        res.reply(`Tool "${tool.name}" has been reloaded!`);
         robot.loadFile(p, fn);
+
+        res.reply(`Tool "${tool.name}" has been reloaded!`);
       }, 1000);
     }
   };
 }
 
-function uncache(module: NodeModule, verbose: boolean) {
+function uncache(m: NodeModule, verbose: boolean, mapperModule: NodeModule) {
   let files = [];
-  fillModuleFiles(module, files);
+  fillModuleFiles(m, files, mapperModule);
 
   for (let file of files) {
     if (verbose) {
@@ -49,16 +60,24 @@ function uncache(module: NodeModule, verbose: boolean) {
   }
 }
 
-function fillModuleFiles(module: NodeModule, files: Array<string>) {
-  if (files.indexOf(module.filename) != -1) {
+function fillModuleFiles(
+  m: NodeModule,
+  files: Array<string>,
+  mapperModule: NodeModule
+) {
+  if (m.filename == mapperModule.filename) {
     return;
   }
 
-  files.push(module.filename);
+  if (files.indexOf(m.filename) != -1) {
+    return;
+  }
 
-  if (module.children) {
-    for (let child of module.children) {
-      fillModuleFiles(child, files);
+  files.push(m.filename);
+
+  if (m.children) {
+    for (let child of m.children) {
+      fillModuleFiles(child, files, mapperModule);
     }
   }
 }
