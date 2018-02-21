@@ -3,8 +3,9 @@ _Helps with the mapping of tools and commands for your Hubot_
 
 [![Build Status](https://travis-ci.org/KeesCBakker/hubot-command-mapper.svg?branch=master)](https://travis-ci.org/KeesCBakker/hubot-command-mapper)
 [![npm version](https://badge.fury.io/js/hubot-command-mapper.svg)](https://badge.fury.io/js/hubot-command-mapper)
-[![forever](https://david-dm.org/KeesCBakker/hubot-command-mapper.svg)](https://david-dm.org/KeesCBakker/hubot-command-mapper)
+[![forever](https://david-dm.org/KeesCBakker/hubot-command-mapper.svg)](https://david-dm.org/KeesCBakker/hubot-command-mapper) [![code style: prettier](https://img.shields.io/badge/code_style-prettier-ff69b4.svg)](https://github.com/prettier/prettier)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+
 
 A _tool_ is a collection of _commands_ that can be invoked. A convention is used to map the command into the Hubot. The direct question `@hubot clear screen` will launch the `screen` command of the `clear` tool.
 
