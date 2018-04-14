@@ -41,7 +41,14 @@ export function mapper(
 
   //add a reload command
   if (options.addReloadCommand) {
-    tool.commands.push(createReloadCommand(caller, module, options.verbose));
+    tool.commands.push(
+      createReloadCommand(
+        caller,
+        module,
+        options.verbose,
+        options.reloadNodeModules
+      )
+    );
   }
 
   //add help
@@ -81,7 +88,6 @@ export function mapper(
   const toolRegex = new RegExp(toolRegexString, "i");
 
   robot.respond(toolRegex, res => {
-
     //don't do anything with muted tools. They are here as
     //part of a reload.
     if (tool.mute === true) {

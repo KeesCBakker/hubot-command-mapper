@@ -8,6 +8,7 @@ export class Options implements IOptions {
   public invalidSystaxHelpPrefix = "sorry, I don't understand. Maybe you could try:\n- ";
   public notAuthorizedMessage = "sorry, you are not authorized to use this command.";
   public verbose = true;
+  public reloadNodeModules = false;
 
   constructor() {}
 }

@@ -8,5 +8,6 @@ interface IOptions
     showHelpOnInvalidSyntax: boolean,
     invalidSyntaxMessage: string,
     invalidSystaxHelpPrefix: string,
-    notAuthorizedMessage: string
+    notAuthorizedMessage: string,
+    reloadNodeModules: boolean
 }

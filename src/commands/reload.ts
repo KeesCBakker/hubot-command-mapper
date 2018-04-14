@@ -2,17 +2,18 @@ const path = require("path");
 
 /**
  * Creates the reload command.
- * 
+ *
  * @export
  * @param {NodeModule} caller The original caller. This is the script that called the mapper to register the tool.
  * @param {NodeModule} mapperModule The module of the mapper. This prevents reloading of the command mapper.
- * @param {boolean} [verbose=true] Indicates to add verbose logging. 
+ * @param {boolean} [verbose=true] Indicates to add verbose logging.
  * @returns {ICommand} The command.
  */
 export default function createReloadCommand(
   caller: NodeModule,
   mapperModule: NodeModule,
-  verbose = true
+  verbose = true,
+  reloadNodeModules = false
 ): ICommand {
   return {
     name: "reload",
@@ -26,7 +27,7 @@ export default function createReloadCommand(
       //delete the caller from the require cache, it should
       //be reloaded from drive otherwise changes are not
       //picked up
-      uncache(caller, verbose, mapperModule);
+      uncache(caller, verbose, mapperModule, reloadNodeModules);
 
       //use a timeout - otherwise you'll get an infinite number
       //of requests stating to reload the plugin. When this happens
@@ -48,7 +49,12 @@ export default function createReloadCommand(
   };
 }
 
-function uncache(m: NodeModule, verbose: boolean, mapperModule: NodeModule) {
+function uncache(
+  m: NodeModule,
+  verbose: boolean,
+  mapperModule: NodeModule,
+  reloadModules: boolean
+) {
   let files = [];
   fillModuleFiles(m, files, mapperModule);
 
@@ -56,7 +62,10 @@ function uncache(m: NodeModule, verbose: boolean, mapperModule: NodeModule) {
     if (verbose) {
       console.log("Uncaching: " + file);
     }
-    delete require.cache[file];
+
+    if (reloadModules || file.indexOf("node_modules") == -1) {
+      delete require.cache[file];
+    }
   }
 }
 
