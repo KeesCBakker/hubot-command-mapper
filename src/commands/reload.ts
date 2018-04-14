@@ -59,11 +59,11 @@ function uncache(
   fillModuleFiles(m, files, mapperModule);
 
   for (let file of files) {
-    if (verbose) {
-      console.log("Uncaching: " + file);
-    }
-
     if (reloadModules || file.indexOf("node_modules") == -1) {
+      if (verbose) {
+        console.log("Uncaching: " + file);
+      }
+  
       delete require.cache[file];
     }
   }
