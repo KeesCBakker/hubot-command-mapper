@@ -19,7 +19,7 @@ export default function createHelpCommand() {
 
       helpCommands.sort();
 
-      if (helpCommands.length == 0) {
+      if (helpCommands.length === 0) {
         if (noHelpMsg) {
           res.reply(noHelpMsg);
           return;

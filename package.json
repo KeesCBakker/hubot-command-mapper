@@ -28,7 +28,7 @@
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "devDependencies": {
     "@types/chai": "^4.1.2",
-    "@types/mocha": "^2.2.48",
+    "@types/mocha": "^5.0.0",
     "@types/node": "^9.4.6",
     "chai": "^4.1.2",
     "mocha": "^5.0.1",

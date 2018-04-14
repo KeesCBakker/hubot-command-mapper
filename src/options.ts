@@ -5,7 +5,7 @@ export class Options implements IOptions {
   public showInvalidSyntax = true;
   public showHelpOnInvalidSyntax = true;
   public invalidSyntaxMessage = "invalid syntax.";
-  public invalidSystaxHelpPrefix = "sorry, I don't understand. Maybe you could try:= \n- ";
+  public invalidSystaxHelpPrefix = "sorry, I don't understand. Maybe you could try:\n- ";
   public notAuthorizedMessage = "sorry, you are not authorized to use this command.";
   public verbose = true;
 
