@@ -1,68 +1,64 @@
-import { mapper } from "./../";
+const pretend = require("hubot-pretend");
+
+import { mapper, Options } from "./../";
 import { expect } from "chai";
 import "mocha";
 
-import { createNewRobotAndMapTool } from "./mocks/creator";
-
 describe("commands.spec.ts / Default commands", () => {
-  const robot = createNewRobotAndMapTool("Kees", {
-    name: "test",
-    commands: [
+  
+  beforeEach(() => {
+    pretend.name = "hubot";
+    pretend.alias = "hubot";
+    pretend.start();
+
+    var options = new Options();
+    options.verbose = false;
+
+    mapper(
+      pretend.robot,
       {
-        name: "dummy",
-        invoke: (tool, robot, res) => {}
-      }
-    ]
+        name: "test",
+        commands: [
+          {
+            name: "dummy",
+            invoke: (tool, robot, res) => {}
+          }
+        ]
+      },
+      options
+    );
   });
+
+  afterEach(() => pretend.shutdown());
 
   it("Debug", done => {
-    robot.onReply.one((robot, message) => {
-      expect(message).to.eq(
-        'The tool "test" uses the following commands:\n' +
-          "- dummy: ^@?Kees test( dummy)$\n" +
-          "- debug: ^@?Kees test( debug)$\n" +
-          "- reload: ^@?Kees test( reload)$\n" +
-          "- help: ^@?Kees test( help| \\?| \\/\\?| \\-\\-help)$"
-      );
-      done();
-    });
-    robot.receive("@Kees test debug", "1337", "42");
-  });
-
-  it("Help", done => {
-    robot.onReply.one((robot, message) => {
-      //cannot be tested
-      done();
-    });
-    robot.receive("@Kees test help", "1337", "42");
+    pretend
+      .user("kees")
+      .send("@hubot test debug")
+      .then(() => {
+        var message = pretend.messages[1][1];
+        expect(message).to.eq(
+          '@kees The tool "test" uses the following commands:\n' +
+            "- dummy: ^@?hubot test( dummy)$\n" +
+            "- debug: ^@?hubot test( debug)$\n" +
+            "- reload: ^@?hubot test( reload)$\n" +
+            "- help: ^@?hubot test( help| \\?| \\/\\?| \\-\\-help)$"
+        );
+        done();
+      })
+      .catch(ex => done(ex));
   });
 
   it("Invalid command", done => {
-    robot.onReply.one((robot, message) => {
-      //cannot be tested
-      expect(message).to.eq("invalid syntax.");
-      done();
-    });
-    robot.receive("@Kees test invalid", "1337", "42");
+    pretend
+      .user("kees")
+      .send("@hubot test invalid")
+      .then(() => {
+        var message = pretend.messages[1][1];
+        expect(message).to.eq("@kees invalid syntax.");
+        done();
+      })
+      .catch(ex => done(ex));
   });
-
-  it("Reload", done => {
-    const robot = createNewRobotAndMapTool("Kees", {
-      name: "test",
-      commands: [
-        {
-          name: "dummy",
-          invoke: (tool, robot, res) => {}
-        }
-      ]
-    });
-
-    robot.onReply.one((robot, message) => {
-      //cannot be tested
-      expect(message).to.eq('Tool "test" has been reloaded!');
-      done();
-    });
-
-    robot.receive("@Kees test reload", "1337", "42");
-  });
+ 
 });

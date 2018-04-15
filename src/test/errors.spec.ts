@@ -1,10 +1,18 @@
+const pretend = require("hubot-pretend");
+
 import { mapper } from "./../";
 import { expect } from "chai";
 import "mocha";
 
-import { MockedBot } from "./mocks/mocked-bot";
-
 describe("erros.spec.ts / Errors", () => {
+  beforeEach(() => {
+    pretend.name = "hubot";
+    pretend.alias = "hubot";
+    pretend.start();
+  });
+
+  afterEach(() => pretend.shutdown());
+
   it("No robot", done => {
     try {
       mapper(null, null);
@@ -16,7 +24,7 @@ describe("erros.spec.ts / Errors", () => {
 
   it("No tool", done => {
     try {
-      mapper(new MockedBot("Kees"), null);
+      mapper(pretend.robot, null);
     } catch (ex) {
       expect(ex.toString()).to.eq("Argument 'tool' is empty.");
       done();
@@ -25,7 +33,7 @@ describe("erros.spec.ts / Errors", () => {
 
   it("Invalid tool name due to null", done => {
     try {
-      mapper(new MockedBot("Kees"), {
+      mapper(pretend.robot, {
         name: null,
         commands: []
       });
@@ -37,7 +45,7 @@ describe("erros.spec.ts / Errors", () => {
 
   it("Invalid tool name due to empty string", done => {
     try {
-      mapper(new MockedBot("Kees"), {
+      mapper(pretend.robot, {
         name: "",
         commands: []
       });
@@ -49,7 +57,7 @@ describe("erros.spec.ts / Errors", () => {
 
   it("Invalid tool due to empty command name", done => {
     try {
-      mapper(new MockedBot("Kees"), {
+      mapper(pretend.robot, {
         name: "Test",
         commands: [
           {
@@ -66,7 +74,7 @@ describe("erros.spec.ts / Errors", () => {
 
   it("Invalid tool due to null command name", done => {
     try {
-      mapper(new MockedBot("Kees"), {
+      mapper(pretend.robot, {
         name: "Test",
         commands: [
           {
@@ -83,7 +91,7 @@ describe("erros.spec.ts / Errors", () => {
 
   it("Invalid tool due to reuse command alias", done => {
     try {
-      mapper(new MockedBot("Kees"), {
+      mapper(pretend.robot, {
         name: "Test",
         commands: [
           {
@@ -98,7 +106,9 @@ describe("erros.spec.ts / Errors", () => {
         ]
       });
     } catch (ex) {
-      expect(ex.toString()).to.eq("Cannot create command 'list' for tool 'Test'. Multiple commands with the same name or alias found.");
+      expect(ex.toString()).to.eq(
+        "Cannot create command 'list' for tool 'Test'. Multiple commands with the same name or alias found."
+      );
       done();
     }
   });

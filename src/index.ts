@@ -22,9 +22,9 @@ delete require.cache[__filename];
  * @param {ITool} tool
  * @param {IOptions} [options]
  */
-export function mapper(
-  robot: IRobot,
-  tool: ITool,
+export function mapper<A>(
+  robot: Hubot.Robot<A>,
+  tool: ITool<A>,
   options: IOptions = defaultOptions
 ) {
   if (!robot) throw "Argument 'robot' is empty.";
@@ -135,7 +135,6 @@ export function mapper(
         Command: cmd.name,
         Match: match
       };
-
       console.log(debug);
     }
 

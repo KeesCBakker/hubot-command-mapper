@@ -1,15 +1,17 @@
-export default function createHelpCommand() {
+import { Robot, Response } from "../definitions/irobot";
+
+export default function createHelpCommand<A>() {
   return {
     name: "help",
     alias: ["?", "/?", "--help"],
     invoke: (
-      tool: ITool,
-      robot: IRobot,
-      res: IResponse,
+      tool: ITool<A>,
+      robot: Robot<A>,
+      res: Response<A>,
       match: RegExpMatchArray,
       helpMsgPrefix?: string,
       noHelpMsg?: string
-    ) => {
+    ): void => {
       const botName = "@" + (robot.alias || robot.name);
 
       let helpCommands = robot

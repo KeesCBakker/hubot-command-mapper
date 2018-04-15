@@ -1,4 +1,9 @@
-interface ICommand {
+/**
+ * Models a command that can be invoked by the Hubot.
+ * @interface ICommand
+ * @template A The adapter.
+ */
+interface ICommand<A> {
   
   /** The name of the command. Required property. */
   name: string;
@@ -18,7 +23,7 @@ interface ICommand {
   
   /** Called when the command is invoked. The parameters show the scope in which
    * the command was called. The match contains captured information. */
-  invoke(tool?: ITool, robot?: IRobot, res?: IResponse, match?: RegExpMatchArray): void;
+  invoke(tool?: ITool<A>, robot?: Hubot.Robot<A>, res?: Hubot.Response<A>, match?: RegExpMatchArray): void;
 
   validationRegex?: RegExp;
 }

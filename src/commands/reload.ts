@@ -9,17 +9,22 @@ const path = require("path");
  * @param {boolean} [verbose=true] Indicates to add verbose logging.
  * @returns {ICommand} The command.
  */
-export default function createReloadCommand(
+export default function createReloadCommand<A>(
   caller: NodeModule,
   mapperModule: NodeModule,
   verbose = true,
   reloadNodeModules = false
-): ICommand {
+): ICommand<A> {
   return {
     name: "reload",
-    invoke: (tool: ITool, robot: IRobot, res: IResponse) => {
+    invoke: (
+      tool?: ITool<A>,
+      robot?: Hubot.Robot<A>,
+      res?: Hubot.Response<A>,
+      match?: RegExpMatchArray
+    ) => {
       //we cannot "unregister" the Hubot regex. Mute the tool,
-      //so old versions are ignored when responding.
+      //so old versions of the are ignored when responding.
       tool.mute = true;
 
       const toolFileName = caller.filename;
@@ -63,7 +68,7 @@ function uncache(
       if (verbose) {
         console.log("Uncaching: " + file);
       }
-  
+
       delete require.cache[file];
     }
   }

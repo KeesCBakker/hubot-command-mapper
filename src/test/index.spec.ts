@@ -1,117 +1,189 @@
-import { mapper } from "./../";
+const pretend = require("hubot-pretend");
+
+import { mapper, Options } from "./../";
 import { expect } from "chai";
 import "mocha";
-import { createNewRobotAndMapTool } from "./mocks/creator";
 
 describe("mapper.spec.ts / Command mapping", () => {
-  it("Basic command mapping and invocation", () => {
-    let i = 0;
-    let robot = createNewRobotAndMapTool("Kees", {
-      name: "clear",
-      commands: [
-        {
-          name: "screen",
-          invoke: (tool, robot, res, match) => i++
-        }
-      ]
-    });
+  const options = new Options();
+  options.verbose = false;
 
-    robot.receive("@Kees clear screen", "Kees", "1337");
-    expect(i).to.eq(1, "Message should increment i.");
+  beforeEach(() => {
+    pretend.name = "hubot";
+    pretend.alias = "hubot";
+    pretend.start();
   });
 
-  it("Alias", () => {
-    let i = 0;
-    let robot = createNewRobotAndMapTool("Kees", {
-      name: "clear",
-      commands: [
-        {
-          name: "screen",
-          alias: ["scr"],
-          invoke: (tool, robot, res, match) => i++
-        }
-      ]
-    });
+  afterEach(() => pretend.shutdown());
 
-    robot.receive("@Kees clear scr", "Kees", "1337");
-    expect(i).to.eq(1, "Message should increment i.");
+  it("Basic command mapping and invocation", done => {
+    let i = 0;
+    mapper(
+      pretend.robot,
+      {
+        name: "clear",
+        commands: [
+          {
+            name: "screen",
+            invoke: (tool, robot, res, match) => i++
+          }
+        ]
+      },
+      options
+    );
+    pretend
+      .user("kees")
+      .send("@hubot clear screen")
+      .then(() => {
+        expect(i).to.eq(1, "Message should increment i.");
+        done();
+      })
+      .catch(ex => done(ex));
   });
 
-  it("Empty alias", () => {
+  it("Alias", done => {
     let i = 0;
-    let robot = createNewRobotAndMapTool("Kees", {
-      name: "clear",
-      commands: [
-        {
-          name: "screen",
-          alias: [""],
-          invoke: (tool, robot, res, match) => i++
-        }
-      ]
-    });
-
-    robot.receive("@Kees clear", "Kees", "1337");
-    expect(i).to.eq(1, "Message should increment i.");
+    mapper(
+      pretend.robot,
+      {
+        name: "clear",
+        commands: [
+          {
+            name: "screen",
+            alias: ["scr"],
+            invoke: (tool, robot, res, match) => i++
+          }
+        ]
+      },
+      options
+    );
+    pretend
+      .user("kees")
+      .send("@hubot clear scr")
+      .then(() => {
+        expect(i).to.eq(1, "Message should increment i.");
+        done();
+      })
+      .catch(ex => done(ex));
   });
 
-  it("Multiple aliases", () => {
+  it("Empty alias", done => {
     let i = 0;
-
-    let robot = createNewRobotAndMapTool("Kees", {
-      name: "clear",
-      commands: [
-        {
-          name: "screen",
-          alias: ["", "screen", "scr"],
-          invoke: (tool, robot, res, match) => i++
-        }
-      ]
-    });
-
-    robot.receive("@Kees clear", "Kees", "1337");
-    expect(i).to.eq(1, "'clear' should increment i.");
-
-    robot.receive("@Kees clear scr", "Kees", "1337");
-    expect(i).to.eq(2, "'clear scr' should increment i.");
-
-    robot.receive("@Kees clear screen", "Kees", "1337");
-    expect(i).to.eq(3, "'clear screen' should increment i.");
+    mapper(
+      pretend.robot,
+      {
+        name: "clear",
+        commands: [
+          {
+            name: "screen",
+            alias: [""],
+            invoke: (tool, robot, res, match) => i++
+          }
+        ]
+      },
+      options
+    );
+    pretend
+      .user("kees")
+      .send("@hubot clear")
+      .then(() => {
+        expect(i).to.eq(1, "Message should increment i.");
+        done();
+      })
+      .catch(ex => done(ex));
   });
 
-  it("Multiple command mapping", () => {
+  it("Multiple aliases", done => {
+    let i = 0;
+    mapper(
+      pretend.robot,
+      {
+        name: "clear",
+        commands: [
+          {
+            name: "screen",
+            alias: ["scr", ""],
+            invoke: (tool, robot, res, match) => i++
+          }
+        ]
+      },
+      options
+    );
+
+    new Promise(resolve => resolve())
+      .then(x =>
+        pretend
+          .user("kees")
+          .send("@hubot clear screen")
+          .then(() => expect(i).to.eq(1, "Message should increment i."))
+      )
+      .then(x =>
+        pretend
+          .user("kees")
+          .send("@hubot clear scr")
+          .then(() => expect(i).to.eq(2, "Message should increment i."))
+      )
+      .then(x =>
+        pretend
+          .user("kees")
+          .send("@hubot clear")
+          .then(() => expect(i).to.eq(3, "Message should increment i."))
+      )
+      .then(x => done())
+      .catch(ex => done(ex));
+  });
+
+  it("Multiple command mapping", done => {
     let latest = "";
-    let robot = createNewRobotAndMapTool("Kees", {
-      name: "tool",
-      commands: [
-        {
-          name: "a",
-          invoke: (tool, robot, res, match) => (latest = "a")
-        },
-        {
-          name: "b",
-          invoke: (tool, robot, res, match) => (latest = "b")
-        },
+    mapper(
+      pretend.robot,
+      {
+        name: "tool",
+        commands: [
+          {
+            name: "a",
+            invoke: (tool, robot, res, match) => (latest = "a")
+          },
+          {
+            name: "b",
+            invoke: (tool, robot, res, match) => (latest = "b")
+          },
 
-        {
-          name: "c",
-          invoke: (tool, robot, res, match) => (latest = "c")
-        }
-      ]
-    });
+          {
+            name: "c",
+            invoke: (tool, robot, res, match) => (latest = "c")
+          }
+        ]
+      },
+      options
+    );
 
-    robot.receive("@Kees tool a", "Kees", "1337");
-    expect(latest).to.eq("a", "'a' was not called.");
-
-    robot.receive("@Kees tool b", "Kees", "1337");
-    expect(latest).to.eq("b", "'b' was not called.");
-
-    robot.receive("@Kees tool c", "Kees", "1337");
-    expect(latest).to.eq("c", "'c' was not called.");
+    new Promise(resolve => resolve())
+      .then(x =>
+        pretend
+          .user("Kees")
+          .send("@hubot tool a")
+          .then(x => expect(latest).to.eq("a", "'a' was not called."))
+      )
+      .then(x =>
+        pretend
+          .user("Kees")
+          .send("@hubot tool a")
+          .then(x => expect(latest).to.eq("a", "'a' was not called."))
+      )
+      .then(x =>
+        pretend
+          .user("Kees")
+          .send("@hubot tool a")
+          .then(x => expect(latest).to.eq("a", "'a' was not called."))
+      )
+      .then(x => done())
+      .catch(ex => done(ex));
   });
 
-  it("Tool segregation", () => {
-    let robot = createNewRobotAndMapTool(
-      "Kees",
+  it("Tool segregation", done => {
+    mapper(
+      pretend.robot,
       {
         name: "t1",
         commands: [
@@ -121,6 +193,11 @@ describe("mapper.spec.ts / Command mapping", () => {
           }
         ]
       },
+      options
+    );
+
+    mapper(
+      pretend.robot,
       {
         name: "t2",
         commands: [
@@ -129,15 +206,21 @@ describe("mapper.spec.ts / Command mapping", () => {
             invoke: (tool, robot, res, match) => res.reply("r2")
           }
         ]
-      }
+      },
+      options
     );
 
-    let msg = [];
-    robot.onReply.sub((r, txt) => msg.push(txt));
-
-    robot.receive("@Kees t2 c1", "Kees", "1337");
-
-    expect(msg.length).to.eq(1, "There should be one replied message.");
-    expect(msg[0]).to.eq("r2", "The message should be 'r2'.");
+    pretend
+      .user("Kees")
+      .send("@hubot t2 c1")
+      .then(x => new Promise(resolve => setTimeout(resolve, 100)))
+      .then(x => {
+        expect(pretend.messages).to.eql([
+          ["Kees", "@hubot t2 c1"],
+          ["hubot", "@Kees r2"]
+        ]);
+        done();
+      })
+      .catch(ex => done(ex));
   });
 });
