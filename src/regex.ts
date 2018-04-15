@@ -2,7 +2,7 @@
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString(robotName: string, tool: ITool) {
+export function convertToolIntoRegexString<A>(robotName: string, tool: ITool<A>) {
   let regexString = escapeRegExp(tool.name);
   return regexString;
 }
@@ -15,10 +15,10 @@ export function convertToolIntoRegexString(robotName: string, tool: ITool) {
  * @param tool The tool.
  * @param cmd The command.
  */
-export function convertCommandIntoRegexString(
+export function convertCommandIntoRegexString<A>(
   robotName: string,
-  tool: ITool,
-  cmd: ICommand
+  tool: ITool<A>,
+  cmd: ICommand<A>
 ) {
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$

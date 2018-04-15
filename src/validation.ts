@@ -3,7 +3,7 @@
  * tool is invalid.
  * @param tool The tool.
  */
-export default function validateTool(tool: ITool): void {
+export default function validateTool<A>(tool: ITool<A>): void {
   if (!tool.name || tool.name === "") throw "Invalid name for tool.";
 
   if (!tool.commands || !tool.commands.length)
@@ -18,7 +18,7 @@ export default function validateTool(tool: ITool): void {
  * @param tool The tool.
  * @param cmd The command.
  */
-export function validateCommand(tool: ITool, cmd: ICommand) {
+export function validateCommand<A>(tool: ITool<A>, cmd: ICommand<A>) {
   if (!cmd) throw "Cannot map empty command.";
 
   if (!cmd.name || cmd.name === "") throw "Invalid command name.";
