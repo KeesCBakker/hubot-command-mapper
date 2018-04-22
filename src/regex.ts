@@ -1,8 +1,17 @@
+"strict";
+
+import { ICommand } from "./definitions/icommand";
+import { IParameter } from ".";
+import NamedRegExp from "named-regexp-groups";
+
 /**
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(robotName: string, tool: ITool<A>) {
+export function convertToolIntoRegexString<A>(
+  robotName: string,
+  tool: ITool<A>
+) {
   let regexString = escapeRegExp(tool.name);
   return regexString;
 }
@@ -18,7 +27,8 @@ export function convertToolIntoRegexString<A>(robotName: string, tool: ITool<A>)
 export function convertCommandIntoRegexString<A>(
   robotName: string,
   tool: ITool<A>,
-  cmd: ICommand<A>
+  cmd: ICommand<A>,
+  userNaming = false
 ) {
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
@@ -44,6 +54,14 @@ export function convertCommandIntoRegexString<A>(
       regexString += "| ";
       regexString += escapeRegExp(a);
     });
+  }
+
+  let extraSpace = true;
+
+  //convert parameters to capture
+  if (cmd.parameters && cmd.parameters.length > 0) {
+    extraSpace = false;
+    cmd.capture = convertParametersToRegex(cmd.parameters, userNaming);
   }
 
   if (cmd.capture) {
@@ -82,7 +100,9 @@ export function convertCommandIntoRegexString<A>(
 
   if (cmd.capture) {
     //command / tool sperator!
-    regexString += " ";
+    if (extraSpace) {
+      regexString += " ";
+    }
 
     //capture the capture in a group so it will
     //be accessable through the matches
@@ -103,7 +123,34 @@ export function convertCommandIntoRegexString<A>(
   return regexString;
 }
 
-function escapeRegExp(str) {
+export function escapeRegExp(str) {
   str = str || "";
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+export function convertParametersToRegex(
+  parameters: IParameter[],
+  useNaming = false
+) {
+  let r = parameters
+    .map(p => {
+      //{SPACE}{GROUP COMMAND}{PARAMETER REGEX}{/GROUP COMMAND}
+      let pr = "( (";
+      if (useNaming) {
+        pr += `(?<${p.name}>`;
+      }
+      pr += p.regex;
+      if (useNaming) {
+        pr += ")";
+      }
+      pr += "))";
+      if (p.optional) {
+        pr += "?";
+      }
+
+      return pr;
+    })
+    .join("");
+
+  return r;
 }
