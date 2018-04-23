@@ -1,6 +1,21 @@
 import { Robot, Response } from "../definitions/irobot";
+import { ITool } from "../tool";
+import { ICommand } from "./commmand";
+import { IParameterValueCollection } from "../parameters/Base";
 
-export default function createHelpCommand<A>() {
+export interface IHelpCommand<A> extends ICommand<A> {
+  invoke(
+    tool: ITool<A>,
+    robot: Robot<A>,
+    res: Response<A>,
+    match: RegExpMatchArray,
+    values: IParameterValueCollection,
+    helpMsgPrefix?: string,
+    noHelpMsg?: string
+  ): void;
+}
+
+export default function createHelpCommand<A>(): IHelpCommand<A> {
   return {
     name: "help",
     alias: ["?", "/?", "--help"],
@@ -9,6 +24,7 @@ export default function createHelpCommand<A>() {
       robot: Robot<A>,
       res: Response<A>,
       match: RegExpMatchArray,
+      values: IParameterValueCollection,
       helpMsgPrefix?: string,
       noHelpMsg?: string
     ): void => {

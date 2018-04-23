@@ -1,3 +1,6 @@
+import { ITool } from "../tool";
+import { ICommand } from "./commmand";
+
 export default function createDebugCommand<A>(): ICommand<A> {
   return {
     name: "debug",

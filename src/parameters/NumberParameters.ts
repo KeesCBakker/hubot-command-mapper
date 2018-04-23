@@ -31,6 +31,7 @@ export enum NumberStyle {
  * @implements {IOptionalParameter}
  */
 export class NumberParameter extends ParameterBase {
+    
     /**
      * Captures the optional minus sign, as well
      * as the whole number.

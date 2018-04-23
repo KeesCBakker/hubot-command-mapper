@@ -1,7 +1,9 @@
-import { IParameterValueCollection, IParameter } from "./Base";
-import { ICommand } from "../definitions/icommand";
 import { convertCommandIntoRegexString } from "../regex";
+import { IParameterValueCollection, IParameter } from "./Base";
 import { isUndefined } from "util";
+import { ITool } from "../tool";
+import { ICommand } from "../commands/commmand";
+
 const NamedRegExp = require("named-regexp-groups");
 
 export function getValues<A>(

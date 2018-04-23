@@ -31,9 +31,10 @@ export interface IParameter
     readonly regex: string;
 
     /**
-     * Indicates that this parameter is optional.
+     * Indicates if this parameter is optional.
      * A user does not have to provide a value
-     * in order for this command to be valid.
+     * in order for the command to be valid.
+     * The default value will be used as value.
      * 
      * @type {boolean}
      * @memberof IOptionalParameter
@@ -50,34 +51,6 @@ export interface IParameter
      * @memberof IParameter
      */
     readonly defaultValue: any;
-
-    /**
-     * Counts the number of groups in the regular expression.
-     * 
-     * @type {number}
-     * @memberof IParameter
-     */
-    readonly groupCount: number;
-}
-
-/**
- * Indicates the object implements a parameter 
- * name / value.
- * 
- * @export
- * @interface IParameterValue
- */
-export interface IParameterValue
-{
-    /**
-     * The name of the parameter. The name will
-     * c
-     * 
-     * @type {string}
-     * @memberof IParameterValue
-     */
-    readonly name: string;
-    readonly value: any;
 }
 
 /**
@@ -123,22 +96,6 @@ export abstract class ParameterBase implements IParameter
      */
     public get optional() {
         return this.defaultValue != null;
-    }
-
-    /**
-     * Counts the number of groups in the regular expression.
-     * 
-     * @readonly
-     * @type {number}
-     * @memberof ParameterBase
-     */
-    public get groupCount():number {
-        var r = this.regex;
-        //replace escaped group starters  
-        r = r.replace(/\\\(/g, "");
-
-        //search number of open groups
-        return (r.match(/\(/g) || []).length;
     }
 
     /**

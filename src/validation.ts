@@ -1,3 +1,6 @@
+import { ITool } from "./tool";
+import { ICommand } from "./commands/commmand";
+
 /**
  * Validates the tool and throws and exception if the
  * tool is invalid.

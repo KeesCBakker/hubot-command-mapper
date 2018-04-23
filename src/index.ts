@@ -1,5 +1,6 @@
-import { IParameter, IParameterValue } from "./parameters/Base";
-export { IParameter, IParameterValue };
+import { IParameter } from "./parameters/Base";
+export { IParameter };
+
 import {
   NumberParameter,
   NumberStyle,
@@ -7,13 +8,16 @@ import {
   FractionStyle
 } from "./parameters/NumberParameters";
 export { NumberParameter, NumberStyle, FractionParameter, FractionStyle };
+
 import { RestParameter } from "./parameters/RestParameter";
 export { RestParameter };
+
 import {
   StringParameter,
-  ChoiceParameter
+  ChoiceParameter,
+  RegExParameter
 } from "./parameters/StringParameters";
-export { ChoiceParameter };
+export { StringParameter, ChoiceParameter, RegExParameter };
 
 import validateTool from "./validation";
 import createDebugCommand from "./commands/debug";
@@ -162,7 +166,12 @@ export function mapper<A>(
       return;
     }
 
-    let values = getValues(robot.name || robot.alias, tool, cmd, res.message.text);
+    let values = getValues(
+      robot.name || robot.alias,
+      tool,
+      cmd,
+      res.message.text
+    );
     cmd.invoke(tool, robot, res, match, values);
   });
 }

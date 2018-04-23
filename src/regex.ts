@@ -1,8 +1,9 @@
 "strict";
 
-import { ICommand } from "./definitions/icommand";
-import { IParameter } from ".";
 import NamedRegExp from "named-regexp-groups";
+import { IParameter } from "./parameters/Base";
+import { ITool } from "./tool";
+import { ICommand } from "./commands/commmand";
 
 /**
  * Converts the specified tool into a regular expression
@@ -23,12 +24,13 @@ export function convertToolIntoRegexString<A>(
  * @param robotName The name of the robot.
  * @param tool The tool.
  * @param cmd The command.
+ * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  */
 export function convertCommandIntoRegexString<A>(
   robotName: string,
   tool: ITool<A>,
   cmd: ICommand<A>,
-  userNaming = false
+  useNaming = false
 ) {
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
@@ -61,7 +63,7 @@ export function convertCommandIntoRegexString<A>(
   //convert parameters to capture
   if (cmd.parameters && cmd.parameters.length > 0) {
     extraSpace = false;
-    cmd.capture = convertParametersToRegex(cmd.parameters, userNaming);
+    cmd.capture = convertParametersToRegex(cmd.parameters, useNaming);
   }
 
   if (cmd.capture) {
@@ -123,11 +125,26 @@ export function convertCommandIntoRegexString<A>(
   return regexString;
 }
 
+/**
+ * Escapes the given string for usage in a regular expression.
+ * 
+ * @export
+ * @param {any} str The string.
+ * @returns 
+ */
 export function escapeRegExp(str) {
   str = str || "";
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }
 
+/**
+ * Converts the given parameters to a regular expression string.
+ * 
+ * @export
+ * @param {IParameter[]} parameters The parameters.
+ * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
+ * @returns 
+ */
 export function convertParametersToRegex(
   parameters: IParameter[],
   useNaming = false
@@ -135,9 +152,10 @@ export function convertParametersToRegex(
   let r = parameters
     .map(p => {
       //{SPACE}{GROUP COMMAND}{PARAMETER REGEX}{/GROUP COMMAND}
-      let pr = "( (";
+      let pr = "( ("; //space needed to seperate commands
       if (useNaming) {
-        pr += `(?<${p.name}>`;
+        let name = escapeRegExp(p.name);
+        pr += `(?<${name}>`;
       }
       pr += p.regex;
       if (useNaming) {
@@ -147,7 +165,6 @@ export function convertParametersToRegex(
       if (p.optional) {
         pr += "?";
       }
-
       return pr;
     })
     .join("");

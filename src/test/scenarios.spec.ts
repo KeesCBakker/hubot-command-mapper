@@ -3,7 +3,7 @@ const pretend = require("hubot-pretend");
 import { mapper, Options, NumberParameter } from "./../";
 import { expect } from "chai";
 import "mocha";
-import { StringParameter, RegExParameter } from "../parameters/StringParameters";
+import { StringParameter, RegExStringParameter } from "../parameters/StringParameters";
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   beforeEach(() => {
@@ -20,7 +20,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
         {
           name: "glitch",
           parameters: [
-            new RegExParameter("url", "https://[^ ]+", "https://wehkamp.nl"),
+            new RegExStringParameter("url", "https?://", "https://wehkamp.nl"),
             new NumberParameter("times", 350)
           ],
           invoke: (tool, robot, res, match, values): void => {
