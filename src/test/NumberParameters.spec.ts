@@ -4,7 +4,7 @@ import { convertCommandIntoRegexString } from "./../regex";
 import { mapper, Options, IParameter } from "./../index";
 import { expect } from "chai";
 import "mocha";
-import { createRegex, test } from "./parameter-testing";
+import { createRegex, test } from "./_parameter-testing";
 
 describe("NumberParameters.param.spec.ts / Default commands", () => {
 

@@ -1,5 +1,7 @@
 import { IParameter } from "../parameters/Base";
 import { convertCommandIntoRegexString } from "../regex";
+import { ITool } from "../tool";
+import { ICommand } from "../commands/commmand";
 
 export function test(regex: string, dataToTest: string) {
   var r = new RegExp(regex, "i");
@@ -17,7 +19,8 @@ export function createRegex(
     commands: [
       {
         name: commandName,
-        parameters: parameters
+        parameters: parameters,
+        invoke: () => {}
       }
     ]
   };
