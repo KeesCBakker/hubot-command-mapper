@@ -21,10 +21,10 @@ export default function createReloadCommand<A>(
   return {
     name: "reload",
     invoke: (
-      tool?: ITool<A>,
-      robot?: Hubot.Robot<A>,
-      res?: Hubot.Response<A>,
-      match?: RegExpMatchArray
+      tool: ITool<A>,
+      robot: Hubot.Robot<A>,
+      res: Hubot.Response<A>,
+      match: RegExpMatchArray
     ) => {
       //we cannot "unregister" the Hubot regex. Mute the tool,
       //so old versions of the are ignored when responding.
@@ -63,7 +63,7 @@ function uncache(
   mapperModule: NodeModule,
   reloadModules: boolean
 ) {
-  let files = [];
+  let files = new Array<string>();
   fillModuleFiles(m, files, mapperModule);
 
   for (let file of files) {

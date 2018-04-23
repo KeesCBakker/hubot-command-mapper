@@ -15,9 +15,9 @@ export { RestParameter };
 import {
   StringParameter,
   ChoiceParameter,
-  RegExParameter
+  RegExStringParameter
 } from "./parameters/StringParameters";
-export { StringParameter, ChoiceParameter, RegExParameter };
+export { StringParameter, ChoiceParameter, RegExStringParameter };
 
 import validateTool from "./validation";
 import createDebugCommand from "./commands/debug";
@@ -28,9 +28,10 @@ import {
   convertToolIntoRegexString
 } from "./regex";
 
-import { defaultOptions, Options } from "./options";
+import { defaultOptions, Options, IOptions } from "./options";
 import { getValues } from "./parameters/ValueExtractor";
-import { ICommand } from "./definitions/icommand";
+import { ICommand } from "./commands/commmand";
+import { ITool } from "./tool";
 export { defaultOptions, Options };
 
 //needed for reload - otherwise the caller value will be cached
@@ -130,6 +131,7 @@ export function mapper<A>(
           tool,
           robot,
           res,
+          null,
           null,
           options.invalidSystaxHelpPrefix,
           options.invalidSyntaxMessage

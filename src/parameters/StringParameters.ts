@@ -72,7 +72,7 @@ export class ChoiceParameter extends ParameterBase {
  * Uses a regular expression to capture the value.
  *
  * @export
- * @class RegexParameter
+ * @class RegExStringParameter
  * @extends {ParameterBase}
  */
 export class RegExStringParameter extends ParameterBase {
