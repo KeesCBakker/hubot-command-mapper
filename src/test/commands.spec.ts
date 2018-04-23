@@ -13,6 +13,9 @@ describe("commands.spec.ts / Default commands", () => {
 
     var options = new Options();
     options.verbose = false;
+    options.addDebugCommand = true;
+    options.addReloadCommand = true;
+    options.addHelpCommand= true;
 
     mapper(
       pretend.robot,

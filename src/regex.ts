@@ -1,8 +1,18 @@
+"strict";
+
+import NamedRegExp from "named-regexp-groups";
+import { IParameter } from "./parameters/Base";
+import { ITool } from "./tool";
+import { ICommand } from "./commands/commmand";
+
 /**
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(robotName: string, tool: ITool<A>) {
+export function convertToolIntoRegexString<A>(
+  robotName: string,
+  tool: ITool<A>
+) {
   let regexString = escapeRegExp(tool.name);
   return regexString;
 }
@@ -14,11 +24,13 @@ export function convertToolIntoRegexString<A>(robotName: string, tool: ITool<A>)
  * @param robotName The name of the robot.
  * @param tool The tool.
  * @param cmd The command.
+ * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  */
 export function convertCommandIntoRegexString<A>(
   robotName: string,
   tool: ITool<A>,
-  cmd: ICommand<A>
+  cmd: ICommand<A>,
+  useNaming = false
 ) {
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
@@ -44,6 +56,14 @@ export function convertCommandIntoRegexString<A>(
       regexString += "| ";
       regexString += escapeRegExp(a);
     });
+  }
+
+  let extraSpace = true;
+
+  //convert parameters to capture
+  if (cmd.parameters && cmd.parameters.length > 0) {
+    extraSpace = false;
+    cmd.capture = convertParametersToRegex(cmd.parameters, useNaming);
   }
 
   if (cmd.capture) {
@@ -82,7 +102,9 @@ export function convertCommandIntoRegexString<A>(
 
   if (cmd.capture) {
     //command / tool sperator!
-    regexString += " ";
+    if (extraSpace) {
+      regexString += " ";
+    }
 
     //capture the capture in a group so it will
     //be accessable through the matches
@@ -103,7 +125,49 @@ export function convertCommandIntoRegexString<A>(
   return regexString;
 }
 
-function escapeRegExp(str) {
+/**
+ * Escapes the given string for usage in a regular expression.
+ * 
+ * @export
+ * @param {any} str The string.
+ * @returns 
+ */
+export function escapeRegExp(str) {
   str = str || "";
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+}
+
+/**
+ * Converts the given parameters to a regular expression string.
+ * 
+ * @export
+ * @param {IParameter[]} parameters The parameters.
+ * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
+ * @returns 
+ */
+export function convertParametersToRegex(
+  parameters: IParameter[],
+  useNaming = false
+) {
+  let r = parameters
+    .map(p => {
+      //{SPACE}{GROUP COMMAND}{PARAMETER REGEX}{/GROUP COMMAND}
+      let pr = "( ("; //space needed to seperate commands
+      if (useNaming) {
+        let name = escapeRegExp(p.name);
+        pr += `(?<${name}>`;
+      }
+      pr += p.regex;
+      if (useNaming) {
+        pr += ")";
+      }
+      pr += "))";
+      if (p.optional) {
+        pr += "?";
+      }
+      return pr;
+    })
+    .join("");
+
+  return r;
 }

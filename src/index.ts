@@ -1,3 +1,24 @@
+import { IParameter } from "./parameters/Base";
+export { IParameter };
+
+import {
+  NumberParameter,
+  NumberStyle,
+  FractionParameter,
+  FractionStyle
+} from "./parameters/NumberParameters";
+export { NumberParameter, NumberStyle, FractionParameter, FractionStyle };
+
+import { RestParameter } from "./parameters/RestParameter";
+export { RestParameter };
+
+import {
+  StringParameter,
+  ChoiceParameter,
+  RegExStringParameter
+} from "./parameters/StringParameters";
+export { StringParameter, ChoiceParameter, RegExStringParameter };
+
 import validateTool from "./validation";
 import createDebugCommand from "./commands/debug";
 import createReloadCommand from "./commands/reload";
@@ -7,7 +28,10 @@ import {
   convertToolIntoRegexString
 } from "./regex";
 
-import { defaultOptions, Options } from "./options";
+import { defaultOptions, Options, IOptions } from "./options";
+import { getValues } from "./parameters/ValueExtractor";
+import { ICommand } from "./commands/commmand";
+import { ITool } from "./tool";
 export { defaultOptions, Options };
 
 //needed for reload - otherwise the caller value will be cached
@@ -96,7 +120,7 @@ export function mapper<A>(
 
     const msg = res.message.text;
 
-    const matchingCommands = tool.commands.filter(cmd =>
+    const matchingCommands: ICommand<A>[] = tool.commands.filter(cmd =>
       cmd.validationRegex.test(msg)
     );
 
@@ -107,6 +131,7 @@ export function mapper<A>(
           tool,
           robot,
           res,
+          null,
           null,
           options.invalidSystaxHelpPrefix,
           options.invalidSyntaxMessage
@@ -143,6 +168,12 @@ export function mapper<A>(
       return;
     }
 
-    cmd.invoke(tool, robot, res, match);
+    let values = getValues(
+      robot.name || robot.alias,
+      tool,
+      cmd,
+      res.message.text
+    );
+    cmd.invoke(tool, robot, res, match, values);
   });
 }

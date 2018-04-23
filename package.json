@@ -1,6 +1,6 @@
 {
   "name": "hubot-command-mapper",
-  "version": "1.0.18",
+  "version": "1.1.0",
   "description": "Helps with mapping tools and commands to hubot",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -26,16 +26,19 @@
     "url": "https://github.com/KeesCBakker/hubot-command-mapper/issues"
   },
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
+  "dependencies": {
+    "named-regexp-groups": "^1.0.2"
+  },
   "devDependencies": {
-    "@types/chai": "^4.1.2",
-    "@types/mocha": "^5.0.0",
-    "@types/node": "^9.4.6",
+    "@types/chai": "^4.1.3",
+    "@types/mocha": "^5.2.0",
+    "@types/node": "^9.6.6",
     "@types/hubot": "^2.19.1",
     "chai": "^4.1.2",
-    "mocha": "^5.0.1",
-    "npm-check-updates": "^2.14.0",
-    "ts-node": "^5.0.0",
-    "typescript": "^2.7.2",
-    "hubot-pretend": "^1.2.0"
+    "mocha": "^5.1.1",
+    "ts-node": "^6.0.0",
+    "typescript": "^2.8.3",
+    "hubot-pretend": "^1.2.0",
+    "npm-check-updates": "^2.14.1"
   }
 }
