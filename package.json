@@ -7,7 +7,7 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "build": "tsc",
-    "prepuxxblishOnly": "npm run build & npm test & npm version patch",
+    "prepublishOnly": "npm run build & npm version patch",
     "postpublish": "git push origin --tags"
   },
   "repository": {
