@@ -1,23 +1,20 @@
 import { IParameter } from "./parameters/Base";
 export { IParameter };
 
-import {
+export {
   NumberParameter,
   NumberStyle,
   FractionParameter,
   FractionStyle
 } from "./parameters/NumberParameters";
-export { NumberParameter, NumberStyle, FractionParameter, FractionStyle };
 
-import { RestParameter } from "./parameters/RestParameter";
-export { RestParameter };
+export { RestParameter } from "./parameters/RestParameter";
 
-import {
+export {
   StringParameter,
   ChoiceParameter,
   RegExStringParameter
 } from "./parameters/StringParameters";
-export { StringParameter, ChoiceParameter, RegExStringParameter };
 
 import validateTool from "./validation";
 import createDebugCommand from "./commands/debug";
