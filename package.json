@@ -7,7 +7,6 @@
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts",
     "build": "tsc",
-    "update-packages": "npm install & ncu -a & npm install",
     "prepublishOnly": "npm run build & npm test & npm version patch",
     "postpublish": "git push origin --tags"
   },
@@ -38,7 +37,6 @@
     "mocha": "^5.1.1",
     "ts-node": "^6.0.0",
     "typescript": "^2.8.3",
-    "hubot-pretend": "^1.2.0",
-    "npm-check-updates": "^2.14.1"
+    "hubot-pretend": "^1.2.0"
   }
 }
