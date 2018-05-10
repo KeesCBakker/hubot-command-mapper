@@ -11,7 +11,7 @@ import { ICommand } from "./commands/commmand";
  */
 export function convertToolIntoRegexString<A>(
   robotName: string,
-  tool: ITool<A>
+  tool: ITool
 ) {
   let regexString = escapeRegExp(tool.name);
   return regexString;
@@ -28,8 +28,8 @@ export function convertToolIntoRegexString<A>(
  */
 export function convertCommandIntoRegexString<A>(
   robotName: string,
-  tool: ITool<A>,
-  cmd: ICommand<A>,
+  tool: ITool,
+  cmd: ICommand,
   useNaming = false
 ) {
   //the following regex is created:

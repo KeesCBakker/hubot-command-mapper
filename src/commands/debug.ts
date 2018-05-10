@@ -1,13 +1,13 @@
 import { ITool } from "../tool";
 import { ICommand } from "./commmand";
 
-export default function createDebugCommand<A>(): ICommand<A> {
+export default function createDebugCommand(): ICommand {
   return {
     name: "debug",
     invoke: (
-      tool: ITool<A>,
-      robot: Hubot.Robot<A>,
-      res: Hubot.Response<A>,
+      tool: ITool,
+      robot: Hubot.Robot,
+      res: Hubot.Response,
       match: RegExpMatchArray
     ): void => {
       let msg = `The tool "${tool.name}" uses the following commands:`;

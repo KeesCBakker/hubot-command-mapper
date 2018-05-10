@@ -12,18 +12,18 @@ const path = require("path");
  * @param {boolean} [verbose=true] Indicates to add verbose logging.
  * @returns {ICommand} The command.
  */
-export default function createReloadCommand<A>(
+export default function createReloadCommand(
   caller: NodeModule,
   mapperModule: NodeModule,
   verbose = true,
   reloadNodeModules = false
-): ICommand<A> {
+): ICommand {
   return {
     name: "reload",
     invoke: (
-      tool: ITool<A>,
-      robot: Hubot.Robot<A>,
-      res: Hubot.Response<A>,
+      tool: ITool,
+      robot: Hubot.Robot,
+      res: Hubot.Response,
       match: RegExpMatchArray
     ) => {
       //we cannot "unregister" the Hubot regex. Mute the tool,

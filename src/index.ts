@@ -27,9 +27,9 @@ import {
 
 import { defaultOptions, Options, IOptions } from "./options";
 import { getValues } from "./parameters/ValueExtractor";
-import { ICommand } from "./commands/commmand";
-import { ITool } from "./tool";
-export { defaultOptions, Options, ITool };
+import { ICommand, Command } from "./commands/commmand";
+import { ITool, Tool } from "./tool";
+export { defaultOptions, Options, ITool, Tool, ICommand, Command };
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;
@@ -39,13 +39,13 @@ delete require.cache[__filename];
  * Maps the specified tool to the Robot.
  *
  * @export
- * @param {IRobot} robot
- * @param {ITool} tool
- * @param {IOptions} [options]
+ * @param {IRobot} robot The robot.
+ * @param {ITool} tool The tool that will be mapped.
+ * @param {IOptions} [options] The options for this specific mapping.
  */
-export function mapper<A>(
-  robot: Hubot.Robot<A>,
-  tool: ITool<A>,
+export function mapper(
+  robot: Hubot.Robot,
+  tool: ITool,
   options: IOptions = defaultOptions
 ) {
   if (!robot) throw "Argument 'robot' is empty.";
@@ -117,7 +117,7 @@ export function mapper<A>(
 
     const msg = res.message.text;
 
-    const matchingCommands: ICommand<A>[] = tool.commands.filter(cmd =>
+    const matchingCommands: ICommand[] = tool.commands.filter(cmd =>
       cmd.validationRegex.test(msg)
     );
 

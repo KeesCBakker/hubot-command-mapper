@@ -5,9 +5,8 @@ import { ITool } from "../tool";
 /**
  * Models a command that can be invoked by the Hubot.
  * @interface ICommand
- * @template A The adapter.
  */
-export interface ICommand<A> {
+export interface ICommand {
   
   /** The name of the command. Required property. */
   name: string;
@@ -39,14 +38,14 @@ export interface ICommand<A> {
    * scope in which the command was called. The match contains 
    * captured information.
    * 
-   * @param {ITool<A>} [tool] The tool that owns the command.
-   * @param {Hubot.Robot<A>} [robot] The hubot.
-   * @param {Hubot.Response<A>} [res] The response. Can be used for interaction.
+   * @param {ITool} [tool] The tool that owns the command.
+   * @param {Hubot.Robot} [robot] The hubot.
+   * @param {Hubot.Response} [res] The response. Can be used for interaction.
    * @param {RegExpMatchArray} [match] The regular expression match. Contains all the information about the mapped values of the command.
    * @param {IParameterValueCollection} [values] Provides easy access to the values of parameters.
    * @memberof ICommand
    */
-  invoke(tool?: ITool<A>, robot?: Hubot.Robot<A>, res?: Hubot.Response<A>, match?: RegExpMatchArray, values?: IParameterValueCollection): void;
+  invoke(tool?: ITool, robot?: Hubot.Robot, res?: Hubot.Response, match?: RegExpMatchArray, values?: IParameterValueCollection): void;
 
   /**
    * The regular expression that is used to validate if a certain
@@ -58,3 +57,19 @@ export interface ICommand<A> {
    */
   validationRegex?: RegExp;
 }
+
+export class Command implements ICommand{
+    constructor(
+        public name: string,
+        public parameters: IParameter[] = null,
+        public invoke: (
+            tool?: ITool, 
+            robot?: Hubot.Robot, 
+            res?: Hubot.Response, 
+            match?: RegExpMatchArray, 
+            values?: IParameterValueCollection
+        )=>void,
+        public auth: string[] = null
+    ){
+    }
+  }

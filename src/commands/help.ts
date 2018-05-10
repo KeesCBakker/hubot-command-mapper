@@ -3,11 +3,11 @@ import { ITool } from "../tool";
 import { ICommand } from "./commmand";
 import { IParameterValueCollection } from "../parameters/Base";
 
-export interface IHelpCommand<A> extends ICommand<A> {
+export interface IHelpCommand extends ICommand {
   invoke(
-    tool: ITool<A>,
-    robot: Robot<A>,
-    res: Response<A>,
+    tool: ITool,
+    robot: Robot,
+    res: Response,
     match: RegExpMatchArray,
     values: IParameterValueCollection,
     helpMsgPrefix?: string,
@@ -15,14 +15,14 @@ export interface IHelpCommand<A> extends ICommand<A> {
   ): void;
 }
 
-export default function createHelpCommand<A>(): IHelpCommand<A> {
+export default function createHelpCommand(): IHelpCommand {
   return {
     name: "help",
     alias: ["?", "/?", "--help"],
     invoke: (
-      tool: ITool<A>,
-      robot: Robot<A>,
-      res: Response<A>,
+      tool: ITool,
+      robot: Robot,
+      res: Response,
       match: RegExpMatchArray,
       values: IParameterValueCollection,
       helpMsgPrefix?: string,
@@ -48,9 +48,7 @@ export default function createHelpCommand<A>(): IHelpCommand<A> {
       }
 
       if (!helpMsgPrefix) {
-        helpMsgPrefix = `the tool _${
-          tool.name
-        }_ has the following commands:\n- `;
+        helpMsgPrefix = `the tool _${tool.name}_ has the following commands:\n- `;
       }
 
       let msg = helpMsgPrefix + helpCommands.join("\n- ");
