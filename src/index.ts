@@ -27,9 +27,9 @@ import {
 
 import { defaultOptions, Options, IOptions } from "./options";
 import { getValues } from "./parameters/ValueExtractor";
-import { ICommand, Command } from "./commands/commmand";
-import { ITool, Tool } from "./tool";
-export { defaultOptions, Options, ITool, Tool, ICommand, Command };
+import { ICommand } from "./commands/commmand";
+import { ITool } from "./tool";
+export { defaultOptions, Options, ITool, ICommand };
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;

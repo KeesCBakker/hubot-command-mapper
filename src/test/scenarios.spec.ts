@@ -4,40 +4,6 @@ import { mapper, Options, NumberParameter } from "./../";
 import { expect } from "chai";
 import "mocha";
 import { StringParameter, RegExStringParameter } from "../parameters/StringParameters";
-import { Tool } from "../tool";
-import { Command } from "../commands/commmand";
-
-describe("scenarios.spec.ts > named tool", () => {
-
-  it("Map tool and command.", (done) => {
-    var tool = new Tool("kaas");
-    tool.commands.push(new Command("haas", [],
-      (tool, robot, res) => {
-        res.reply("hi");
-      }
-    ));
-
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
-    pretend.start();
-
-    var options = new Options();
-    options.verbose = false;
-
-    mapper(pretend.robot, tool, options);
-
-    pretend
-      .user("kees")
-      .send("@hubot kaas haas")
-      .then(() => {
-        var message = pretend.messages[1][1];
-        expect(message).to.eq(`@kees hi`);
-        done();
-      })
-      .catch(ex => done(ex));
-
-  });
-});
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   beforeEach(() => {

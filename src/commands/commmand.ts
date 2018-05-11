@@ -45,7 +45,7 @@ export interface ICommand {
    * @param {IParameterValueCollection} [values] Provides easy access to the values of parameters.
    * @memberof ICommand
    */
-  invoke(tool?: ITool, robot?: Hubot.Robot, res?: Hubot.Response, match?: RegExpMatchArray, values?: IParameterValueCollection): void;
+  invoke(tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection): void;
 
   /**
    * The regular expression that is used to validate if a certain
@@ -57,19 +57,3 @@ export interface ICommand {
    */
   validationRegex?: RegExp;
 }
-
-export class Command implements ICommand{
-    constructor(
-        public name: string,
-        public parameters: IParameter[] = null,
-        public invoke: (
-            tool?: ITool, 
-            robot?: Hubot.Robot, 
-            res?: Hubot.Response, 
-            match?: RegExpMatchArray, 
-            values?: IParameterValueCollection
-        )=>void,
-        public auth: string[] = null
-    ){
-    }
-  }

@@ -53,39 +53,3 @@ export interface ITool
      */
     registrations?: {commandName: string, messageRegex: string}[];
 }
-
-export class Tool implements ITool {
-
-    commands: ICommand[];
-
-    constructor(public name: string){
-        this.commands = new Array<ICommand>();
-    }
-        
-    /**
-     * Used for user-name based authorization. Only the specificed
-     * users may access the tool.
-     *
-     * @type {string[]}
-     * @memberof ITool
-     */
-    auth?: string[];
-    
-    /**
-     * Indicates the tool has been muted. It will no longer
-     * respond. Needed for reloading tools.
-     *
-     * @type {boolean}
-     * @memberof ITool
-     */
-    mute?: boolean;
-    
-    /**
-     * A place where the debug registrations are kept. These registration
-     * are used by the debug command.
-     *
-     * @type {{commandName: string, messageRegex: string}[]}
-     * @memberof ITool
-     */
-    registrations?: { commandName: string; messageRegex: string; }[];
-}
