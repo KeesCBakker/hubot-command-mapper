@@ -105,10 +105,10 @@ export interface IFluentParameter extends IInvocableCommand {
      * 
      * @param {string} name The name.
      * @param {string} [defaultValue] When a default value is specified, the parameter becomes optional. 
-     * @returns {IFluentFinalCommand} The command.
+     * @returns {IInvocableCommand} The command.
      * @memberof IFluentParameter
      */
-    parameterForRest(name: string, defaultValue?: string): IFluentFinalTool
+    parameterForRest(name: string, defaultValue?: string): IInvocableCommand
 }
 
 /**
@@ -132,6 +132,29 @@ export interface IInvocableCommand {
         res: Hubot.Response,
         match: RegExpMatchArray,
         values: IParameterValueCollection) => void): IFluentFinalTool;
+}
+
+class InvocableCommand implements IInvocableCommand {
+
+    private _fluentTool: FluentTool;
+    private _command: ICommand;
+
+    constructor(fluentTool: FluentTool, command: ICommand){
+        this._fluentTool = fluentTool;
+        this._command = command;
+    }
+
+    /**
+     * Registers a callback for when the command is invoked.
+     *
+     * @param callback Callback.
+     * @returns {IFluentFinalCommand} The command.
+     * @memberof IInvocableCommand
+     */
+    invoke(callback: (tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection) => void): IFluentFinalTool {
+        this._command.invoke = callback;
+        return new FluentFinalTool(this._fluentTool);
+    }
 }
 
 /**
@@ -215,10 +238,10 @@ class FluentCommand implements IFluentCommand {
         var p = new NumberParameter(name, defaultValue, numberStyle)
         return this.parameter(p);
     }
-    parameterForRest(name: string, defaultValue?: string): IFluentFinalTool {
+    parameterForRest(name: string, defaultValue?: string): IInvocableCommand {
         var p = new RestParameter(name, defaultValue);
         this.parameter(p);
-        return new FluentFinalTool(this._fluentTool);
+        return new InvocableCommand(this._fluentTool, this._command);
     }
     invoke(callback: (tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection) => void): IFluentFinalTool {
         this._command.invoke = callback;
