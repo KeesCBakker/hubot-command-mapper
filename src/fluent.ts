@@ -122,12 +122,7 @@ export interface IInvocableCommand {
     /**
      * Registers a callback for when the command is invoked.
      * 
-     * @param {(
-     *         tool: ITool,
-     *         robot: Hubot.Robot,
-     *         res: Hubot.Response,
-     *         match: RegExpMatchArray,
-     *         values: IParameterValueCollection) => void} callback
+     * @param callback Callback.
      * @returns {IFluentFinalCommand} The command.
      * @memberof IInvocableCommand
      */
