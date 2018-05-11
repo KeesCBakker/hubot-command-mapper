@@ -1,5 +1,6 @@
-import { ITool, ICommand, StringParameter, NumberParameter, NumberStyle, mapper, RestParameter, Command } from "..";
 import { IParameterValueCollection, IParameter } from "./parameters/Base";
+import { ICommand } from "./commands/commmand";
+import { mapper, ITool, StringParameter, NumberParameter, RestParameter, NumberStyle } from ".";
 
 "strict"
 
