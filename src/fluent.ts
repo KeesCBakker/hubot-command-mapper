@@ -1,6 +1,8 @@
 import { IParameterValueCollection, IParameter } from "./parameters/Base";
 import { ICommand } from "./commands/commmand";
 import { mapper, ITool, StringParameter, NumberParameter, RestParameter, NumberStyle } from ".";
+import { IOptions, defaultOptions } from "./options";
+import { getDefaultSettings } from "http2";
 
 "strict"
 
@@ -139,7 +141,7 @@ class InvocableCommand implements IInvocableCommand {
     private _fluentTool: FluentTool;
     private _command: ICommand;
 
-    constructor(fluentTool: FluentTool, command: ICommand){
+    constructor(fluentTool: FluentTool, command: ICommand) {
         this._fluentTool = fluentTool;
         this._command = command;
     }
@@ -165,7 +167,7 @@ class InvocableCommand implements IInvocableCommand {
  * @interface IFluentFinalCommand
  */
 export interface IFluentFinalTool {
-    map(robot: Hubot.Robot): void;
+    map(robot: Hubot.Robot, options?: IOptions): void;
     command(name: string): IFluentCommand;
     add(command: ICommand): IFluentFinalTool;
 }
@@ -257,9 +259,10 @@ class FluentFinalTool implements IFluentFinalTool {
         this._fluentTool = fluentTool;
     }
 
-    map(robot: Hubot.Robot): void {
+    map(robot: Hubot.Robot, options?: IOptions): void {
         let tool = this._fluentTool.getTool();
-        mapper(robot, tool);
+        let opts = options != null ? options : defaultOptions;
+        mapper(robot, tool, opts);
     }
 
     command(name: string): IFluentCommand {

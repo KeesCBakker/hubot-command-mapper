@@ -1,5 +1,4 @@
-import { IParameter } from "./parameters/Base";
-export { IParameter };
+export { IParameter } from "./parameters/Base";
 
 export {
   NumberParameter,
@@ -125,15 +124,9 @@ export function mapper(
     //if no commands matched, show help command
     if (matchingCommands.length == 0) {
       if (options.showHelpOnInvalidSyntax) {
-        helpCommand.invoke(
-          tool,
-          robot,
-          res,
-          null,
-          null,
-          options.invalidSystaxHelpPrefix,
-          options.invalidSyntaxMessage
-        );
+        helpCommand.invoke(tool, robot, res, 
+          null, null, 
+          options.invalidSystaxHelpPrefix, options.invalidSyntaxMessage);
       } else if (options.showInvalidSyntax) {
         res.reply(options.invalidSyntaxMessage);
       }
@@ -143,8 +136,8 @@ export function mapper(
     const cmd = matchingCommands[0];
 
     let authorized =
-      (!tool.auth || tool.auth.indexOf(res.message.user.name) > -1) &&
-      (!cmd.auth || cmd.auth.indexOf(res.message.user.name) > -1);
+      (!tool.auth || tool.auth.length === 0 || tool.auth.indexOf(res.message.user.name) > -1) &&
+      (!cmd.auth || cmd.auth.length === 0 || cmd.auth.indexOf(res.message.user.name) > -1);
 
     var match = cmd.validationRegex.exec(msg);
 
@@ -166,12 +159,7 @@ export function mapper(
       return;
     }
 
-    let values = getValues(
-      robot.name || robot.alias,
-      tool,
-      cmd,
-      res.message.text
-    );
+    let values = getValues(robot.name || robot.alias, tool, cmd, res.message.text);
     cmd.invoke(tool, robot, res, match, values);
   });
 }
