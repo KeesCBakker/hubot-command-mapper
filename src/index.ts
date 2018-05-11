@@ -30,6 +30,7 @@ import { getValues } from "./parameters/ValueExtractor";
 import { ICommand } from "./commands/commmand";
 import { ITool } from "./tool";
 export { defaultOptions, Options, ITool, ICommand };
+export { tool } from "./fluent";
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;

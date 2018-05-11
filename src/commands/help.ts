@@ -4,14 +4,9 @@ import { ICommand } from "./commmand";
 import { IParameterValueCollection } from "../parameters/Base";
 
 export interface IHelpCommand extends ICommand {
-  invoke(
-    tool: ITool,
-    robot: Robot,
-    res: Response,
-    match: RegExpMatchArray,
-    values: IParameterValueCollection,
-    helpMsgPrefix?: string,
-    noHelpMsg?: string
+  invoke(tool: ITool, robot: Robot, res: Response,
+    match: RegExpMatchArray, values: IParameterValueCollection,
+    helpMsgPrefix?: string, noHelpMsg?: string
   ): void;
 }
 
@@ -20,13 +15,9 @@ export default function createHelpCommand(): IHelpCommand {
     name: "help",
     alias: ["?", "/?", "--help"],
     invoke: (
-      tool: ITool,
-      robot: Robot,
-      res: Response,
-      match: RegExpMatchArray,
-      values: IParameterValueCollection,
-      helpMsgPrefix?: string,
-      noHelpMsg?: string
+      tool: ITool, robot: Robot, res: Response,
+      match: RegExpMatchArray, values: IParameterValueCollection,
+      helpMsgPrefix?: string, noHelpMsg?: string
     ): void => {
       const botName = "@" + (robot.alias || robot.name);
 
