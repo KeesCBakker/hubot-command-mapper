@@ -1,6 +1,5 @@
 import { ITool, ICommand, StringParameter, NumberParameter, NumberStyle, mapper, RestParameter, Command } from "..";
 import { IParameterValueCollection, IParameter } from "./parameters/Base";
-import { FractionStyle, FractionParameter } from ".";
 
 "strict"
 

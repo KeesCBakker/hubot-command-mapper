@@ -1,12 +1,14 @@
 {
   "name": "hubot-command-mapper",
-  "version": "1.2.1",
+  "version": "1.2.3",
   "description": "Helps with mapping tools and commands to hubot",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
     "test": "mocha -r ts-node/register src/**/*.spec.ts --exit",
-    "build": "tsc"
+    "build": "del-cli dist & tsc",
+    "prepublishOnly": "npm run build & npm test & npm version patch",
+    "postpublish": "git push origin --tags"
   },
   "repository": {
     "type": "git",
@@ -24,15 +26,16 @@
   },
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
-    "named-regexp-groups": "^1.0.2"
+    "named-regexp-groups": "^1.0.3"
   },
   "devDependencies": {
     "@types/chai": "^4.1.3",
     "@types/mocha": "^5.2.0",
-    "@types/node": "^9.6.6",
+    "@types/node": "^10.0.8",
     "chai": "^4.1.2",
+    "del-cli": "^1.1.0",
     "mocha": "^5.1.1",
-    "ts-node": "^6.0.0",
+    "ts-node": "^6.0.3",
     "typescript": "^2.8.3",
     "hubot-pretend": "^1.2.0"
   }
