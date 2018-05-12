@@ -6,7 +6,7 @@ import { ICommand } from "./commands/commmand";
  * tool is invalid.
  * @param tool The tool.
  */
-export default function validateTool<A>(tool: ITool<A>): void {
+export default function validateTool(tool: ITool): void {
   if (!tool.name || tool.name === "") throw "Invalid name for tool.";
 
   if (!tool.commands || !tool.commands.length)
@@ -21,7 +21,7 @@ export default function validateTool<A>(tool: ITool<A>): void {
  * @param tool The tool.
  * @param cmd The command.
  */
-export function validateCommand<A>(tool: ITool<A>, cmd: ICommand<A>) {
+export function validateCommand<A>(tool: ITool, cmd: ICommand) {
   if (!cmd) throw "Cannot map empty command.";
 
   if (!cmd.name || cmd.name === "") throw "Invalid command name.";

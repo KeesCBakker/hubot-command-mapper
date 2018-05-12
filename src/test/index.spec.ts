@@ -1,6 +1,6 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, Options } from "./../";
+import { mapper, Options, RestParameter } from "./../";
 import { expect } from "chai";
 import "mocha";
 
@@ -218,6 +218,30 @@ describe("mapper.spec.ts / Command mapping", () => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot t2 c1"],
           ["hubot", "@Kees r2"]
+        ]);
+        done();
+      })
+      .catch(ex => done(ex));
+  });
+
+
+  it("Tool and command casing", done => {
+    mapper(pretend.robot, {
+      name: "testing",
+      commands: [{
+        name: "everything",
+        parameters: [ new RestParameter("rest") ],
+        invoke: (tool, robot, res) => res.reply("kewl!")
+      }]
+    }, options);
+
+    pretend
+      .user("kees")
+      .send("@hubot TeStInG eVeRyThInG and maybe more!")
+      .then(x => {
+        expect(pretend.messages).to.eql([
+          ["kees", "@hubot TeStInG eVeRyThInG and maybe more!"],
+          ["hubot", "@kees kewl!"]
         ]);
         done();
       })

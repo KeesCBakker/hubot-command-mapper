@@ -19,23 +19,22 @@ declare namespace Hubot {
       id: string;
   }
 
-  class Response<R> {
+  class Response {
       match: RegExpMatchArray;
       message: Message;
 
-      constructor(robot: R, message: Message, match: RegExpMatchArray);
+      constructor(robot: Robot, message: Message, match: RegExpMatchArray);
       send(...strings: string[]): void;
       reply(...strings: string[]): void;
       random<T>(items: T[]): T;
   }
 
-  type ListenerCallback<R> = (response: Response<R>) => void;
+  type ListenerCallback<R> = (response: Response) => void;
 
-  class Robot<A> {
+  class Robot {
       alias: string;
       brain: Brain;
       name: string;
-      readonly adapter: A;
 
       constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
       hear(regex: RegExp, callback: ListenerCallback<this>): void;

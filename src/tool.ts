@@ -1,13 +1,13 @@
 import { ICommand } from "./commands/commmand";
+import { IParameterValueCollection, IParameter } from "./parameters/Base";
 
 /**
  * A tool is a collection of command that can be executed. Each command
  * is mapped in the following way: [tool-name] [command-name].
  * 
  * @interface ITool
- * @template A The hubot adapter.
  */
-export interface ITool<A>
+export interface ITool
 {
     /**
      * Name of the tool. A required property.
@@ -21,10 +21,10 @@ export interface ITool<A>
      * The command that are supported by the tool.
      * Only tools with at least 1 command can be mapped.
      * 
-     * @type {ICommand<A>[]}
+     * @type {ICommand[]}
      * @memberof ITool
      */
-    commands: ICommand<A>[];
+    commands: ICommand[];
 
     /**
      * Used for user-name based authorization. Only the specificed 

@@ -1,23 +1,19 @@
-import { IParameter } from "./parameters/Base";
-export { IParameter };
+export { IParameter } from "./parameters/Base";
 
-import {
+export {
   NumberParameter,
   NumberStyle,
   FractionParameter,
   FractionStyle
 } from "./parameters/NumberParameters";
-export { NumberParameter, NumberStyle, FractionParameter, FractionStyle };
 
-import { RestParameter } from "./parameters/RestParameter";
-export { RestParameter };
+export { RestParameter } from "./parameters/RestParameter";
 
-import {
+export {
   StringParameter,
   ChoiceParameter,
   RegExStringParameter
 } from "./parameters/StringParameters";
-export { StringParameter, ChoiceParameter, RegExStringParameter };
 
 import validateTool from "./validation";
 import createDebugCommand from "./commands/debug";
@@ -32,7 +28,8 @@ import { defaultOptions, Options, IOptions } from "./options";
 import { getValues } from "./parameters/ValueExtractor";
 import { ICommand } from "./commands/commmand";
 import { ITool } from "./tool";
-export { defaultOptions, Options };
+export { defaultOptions, Options, ITool, ICommand };
+export { tool } from "./fluent";
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;
@@ -42,13 +39,13 @@ delete require.cache[__filename];
  * Maps the specified tool to the Robot.
  *
  * @export
- * @param {IRobot} robot
- * @param {ITool} tool
- * @param {IOptions} [options]
+ * @param {IRobot} robot The robot.
+ * @param {ITool} tool The tool that will be mapped.
+ * @param {IOptions} [options] The options for this specific mapping.
  */
-export function mapper<A>(
-  robot: Hubot.Robot<A>,
-  tool: ITool<A>,
+export function mapper(
+  robot: Hubot.Robot,
+  tool: ITool,
   options: IOptions = defaultOptions
 ) {
   if (!robot) throw "Argument 'robot' is empty.";
@@ -120,22 +117,16 @@ export function mapper<A>(
 
     const msg = res.message.text;
 
-    const matchingCommands: ICommand<A>[] = tool.commands.filter(cmd =>
+    const matchingCommands: ICommand[] = tool.commands.filter(cmd =>
       cmd.validationRegex.test(msg)
     );
 
     //if no commands matched, show help command
     if (matchingCommands.length == 0) {
       if (options.showHelpOnInvalidSyntax) {
-        helpCommand.invoke(
-          tool,
-          robot,
-          res,
-          null,
-          null,
-          options.invalidSystaxHelpPrefix,
-          options.invalidSyntaxMessage
-        );
+        helpCommand.invoke(tool, robot, res, 
+          null, null, 
+          options.invalidSystaxHelpPrefix, options.invalidSyntaxMessage);
       } else if (options.showInvalidSyntax) {
         res.reply(options.invalidSyntaxMessage);
       }
@@ -145,8 +136,8 @@ export function mapper<A>(
     const cmd = matchingCommands[0];
 
     let authorized =
-      (!tool.auth || tool.auth.indexOf(res.message.user.name) > -1) &&
-      (!cmd.auth || cmd.auth.indexOf(res.message.user.name) > -1);
+      (!tool.auth || tool.auth.length === 0 || tool.auth.indexOf(res.message.user.name) > -1) &&
+      (!cmd.auth || cmd.auth.length === 0 || cmd.auth.indexOf(res.message.user.name) > -1);
 
     var match = cmd.validationRegex.exec(msg);
 
@@ -168,12 +159,7 @@ export function mapper<A>(
       return;
     }
 
-    let values = getValues(
-      robot.name || robot.alias,
-      tool,
-      cmd,
-      res.message.text
-    );
+    let values = getValues(robot.name || robot.alias, tool, cmd, res.message.text);
     cmd.invoke(tool, robot, res, match, values);
   });
 }

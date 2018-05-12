@@ -4,13 +4,25 @@ import {
 } from "./../parameters/StringParameters";
 import { convertCommandIntoRegexString } from "./../regex";
 
-import { mapper, Options, IParameter } from "./../index";
+import { mapper, Options, IParameter, RestParameter } from "./../index";
 import { expect } from "chai";
 import "mocha";
 import { createRegex, test } from "./_parameter-testing";
 
 describe("StringParameters.spec.ts", () => {
+
+  describe("RestParameter", () => {
+
+    it("Single parameter", ()=>{
+      var p = new RestParameter("a");
+      var r = createRegex([p]);
+      expect(test(r, "hubot test cmd Capture all", )).to.eq(true);
+    });
+
+  })
+
   describe("StringParameter", () => {
+
     it("Single parameter", () => {
       var p = new StringParameter("a");
       var r = createRegex([p]);
@@ -42,12 +54,12 @@ describe("StringParameters.spec.ts", () => {
 
   describe("ChoiceParameter", () => {
     it("Single parameter", () => {
-        var p = new ChoiceParameter("a", ["alpha", "beta", "gamma"]);
-        var r = createRegex([p]);
+      var p = new ChoiceParameter("a", ["alpha", "beta", "gamma"]);
+      var r = createRegex([p]);
 
-        expect(test(r, "hubot test cmd alpha")).to.eq(true, "alpha");
-        expect(test(r, "hubot test cmd beta")).to.eq(true, "beta");
-        expect(test(r, "hubot test cmd gamma")).to.eq(true, "gamma");
+      expect(test(r, "hubot test cmd alpha")).to.eq(true, "alpha");
+      expect(test(r, "hubot test cmd beta")).to.eq(true, "beta");
+      expect(test(r, "hubot test cmd gamma")).to.eq(true, "gamma");
     });
   });
 });

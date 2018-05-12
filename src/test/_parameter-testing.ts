@@ -14,7 +14,7 @@ export function createRegex(
   toolName = "test",
   commandName = "cmd"
 ) {
-  let tool: ITool<void> = {
+  let tool: ITool = {
     name: toolName,
     commands: [
       {
