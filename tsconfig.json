@@ -3,9 +3,8 @@
     "compilerOptions": {
       "target": "es6",
       "module": "commonjs",
-      "outDir": "dist",
-      "declaration": true,
-      "moduleResolution": "node"
+      "outDir": "./dist",
+      "declaration": true
     },
     "include": [
       "src/**/*.ts"

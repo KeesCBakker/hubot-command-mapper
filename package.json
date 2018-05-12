@@ -5,7 +5,8 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha -r ts-node/register src/**/*.spec.ts --exit",
+    "test": "npm run mocha --recursive src/**/*.spec.ts --exit",
+    "mocha": "mocha -r ts-node/register",
     "build": "del-cli dist & tsc",
     "prepublishOnly": "npm run build & npm test & npm version patch",
     "postpublish": "git push origin --tags"
