@@ -6,12 +6,7 @@ import { ICommand } from "../commands/commmand";
 
 const NamedRegExp = require("named-regexp-groups");
 
-export function getValues<A>(
-  robotName: string,
-  tool: ITool,
-  command: ICommand,
-  messsage: string
-): IParameterValueCollection {
+export function getValues<A>(robotName: string, tool: ITool, command: ICommand, messsage: string): IParameterValueCollection {
   let collection = {};
 
   if (command.parameters) {
