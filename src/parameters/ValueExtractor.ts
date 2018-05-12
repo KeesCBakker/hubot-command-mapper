@@ -4,14 +4,14 @@ import { isUndefined } from "util";
 import { ITool } from "../tool";
 import { ICommand } from "../commands/commmand";
 
-const NamedRegExp = require("named-regexp-groups");
+import NamedRegExp from "named-regexp-groups";
 
 export function getValues<A>(robotName: string, tool: ITool, command: ICommand, messsage: string): IParameterValueCollection {
   let collection = {};
 
   if (command.parameters) {
     let r = convertCommandIntoRegexString(robotName, tool, command, true);
-    let nr = new NamedRegExp(r);
+    let nr = new NamedRegExp(r, 'i');
 
     let answer = nr.exec(messsage).groups;
 
