@@ -17,7 +17,7 @@ export class RestParameter extends ParameterBase
      * @memberof RestParameter
      */
     public get regex() {
-        return `.+$`;
+        return `.+`;
     }
     
     /**
