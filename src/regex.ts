@@ -9,10 +9,7 @@ import { ICommand } from "./commands/commmand";
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(
-  robotName: string,
-  tool: ITool
-) {
+export function convertToolIntoRegexString<A>(robotName: string, tool: ITool) {
   let regexString = escapeRegExp(tool.name);
   return regexString;
 }
@@ -26,12 +23,8 @@ export function convertToolIntoRegexString<A>(
  * @param cmd The command.
  * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  */
-export function convertCommandIntoRegexString<A>(
-  robotName: string,
-  tool: ITool,
-  cmd: ICommand,
-  useNaming = false
-) {
+export function convertCommandIntoRegexString<A>(robotName: string, tool: ITool, cmd: ICommand, useNaming = false) {
+
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
   let regexString = "";
@@ -77,7 +70,10 @@ export function convertCommandIntoRegexString<A>(
         //if a command does not use capture, add string terminator
         //this prevents non-capture commands from flowing into
         //a capture command.
-        let postfix = c.capture ? "" : "$";
+        let postfix = "$";
+        if (c.capture || (c.parameters != null && c.parameters.length > 0)) {
+          postfix = "";
+        }
 
         commands.push(` ${escapeRegExp(c.name)}${postfix}`);
 
