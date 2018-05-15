@@ -172,7 +172,7 @@ export interface IFluentFinalTool {
     add(command: ICommand): IFluentFinalTool;
 }
 
-class FluentTool implements IFluentTool {
+export class FluentTool implements IFluentTool {
 
     private _tool: ITool;
 
@@ -272,15 +272,4 @@ class FluentFinalTool implements IFluentFinalTool {
     add(command: ICommand): IFluentFinalTool {
         return this._fluentTool.add(command);
     }
-}
-
-/**
- * Creates a fluent tool mapper.
- * 
- * @export
- * @param {string} name The name of the tool.
- * @returns {IFluentTool} The tool.
- */
-export function tool(name: string): IFluentTool {
-    return new FluentTool(name);
 }

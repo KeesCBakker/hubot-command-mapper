@@ -29,7 +29,7 @@ import { getValues } from "./parameters/ValueExtractor";
 import { ICommand } from "./commands/commmand";
 import { ITool } from "./tool";
 export { defaultOptions, Options, ITool, ICommand };
-export { tool } from "./fluent";
+import { FluentTool, IFluentTool } from "./fluent";
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;
@@ -162,4 +162,15 @@ export function mapper(
     let values = getValues(robot.name || robot.alias, tool, cmd, res.message.text);
     cmd.invoke(tool, robot, res, match, values);
   });
+}
+
+/**
+ * Creates a fluent tool mapper.
+ * 
+ * @export
+ * @param {string} name The name of the tool.
+ * @returns {IFluentTool} The tool.
+ */
+export function tool(name: string): IFluentTool {
+  return new FluentTool(name);
 }
