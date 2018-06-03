@@ -1,3 +1,5 @@
 src
 .travis.yml
 dist/test
+tsconfig.json
+.vscode
