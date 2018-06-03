@@ -86,6 +86,7 @@ module.exports = robot => {
 ```
 
 The following parameters are available:
+
 |Parameter type|Example|Purpose|
 |--------------|-------|-------|
 |`StringParameter`|`new StringParameter("name")`|Adds a string parameter|
