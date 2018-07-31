@@ -1,6 +1,6 @@
 {
   "name": "hubot-command-mapper",
-  "version": "1.2.11",
+  "version": "1.2.12",
   "description": "Helps with mapping tools and commands to hubot",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "build": "del-cli dist & tsc",
     "prepublishOnly": "npm run build & npm test & npm version patch",
     "postpublish": "git push origin --tags",
-    "audit-fix":"npm audit fix --force"
+    "audit-fix": "npm audit fix --force"
   },
   "repository": {
     "type": "git",
