@@ -1,6 +1,9 @@
 import {
   StringParameter,
-  ChoiceParameter
+  ChoiceParameter,
+  TokenParameter,
+  RegExStringParameter,
+  IPv4Parameter
 } from "./../parameters/StringParameters";
 import { convertCommandIntoRegexString } from "./../regex";
 
@@ -60,6 +63,23 @@ describe("StringParameters.spec.ts", () => {
       expect(test(r, "hubot test cmd alpha")).to.eq(true, "alpha");
       expect(test(r, "hubot test cmd beta")).to.eq(true, "beta");
       expect(test(r, "hubot test cmd gamma")).to.eq(true, "gamma");
+    });
+  });
+
+  describe("TokenParameter", ()=>{
+    it.only("Capture IP using parameters", ()=>{
+
+      var p = [
+        new TokenParameter("source"),
+        new IPv4Parameter("sourceIp"),
+        new TokenParameter("destination"),
+        new IPv4Parameter("destinationIp")
+      ];
+
+      var r =createRegex(p);
+      console.log(r);
+
+      expect(test(r, "hubot cmd source 127.0.0.1 destination 192.168.1.4")).to.eq(true);
     });
   });
 });
