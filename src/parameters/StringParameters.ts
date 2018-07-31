@@ -135,12 +135,12 @@ export class RegExStringParameter extends ParameterBase {
 export class IPv4Parameter extends ParameterBase
 {
   /**
-   *Creates an instance of IPv4Parameter.
-   * @param {string} name The name.
-   * @param {string} [defaultValue=null] If a default value is specified, the parameter becomes optional.
-   * @memberof IPv4Parameter
+   * 
+   * @param name The name of the parameter.
+   * @param defaultValue The default value of the parameter. When a default value is specified, the parameter becomes optional.
+   * @param supportPrefix When a prefix is supported an ip address with the prefix (like /24) is also valid input.
    */
-  constructor(name: string, defaultValue: string = null){
+  constructor(name: string, defaultValue: string = null, public supportPrefix = true){
     super(name, defaultValue);
   }
 
@@ -151,8 +151,14 @@ export class IPv4Parameter extends ParameterBase
    * @memberof IPv4Parameter
    */
   public get regex(){
+    
     const digit = `(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]\\d|\\d)`;
-    const postFix = `(\\/(3[0-2]|[1-2]\\d|[1-9]))?(?!\\/)(?!\\d+)`;
+
+    let postFix = '';
+    if(this.supportPrefix){
+      postFix = `(\\/(3[0-2]|[1-2]\\d|[1-9]))?(?!\\/)(?!\\d+)`;
+    }
+
     return `${digit}((\\.${digit}){3})({postfix})?${postFix}`;
   }
 }

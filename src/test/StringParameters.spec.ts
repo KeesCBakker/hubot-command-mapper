@@ -2,7 +2,6 @@ import {
   StringParameter,
   ChoiceParameter,
   TokenParameter,
-  RegExStringParameter,
   IPv4Parameter
 } from "./../parameters/StringParameters";
 import { convertCommandIntoRegexString } from "./../regex";
@@ -84,7 +83,7 @@ describe("StringParameters.spec.ts", () => {
       );
     });
 
-    it("IP postfix", ()=>{
+    it("IP prefix", ()=>{
 
       var p = new IPv4Parameter("ip");
       var r = createRegex([p]);
@@ -98,6 +97,19 @@ describe("StringParameters.spec.ts", () => {
       // bad cases
       expect(test(r, "hubot test cmd 127.0.0.1/0")).to.eq(false, "127.0.0.1/0");
       expect(test(r, "hubot test cmd 127.0.0.1/33")).to.eq(false, "127.0.0.1/33");
+
+    });
+
+    it("No prefix", ()=>{
+
+      var p = new IPv4Parameter("ip", null, false);
+      var r = createRegex([p]);
+
+      // good cases
+      expect(test(r, "hubot test cmd 127.0.0.1")).to.eq(true, "127.0.0.1");
+
+      // bad cases
+      expect(test(r, "hubot test cmd 127.0.0.1/8")).to.eq(false, "127.0.0.1/8");
 
     });
   });
