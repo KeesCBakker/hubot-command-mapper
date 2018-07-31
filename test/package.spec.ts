@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { mapper } from "./../";
+import { mapper } from "./../src/";
 
 describe("package.spec.ts / Package", () => {
   it("index.js", () => {

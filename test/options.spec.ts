@@ -1,7 +1,7 @@
 import { expect } from "chai";
 import "mocha";
 
-import { Options } from "./../";
+import { Options } from "./../src/";
 
 describe("options.spec.ts / Options", () => {
     

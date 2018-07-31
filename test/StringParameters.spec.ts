@@ -3,10 +3,9 @@ import {
   ChoiceParameter,
   TokenParameter,
   IPv4Parameter
-} from "./../parameters/StringParameters";
-import { convertCommandIntoRegexString } from "./../regex";
+} from "./../src/parameters/StringParameters";
 
-import { mapper, Options, IParameter, RestParameter } from "./../index";
+import { RestParameter } from "./../src/index";
 import { expect } from "chai";
 import "mocha";
 import { createRegex, test } from "./_parameter-testing";

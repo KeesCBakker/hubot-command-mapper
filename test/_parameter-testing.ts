@@ -1,7 +1,6 @@
-import { IParameter } from "../parameters/Base";
-import { convertCommandIntoRegexString } from "../regex";
-import { ITool } from "../tool";
-import { ICommand } from "../commands/commmand";
+import { IParameter } from "./../src/parameters/Base";
+import { convertCommandIntoRegexString } from "./../src/regex";
+import { ITool } from "./../src/tool";
 
 export function test(regex: string, dataToTest: string) {
   var r = new RegExp(regex, "i");

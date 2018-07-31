@@ -1,6 +1,6 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, Options } from "./../";
+import { mapper, Options } from "./../src/";
 import { expect } from "chai";
 import "mocha";
 

@@ -1,7 +1,4 @@
-import { NumberParameter, NumberStyle, FractionParameter } from "./../parameters/NumberParameters";
-import { convertCommandIntoRegexString } from "./../regex";
-
-import { mapper, Options, IParameter } from "./../index";
+import { NumberParameter, NumberStyle, FractionParameter } from "./../src/parameters/NumberParameters";
 import { expect } from "chai";
 import "mocha";
 import { createRegex, test } from "./_parameter-testing";
