@@ -92,8 +92,10 @@ The following parameters are available:
 |`StringParameter`|`new StringParameter("name")`|Adds a string parameter|
 |`StringParameter`|`new StringParameter("name", "Chuck Norris")`|Adds an optional string parameter that default to "Chuck Norris"|
 |`StringParameter`|`new StringParameter("name")`|Adds a string parameter|
-|`ChoiceParameter`|`new ChoiceParameter(["a", "b", "c"])`|Adds a choice parameter that matches "a", "b" or "c"|
+|`ChoiceParameter`|`new ChoiceParameter("name", ["a", "b", "c"])`|Adds a choice parameter that matches "a", "b" or "c"|
 |`RestParameter`|`new RestParameter("rest)`|Captures the rest of the tool. Used to capture anything else until the end.|
+|`TokenParameter`|`new TokenParameter("source")`|Captures a token. A token must be present in the string.|
+|`IPv4Parameter`|`new IPv4Parameter("ip")`|Matches an IP version 4 address.|
 
 ## Extra commands
 Each tool has a view extra commands that will be added by the mapper:

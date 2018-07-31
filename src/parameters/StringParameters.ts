@@ -69,6 +69,26 @@ export class ChoiceParameter extends ParameterBase {
 }
 
 /**
+ * Matches a token. A token must be present.
+ *
+ * @export
+ * @class TokenParameter
+ * @extends {ChoiceParameter}
+ */
+export class TokenParameter extends ChoiceParameter {
+
+  /**
+   *Creates an instance of TokenParameter.
+   * @param {string} name The name of the token. 
+   * @memberof TokenParameter
+   */
+  constructor(token: string){
+
+    super(token, [token], null);
+  }
+}
+
+/**
  * Uses a regular expression to capture the value.
  *
  * @export
@@ -77,14 +97,14 @@ export class ChoiceParameter extends ParameterBase {
  */
 export class RegExStringParameter extends ParameterBase {
 
- /**
-  * Uses the regexStrig to capture the value. Values can also be written
-  * between quotes.
-  * 
-  * @readonly
-  * @memberof RegExStringParameter
-  */
- public get regex() {
+  /**
+   * Uses the regexStrig to capture the value. Values can also be written
+   * between quotes.
+   * 
+   * @readonly
+   * @memberof RegExStringParameter
+   */
+  public get regex() {
     var x = this.regexString;
     return `"${x}[^"]*"|'${x}[^']*'|${x}[^ ]*`;
   }
@@ -102,5 +122,36 @@ export class RegExStringParameter extends ParameterBase {
     public defaultValue: string = null
   ) {
     super(name, defaultValue);
+  }
+}
+
+/**
+ * Captures IP v4 addresses.
+ *
+ * @export
+ * @class IPv4Parameter
+ * @extends {ParameterBase}
+ */
+export class IPv4Parameter extends ParameterBase
+{
+  /**
+   *Creates an instance of IPv4Parameter.
+   * @param {string} name The name.
+   * @param {string} [defaultValue=null] If a default value is specified, the parameter becomes optional.
+   * @memberof IPv4Parameter
+   */
+  constructor(name: string, defaultValue: string = null){
+    super(name, defaultValue);
+  }
+
+  /**
+   * The regular expression.
+   *
+   * @readonly
+   * @memberof IPv4Parameter
+   */
+  public get regex(){
+    const digit = `(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]\\d|\\d)`;
+    return `${digit}((\\.${digit}){3})`;
   }
 }

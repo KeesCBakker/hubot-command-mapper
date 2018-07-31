@@ -1,6 +1,9 @@
 import {
   StringParameter,
-  ChoiceParameter
+  ChoiceParameter,
+  TokenParameter,
+  RegExStringParameter,
+  IPv4Parameter
 } from "./../parameters/StringParameters";
 import { convertCommandIntoRegexString } from "./../regex";
 
@@ -10,19 +13,15 @@ import "mocha";
 import { createRegex, test } from "./_parameter-testing";
 
 describe("StringParameters.spec.ts", () => {
-
   describe("RestParameter", () => {
-
-    it("Single parameter", ()=>{
+    it("Single parameter", () => {
       var p = new RestParameter("a");
       var r = createRegex([p]);
-      expect(test(r, "hubot test cmd Capture all", )).to.eq(true);
+      expect(test(r, "hubot test cmd Capture all")).to.eq(true);
     });
-
-  })
+  });
 
   describe("StringParameter", () => {
-
     it("Single parameter", () => {
       var p = new StringParameter("a");
       var r = createRegex([p]);
@@ -60,6 +59,46 @@ describe("StringParameters.spec.ts", () => {
       expect(test(r, "hubot test cmd alpha")).to.eq(true, "alpha");
       expect(test(r, "hubot test cmd beta")).to.eq(true, "beta");
       expect(test(r, "hubot test cmd gamma")).to.eq(true, "gamma");
+    });
+  });
+
+  describe("IPv4Parameter", () => {
+    
+    it("Some IPs", () => {
+      var p = new IPv4Parameter("ip");
+      var r = createRegex([p]);
+
+      expect(test(r, "hubot test cmd 127.0.0.1")).to.eq(true, "127.0.0.1");
+      expect(test(r, "hubot test cmd 1.1.1.1")).to.eq(true, "1.1.1.1");
+      expect(test(r, "hubot test cmd 255.255.255.255")).to.eq(
+        true,
+        "255.255.255.255"
+      );
+      expect(test(r, "hubot test cmd 255.255.255.256")).to.eq(
+        false,
+        "255.255.255.256"
+      );
+      expect(test(r, "hubot test cmd 255.255.255.01")).to.eq(
+        false,
+        "255.255.255.01"
+      );
+    });
+  });
+
+  describe("TokenParameter", () => {
+    it("Capture IP using parameters", () => {
+      var p = [
+        new TokenParameter("source"),
+        new IPv4Parameter("sourceIp"),
+        new TokenParameter("destination"),
+        new IPv4Parameter("destinationIp")
+      ];
+
+      var r = createRegex(p);
+
+      expect(
+        test(r, "hubot test cmd source 127.0.0.1 destination 192.168.1.4")
+      ).to.eq(true);
     });
   });
 });
