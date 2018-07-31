@@ -12,7 +12,9 @@ export { RestParameter } from "./parameters/RestParameter";
 export {
   StringParameter,
   ChoiceParameter,
-  RegExStringParameter
+  RegExStringParameter,
+  TokenParameter,
+  IPv4Parameter
 } from "./parameters/StringParameters";
 
 import validateTool from "./validation";
