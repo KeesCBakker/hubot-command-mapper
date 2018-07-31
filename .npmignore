@@ -3,4 +3,4 @@ test
 .travis.yml
 dist/test
 tsconfig.json
-.vscode
+.vscodenpm
