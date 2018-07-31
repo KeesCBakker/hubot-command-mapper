@@ -69,7 +69,7 @@ export class ChoiceParameter extends ParameterBase {
 }
 
 /**
- * Matches a range of tokens.
+ * Matches a token. A token must be present.
  *
  * @export
  * @class TokenParameter
@@ -79,17 +79,12 @@ export class TokenParameter extends ChoiceParameter {
 
   /**
    *Creates an instance of TokenParameter.
-   * @param {string} name The name of the token
-   * @param {string[]} tokens The values of the token. If null the name will be used as a value.
+   * @param {string} name The name of the token. 
    * @memberof TokenParameter
    */
-  constructor(name: string, tokens: string[] = null){
+  constructor(token: string){
 
-    if(tokens == null || tokens.length == 0){
-      tokens = [name];
-    }
-
-    super(name, tokens, null);
+    super(token, [token], null);
   }
 }
 
