@@ -83,9 +83,27 @@ describe("StringParameters.spec.ts", () => {
         "255.255.255.01"
       );
     });
+
+    it("IP postfix", ()=>{
+
+      var p = new IPv4Parameter("ip");
+      var r = createRegex([p]);
+
+      // good cases
+      expect(test(r, "hubot test cmd 127.0.0.1/8")).to.eq(true, "127.0.0.1/8");
+      expect(test(r, "hubot test cmd 127.0.0.1/16")).to.eq(true, "127.0.0.1/16");
+      expect(test(r, "hubot test cmd 127.0.0.1/24")).to.eq(true, "127.0.0.1/24");
+      expect(test(r, "hubot test cmd 127.0.0.1/32")).to.eq(true, "127.0.0.1/32");
+
+      // bad cases
+      expect(test(r, "hubot test cmd 127.0.0.1/0")).to.eq(false, "127.0.0.1/0");
+      expect(test(r, "hubot test cmd 127.0.0.1/33")).to.eq(false, "127.0.0.1/33");
+
+    });
   });
 
   describe("TokenParameter", () => {
+
     it("Capture IP using parameters", () => {
       var p = [
         new TokenParameter("source"),
