@@ -157,6 +157,6 @@ export class IPv4Parameter extends ParameterBase
    */
   public get regex(){
     const digit = `(25[0-5]|2[0-4]\\d|1\\d{2}|[1-9]\\d|\\d)`;
-    return `${digit}(\\.${digit}){3}`;
+    return `${digit}((\\.${digit}){3})`;
   }
 }
