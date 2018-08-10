@@ -7,7 +7,7 @@ export {
   FractionStyle
 } from "./parameters/NumberParameters";
 
-export { RestParameter } from "./parameters/RestParameter";
+export { RestParameter, AnyParameter } from "./parameters/AnyParameter";
 
 export {
   StringParameter,
