@@ -1,14 +1,11 @@
 import { ParameterBase } from "./Base"
 
 /**
- * The "rest" parameter captures everything until
- * the end of the string. It can only be used as
- * the last parameter.
- * 
+ * The "any" parameter captures anything until a new parameter is met.
  * @class RestParameter
  * @extends {ParameterBase}
  */
-export class RestParameter extends ParameterBase
+export class AnyParameter extends ParameterBase
 {
     /**
      * Captures everything until the end of the string.
@@ -21,7 +18,20 @@ export class RestParameter extends ParameterBase
     }
     
     /**
-     * Creates an instance of RestParameter.
+     * Creates an instance of AnyParameter.
+     * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
+     * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional. 
+     * @memberof AnyParameter
+     */
+    constructor(name: string, defaultValue: string = null){
+        super(name, defaultValue);
+    }
+}
+
+export class RestParameter extends AnyParameter
+{
+    /**
+     * Creates an instance of AnyParameter.
      * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
      * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional. 
      * @memberof RestParameter
