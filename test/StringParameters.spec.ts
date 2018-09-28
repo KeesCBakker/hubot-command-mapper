@@ -3,7 +3,7 @@ import {
   ChoiceParameter,
   TokenParameter,
   IPv4Parameter
-} from "./../src/parameters/StringParameters";
+} from "./../src/";
 
 import { RestParameter } from "./../src/index";
 import { expect } from "chai";

@@ -41,6 +41,26 @@ describe("mapper.spec.ts / Command mapping", () => {
       .catch(ex => done(ex));
   });
 
+  it("Default command mapping", done => {
+    let i = 0;
+    mapper(
+      pretend.robot,
+      {
+        name: "cool",
+        invoke: (tool, robot, res, match) => i++
+      },
+      options
+    );
+    pretend
+      .user("kees")
+      .send("@hubot cool")
+      .then(() => {
+        expect(i).to.eq(1, "Message should increment i.");
+        done();
+      })
+      .catch(ex => done(ex));
+  });
+
   it("Alias", done => {
     let i = 0;
     mapper(

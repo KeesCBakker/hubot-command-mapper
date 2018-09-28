@@ -1,22 +1,20 @@
-export { IParameter } from "./parameters/Base";
-
-export {
-  NumberParameter,
-  NumberStyle,
-  FractionParameter,
-  FractionStyle
-} from "./parameters/NumberParameters";
-
-export { RestParameter, AnyParameter } from "./parameters/AnyParameter";
-
-export {
-  StringParameter,
-  ChoiceParameter,
-  RegExStringParameter,
-  TokenParameter,
-  IPv4Parameter
-} from "./parameters/StringParameters";
-
+import { defaultOptions, Options, IOptions } from "./options";
+import { getValues } from "./parameters/ValueExtractor";
+import { ICommand } from "./commands/ICommand";
+import { ITool } from "./ITool";
+export { defaultOptions, Options, ITool, ICommand };
+import { FluentTool, IFluentTool } from "./fluent";
+import { NumberParameter } from "./parameters/NumberParameter";
+import { NumberStyle } from "./parameters/NumberStyle";
+import { FractionParameter } from "./parameters/FractionParameter";
+import { FractionStyle } from "./parameters/FractionStyle";
+import { RestParameter } from "./parameters/RestParameter";
+import { AnyParameter } from "./parameters/AnyParameter";
+import { StringParameter } from "./parameters/StringParameter";
+import { ChoiceParameter } from "./parameters/ChoiceParameter";
+import { RegExStringParameter } from "./parameters/RegExStringParameter";
+import { TokenParameter } from "./parameters/TokenParameter";
+import { IPv4Parameter } from "./parameters/IPv4Parameter";
 import validateTool from "./validation";
 import createDebugCommand from "./commands/debug";
 import createReloadCommand from "./commands/reload";
@@ -25,13 +23,23 @@ import {
   convertCommandIntoRegexString,
   convertToolIntoRegexString
 } from "./regex";
+import { IParameter } from "./parameters/IParameter";
+import { IParameterValueCollection } from "./parameters/IParameterValueCollection";
 
-import { defaultOptions, Options, IOptions } from "./options";
-import { getValues } from "./parameters/ValueExtractor";
-import { ICommand } from "./commands/commmand";
-import { ITool } from "./tool";
-export { defaultOptions, Options, ITool, ICommand };
-import { FluentTool, IFluentTool } from "./fluent";
+export {
+  NumberParameter,
+  NumberStyle,
+  FractionParameter,
+  FractionStyle,
+  IParameter,
+  RestParameter, 
+  AnyParameter ,
+  StringParameter,
+  ChoiceParameter,
+  RegExStringParameter,
+  TokenParameter,
+  IPv4Parameter
+}
 
 //needed for reload - otherwise the caller value will be cached
 const caller = module.parent;
@@ -52,6 +60,17 @@ export function mapper(
 ) {
   if (!robot) throw "Argument 'robot' is empty.";
   if (!tool) throw "Argument 'tool' is empty.";
+  if (!tool.commands) tool.commands = [];
+
+  if(tool.invoke){
+    tool.commands.push({
+      name: 'default',
+      alias: [''],
+      invoke: (tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection) => {
+        tool.invoke(tool, robot, res, match, values);
+      }
+    });
+  }
 
   validateTool(tool);
 

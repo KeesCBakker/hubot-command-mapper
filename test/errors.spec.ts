@@ -55,6 +55,18 @@ describe("erros.spec.ts / Errors", () => {
     }
   });
 
+  it("Invalid commands", done => {
+    try {
+      mapper(pretend.robot, {
+        name: "XXX",
+        commands: []
+      });
+    } catch (ex) {
+      expect(ex.toString()).to.eq('No commands found for "XXX"');
+      done();
+    }
+  });
+
   it("Invalid tool due to empty command name", done => {
     try {
       mapper(pretend.robot, {

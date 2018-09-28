@@ -1,14 +1,7 @@
 import { Robot, Response } from "../definitions/irobot";
-import { ITool } from "../tool";
-import { ICommand } from "./commmand";
-import { IParameterValueCollection } from "../parameters/Base";
-
-export interface IHelpCommand extends ICommand {
-  invoke(tool: ITool, robot: Robot, res: Response,
-    match: RegExpMatchArray, values: IParameterValueCollection,
-    helpMsgPrefix?: string, noHelpMsg?: string
-  ): void;
-}
+import { ITool } from "../ITool";
+import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
+import { IHelpCommand } from "./IHelpCommand";
 
 export default function createHelpCommand(): IHelpCommand {
   return {

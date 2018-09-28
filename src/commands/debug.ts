@@ -1,5 +1,5 @@
-import { ITool } from "../tool";
-import { ICommand } from "./commmand";
+import { ITool } from "../ITool";
+import { ICommand } from "./ICommand";
 
 export default function createDebugCommand(): ICommand {
   return {

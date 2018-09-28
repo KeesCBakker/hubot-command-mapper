@@ -1,8 +1,8 @@
 import { convertCommandIntoRegexString } from "../regex";
-import { IParameterValueCollection, IParameter } from "./Base";
+import { IParameterValueCollection } from "./IParameterValueCollection";
 import { isUndefined } from "util";
-import { ITool } from "../tool";
-import { ICommand } from "../commands/commmand";
+import { ITool } from "../ITool";
+import { ICommand } from "../commands/ICommand";
 
 const NamedRegExp = require("named-regexp-groups");
 

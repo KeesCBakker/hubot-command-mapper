@@ -1,9 +1,9 @@
 "strict";
 
 import NamedRegExp from "named-regexp-groups";
-import { IParameter } from "./parameters/Base";
-import { ITool } from "./tool";
-import { ICommand } from "./commands/commmand";
+import { IParameter } from "./parameters/IParameter";
+import { ITool } from "./ITool";
+import { ICommand } from "./commands/ICommand";
 
 /**
  * Converts the specified tool into a regular expression
