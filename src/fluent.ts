@@ -1,8 +1,8 @@
-import { IParameterValueCollection, IParameter } from "./parameters/Base";
-import { ICommand } from "./commands/commmand";
+import { IParameterValueCollection } from "./parameters/IParameterValueCollection";
+import { IParameter } from "./parameters/IParameter";
+import { ICommand } from "./commands/ICommand";
 import { mapper, ITool, StringParameter, NumberParameter, RestParameter, NumberStyle } from ".";
 import { IOptions, defaultOptions } from "./options";
-import { getDefaultSettings } from "http2";
 
 "strict"
 

@@ -1,5 +1,5 @@
-import { ICommand } from "./commmand";
-import { ITool } from "../tool";
+import { ICommand } from "./ICommand";
+import { ITool } from "../ITool";
 
 const path = require("path");
 

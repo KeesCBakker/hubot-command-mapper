@@ -7,7 +7,7 @@ import {
   IPv4Parameter,
   TokenParameter,
   RegExStringParameter
-} from "../src/parameters/StringParameters";
+} from "../src/";
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   beforeEach(() => {
