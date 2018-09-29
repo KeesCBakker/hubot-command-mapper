@@ -2,7 +2,6 @@ import { defaultOptions, Options, IOptions } from "./options";
 import { getValues } from "./parameters/ValueExtractor";
 import { ICommand } from "./commands/ICommand";
 import { ITool } from "./ITool";
-export { defaultOptions, Options, ITool, ICommand };
 import { FluentTool, IFluentTool } from "./fluent";
 import { NumberParameter } from "./parameters/NumberParameter";
 import { NumberStyle } from "./parameters/NumberStyle";
@@ -25,6 +24,7 @@ import {
 } from "./regex";
 import { IParameter } from "./parameters/IParameter";
 import { IParameterValueCollection } from "./parameters/IParameterValueCollection";
+import { alias } from "./alias";
 
 export {
   NumberParameter,
@@ -38,7 +38,13 @@ export {
   ChoiceParameter,
   RegExStringParameter,
   TokenParameter,
-  IPv4Parameter
+  IPv4Parameter,
+  IOptions,
+  defaultOptions, 
+  Options, 
+  ITool, 
+  ICommand,
+  alias
 }
 
 //needed for reload - otherwise the caller value will be cached
