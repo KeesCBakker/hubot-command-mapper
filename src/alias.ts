@@ -1,4 +1,5 @@
 import { defaultOptions, IOptions } from ".";
+import { escapeRegExp } from "./regex";
 
 export function alias(
   robot: Hubot.Robot,
@@ -16,7 +17,7 @@ export function alias(
   }
 
   const splitter = new RegExp(
-    `^(@?(${resc(robot.name)}|${resc(robot.alias)}) )(.*)$`,
+    `^(@?(${escapeRegExp(robot.name)}|${escapeRegExp(robot.alias || robot.name)}) )(.*)$`,
     "i"
   );
 
@@ -43,12 +44,7 @@ export function alias(
 
 function convertMapIntoRegularExpression(map) {
   return Object.keys(map).map(key => ({
-    matcher: new RegExp(`^${resc(key)}$`, "i"),
+    matcher: new RegExp(`^${escapeRegExp(key)}$`, "i"),
     value: map[key]
   }));
-}
-
-function resc(str) {
-  str = str || '';
-  return str.replace(/[.*+?^${}()|[\]\\]/g, "\\$&"); // $& means the whole matched string
 }
