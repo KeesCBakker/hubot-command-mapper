@@ -31,6 +31,8 @@ declare namespace Hubot {
 
   type ListenerCallback<R> = (response: Response) => void;
 
+  type receiveMiddlewareCallback = (context: any, next: (done: any)=> void, done: any)=>void;
+
   class Robot {
       alias: string;
       brain: Brain;
@@ -43,6 +45,7 @@ declare namespace Hubot {
       loadFile(directory: string, fileName: string): void;                                       
       respond(regex: RegExp, callback: ListenerCallback<this>): void;
       respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
+      receiveMiddleware(receiveMiddlewareCallback): void;
   }
 }
 
