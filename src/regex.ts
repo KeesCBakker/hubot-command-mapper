@@ -1,6 +1,5 @@
 "strict";
 
-import NamedRegExp from "named-regexp-groups";
 import { IParameter } from "./parameters/IParameter";
 import { ITool } from "./ITool";
 import { ICommand } from "./commands/ICommand";
@@ -10,7 +9,10 @@ import { ICommand } from "./commands/ICommand";
  * that can be used by the bot.
  */
 export function convertToolIntoRegexString<A>(robotName: string, tool: ITool) {
-  let regexString = escapeRegExp(tool.name);
+  // add space ore end to the tool matcher to prevent tools
+  // that are names similar to match and show an invalid
+  // syntax warning. Like: ci and cicd tools.
+  let regexString = escapeRegExp(tool.name) + "($| )";
   return regexString;
 }
 
