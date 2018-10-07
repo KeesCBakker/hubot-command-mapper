@@ -6,7 +6,6 @@ export function alias(
   map: any,
   options: IOptions = defaultOptions
 ) {
-
   if (!robot) throw "Argument 'robot' is empty.";
   if (!map) throw "Argument 'map' is empty.";
 
@@ -17,7 +16,9 @@ export function alias(
   }
 
   const splitter = new RegExp(
-    `^(@?(${escapeRegExp(robot.name)}|${escapeRegExp(robot.alias || robot.name)}) )(.*)$`,
+    `^(@?(${escapeRegExp(robot.name)}|${escapeRegExp(
+      robot.alias || robot.name
+    )}) )(.*)$`,
     "i"
   );
 
@@ -31,10 +32,16 @@ export function alias(
       const alias = matchers.find(m => m.matcher.test(command));
       if (alias) {
         const bot = data[1];
-        const newText = bot + alias.value;
+        let newText = bot + alias.value;
+
+        const match = alias.matcher.exec(command);
+        if(match.length > 1){
+          newText = newText + " " + match[1];
+        }
+
         context.response.message.text = newText;
         if (options.verbose) {
-          console.log(`Routing '${text}' to '${newText}'.`)
+          console.log(`Routing '${text}' to '${newText}'.`);
         }
       }
     }
@@ -43,8 +50,17 @@ export function alias(
 }
 
 function convertMapIntoRegularExpression(map) {
-  return Object.keys(map).map(key => ({
-    matcher: new RegExp(`^${escapeRegExp(key)}$`, "i"),
-    value: map[key]
-  }));
+  return Object.keys(map).map(key => {
+    if (key.endsWith("*")) {
+      return {
+        matcher: new RegExp(`^${escapeRegExp(key.substr(0, key.length - 1))} (.+)$`, "i"),
+        value: map[key]
+      };
+    }
+
+    return {
+      matcher: new RegExp(`^${escapeRegExp(key)}$`, "i"),
+      value: map[key]
+    };
+  });
 }
