@@ -5,6 +5,7 @@ import { expect } from "chai";
 import "mocha";
 
 describe("alias.spec.ts / Testing the alias features", () => {
+
   beforeEach(() => {
     pretend.name = "hubot";
     pretend.alias = "hubot";
@@ -34,6 +35,14 @@ describe("alias.spec.ts / Testing the alias features", () => {
             alias: [""],
             parameters: [new StringParameter("msg")],
             invoke: (tool, robot, res, match, values) => res.reply(values.msg)
+          },
+          {
+          name: "bye",
+          parameters: [
+            new StringParameter("firstName"),
+            new StringParameter("lastName")
+          ],
+          invoke: (tool, robot, res, match, values) => res.reply(`Byeeeeeee ${values.firstName} ${values.lastName}!`)
           }
         ]
       },
@@ -41,6 +50,8 @@ describe("alias.spec.ts / Testing the alias features", () => {
     );
 
     alias(pretend.robot, { "zeg*": "echo" }, options);
+    alias(pretend.robot, { "scream and shout*": "echo"}, options)
+    alias(pretend.robot, { "super doei*": "echo bye"}, options)
   });
 
   afterEach(() => pretend.shutdown());
@@ -67,6 +78,34 @@ describe("alias.spec.ts / Testing the alias features", () => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot zeg AAA"],
           ["hubot", "@kees AAA"]
+        ]);
+        done();
+      })
+      .catch(ex => done(ex));
+  });
+
+  it("Map * alias with multiple words", done => {
+    pretend
+      .user("kees")
+      .send("@hubot scream and shout AAA")
+      .then(() => {
+        expect(pretend.messages).to.eql([
+          ["kees", "@hubot scream and shout AAA"],
+          ["hubot", "@kees AAA"]
+        ]);
+        done();
+      })
+      .catch(ex => done(ex));
+  });
+
+  it("Map * alias with multiple words and multiple parameters", done => {
+    pretend
+      .user("kees")
+      .send("@hubot super doei Alpha Beta")
+      .then(() => {
+        expect(pretend.messages).to.eql([
+          ["kees", "@hubot super doei Alpha Beta"],
+          ["hubot", "@kees Byeeeeeee Alpha Beta!"]
         ]);
         done();
       })
