@@ -25,6 +25,7 @@ import {
 import { IParameter } from "./parameters/IParameter";
 import { IParameterValueCollection } from "./parameters/IParameterValueCollection";
 import { alias } from "./alias";
+import { ICallback, IContext } from "./single-command";
 
 export {
   NumberParameter,
@@ -44,7 +45,9 @@ export {
   Options, 
   ITool, 
   ICommand,
-  alias
+  alias,
+  ICallback,
+  IContext
 }
 
 //needed for reload - otherwise the caller value will be cached
@@ -200,4 +203,55 @@ export function mapper(
  */
 export function tool(name: string): IFluentTool {
   return new FluentTool(name);
+}
+
+export function map_command(
+  robot: Hubot.Robot,
+  command: string,
+  ...args: (IParameter | ICallback | IOptions)[]
+): void {
+
+  let callback = args.find(a => a instanceof Function) as ICallback;
+  if (!callback) throw "Missing callback function.";
+
+  let parameters = args.filter(a => (a as IParameter).name) as IParameter[];
+  let options =
+    (args.find(
+      a =>
+        (a as IOptions).addDebugCommand ||
+        (a as IOptions).addHelpCommand ||
+        (a as IOptions).addReloadCommand ||
+        (a as IOptions).verbose
+    ) as IOptions) || defaultOptions;
+
+  let tool = {
+    name: command,
+    commands: [
+      {
+        name: 'cmd',
+        parameters: parameters,
+        alias: [''],
+        invoke: (
+          tool: ITool,
+          robot: Hubot.Robot,
+          res: Hubot.Response,
+          match: RegExpMatchArray,
+          values: IParameterValueCollection
+        ) => {
+
+          var context = {
+            tool: tool,
+            robot: robot,
+            res: res,
+            match: match,
+            values: values
+          } as IContext;
+
+          callback(context);
+        }
+      }
+    ]
+  } as ITool;
+
+  mapper(robot, tool, options);
 }

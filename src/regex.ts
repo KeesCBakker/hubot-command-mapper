@@ -25,7 +25,7 @@ export function convertToolIntoRegexString<A>(robotName: string, tool: ITool) {
  * @param cmd The command.
  * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  */
-export function convertCommandIntoRegexString<A>(robotName: string, tool: ITool, cmd: ICommand, useNaming = false) {
+export function convertCommandIntoRegexString(robotName: string, tool: ITool, cmd: ICommand, useNaming = false) {
 
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
@@ -125,10 +125,10 @@ export function convertCommandIntoRegexString<A>(robotName: string, tool: ITool,
 
 /**
  * Escapes the given string for usage in a regular expression.
- * 
+ *
  * @export
  * @param {any} str The string.
- * @returns 
+ * @returns
  */
 export function escapeRegExp(str) {
   str = str || "";
@@ -137,11 +137,11 @@ export function escapeRegExp(str) {
 
 /**
  * Converts the given parameters to a regular expression string.
- * 
+ *
  * @export
  * @param {IParameter[]} parameters The parameters.
  * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
- * @returns 
+ * @returns
  */
 export function convertParametersToRegex(
   parameters: IParameter[],
