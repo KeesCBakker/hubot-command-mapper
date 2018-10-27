@@ -80,7 +80,7 @@ export function mapper(
 
   validateTool(tool);
 
-  //add a debug command
+  // add a debug command
   tool.registrations = [];
 
   if (options.addDebugCommand) {
@@ -89,6 +89,13 @@ export function mapper(
 
   //add a reload command
   if (options.addReloadCommand) {
+
+    // add caller
+    tool.__source = caller;
+
+    robot.__tools = robot.__tools || [];
+    robot.__tools.push(tool);
+
     tool.commands.push(
       createReloadCommand(
         caller,

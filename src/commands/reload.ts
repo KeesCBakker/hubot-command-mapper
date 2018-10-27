@@ -13,22 +13,16 @@ const path = require("path");
  * @returns {ICommand} The command.
  */
 export default function createReloadCommand(
-  caller: NodeModule,
-  mapperModule: NodeModule,
-  verbose = true,
-  reloadNodeModules = false
-): ICommand {
+  caller: NodeModule, mapperModule: NodeModule, verbose = true, reloadNodeModules = false): ICommand {
   return {
     name: "reload",
-    invoke: (
-      tool: ITool,
-      robot: Hubot.Robot,
-      res: Hubot.Response,
-      match: RegExpMatchArray
-    ) => {
-      //we cannot "unregister" the Hubot regex. Mute the tool,
+    invoke: (tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray) => {
+
+      //we cannot "unregister" the Hubot regex. Mute the tools from the same source,
       //so old versions of the are ignored when responding.
-      tool.mute = true;
+      robot.__tools
+        .filter(t => t.__source == tool.__source)
+        .forEach(t => t.mute = true);
 
       const toolFileName = caller.filename;
 

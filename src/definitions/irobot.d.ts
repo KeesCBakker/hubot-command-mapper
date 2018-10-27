@@ -1,3 +1,5 @@
+import { ITool } from "..";
+
 // Type definitions for hubot 2.19
 // Project: https://github.com/github/hubot
 // Definitions by: Dirk Gadsden <https://github.com/dirk>
@@ -39,6 +41,7 @@ declare namespace Hubot {
       name: string;
 
       constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string);
+
       hear(regex: RegExp, callback: ListenerCallback<this>): void;
       hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
       helpCommands(): Array<string>;
@@ -46,6 +49,8 @@ declare namespace Hubot {
       respond(regex: RegExp, callback: ListenerCallback<this>): void;
       respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
       receiveMiddleware(receiveMiddlewareCallback): void;
+
+      __tools? : ITool[];
   }
 }
 

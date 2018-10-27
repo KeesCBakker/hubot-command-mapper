@@ -7,6 +7,17 @@ import { IParameterValueCollection } from "./parameters/IParameterValueCollectio
  * @interface ITool
  */
 export interface ITool {
+
+    /**
+     * Used by the system to detect tools that have been
+     * defined in the same node module. This is needed
+     * for tools that are reloaded.
+     *
+     * @type {NodeModule}
+     * @memberof ITool
+     */    
+    __source?: NodeModule;
+
     /**
      * Name of the tool. A required property.
      *
