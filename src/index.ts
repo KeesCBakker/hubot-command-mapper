@@ -1,5 +1,5 @@
 import { map_command as _map_command } from "./mappers/map_command";
-import { map_tool } from "./mappers/map_tool";
+import { map_tool as _map_tool } from "./mappers/map_tool";
 import { alias as _alias } from "./mappers/alias";
 import { defaultOptions, Options, IOptions } from "./entities/options";
 import { NumberParameter } from "./entities/parameters/NumberParameter";
@@ -17,11 +17,11 @@ import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
 import { IContext } from "mocha";
 
 export {
+  IParameter,
   NumberParameter,
   NumberStyle,
   FractionParameter,
   FractionStyle,
-  IParameter,
   RestParameter, 
   AnyParameter ,
   StringParameter,
@@ -30,8 +30,8 @@ export {
   TokenParameter,
   IPv4Parameter,
   IOptions,
-  defaultOptions, 
   Options, 
+  defaultOptions, 
   ITool, 
   ICommand,
   ICallback,
@@ -58,7 +58,7 @@ export function mapper(
   options: IOptions = defaultOptions
 )
 {
-  map_tool(caller, module, robot, tool, options);
+  _map_tool(caller, module, robot, tool, options);
 }
 
 /**
@@ -78,7 +78,22 @@ export function map_command(
 }
 
 /**
- * Maps a list of alias commands.
+ * Maps the specified tool to the Robot.
+ * 
+ * @param robot The robot.
+ * @param tool The tool.
+ * @param options The options.
+ */
+export function map_tool(
+  robot: Hubot.Robot,
+  tool: ITool,
+  options: IOptions = defaultOptions
+){
+  mapper(robot, tool, options);
+}
+
+/**
+ * Maps a list of alias commands to the Robot.
  * 
  * @export
  * @param {Hubot.Robot} robot The robot.

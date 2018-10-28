@@ -40,9 +40,8 @@ export function map_tool(
   //add a reload command
   if (options.addReloadCommand) {
 
-    // add caller
+    // add caller and add tool
     tool.__source = caller;
-
     robot.__tools = robot.__tools || [];
     robot.__tools.push(tool);
 
@@ -144,6 +143,17 @@ export function map_tool(
     }
 
     let values = getValues(robot.name || robot.alias, tool, cmd, res.message.text);
-    cmd.invoke(tool, robot, res, match, values);
+    if (cmd.invoke) {
+      cmd.invoke(tool, robot, res, match, values);
+    }
+    else if (cmd.execute) {
+      cmd.execute({
+        tool: tool,
+        robot: robot,
+        res: res,
+        match: match,
+        values: values
+      });
+    }
   });
 }
