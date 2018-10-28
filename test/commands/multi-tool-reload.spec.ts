@@ -3,7 +3,7 @@ const pretend = require("hubot-pretend");
 import tools from "./multi-tool-reload";
 import { expect } from "chai";
 import "mocha";
-import { delay } from "./_parameter-testing";
+import { delay } from "../_parameter-testing";
 
 describe("multi-tool-reload.spec.ts > multi reload", () => {
 
