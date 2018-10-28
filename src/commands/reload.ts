@@ -1,5 +1,5 @@
 import { ICommand } from "./ICommand";
-import { ITool } from "../ITool";
+import { ITool } from "../definitions/ITool";
 
 const path = require("path");
 
@@ -22,7 +22,7 @@ export default function createReloadCommand(
       //so old versions of the are ignored when responding.
       robot.__tools
         .filter(t => t.__source == tool.__source)
-        .forEach(t => t.mute = true);
+        .forEach(t => t.__mute = true);
 
       const toolFileName = caller.filename;
 

@@ -1,7 +1,8 @@
-import { mapper as _mapper } from "./tool-mapper";
+import { mapper as _mapper } from "./mappers/tool-mapper";
+import { map_command as _map_command } from "./mappers/command-mapper";
 import { defaultOptions, Options, IOptions } from "./options";
 import { ICommand } from "./commands/ICommand";
-import { ITool } from "./ITool";
+import { ITool } from "./definitions/ITool";
 import { FluentTool, IFluentTool } from "./fluent";
 import { NumberParameter } from "./parameters/NumberParameter";
 import { NumberStyle } from "./parameters/NumberStyle";
@@ -15,7 +16,7 @@ import { RegExStringParameter } from "./parameters/RegExStringParameter";
 import { TokenParameter } from "./parameters/TokenParameter";
 import { IPv4Parameter } from "./parameters/IPv4Parameter";
 import { IParameter } from "./parameters/IParameter";
-import { alias } from "./alias";
+import { alias as _alias } from "./mappers/alias";
 import { ICallback, IContext } from "./single-command";
 
 export {
@@ -36,7 +37,6 @@ export {
   Options, 
   ITool, 
   ICommand,
-  alias,
   ICallback,
   IContext
 }
@@ -76,53 +76,34 @@ export function tool(name: string): IFluentTool {
   return new FluentTool(name);
 }
 
+/**
+ * Creates a mapping for a single command.
+ * 
+ * @export
+ * @param {Hubot.Robot} robot The robot.
+ * @param {string} command The command.
+ * @param {(...(IParameter | ICallback | IOptions)[])} args You can specify parameters, the callback and options here.
+ */
 export function map_command(
   robot: Hubot.Robot,
   command: string,
   ...args: (IParameter | ICallback | IOptions)[]
 ): void {
+  _map_command(caller, module, robot, command, args);
+}
 
-  let callback = args.find(a => a instanceof Function) as ICallback;
-  if (!callback) throw "Missing callback function.";
-
-  let parameters = args.filter(a => (a as IParameter).name) as IParameter[];
-  let options =
-    (args.find(
-      a =>
-        (a as IOptions).addDebugCommand ||
-        (a as IOptions).addHelpCommand ||
-        (a as IOptions).addReloadCommand ||
-        (a as IOptions).verbose
-    ) as IOptions) || defaultOptions;
-
-  let tool = {
-    name: command,
-    commands: [
-      {
-        name: 'cmd',
-        parameters: parameters,
-        alias: [''],
-        invoke: (
-          tool: ITool,
-          robot: Hubot.Robot,
-          res: Hubot.Response,
-          match: RegExpMatchArray,
-          values: IParameterValueCollection
-        ) => {
-
-          var context = {
-            tool: tool,
-            robot: robot,
-            res: res,
-            match: match,
-            values: values
-          } as IContext;
-
-          callback(context);
-        }
-      }
-    ]
-  } as ITool;
-
-  mapper(robot, tool, options);
+/**
+ * Maps a list of alias commands.
+ * 
+ * @export
+ * @param {Hubot.Robot} robot The robot.
+ * @param {*} map An object with keys and redirects.
+ * @param {IOptions} [options=defaultOptions] The options.
+ */
+export function alias(
+  robot: Hubot.Robot,
+  map: any,
+  options: IOptions = defaultOptions
+) : void {
+  _alias(caller, robot, map, options)  
 }

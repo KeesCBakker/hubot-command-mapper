@@ -1,4 +1,5 @@
 import { ITool } from "..";
+import { IMutable } from "./IMutable";
 
 // Type definitions for hubot 2.19
 // Project: https://github.com/github/hubot
@@ -50,7 +51,7 @@ declare namespace Hubot {
       respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
       receiveMiddleware(receiveMiddlewareCallback): void;
 
-      __tools? : ITool[];
+      __tools? : IMutable[];
   }
 }
 

@@ -1,7 +1,7 @@
 import { convertCommandIntoRegexString } from "../regex";
 import { IParameterValueCollection } from "./IParameterValueCollection";
 import { isUndefined } from "util";
-import { ITool } from "../ITool";
+import { ITool } from "../definitions/ITool";
 import { ICommand } from "../commands/ICommand";
 
 const NamedRegExp = require("named-regexp-groups");

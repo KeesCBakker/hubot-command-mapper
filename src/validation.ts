@@ -1,4 +1,4 @@
-import { ITool } from "./ITool";
+import { ITool } from "./definitions/ITool";
 import { ICommand } from "./commands/ICommand";
 
 /**

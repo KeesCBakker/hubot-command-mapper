@@ -1,22 +1,14 @@
-import { ICommand } from "./commands/ICommand";
-import { IParameterValueCollection } from "./parameters/IParameterValueCollection";
+import { ICommand } from "../commands/ICommand";
+import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
+import { IMutable } from "./IMutable";
+
 /**
  * A tool is a collection of command that can be executed. Each command
  * is mapped in the following way: [tool-name] [command-name].
  *
  * @interface ITool
  */
-export interface ITool {
-
-    /**
-     * Used by the system to detect tools that have been
-     * defined in the same node module. This is needed
-     * for tools that are reloaded.
-     *
-     * @type {NodeModule}
-     * @memberof ITool
-     */    
-    __source?: NodeModule;
+export interface ITool extends IMutable {
 
     /**
      * Name of the tool. A required property.
@@ -41,14 +33,7 @@ export interface ITool {
      * @memberof ITool
      */
     auth?: string[];
-    /**
-     * Indicates the tool has been muted. It will no longer
-     * respond. Needed for reloading tools.
-     *
-     * @type {boolean}
-     * @memberof ITool
-     */
-    mute?: boolean;
+
     /**
      * A place where the debug registrations are kept. These registration
      * are used by the debug command.
@@ -56,10 +41,8 @@ export interface ITool {
      * @type {{commandName: string, messageRegex: string}[]}
      * @memberof ITool
      */
-    registrations?: {
-        commandName: string;
-        messageRegex: string;
-    }[];
+    registrations?: { commandName: string; messageRegex: string; }[];
+
     /**
      * Called when the default tool is invoked. This will generate a command
      * with an empty alias.

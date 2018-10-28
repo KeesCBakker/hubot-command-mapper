@@ -1,5 +1,5 @@
 import { Robot, Response } from "../definitions/irobot";
-import { ITool } from "../ITool";
+import { ITool } from "../definitions/ITool";
 import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
 import { IHelpCommand } from "./IHelpCommand";
 

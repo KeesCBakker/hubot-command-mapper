@@ -1,13 +1,13 @@
-import { ITool } from "./ITool";
-import { IOptions, defaultOptions } from "./options";
-import validateTool from "./validation";
-import createDebugCommand from "./commands/debug";
-import createReloadCommand from "./commands/reload";
-import createHelpCommand from "./commands/help";
-import { convertCommandIntoRegexString, convertToolIntoRegexString } from "./regex";
-import { ICommand } from "./commands/ICommand";
-import { getValues } from "./parameters/ValueExtractor";
-import { IParameterValueCollection } from "./parameters/IParameterValueCollection";
+import { ITool } from "../definitions/ITool";
+import { IOptions, defaultOptions } from "../options";
+import validateTool from "../validation";
+import createDebugCommand from "../commands/debug";
+import createReloadCommand from "../commands/reload";
+import createHelpCommand from "../commands/help";
+import { convertCommandIntoRegexString, convertToolIntoRegexString } from "../regex";
+import { ICommand } from "../commands/ICommand";
+import { getValues } from "../parameters/ValueExtractor";
+import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
 
 /**
  * Maps the specified tool to the Robot.
@@ -107,7 +107,7 @@ export function mapper(
     robot.respond(toolRegex, res => {
       //don't do anything with muted tools. They are here as
       //part of a reload.
-      if (tool.mute === true) {
+      if (tool.__mute === true) {
         return;
       }
   
