@@ -90,7 +90,7 @@ module.exports = robot => {
           const b = Number(context.match[4])
 
           for (let i = a; i < b + 1; i++) {
-            res.reply(`${i}!`)
+            context.res.reply(`${i}!`)
           }
         }
     }]
@@ -115,7 +115,7 @@ module.exports = robot => {
           const firstName = encodeURIComponent(context.values.firstName)
           const lastName = encodeURIComponent(context.values.lastName)
 
-          res.reply(`${firstName} ${lastName} has counted to infinity. Twice!`)
+          context.res.reply(`${firstName} ${lastName} has counted to infinity. Twice!`)
         }     
     }]
   };
