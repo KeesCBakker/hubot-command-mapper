@@ -1,6 +1,4 @@
-import { ICommand } from "../commands/ICommand";
-import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
-import { IMutable } from "./IMutable";
+import { IMutable, ICommand } from ".";
 
 /**
  * A tool is a collection of command that can be executed. Each command

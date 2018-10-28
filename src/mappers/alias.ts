@@ -1,6 +1,6 @@
-import { escapeRegExp } from "../regex";
+import { escapeRegExp } from "../utils/regex";
 import { IMutable } from "../definitions/IMutable";
-import { IOptions } from "../options";
+import { IOptions } from "../entities/options";
 
 class AliasMapping implements IMutable {
 

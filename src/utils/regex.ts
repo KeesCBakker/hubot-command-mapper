@@ -1,8 +1,8 @@
 "strict";
 
-import { IParameter } from "./parameters/IParameter";
-import { ITool } from "./definitions/ITool";
-import { ICommand } from "./commands/ICommand";
+import { IParameter } from "../definitions/IParameter";
+import { ITool } from "../definitions/ITool";
+import { ICommand } from "../definitions/ICommand";
 
 /**
  * Converts the specified tool into a regular expression

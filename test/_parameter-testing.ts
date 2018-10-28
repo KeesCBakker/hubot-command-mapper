@@ -1,5 +1,5 @@
 import { IParameter, ITool } from "../src";
-import { convertCommandIntoRegexString } from "../src/regex";
+import { convertCommandIntoRegexString } from "../src/utils/regex";
 
 export function test(regex: string, dataToTest: string) {
   var r = new RegExp(regex, "i");

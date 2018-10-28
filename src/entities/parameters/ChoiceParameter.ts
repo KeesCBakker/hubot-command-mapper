@@ -1,5 +1,5 @@
 import { ParameterBase } from "./ParameterBase";
-import { escapeRegExp } from "./../regex";
+import { escapeRegExp } from "../../utils/regex";
 
 /**
  * Parameter that has a fixed set of values. Remember all values

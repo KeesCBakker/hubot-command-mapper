@@ -1,6 +1,6 @@
 import { IParameter } from "..";
-import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
-import { ITool } from "../definitions/ITool";
+import { IParameterValueCollection } from "./IParameterValueCollection";
+import { ITool } from "./ITool";
 
 /**
  * Models a command that can be invoked by the Hubot.

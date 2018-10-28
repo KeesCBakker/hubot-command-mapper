@@ -1,22 +1,20 @@
-import { mapper as _mapper } from "./mappers/tool-mapper";
-import { map_command as _map_command } from "./mappers/command-mapper";
-import { defaultOptions, Options, IOptions } from "./options";
-import { ICommand } from "./commands/ICommand";
-import { ITool } from "./definitions/ITool";
-import { NumberParameter } from "./parameters/NumberParameter";
-import { NumberStyle } from "./parameters/NumberStyle";
-import { FractionParameter } from "./parameters/FractionParameter";
-import { FractionStyle } from "./parameters/FractionStyle";
-import { RestParameter } from "./parameters/RestParameter";
-import { AnyParameter } from "./parameters/AnyParameter";
-import { StringParameter } from "./parameters/StringParameter";
-import { ChoiceParameter } from "./parameters/ChoiceParameter";
-import { RegExStringParameter } from "./parameters/RegExStringParameter";
-import { TokenParameter } from "./parameters/TokenParameter";
-import { IPv4Parameter } from "./parameters/IPv4Parameter";
-import { IParameter } from "./parameters/IParameter";
+import { map_command as _map_command } from "./mappers/map_command";
+import { map_tool } from "./mappers/map_tool";
 import { alias as _alias } from "./mappers/alias";
-import { ICallback, IContext } from "./single-command";
+import { defaultOptions, Options, IOptions } from "./entities/options";
+import { NumberParameter } from "./entities/parameters/NumberParameter";
+import { NumberStyle } from "./entities/parameters/NumberStyle";
+import { FractionParameter } from "./entities/parameters/FractionParameter";
+import { FractionStyle } from "./entities/parameters/FractionStyle";
+import { IParameter, ITool, ICommand, ICallback } from "./definitions";
+import { RestParameter } from "./entities/parameters/RestParameter";
+import { AnyParameter } from "./entities/parameters/AnyParameter";
+import { StringParameter } from "./entities/parameters/StringParameter";
+import { ChoiceParameter } from "./entities/parameters/ChoiceParameter";
+import { RegExStringParameter } from "./entities/parameters/RegExStringParameter";
+import { TokenParameter } from "./entities/parameters/TokenParameter";
+import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
+import { IContext } from "mocha";
 
 export {
   NumberParameter,
@@ -60,7 +58,7 @@ export function mapper(
   options: IOptions = defaultOptions
 )
 {
-  _mapper(caller, module, robot, tool, options);
+  map_tool(caller, module, robot, tool, options);
 }
 
 /**

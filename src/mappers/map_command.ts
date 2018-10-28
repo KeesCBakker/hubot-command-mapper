@@ -1,10 +1,11 @@
 
-import { IParameter } from "../parameters/IParameter";
+import { IParameter } from "../definitions/IParameter";
 import { ITool } from "../definitions/ITool";
-import { ICallback, IContext } from "../single-command";
-import { IOptions, defaultOptions } from "../options";
-import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
-import { mapper } from "./tool-mapper";
+import { IOptions, defaultOptions } from "../entities/options";
+import { IParameterValueCollection } from "../definitions/IParameterValueCollection";
+import { map_tool } from "./map_tool";
+import { ICallback } from "../definitions/ICallback";
+import { IContext } from "../definitions/IContext";
 
 export function map_command(
     caller: NodeModule,
@@ -56,6 +57,6 @@ export function map_command(
       ]
     } as ITool;
   
-    mapper(caller, packageModule, robot, tool, options);
+    map_tool(caller, packageModule, robot, tool, options);
   }
   
