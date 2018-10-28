@@ -29,6 +29,7 @@ declare namespace Hubot {
       constructor(robot: Robot, message: Message, match: RegExpMatchArray);
       send(...strings: string[]): void;
       reply(...strings: string[]): void;
+      emote(...strings: string[]): void;
       random<T>(items: T[]): T;
   }
 
