@@ -3,7 +3,6 @@ import { map_command as _map_command } from "./mappers/command-mapper";
 import { defaultOptions, Options, IOptions } from "./options";
 import { ICommand } from "./commands/ICommand";
 import { ITool } from "./definitions/ITool";
-import { FluentTool, IFluentTool } from "./fluent";
 import { NumberParameter } from "./parameters/NumberParameter";
 import { NumberStyle } from "./parameters/NumberStyle";
 import { FractionParameter } from "./parameters/FractionParameter";
@@ -62,18 +61,6 @@ export function mapper(
 )
 {
   _mapper(caller, module, robot, tool, options);
-}
-
-
-/**
- * Creates a fluent tool mapper.
- * 
- * @export
- * @param {string} name The name of the tool.
- * @returns {IFluentTool} The tool.
- */
-export function tool(name: string): IFluentTool {
-  return new FluentTool(name);
 }
 
 /**
