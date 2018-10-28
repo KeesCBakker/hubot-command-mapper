@@ -1,10 +1,11 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, Options, RestParameter } from "./../src/";
+import { map_command, mapper, Options, RestParameter } from "./../src/";
 import { expect } from "chai";
 import "mocha";
+import { IContext } from "mocha";
 
-describe("mapper.spec.ts / Command mapping", () => {
+describe("index.spec.ts / Command mapping", () => {
   const options = new Options();
   options.verbose = false;
 
@@ -43,14 +44,7 @@ describe("mapper.spec.ts / Command mapping", () => {
 
   it("Default command mapping", done => {
     let i = 0;
-    mapper(
-      pretend.robot,
-      {
-        name: "cool",
-        invoke: (tool, robot, res, match) => i++
-      },
-      options
-    );
+    map_command(pretend.robot, "cool", options, () => i++);
     pretend
       .user("kees")
       .send("@hubot cool")

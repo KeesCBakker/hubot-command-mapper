@@ -1,4 +1,4 @@
-import { Options, mapper } from "../src";
+import { Options, map_command, IContext } from "../src";
 
 export default robot =>{
 
@@ -6,24 +6,7 @@ export default robot =>{
     options.verbose = false;
     options.addReloadCommand = true;
 
-    mapper(robot, {
-        name: "ci",
-        invoke: (tool, robot, res): void => {
-            res.reply("ci");
-        }
-    }, options);
-
-    mapper(robot, {
-        name: "cd",
-        invoke: (tool, robot, res): void => {
-            res.reply("cd");
-        }
-    }, options);
-
-    mapper(robot, {
-        name: "cicd",
-        invoke: (tool, robot, res): void => {
-            res.reply("cicd");
-        }
-    }, options);
+    map_command(robot, "ci", (context:IContext) => context.res.reply("ci"), options);
+    map_command(robot, "cd", (context:IContext) => context.res.reply("cd"), options);
+    map_command(robot, "cicd", (context:IContext) => context.res.reply("cicd"), options);
 }

@@ -1,10 +1,11 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, Options } from "./../src/";
+import { Options, map_command, IContext } from "./../src/";
 import { expect } from "chai";
 import "mocha";
 
 describe("same-start-name.spec.ts > execute commands with the same start name", () => {
+
   beforeEach(() => {
     pretend.name = "hubot";
     pretend.alias = "hubot";
@@ -13,38 +14,10 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
     var options = new Options();
     options.verbose = false;
 
-    mapper(
-      pretend.robot,
-      {
-        name: "ci",
-        invoke: (tool, robot, res): void => {
-          res.reply("ci");
-        }
-      },
-      options
-    );
+    map_command(pretend.robot, "ci", (context: IContext) => context.res.reply("ci"), options);
+    map_command(pretend.robot, "cd", (context: IContext) => context.res.reply("cd"), options);
+    map_command(pretend.robot, "cicd", (context: IContext) => context.res.reply("cicd"), options);
 
-    mapper(
-      pretend.robot,
-      {
-        name: "cd",
-        invoke: (tool, robot, res): void => {
-          res.reply("cd");
-        }
-      },
-      options
-    );
-
-    mapper(
-      pretend.robot,
-      {
-        name: "cicd",
-        invoke: (tool, robot, res): void => {
-          res.reply("cicd");
-        }
-      },
-      options
-    );
   });
 
   afterEach(() => pretend.shutdown());
@@ -90,4 +63,5 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       })
       .catch(ex => done(ex));
   });
+
 });

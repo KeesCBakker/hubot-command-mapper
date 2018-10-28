@@ -30,16 +30,6 @@ export function mapper(
     if (!tool) throw "Argument 'tool' is empty.";
     if (!tool.commands) tool.commands = [];
   
-    if(tool.invoke){
-      tool.commands.push({
-        name: 'default',
-        alias: [''],
-        invoke: (tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection) => {
-          tool.invoke(tool, robot, res, match, values);
-        }
-      });
-    }
-  
     validateTool(tool);
   
     // add a debug command

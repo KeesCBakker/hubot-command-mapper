@@ -17,6 +17,7 @@ export interface ITool extends IMutable {
      * @memberof ITool
      */
     name: string;
+
     /**
      * The command that are supported by the tool.
      * Only tools with at least 1 command can be mapped.
@@ -25,6 +26,7 @@ export interface ITool extends IMutable {
      * @memberof ITool
      */
     commands?: ICommand[];
+
     /**
      * Used for user-name based authorization. Only the specificed
      * users may access the tool.
@@ -42,17 +44,4 @@ export interface ITool extends IMutable {
      * @memberof ITool
      */
     registrations?: { commandName: string; messageRegex: string; }[];
-
-    /**
-     * Called when the default tool is invoked. This will generate a command
-     * with an empty alias.
-     *
-     * @param {ITool} [tool] The tool that owns the command.
-     * @param {Hubot.Robot} [robot] The hubot.
-     * @param {Hubot.Response} [res] The response. Can be used for interaction.
-     * @param {RegExpMatchArray} [match] The regular expression match. Contains all the information about the mapped values of the command.
-     * @param {IParameterValueCollection} [values] Provides easy access to the values of parameters.
-     * @memberof ICommand
-     */
-    invoke?(tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection): void;
 }
