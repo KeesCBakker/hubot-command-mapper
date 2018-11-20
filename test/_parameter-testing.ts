@@ -23,7 +23,7 @@ export function createRegex(
     ]
   };
 
-  return convertCommandIntoRegexString(robotName, tool, tool.commands[0]);
+  return convertCommandIntoRegexString(robotName, null, tool, tool.commands[0]);
 }
 
 export function delay(ms, val){
