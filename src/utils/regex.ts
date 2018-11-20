@@ -8,11 +8,27 @@ import { ICommand } from "../definitions/ICommand";
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(robotName: string, tool: ITool) {
-  // add space ore end to the tool matcher to prevent tools
+export function convertToolIntoRegexString<A>(robotName: string, robotAlias: string, tool: ITool) {
+
+  let regexString = '^@?';
+
+  if (robotName == robotAlias || !robotAlias) {
+    regexString += robotName;
+  } else {
+    regexString += '(';
+    regexString += escapeRegExp(robotName);
+    regexString += '|';
+    regexString += escapeRegExp(robotAlias);
+    regexString += ')';
+  }
+
+  // add space or end to the tool matcher to prevent tools
   // that are names similar to match and show an invalid
   // syntax warning. Like: ci and cicd tools.
-  let regexString = escapeRegExp(tool.name) + "($| )";
+  regexString += "($| )";
+
+  console.log(regexString);
+
   return regexString;
 }
 
@@ -25,14 +41,22 @@ export function convertToolIntoRegexString<A>(robotName: string, tool: ITool) {
  * @param cmd The command.
  * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  */
-export function convertCommandIntoRegexString(robotName: string, tool: ITool, cmd: ICommand, useNaming = false) {
+export function convertCommandIntoRegexString(robotName: string, robotAlias, tool: ITool, cmd: ICommand, useNaming = false) {
 
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
-  let regexString = "";
+  let regexString = "^@?";
 
-  regexString += "^@?";
-  regexString += escapeRegExp(robotName);
+  if (robotName == robotAlias || !robotAlias) {
+    regexString += robotName;
+  } else {
+    regexString += '(';
+    regexString += escapeRegExp(robotName);
+    regexString += '|';
+    regexString += escapeRegExp(robotAlias);
+    regexString += ')';
+  }
+
   regexString += " ";
 
   regexString += escapeRegExp(tool.name);

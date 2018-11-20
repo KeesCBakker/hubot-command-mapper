@@ -68,6 +68,7 @@ export function map_tool(
     //match edge cases in which certain phrases end with a command name
     const strValidationRegex = convertCommandIntoRegexString(
       robot.name,
+      robot.alias,
       tool,
       cmd
     );
@@ -88,7 +89,7 @@ export function map_tool(
   });
 
   //listen for invocation of tool
-  const toolRegexString = convertToolIntoRegexString(robot.name, tool);
+  const toolRegexString = convertToolIntoRegexString(robot.name, robot.alias, tool);
   const toolRegex = new RegExp(toolRegexString, "i");
 
   robot.respond(toolRegex, res => {
@@ -142,7 +143,7 @@ export function map_tool(
       return;
     }
 
-    let values = getValues(robot.name || robot.alias, tool, cmd, res.message.text);
+    let values = getValues(robot.name, robot.alias, tool, cmd, res.message.text);
     if (cmd.invoke) {
       cmd.invoke(tool, robot, res, match, values);
     }

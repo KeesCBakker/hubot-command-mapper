@@ -5,11 +5,11 @@ import { ITool, ICommand } from "../..";
 
 const NamedRegExp = require("named-regexp-groups");
 
-export function getValues(robotName: string, tool: ITool, command: ICommand, messsage: string): IParameterValueCollection {
+export function getValues(robotName: string, robotAlias: string, tool: ITool, command: ICommand, messsage: string): IParameterValueCollection {
   let collection = {};
 
   if (command.parameters) {
-    let r = convertCommandIntoRegexString(robotName, tool, command, true);
+    let r = convertCommandIntoRegexString(robotName, robotAlias, tool, command, true);
     let nr = new NamedRegExp(r, "i");
 
     let answer = nr.exec(messsage).groups;
