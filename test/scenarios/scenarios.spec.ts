@@ -1,18 +1,11 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, Options, NumberParameter } from "./../src/";
+import { mapper, Options, NumberParameter, RegExStringParameter, TokenParameter, IPv4Parameter } from "../../src";
 import { expect } from "chai";
 import "mocha";
-import {
-  IPv4Parameter,
-  TokenParameter,
-  RegExStringParameter
-} from "../src/";
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
 
     var options = new Options();

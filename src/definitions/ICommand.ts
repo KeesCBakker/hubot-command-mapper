@@ -1,6 +1,7 @@
 import { IParameter } from "..";
-import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
-import { ITool } from "../ITool";
+import { IParameterValueCollection } from "./IParameterValueCollection";
+import { ITool } from "./ITool";
+import { IContext } from "./IContext";
 
 /**
  * Models a command that can be invoked by the Hubot.
@@ -45,7 +46,14 @@ export interface ICommand {
      * @param {IParameterValueCollection} [values] Provides easy access to the values of parameters.
      * @memberof ICommand
      */
-    invoke(tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection): void;
+    invoke?(tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray, values: IParameterValueCollection): void;
+
+    /**
+     * Called when the command is invoked.
+     * 
+     * @param context Contextual data.
+     */
+    execute?(context: IContext) : void;
     
     /**
      * The regular expression that is used to validate if a certain

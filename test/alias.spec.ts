@@ -1,28 +1,18 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, Options, alias, StringParameter } from "./../src";
+import { mapper, map_command, Options, alias, StringParameter, IContext } from "./../src";
 import { expect } from "chai";
 import "mocha";
 
 describe("alias.spec.ts / Testing the alias features", () => {
 
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
 
     var options = new Options();
     options.verbose = false;
 
-    mapper(
-      pretend.robot,
-      {
-        name: "version",
-        invoke: (tool, robot, res) => res.reply("1")
-      },
-      options
-    );
-
+    map_command(pretend.robot, "version", (context) => context.res.reply("1"));
     alias(pretend.robot, { AAA: "version" }, options);
 
     mapper(

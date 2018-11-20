@@ -1,7 +1,7 @@
-import { Robot, Response } from "../definitions/irobot";
-import { ITool } from "../ITool";
+import { Robot, Response } from "./Hubot";
+import { ITool } from "./ITool";
 import { ICommand } from "./ICommand";
-import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
+import { IParameterValueCollection } from "./IParameterValueCollection";
 
 export interface IHelpCommand extends ICommand {
 

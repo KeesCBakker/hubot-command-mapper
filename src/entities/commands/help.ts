@@ -1,7 +1,5 @@
-import { Robot, Response } from "../definitions/irobot";
-import { ITool } from "../ITool";
-import { IParameterValueCollection } from "../parameters/IParameterValueCollection";
-import { IHelpCommand } from "./IHelpCommand";
+import { IHelpCommand, IParameterValueCollection, ITool } from "../../definitions";
+import { Robot, Response } from "../../definitions/Hubot";
 
 export default function createHelpCommand(): IHelpCommand {
   return {

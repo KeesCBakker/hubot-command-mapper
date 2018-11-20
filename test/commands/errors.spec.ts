@@ -1,13 +1,11 @@
 const pretend = require("hubot-pretend");
 
-import { mapper, alias } from "./../src/";
+import { mapper, alias } from "../../src";
 import { expect } from "chai";
 import "mocha";
 
 describe("erros.spec.ts / Errors", () => {
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
   });
 

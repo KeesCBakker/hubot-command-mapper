@@ -1,6 +1,6 @@
 const pretend = require("hubot-pretend");
 
-import { map_command, Options, StringParameter } from "./../src/";
+import { map_command, Options, StringParameter } from "../../src";
 import { expect } from "chai";
 import "mocha";
 
@@ -9,8 +9,6 @@ describe("map_command.spec.ts / Single command mapping", () => {
   options.verbose = false;
 
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
   });
 
