@@ -3,7 +3,7 @@ _Helps with the mapping of tools and commands for your Hubot. No more regex. No 
 
 [![Build Status](https://travis-ci.org/KeesCBakker/hubot-command-mapper.svg?branch=master)](https://travis-ci.org/KeesCBakker/hubot-command-mapper) [![npm version](https://badge.fury.io/js/hubot-command-mapper.svg)](https://badge.fury.io/js/hubot-command-mapper) [![forever](https://david-dm.org/KeesCBakker/hubot-command-mapper.svg)](https://david-dm.org/KeesCBakker/hubot-command-mapper) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
-_Why?_ Writing regular expressions for commands is hard. You have to spend some time to prevent some expressions from colliding with others. Now the mapper takes care of that problem.
+_Why?_ Writing regular expressions for commands is hard. You have to spend some time to prevent expressions from colliding with others. Now the mapper takes care of that problem.
 
 ## Installation
 Install the command mapper like this: `npm install hubot-command-mapper --save`
@@ -15,7 +15,7 @@ const { map_command } = require("hubot-command-mapper");
 
 map_command(pretend.robot, "clear screen", options, context => {
     for(let i = 0 ; i < 48; i++){
-    context.res.emote(' ');
+        context.res.emote(' ');
     }
 });
 
@@ -132,7 +132,7 @@ The following parameters are available:
 |`StringParameter`|`new StringParameter("name", "Chuck Norris")`|Adds an optional string parameter that default to "Chuck Norris"|
 |`StringParameter`|`new StringParameter("name")`|Adds a string parameter|
 |`ChoiceParameter`|`new ChoiceParameter("name", ["a", "b", "c"])`|Adds a choice parameter that matches "a", "b" or "c"|
-|`RestParameter`|`new RestParameter("rest)`|Captures the rest of the tool. Used to capture anything else until the end.|
+|`RestParameter`|`new RestParameter("rest)`|Captures the rest of the message. Used to capture anything else until the end.|
 |`TokenParameter`|`new TokenParameter("source")`|Captures a token. A token must be present in the string.|
 |`IPv4Parameter`|`new IPv4Parameter("ip")`|Matches an IP version 4 address.|
 
@@ -185,6 +185,6 @@ Contributions:
 1. Create a branch
 2. Create unit test(s) for the change(s)
 3. Submit a pull request
-4. Contact me <a href="https://twitter.com/KeesTalksTech">@KeesTalksTech</a> if I don't respond in time.
+4. Contact <a href="https://twitter.com/KeesTalksTech">@KeesTalksTech</a> if we don't respond in time.
 
 _Happy coding!_
