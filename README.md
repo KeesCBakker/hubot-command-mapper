@@ -86,8 +86,11 @@ module.exports = robot => {
         name: "from",
         capture: "(\\d+) to (\\d+)",
         execute: context => {
-          const a = Number(context.match[3])
-          const b = Number(context.match[4])
+
+          // because an alias might be used, we need to select
+          // from the end of the matches.
+          const a = Number(context.match[context.match.length - 2])
+          const b = Number(context.match[context.match.length - 1])
 
           for (let i = a; i < b + 1; i++) {
             context.res.reply(`${i}!`)
