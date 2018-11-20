@@ -9,26 +9,10 @@ import { ICommand } from "../definitions/ICommand";
  * that can be used by the bot.
  */
 export function convertToolIntoRegexString<A>(robotName: string, robotAlias: string, tool: ITool) {
-
-  let regexString = '^@?';
-
-  if (robotName == robotAlias || !robotAlias) {
-    regexString += robotName;
-  } else {
-    regexString += '(';
-    regexString += escapeRegExp(robotName);
-    regexString += '|';
-    regexString += escapeRegExp(robotAlias);
-    regexString += ')';
-  }
-
   // add space or end to the tool matcher to prevent tools
   // that are names similar to match and show an invalid
   // syntax warning. Like: ci and cicd tools.
-  regexString += "($| )";
-
-  console.log(regexString);
-
+  let regexString = escapeRegExp(tool.name) + "($| )";
   return regexString;
 }
 
@@ -45,14 +29,15 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias, too
 
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
-  let regexString = "^@?";
+  let regexString = "^";
 
   if (robotName == robotAlias || !robotAlias) {
+    regexString += '@?';
     regexString += robotName;
   } else {
-    regexString += '(';
+    regexString += '(@?';
     regexString += escapeRegExp(robotName);
-    regexString += '|';
+    regexString += '|@?';
     regexString += escapeRegExp(robotAlias);
     regexString += ')';
   }
