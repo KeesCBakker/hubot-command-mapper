@@ -53,8 +53,6 @@ function mapTodo(robot) {
 describe("todo.spec.ts > todo example", () => {
 
     beforeEach(() => {
-        pretend.name = "hubot";
-        pretend.alias = "hubot";
         pretend.start();
 
         var options = new Options();

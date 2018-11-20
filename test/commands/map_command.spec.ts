@@ -9,8 +9,6 @@ describe("map_command.spec.ts / Single command mapping", () => {
   options.verbose = false;
 
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
   });
 

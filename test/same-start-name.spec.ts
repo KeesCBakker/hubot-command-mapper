@@ -7,8 +7,6 @@ import "mocha";
 describe("same-start-name.spec.ts > execute commands with the same start name", () => {
 
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
 
     var options = new Options();

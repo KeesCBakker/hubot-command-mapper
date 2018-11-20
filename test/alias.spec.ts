@@ -7,8 +7,6 @@ import "mocha";
 describe("alias.spec.ts / Testing the alias features", () => {
 
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
 
     var options = new Options();

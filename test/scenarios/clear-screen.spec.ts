@@ -7,8 +7,6 @@ import "mocha";
 describe("clear-screen.spec.ts > clear screen example", () => {
 
     beforeEach(() => {
-        pretend.name = "hubot";
-        pretend.alias = "hubot";
         pretend.start();
 
         var options = new Options();
