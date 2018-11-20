@@ -10,8 +10,6 @@ describe("index.spec.ts / Command mapping", () => {
   options.verbose = false;
 
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
   });
 

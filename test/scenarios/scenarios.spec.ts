@@ -6,8 +6,6 @@ import "mocha";
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
 
     var options = new Options();

@@ -7,8 +7,6 @@ import "mocha";
 describe("commands.spec.ts / Default commands", () => {
   
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
 
     var options = new Options();

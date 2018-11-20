@@ -8,8 +8,6 @@ import { delay } from "../_parameter-testing";
 describe("multi-tool-reload.spec.ts > multi reload", () => {
 
     beforeEach(() => {
-        pretend.name = "hubot";
-        pretend.alias = "hubot";
         pretend.start();
 
         pretend.robot.loadFile = file => {

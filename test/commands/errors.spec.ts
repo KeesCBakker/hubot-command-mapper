@@ -6,8 +6,6 @@ import "mocha";
 
 describe("erros.spec.ts / Errors", () => {
   beforeEach(() => {
-    pretend.name = "hubot";
-    pretend.alias = "hubot";
     pretend.start();
   });
 
