@@ -1,8 +1,7 @@
 const pretend = require("hubot-pretend");
 import { expect } from "chai";
 import "mocha";
-import { map_command, Options } from "../../dist";
-import { RestParameter, removeTrailingWhitespaceCharactersFromIncommingMessages } from "../../src";
+import { map_command, Options, RestParameter, removeTrailingWhitespaceCharactersFromIncommingMessages } from "../../src";
 
 describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trailing spaces fixer", () => {
 
