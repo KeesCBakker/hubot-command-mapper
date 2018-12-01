@@ -177,6 +177,21 @@ module.exports = robot => {
 };
 ```
 
+## "Fixing" trailing white spaces
+Some users will use software keyboards on Slack with auto prediction. Some
+of those will insert an extra space after a auto predicted space. This will
+cause many commands to fail - as regex mapping tends to be very strict.
+
+To counter this problem we've created a type of middleware that will remove
+trailing whitespace characters from each message. It can be hooked up like
+this:
+
+```
+const { removeTrailingWhitespaceCharactersFromIncommingMessages } = require("hubot-command-mapper");
+
+removeTrailingWhitespaceCharactersFromIncommingMessages(robot);
+```
+
 ## Want to contribute?
 Cool! We're using the following setup:
 - Visual Studio Code
