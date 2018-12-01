@@ -4,31 +4,31 @@ import { hasSwitch, setSwitch } from "../utils/switches";
 const FIX_TRAILING_SPACES_SWITCH = 'ftss';
 
 export function removeTrailingWhitespaceCharactersFromIncommingMessages(
-    robot: Hubot.Robot,
-    options: IOptions = defaultOptions
-  ) {
-  
-    if (!robot) throw "Argument 'robot' is empty.";
+  robot: Hubot.Robot,
+  options: IOptions = defaultOptions
+) {
 
-    if(hasSwitch(robot, FIX_TRAILING_SPACES_SWITCH)){
-      if(options.verbose)
-        console.log("The fix trailing spaces middleware has already been registered.");
+  if (!robot) throw "Argument 'robot' is empty.";
 
-        return;
-    }
+  if (hasSwitch(robot, FIX_TRAILING_SPACES_SWITCH)) {
+    if (options.verbose)
+      console.log("The fix trailing spaces middleware has already been registered.");
 
-    setSwitch(robot, FIX_TRAILING_SPACES_SWITCH);
+    return;
+  }
 
-    robot.receiveMiddleware((context, next, done) => {
-  
-      var text = context.response.message.text;
+  setSwitch(robot, FIX_TRAILING_SPACES_SWITCH);
+
+  robot.receiveMiddleware((context, next, done) => {
+
+    var text = context.response.message.text;
+    if (text) {
       var newText = text.replace(/\s+$/, '');
-  
       if (text != newText) {
         context.response.message.text = newText;
       }
-  
-      next(done);
-    });
-  }
-  
+    }
+
+    next(done);
+  });
+}
