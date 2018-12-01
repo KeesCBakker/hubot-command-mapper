@@ -12,7 +12,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
     var options = new Options();
     options.verbose = false;
 
-    map_command(pretend.robot, "version", (context) => context.res.reply("1"));
+    map_command(pretend.robot, "version", options, (context) => context.res.reply("1"));
     alias(pretend.robot, { AAA: "version" }, options);
 
     mapper(
