@@ -53,6 +53,7 @@ declare namespace Hubot {
       receiveMiddleware(receiveMiddlewareCallback): void;
 
       __tools? : IMutable[];
+      __switches? : string[];
   }
 }
 
