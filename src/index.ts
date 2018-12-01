@@ -15,6 +15,7 @@ import { RegExStringParameter } from "./entities/parameters/RegExStringParameter
 import { TokenParameter } from "./entities/parameters/TokenParameter";
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
 import { IContext } from "mocha";
+import { removeTrailingWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncommingMessages";
 
 export {
   IParameter,
@@ -35,7 +36,8 @@ export {
   ITool, 
   ICommand,
   ICallback,
-  IContext
+  IContext,
+  removeTrailingWhitespaceCharactersFromIncommingMessages
 }
 
 //needed for reload - otherwise the caller value will be cached
