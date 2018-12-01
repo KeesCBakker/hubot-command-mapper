@@ -189,7 +189,9 @@ this:
 ```
 const { removeTrailingWhitespaceCharactersFromIncommingMessages } = require("hubot-command-mapper");
 
-removeTrailingWhitespaceCharactersFromIncommingMessages(robot);
+module.exports = robot => {
+    removeTrailingWhitespaceCharactersFromIncommingMessages(robot);
+}
 ```
 
 ## Want to contribute?
