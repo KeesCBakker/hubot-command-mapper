@@ -28,7 +28,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
 
     afterEach(() => pretend.shutdown());
 
-    it.only("Trailing spaces should be removed", done => {
+    it("Trailing spaces should be removed", done => {
         pretend
             .user("kees")
             .send("@hubot ping this is a test with spaces     ")
@@ -40,7 +40,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
             .catch(ex => done(ex));
     });
     
-    it.only("Trailing tabs should be removed", done => {
+    it("Trailing tabs should be removed", done => {
         pretend
             .user("kees")
             .send("@hubot ping this is a test with tabs           ")
@@ -52,7 +52,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
             .catch(ex => done(ex));
     });
     
-    it.only("Trailing enters should be removed", done => {
+    it("Trailing enters should be removed", done => {
         pretend
             .user("kees")
             .send(`@hubot ping this is a test with enters
