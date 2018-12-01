@@ -5,7 +5,7 @@
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "del-cli dist & npm run mocha --recursive test/**/*.spec.ts --exit",
+    "test": "npm run mocha --recursive test/**/*.spec.ts --exit",
     "mocha": "mocha -r ts-node/register",
     "build": "del-cli dist & tsc",
     "prepublishOnly": "npm run build & npm test & npm version patch",
