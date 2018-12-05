@@ -16,19 +16,7 @@ export function convertToolIntoRegexString<A>(robotName: string, robotAlias: str
   return regexString;
 }
 
-/**
- * Converts the specified command into a regular expression
- * that can be used by the bot.
- *
- * @param robotName The name of the robot.
- * @param tool The tool.
- * @param cmd The command.
- * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
- */
-export function convertCommandIntoRegexString(robotName: string, robotAlias, tool: ITool, cmd: ICommand, useNaming = false) {
-
-  //the following regex is created:
-  //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
+export function convertBotNameIntoRegexString(robotName: string, robotAlias: string){
   let regexString = "^";
 
   if (robotName == robotAlias || !robotAlias) {
@@ -41,6 +29,24 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias, too
     regexString += escapeRegExp(robotAlias);
     regexString += ')';
   }
+
+  return regexString;
+}
+
+/**
+ * Converts the specified command into a regular expression
+ * that can be used by the bot.
+ *
+ * @param robotName The name of the robot.
+ * @param tool The tool.
+ * @param cmd The command.
+ * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
+ */
+export function convertCommandIntoRegexString(robotName: string, robotAlias: string, tool: ITool, cmd: ICommand, useNaming = false) {
+
+  //the following regex is created:
+  //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
+  let regexString =  convertBotNameIntoRegexString(robotName, robotAlias);
 
   regexString += " ";
 

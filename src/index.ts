@@ -16,6 +16,7 @@ import { TokenParameter } from "./entities/parameters/TokenParameter";
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
 import { IContext } from "mocha";
 import { removeTrailingWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncommingMessages";
+import { removeTrailingBotWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingBotWhitespaceCharactersFromIncommingMessages";
 
 export {
   IParameter,
@@ -37,7 +38,8 @@ export {
   ICommand,
   ICallback,
   IContext,
-  removeTrailingWhitespaceCharactersFromIncommingMessages
+  removeTrailingWhitespaceCharactersFromIncommingMessages,
+  removeTrailingBotWhitespaceCharactersFromIncommingMessages
 }
 
 //needed for reload - otherwise the caller value will be cached
