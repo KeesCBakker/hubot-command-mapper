@@ -6,6 +6,7 @@ import { IMutable } from "./IMutable";
 import { IContext } from "./IContext";
 import { IParameterValueCollection } from "./IParameterValueCollection";
 import { ITool } from "./ITool";
+import { ICommandResolverResultDebugInfo } from "./ICommandResolverResultDebugInfo";
 
 
 export {
@@ -16,5 +17,6 @@ export {
     IMutable,
     IParameter,
     IParameterValueCollection,
-    ITool
+    ITool,
+    ICommandResolverResultDebugInfo
 }

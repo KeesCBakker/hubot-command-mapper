@@ -41,5 +41,10 @@ export interface ITool extends IMutable {
      * @type {{commandName: string, messageRegex: string}[]}
      * @memberof ITool
      */
-    registrations?: { commandName: string; messageRegex: string; }[];
+    __registrations?: { commandName: string; messageRegex: string; }[];
+
+    /**
+     * The regex that is used by the robot to match this tool.
+     */
+    __robotRegex?: RegExp;
 }

@@ -6,7 +6,7 @@ import { NumberParameter } from "./entities/parameters/NumberParameter";
 import { NumberStyle } from "./entities/parameters/NumberStyle";
 import { FractionParameter } from "./entities/parameters/FractionParameter";
 import { FractionStyle } from "./entities/parameters/FractionStyle";
-import { IParameter, ITool, ICommand, ICallback } from "./definitions";
+import { IParameter, ITool, ICommand, ICallback, IContext, ICommandResolverResultDebugInfo } from "./definitions";
 import { RestParameter } from "./entities/parameters/RestParameter";
 import { AnyParameter } from "./entities/parameters/AnyParameter";
 import { StringParameter } from "./entities/parameters/StringParameter";
@@ -14,9 +14,9 @@ import { ChoiceParameter } from "./entities/parameters/ChoiceParameter";
 import { RegExStringParameter } from "./entities/parameters/RegExStringParameter";
 import { TokenParameter } from "./entities/parameters/TokenParameter";
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
-import { IContext } from "mocha";
 import { removeTrailingWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncommingMessages";
 import { removeTrailingBotWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingBotWhitespaceCharactersFromIncommingMessages";
+import { addDiagnosticsMiddleware } from "./middleware/addDiagnosticsMiddleware";
 
 export {
   IParameter,
@@ -38,8 +38,10 @@ export {
   ICommand,
   ICallback,
   IContext,
+  ICommandResolverResultDebugInfo,
   removeTrailingWhitespaceCharactersFromIncommingMessages,
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages
+  removeTrailingBotWhitespaceCharactersFromIncommingMessages,
+  addDiagnosticsMiddleware
 }
 
 //needed for reload - otherwise the caller value will be cached
