@@ -42,7 +42,6 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
       .user("kees")
       .send("@aliasbot pang")
       .then(() => {
-        console.log(pretend.messages);
         expect(pretend.messages).to.eql([
           ["kees", "@aliasbot pang"],
           ["hubot", "@kees pong"]

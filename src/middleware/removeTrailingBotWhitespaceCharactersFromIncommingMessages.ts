@@ -25,7 +25,6 @@ export function removeTrailingBotWhitespaceCharactersFromIncommingMessages(
     const text = context.response.message.text;
     if (text) {
       const newText = text.replace(new RegExp(`(${robotNameRegexString})\\s+`, "i"), '$1 ');
-      console.log(newText);
       if (text != newText) {
         context.response.message.text = newText;
       }
