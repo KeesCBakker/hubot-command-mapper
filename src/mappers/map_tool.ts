@@ -1,11 +1,11 @@
-import { ITool, ICommand } from "../definitions";
+import { ITool } from "../definitions";
 import { IOptions, defaultOptions } from "../entities/options";
 import { convertCommandIntoRegexString, convertToolIntoRegexString } from "../utils/regex";
-import { getValues } from "../parameters/ValueExtractor";
 import createDebugCommand from "../entities/commands/debug";
 import createReloadCommand from "../entities/commands/reload";
 import createHelpCommand from "../entities/commands/help";
 import validateTool from "./validation";
+import { CommandResolver } from "../entities/CommandResolver";
 
 /**
  * Maps the specified tool to the Robot.
@@ -31,7 +31,7 @@ export function map_tool(
   validateTool(tool);
 
   // add a debug command
-  tool.registrations = [];
+  tool.__registrations = [];
 
   if (options.addDebugCommand) {
     tool.commands.push(createDebugCommand());
@@ -40,10 +40,8 @@ export function map_tool(
   //add a reload command
   if (options.addReloadCommand) {
 
-    // add caller and add tool
+    // add caller
     tool.__source = caller;
-    robot.__tools = robot.__tools || [];
-    robot.__tools.push(tool);
 
     tool.commands.push(
       createReloadCommand(
@@ -63,6 +61,7 @@ export function map_tool(
 
   //init every command
   tool.commands.forEach(cmd => {
+    
     //use a second validation regex to confirm the message we
     //are responding to, is as we expected. This will prevent command
     //match edge cases in which certain phrases end with a command name
@@ -82,7 +81,7 @@ export function map_tool(
     }
 
     //needed for the debug command
-    tool.registrations.push({
+    tool.__registrations.push({
       commandName: cmd.name,
       messageRegex: strValidationRegex
     });
@@ -91,69 +90,50 @@ export function map_tool(
   //listen for invocation of tool
   const toolRegexString = convertToolIntoRegexString(robot.name, robot.alias, tool);
   const toolRegex = new RegExp(toolRegexString, "i");
+  tool.__robotRegex = toolRegex;
+
+  // add tool to robot - helps with reloading and middleware
+  robot.__tools = robot.__tools || [];
+  robot.__tools.push(tool);
+
+  const resolver = new CommandResolver(robot);
 
   robot.respond(toolRegex, res => {
-    //don't do anything with muted tools. They are here as
-    //part of a reload.
-    if (tool.__mute === true) {
+
+    var action = resolver.resolveFromTool(tool, res);
+    if (action == null) {
       return;
     }
 
-    const msg = res.message.text;
-
-    const matchingCommands: ICommand[] = tool.commands.filter(cmd =>
-      cmd.validationRegex.test(msg)
-    );
-
     //if no commands matched, show help command
-    if (matchingCommands.length == 0) {
+    if (action.command == null) {
       if (options.showHelpOnInvalidSyntax) {
-        helpCommand.invoke(tool, robot, res,
-          null, null,
-          options.invalidSystaxHelpPrefix, options.invalidSyntaxMessage);
+        helpCommand.invoke(tool, robot, res, null, null, options.invalidSystaxHelpPrefix, options.invalidSyntaxMessage);
       } else if (options.showInvalidSyntax) {
         res.reply(options.invalidSyntaxMessage);
       }
       return;
     }
 
-    const cmd = matchingCommands[0];
-
-    let authorized =
-      (!tool.auth || tool.auth.length === 0 || tool.auth.indexOf(res.message.user.name) > -1) &&
-      (!cmd.auth || cmd.auth.length === 0 || cmd.auth.indexOf(res.message.user.name) > -1);
-
-    var match = cmd.validationRegex.exec(msg);
-
     if (options.verbose) {
-      var debug = {
-        User: res.message.user.name,
-        UserId: res.message.user.id,
-        Authorized: authorized,
-        Text: res.message.text,
-        Tool: tool.name,
-        Command: cmd.name,
-        Match: match
-      };
-      console.log(debug);
+      action.log();
     }
 
-    if (!authorized) {
+    if (!action.authorized) {
       res.reply(options.notAuthorizedMessage);
       return;
     }
 
-    let values = getValues(robot.name, robot.alias, tool, cmd, res.message.text);
-    if (cmd.invoke) {
-      cmd.invoke(tool, robot, res, match, values);
+    if (action.command.invoke) {
+      action.command.invoke(tool, robot, res, action.match, action.values);
     }
-    else if (cmd.execute) {
-      cmd.execute({
+    else if (action.command.execute) {
+      action.command.execute({
         tool: tool,
         robot: robot,
         res: res,
-        match: match,
-        values: values
+        match: action.match,
+        values: action.values
       });
     }
   });
