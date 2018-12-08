@@ -5,8 +5,6 @@ import { map_command, Options, RestParameter, removeTrailingWhitespaceCharacters
 
 describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trailing spaces fixer", () => {
 
-    const SWITCH = "SOME_SWITCH_NAME";
-
     beforeEach(() => {
         pretend.start();
         var options = new Options();
