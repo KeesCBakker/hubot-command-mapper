@@ -47,5 +47,27 @@ describe("multi-tool-reload.spec.ts > multi reload", () => {
             .catch(ex => done(ex));
     });
 
+    it("Reload and execute", done => {
+        pretend
+            .user("kees")
+            .send("@hubot ci reload")
+            .then(x => delay(1100, x))
+            .then(x => pretend.user("kees").send("@hubot ci"))
+            .then(x => {
+
+                expect(pretend.messages).to.eql(
+                    [
+                        ['kees', '@hubot ci reload'],
+                        ['hubot', '@kees Tool "ci" has been reloaded!'],
+                        ['kees', '@hubot ci'],
+                        ['hubot', '@kees ci']
+                    ]);
+
+                done();
+            })
+            .catch(ex => done(ex));
+    });
+
+
 });
 

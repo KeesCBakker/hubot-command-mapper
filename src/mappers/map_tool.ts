@@ -101,7 +101,7 @@ export function map_tool(
   robot.respond(toolRegex, res => {
 
     var action = resolver.resolveFromTool(tool, res);
-    if (action == null) {
+    if (!action || !action.tool) {
       return;
     }
 
