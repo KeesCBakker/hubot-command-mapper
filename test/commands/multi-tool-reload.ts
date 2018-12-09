@@ -1,6 +1,6 @@
 import { Options, map_command, IContext } from "../../src";
 
-export default robot =>{
+export default (robot: Hubot.Robot) => {
 
     var options = new Options();
     options.verbose = false;

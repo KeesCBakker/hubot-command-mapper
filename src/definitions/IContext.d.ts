@@ -1,5 +1,4 @@
-import { ITool } from "./ITool";
-import { IParameterValueCollection } from "./IParameterValueCollection";
+import { ITool, IParameterValueCollection } from ".";
 
 export interface IContext {
     tool: ITool;

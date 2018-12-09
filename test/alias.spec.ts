@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { mapper, map_command, Options, alias, StringParameter, IContext } from "./../src";
 import { expect } from "chai";
@@ -57,7 +57,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Map * alias", done => {
@@ -71,7 +71,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Map * alias with multiple words", done => {
@@ -85,7 +85,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Map * alias with multiple words and multiple parameters", done => {
@@ -99,7 +99,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
 });

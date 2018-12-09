@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { map_command, Options, alias } from "./../../src";
 import { expect } from "chai";
@@ -34,7 +34,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Should respond to the alias and execute the command alias", done => {
@@ -48,7 +48,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
 });

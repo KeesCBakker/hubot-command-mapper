@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { mapper, Options } from "./../src/";
 import { expect } from "chai";
@@ -47,7 +47,7 @@ describe("commands.spec.ts / Default commands", () => {
         );
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Invalid command", done => {
@@ -59,7 +59,7 @@ describe("commands.spec.ts / Default commands", () => {
         expect(message).to.eq("@kees invalid syntax.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
  
 });

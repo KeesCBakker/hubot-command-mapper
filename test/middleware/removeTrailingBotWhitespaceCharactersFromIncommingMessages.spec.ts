@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 import { expect } from "chai";
 import "mocha";
 import { map_command, Options, RestParameter, removeTrailingBotWhitespaceCharactersFromIncommingMessages } from "../../src";
@@ -34,7 +34,7 @@ describe("removeTrailingBotWhitespaceCharactersFromIncommingMessages.spec.ts / t
                 expect(message).to.eq('@kees Got this: "this is a test with spaces"');
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
     });
     
     it("Trailing tabs should be removed", done => {
@@ -46,7 +46,7 @@ describe("removeTrailingBotWhitespaceCharactersFromIncommingMessages.spec.ts / t
                 expect(message).to.eq('@kees Got this: "this is a test with tabs"');
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
     });
     
     it("Trailing enters should be removed", done => {
@@ -61,7 +61,7 @@ ping this is a test with enters`)
                 expect(message).to.eq('@kees Got this: "this is a test with enters"');
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
     });
 
 });

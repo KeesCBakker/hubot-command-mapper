@@ -1,6 +1,7 @@
 import { escapeRegExp } from "../utils/regex";
 import { IMutable } from "../definitions/IMutable";
 import { IOptions } from "../entities/options";
+import { IMap } from "../definitions";
 
 class AliasMapping implements IMutable {
 
@@ -9,13 +10,13 @@ class AliasMapping implements IMutable {
   public matchers: RegularExpessionMap[];
   public splitter: RegExp;
 
-  constructor(map: any, robot: Hubot.Robot) {
+  constructor(map: { [key: string]: string }, robot: Hubot.Robot) {
 
     this.splitter = createSplitter(robot.name, robot.alias || robot.name);
     this.matchers = convertMapIntoRegularExpression(map);
   }
 
-  public process(text): string {
+  public process(text: string): string {
 
     if (this.__mute == true)
       return text;
@@ -81,11 +82,11 @@ function createSplitter(name: string, alias: string): RegExp {
   return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`, "i");
 }
 
-function convertMapIntoRegularExpression(map): RegularExpessionMap[] {
+function convertMapIntoRegularExpression(map: IMap): RegularExpessionMap[] {
   return Object.keys(map).map(key => {
 
     let value = map[key];
-    let regex = key.endsWith("*") ? 
+    let regex = key.endsWith("*") ?
       new RegExp(`^${escapeRegExp(key.substr(0, key.length - 1))} (.+)$`, "i") :
       new RegExp(`^${escapeRegExp(key)}$`, "i");
 
@@ -97,7 +98,7 @@ class RegularExpessionMap {
   public matcher: RegExp;
   public value: string;
 
-  constructor(matcher: RegExp, value: string){
+  constructor(matcher: RegExp, value: string) {
     this.matcher = matcher;
     this.value = value;
   }

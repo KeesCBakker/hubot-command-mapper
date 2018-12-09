@@ -70,3 +70,6 @@ typings/
 # custom
 dist
 .vs
+
+# documentation
+documentation

@@ -1,14 +1,14 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { map_tool, Options, RestParameter } from "./../../src/";
 import { expect } from "chai";
 import "mocha";
 
-function mapTodo(robot) {
+function mapTodo(robot:Hubot.Robot) {
 
     let options = new Options();
     options.verbose = false;
-    let todos = [];
+    let todos:string[] = [];
 
     map_tool(robot, {
         name: "todo",

@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { Options, map_command, IContext } from "./../src/";
 import { expect } from "chai";
@@ -31,7 +31,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Testing cd", done => {
@@ -45,7 +45,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Testing cicd", done => {
@@ -59,7 +59,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
 });

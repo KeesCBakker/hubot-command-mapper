@@ -1,6 +1,6 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
-import { Options } from "./../../src/";
+import { Options, IContext } from "./../../src/";
 import { expect } from "chai";
 import "mocha";
 import { mapper, StringParameter } from "./../../src/";
@@ -22,7 +22,7 @@ describe("examples.spec.ts > check count/capture example", () => {
             commands: [{
                 name: "from",
                 capture: "(\\d+) to (\\d+)",
-                execute: context => {
+                execute: (context:IContext) => {
                     const a = Number(context.match[context.match.length - 2])
                     const b = Number(context.match[context.match.length - 1])
 
@@ -52,7 +52,7 @@ describe("examples.spec.ts > check count/capture example", () => {
                 pretend.shutdown();
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
 
     });
 });
@@ -75,7 +75,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
             commands: [{
                 name: 'impersonate',
                 parameters: [new StringParameter('firstName'), new StringParameter('lastName')],
-                execute: context => {
+                execute: (context:IContext) => {
                     const firstName = encodeURIComponent(context.values.firstName)
                     const lastName = encodeURIComponent(context.values.lastName)
 
@@ -101,7 +101,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
                 pretend.shutdown();
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
 
     });
 });

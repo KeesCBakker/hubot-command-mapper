@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { mapper, Options } from "./../src/index";
 import { expect } from "chai";
@@ -45,7 +45,7 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Authenticated for tool", done => {
@@ -59,7 +59,7 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Not authenticated for command", done => {
@@ -73,7 +73,7 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Authenticated for command", done => {
@@ -87,6 +87,6 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 });

@@ -1,9 +1,8 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { map_command, mapper, Options, RestParameter } from "./../src/";
 import { expect } from "chai";
 import "mocha";
-import { IContext } from "mocha";
 
 describe("index.spec.ts / Command mapping", () => {
   const options = new Options();
@@ -37,7 +36,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
   it("Default command mapping", done => {
@@ -50,7 +49,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
   it("Alias", done => {
@@ -76,7 +75,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
   it("Empty alias", done => {
@@ -102,7 +101,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
   it("Multiple aliases", done => {
@@ -142,7 +141,7 @@ describe("index.spec.ts / Command mapping", () => {
           .then(() => expect(i).to.eq(3, "Message should increment i."))
       )
       .then(x => done())
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
   it("Multiple command mapping", done => {
@@ -190,7 +189,7 @@ describe("index.spec.ts / Command mapping", () => {
           .then(x => expect(latest).to.eq("a", "'a' was not called."))
       )
       .then(x => done())
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
   it("Tool segregation", done => {
@@ -233,7 +232,7 @@ describe("index.spec.ts / Command mapping", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 
 
@@ -242,7 +241,7 @@ describe("index.spec.ts / Command mapping", () => {
       name: "testing",
       commands: [{
         name: "everything",
-        parameters: [ new RestParameter("rest") ],
+        parameters: [new RestParameter("rest")],
         invoke: (tool, robot, res) => res.reply("kewl!")
       }]
     }, options);
@@ -257,6 +256,6 @@ describe("index.spec.ts / Command mapping", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex: any) => done(ex));
   });
 });

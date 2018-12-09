@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { map_command, Options, StringParameter } from "../../src";
 import { expect } from "chai";
@@ -26,7 +26,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Basic command mapping and parameter", done => {
@@ -47,7 +47,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
         expect(x).to.eq("world", "Message should set 'world' to x.");
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Tool segregation with command mapping", done => {
@@ -63,7 +63,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
     pretend
       .user("Kees")
       .send("@hubot c")
-      .then(x => new Promise(resolve => setTimeout(resolve, 100)))
+      .then(x => new Promise<any>(resolve => setTimeout(resolve, 100)))
       .then(x => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot c"],
@@ -71,7 +71,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
         ]);
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 
   it("Test debug", done => {
@@ -98,6 +98,6 @@ describe("map_command.spec.ts / Single command mapping", () => {
         );
         done();
       })
-      .catch(ex => done(ex));
+      .catch((ex:any) => done(ex));
   });
 });

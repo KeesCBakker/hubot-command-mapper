@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 import { expect } from "chai";
 import "mocha";
 import { map_command, Options, RestParameter, removeTrailingBotWhitespaceCharactersFromIncommingMessages, addDiagnosticsMiddleware, ICommandResolverResultDebugInfo } from "../../src";
@@ -55,7 +55,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
 
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
     });
 
     it("A non command should also trigger a debug callback", done => {
@@ -83,7 +83,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
 
                 done();
             })
-            .catch(ex => done(ex));
+            .catch((ex:any) => done(ex));
     });
 
 

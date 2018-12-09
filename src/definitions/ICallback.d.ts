@@ -1,6 +1,16 @@
 import { IContext } from "./IContext";
 
+/**
+ * Called when a command is excuted.
+ * 
+ * @export
+ * @interface ICallback
+ */
 export interface ICallback {
-    (context: IContext): any;
-  }
-  
+
+  /**
+   * The context contains all the information of
+   * the command that was executed.
+   */
+  (context: IContext): void;
+}

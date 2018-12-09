@@ -1,7 +1,5 @@
 import { Robot, Response } from "./Hubot";
-import { ITool } from "./ITool";
-import { ICommand } from "./ICommand";
-import { IParameterValueCollection } from "./IParameterValueCollection";
+import { ITool, ICommand, IParameterValueCollection } from ".";
 
 export interface IHelpCommand extends ICommand {
 
@@ -19,5 +17,12 @@ export interface IHelpCommand extends ICommand {
      * @param {string} [noHelpMsg] The message that is shown when no help is available.
      * @memberof ICommand
      */
-    invoke(tool: ITool, robot: Robot, res: Response, match: RegExpMatchArray, values: IParameterValueCollection, helpMsgPrefix?: string, noHelpMsg?: string): void;
+    invoke(
+        tool: ITool, 
+        robot: Robot, 
+        res: Response, 
+        match: RegExpMatchArray, 
+        values: IParameterValueCollection, 
+        helpMsgPrefix?: string, 
+        noHelpMsg?: string): void;
 }
