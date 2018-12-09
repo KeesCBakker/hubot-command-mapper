@@ -10,7 +10,7 @@ class AliasMapping implements IMutable {
   public matchers: RegularExpessionMap[];
   public splitter: RegExp;
 
-  constructor(map: { [key: string]: string }, robot: Hubot.Robot) {
+  constructor(map: IMap, robot: Hubot.Robot) {
 
     this.splitter = createSplitter(robot.name, robot.alias || robot.name);
     this.matchers = convertMapIntoRegularExpression(map);

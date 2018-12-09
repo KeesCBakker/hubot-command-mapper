@@ -1,11 +1,11 @@
 import { convertCommandIntoRegexString } from "../../utils/regex";
 import { isUndefined } from "util";
-import { IParameterValueCollection, ICommand, ITool } from "../../definitions";
+import { IParameterValueCollection, ICommand, ITool, IMap } from "../../definitions";
 
 const NamedRegExp = require("named-regexp-groups");
 
 export function getValues(robotName: string, robotAlias: string, tool: ITool, command: ICommand, messsage: string): IParameterValueCollection {
-  let collection: IParameterValueCollection = {};
+  let collection: IMap = {};
 
   if (command.parameters) {
     let r = convertCommandIntoRegexString(robotName, robotAlias, tool, command, true);
@@ -22,5 +22,5 @@ export function getValues(robotName: string, robotAlias: string, tool: ITool, co
     }
   }
 
-  return collection;
+  return collection as IParameterValueCollection;
 }

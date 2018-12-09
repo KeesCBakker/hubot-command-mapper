@@ -7,5 +7,5 @@
  */
 export interface IParameterValueCollection {
     /** Name of the parameter. */
-    [name: string]: any;
+    readonly [name: string]: any;
 }
