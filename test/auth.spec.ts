@@ -45,7 +45,7 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Authenticated for tool", done => {
@@ -59,7 +59,7 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Not authenticated for command", done => {
@@ -73,7 +73,7 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Authenticated for command", done => {
@@ -87,6 +87,6 @@ describe("auth.spec.ts / Default commands", () => {
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 });

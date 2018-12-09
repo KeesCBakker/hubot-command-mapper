@@ -31,7 +31,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Testing cd", done => {
@@ -45,7 +45,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Testing cicd", done => {
@@ -59,7 +59,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
 });

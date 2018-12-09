@@ -47,7 +47,7 @@ describe("commands.spec.ts / Default commands", () => {
         );
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Invalid command", done => {
@@ -59,7 +59,7 @@ describe("commands.spec.ts / Default commands", () => {
         expect(message).to.eq("@kees invalid syntax.");
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
  
 });

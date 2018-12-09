@@ -52,7 +52,7 @@ describe("examples.spec.ts > check count/capture example", () => {
                 pretend.shutdown();
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
 
     });
 });
@@ -101,7 +101,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
                 pretend.shutdown();
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
 
     });
 });

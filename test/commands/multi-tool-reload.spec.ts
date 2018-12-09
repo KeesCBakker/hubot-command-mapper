@@ -44,7 +44,7 @@ describe("multi-tool-reload.spec.ts > multi reload", () => {
                 expect(bot.__tools.length).to.eq(6);
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
 
     it("Reload and execute", done => {
@@ -65,7 +65,7 @@ describe("multi-tool-reload.spec.ts > multi reload", () => {
 
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
 
 

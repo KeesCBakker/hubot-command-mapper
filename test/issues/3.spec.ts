@@ -34,7 +34,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Should respond to the alias and execute the command alias", done => {
@@ -48,7 +48,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
 });

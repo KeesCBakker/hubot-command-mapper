@@ -61,7 +61,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
         );
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Testing default parameters", done => {
@@ -73,7 +73,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
         expect(message).to.eq(`@kees {"url":"https://wehkamp.nl","times":350}`);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Testing only 1st parameters", done => {
@@ -85,7 +85,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
         expect(message).to.eq(`@kees {"url":"https://google.com","times":350}`);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Testing only 2nd parameters", done => {
@@ -99,7 +99,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
         );
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Test IPv4", done => {
@@ -113,6 +113,6 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
         );
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 });

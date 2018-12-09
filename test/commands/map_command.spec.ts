@@ -26,7 +26,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Basic command mapping and parameter", done => {
@@ -47,7 +47,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
         expect(x).to.eq("world", "Message should set 'world' to x.");
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Tool segregation with command mapping", done => {
@@ -71,7 +71,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
         ]);
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Test debug", done => {
@@ -98,6 +98,6 @@ describe("map_command.spec.ts / Single command mapping", () => {
         );
         done();
       })
-      .catch((ex:any) => done(ex));
+      .catch(ex => done(ex));
   });
 });

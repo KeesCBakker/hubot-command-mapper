@@ -55,7 +55,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
 
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
 
     it("A non command should also trigger a debug callback", done => {
@@ -83,7 +83,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
 
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
 
 

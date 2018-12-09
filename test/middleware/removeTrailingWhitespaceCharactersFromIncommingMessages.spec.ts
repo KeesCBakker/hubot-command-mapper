@@ -34,7 +34,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
                 expect(message).to.eq('@kees Got this: "this is a test with spaces"');
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
     
     it("Trailing tabs should be removed", done => {
@@ -46,7 +46,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
                 expect(message).to.eq('@kees Got this: "this is a test with tabs"');
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
     
     it("Trailing enters should be removed", done => {
@@ -60,7 +60,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
                 expect(message).to.eq('@kees Got this: "this is a test with enters"');
                 done();
             })
-            .catch((ex:any) => done(ex));
+            .catch(ex => done(ex));
     });
 
 });
