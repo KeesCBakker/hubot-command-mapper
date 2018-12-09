@@ -15,6 +15,7 @@ export class CommandResolver {
                 .map(t => t as ITool)
                 .find(t =>
                     t != null &&
+                    t.__robotRegex != null &&
                     t.__robotRegex.test(res.message.text) &&
                     t.__mute !== true
                 );
