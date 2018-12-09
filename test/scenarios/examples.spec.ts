@@ -1,6 +1,6 @@
 const pretend: Hubot.Pretend = require("hubot-pretend");
 
-import { Options, IContext } from "./../../src/";
+import { Options, ITool } from "./../../src/";
 import { expect } from "chai";
 import "mocha";
 import { mapper, StringParameter } from "./../../src/";
@@ -17,12 +17,12 @@ describe("examples.spec.ts > check count/capture example", () => {
         var options = new Options();
         options.verbose = false;
 
-        const tool = {
+        const tool:ITool = {
             name: "count",
             commands: [{
                 name: "from",
                 capture: "(\\d+) to (\\d+)",
-                execute: (context:IContext) => {
+                execute: context => {
                     const a = Number(context.match[context.match.length - 2])
                     const b = Number(context.match[context.match.length - 1])
 
@@ -70,12 +70,12 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
         var options = new Options();
         options.verbose = false;
 
-        const tool = {
+        const tool:ITool = {
             name: "norris",
             commands: [{
                 name: 'impersonate',
                 parameters: [new StringParameter('firstName'), new StringParameter('lastName')],
-                execute: (context:IContext) => {
+                execute: context => {
                     const firstName = encodeURIComponent(context.values.firstName)
                     const lastName = encodeURIComponent(context.values.lastName)
 
