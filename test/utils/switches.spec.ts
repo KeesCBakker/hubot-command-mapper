@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 import { expect } from "chai";
 import "mocha";
 import { hasSwitch, setSwitch } from '../../src/utils/switches';

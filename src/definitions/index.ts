@@ -7,6 +7,7 @@ import { IContext } from "./IContext";
 import { IParameterValueCollection } from "./IParameterValueCollection";
 import { ITool } from "./ITool";
 import { ICommandResolverResultDebugInfo } from "./ICommandResolverResultDebugInfo";
+import { IMap } from "./IMap";
 
 
 export {
@@ -18,5 +19,6 @@ export {
     IParameter,
     IParameterValueCollection,
     ITool,
-    ICommandResolverResultDebugInfo
+    ICommandResolverResultDebugInfo,
+    IMap
 }

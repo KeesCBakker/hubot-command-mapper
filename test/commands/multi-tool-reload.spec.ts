@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend : Hubot.Pretend = require("hubot-pretend");
 
 import tools from "./multi-tool-reload";
 import { expect } from "chai";
@@ -10,7 +10,7 @@ describe("multi-tool-reload.spec.ts > multi reload", () => {
     beforeEach(() => {
         pretend.start();
 
-        pretend.robot.loadFile = file => {
+        pretend.robot.loadFile = (file:string) => {
             tools(pretend.robot);
         };
 

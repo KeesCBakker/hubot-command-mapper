@@ -1,7 +1,4 @@
-import { IParameter } from "..";
-import { IParameterValueCollection } from "./IParameterValueCollection";
-import { ITool } from "./ITool";
-import { IContext } from "./IContext";
+import { IParameter, IParameterValueCollection, ITool, IContext } from "./";
 
 /**
  * Models a command that can be invoked by the Hubot.
@@ -21,7 +18,7 @@ export interface ICommand {
      * add default commands to tools. The alias is optional.
      */
     alias?: string[];
-    
+
     /** A regex that can be used to match values behind a command.*/
     capture?: string;
 
@@ -53,8 +50,8 @@ export interface ICommand {
      * 
      * @param context Contextual data.
      */
-    execute?(context: IContext) : void;
-    
+    execute?(context: IContext): void;
+
     /**
      * The regular expression that is used to validate if a certain
      * typed command string can execute against this command. Needed

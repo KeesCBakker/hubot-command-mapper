@@ -1,6 +1,6 @@
 import { ITool } from "..";
 import { ICommand, IParameterValueCollection, ICommandResolverResultDebugInfo } from "../definitions";
-import { getValues } from "../parameters/ValueExtractor";
+import { getValues } from "./parameters/ValueExtractor";
 
 export class CommandResolver {
 

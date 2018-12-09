@@ -1,6 +1,6 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
-import { Options } from "./../../src/";
+import { Options, ITool } from "./../../src/";
 import { expect } from "chai";
 import "mocha";
 import { mapper, StringParameter } from "./../../src/";
@@ -17,7 +17,7 @@ describe("examples.spec.ts > check count/capture example", () => {
         var options = new Options();
         options.verbose = false;
 
-        const tool = {
+        const tool:ITool = {
             name: "count",
             commands: [{
                 name: "from",
@@ -70,7 +70,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
         var options = new Options();
         options.verbose = false;
 
-        const tool = {
+        const tool:ITool = {
             name: "norris",
             commands: [{
                 name: 'impersonate',

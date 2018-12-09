@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { map_command, Options, StringParameter } from "../../src";
 import { expect } from "chai";
@@ -63,7 +63,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
     pretend
       .user("Kees")
       .send("@hubot c")
-      .then(x => new Promise(resolve => setTimeout(resolve, 100)))
+      .then(x => new Promise<any>(resolve => setTimeout(resolve, 100)))
       .then(x => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot c"],

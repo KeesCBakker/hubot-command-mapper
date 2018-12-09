@@ -18,7 +18,7 @@ export function createRegex(
       {
         name: commandName,
         parameters: parameters,
-        invoke: () => {}
+        invoke: () => { }
       }
     ]
   };
@@ -26,9 +26,9 @@ export function createRegex(
   return convertCommandIntoRegexString(robotName, null, tool, tool.commands[0]);
 }
 
-export function delay(ms, val){
-  return new Promise(r => {
-    setTimeout(()=>{
+export function delay<T>(ms: number, val: T) {
+  return new Promise<T>(r => {
+    setTimeout(() => {
       r(val);
     }, ms);
   });

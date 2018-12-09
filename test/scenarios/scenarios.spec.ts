@@ -1,4 +1,4 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { mapper, Options, NumberParameter, RegExStringParameter, TokenParameter, IPv4Parameter } from "../../src";
 import { expect } from "chai";

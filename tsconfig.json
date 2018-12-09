@@ -4,7 +4,9 @@
       "target": "es6",
       "module": "commonjs",
       "outDir": "./dist",
-      "declaration": true
+      "declaration": true,
+      "noImplicitAny": true,
+      "sourceMap": true
     },
     "include": [
       "src/**/*.ts"
@@ -12,5 +14,9 @@
     "exclude": [
       "node_modules",
       "dist"
-    ]
+    ],
+    "typeAcquisition": {
+        "enable": true
+    }
   }
+  

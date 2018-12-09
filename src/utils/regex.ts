@@ -82,7 +82,7 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias: str
 
       //make sure capture does not interfere with other commands
       //as they take precedence over a capture.
-      const commands = [];
+      const commands: string[] = [];
       tool.commands.forEach(c => {
         //if a command does not use capture, add string terminator
         //this prevents non-capture commands from flowing into
@@ -143,9 +143,9 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias: str
  *
  * @export
  * @param {any} str The string.
- * @returns
+ * @returns The escaped regular expression.
  */
-export function escapeRegExp(str) {
+export function escapeRegExp(str: string) {
   str = str || "";
   return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
 }

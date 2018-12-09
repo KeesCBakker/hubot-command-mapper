@@ -1,9 +1,8 @@
-const pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend");
 
 import { map_command, mapper, Options, RestParameter } from "./../src/";
 import { expect } from "chai";
 import "mocha";
-import { IContext } from "mocha";
 
 describe("index.spec.ts / Command mapping", () => {
   const options = new Options();
@@ -242,7 +241,7 @@ describe("index.spec.ts / Command mapping", () => {
       name: "testing",
       commands: [{
         name: "everything",
-        parameters: [ new RestParameter("rest") ],
+        parameters: [new RestParameter("rest")],
         invoke: (tool, robot, res) => res.reply("kewl!")
       }]
     }, options);
