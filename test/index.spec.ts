@@ -36,7 +36,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Default command mapping", done => {
@@ -49,7 +49,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Alias", done => {
@@ -75,7 +75,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Empty alias", done => {
@@ -101,7 +101,7 @@ describe("index.spec.ts / Command mapping", () => {
         expect(i).to.eq(1, "Message should increment i.");
         done();
       })
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Multiple aliases", done => {
@@ -141,7 +141,7 @@ describe("index.spec.ts / Command mapping", () => {
           .then(() => expect(i).to.eq(3, "Message should increment i."))
       )
       .then(x => done())
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Multiple command mapping", done => {
@@ -189,7 +189,7 @@ describe("index.spec.ts / Command mapping", () => {
           .then(x => expect(latest).to.eq("a", "'a' was not called."))
       )
       .then(x => done())
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
   it("Tool segregation", done => {
@@ -232,7 +232,7 @@ describe("index.spec.ts / Command mapping", () => {
         ]);
         done();
       })
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 
 
@@ -256,6 +256,6 @@ describe("index.spec.ts / Command mapping", () => {
         ]);
         done();
       })
-      .catch((ex: any) => done(ex));
+      .catch(ex => done(ex));
   });
 });
