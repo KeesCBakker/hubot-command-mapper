@@ -1,4 +1,4 @@
-import { IContext } from "./IContext";
+import { IContext } from ".";
 
 /**
  * Called when a command is excuted.
