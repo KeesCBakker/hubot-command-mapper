@@ -12,7 +12,7 @@ export class CommandResolver {
 
         if (this.robot.__tools) {
             tool = this.robot.__tools
-                .map(t => t as ITool)
+                .map(t => <any>t as ITool)
                 .find(t =>
                     t != null &&
                     t.__robotRegex != null &&
