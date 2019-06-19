@@ -33,7 +33,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
 
         alias(pretend.robot, {
             'shout*': 'echo'
-        },options);
+        }, options);
     });
 
     afterEach(() => pretend.shutdown());
@@ -51,7 +51,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
             })
             .catch(ex => done(ex));
     });
-    
+
     it("Tool alias mapping", done => {
         pretend
             .user("kees")
@@ -108,19 +108,61 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
             .catch(ex => done(ex));
     });
 
-    it('Alias mapped after detault', done =>{
+    it('Alias mapped after detault', done => {
         pretend
-        .user("kees")
-        .send("@hubot shout bot")
-        .then(() => {
-            expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
-                ["kees", "@hubot shout bot"],
-                ["hubot", "@kees Echo bot!"]
-            ]);
-            done();
-        })
-        .catch(ex => done(ex));
+            .user("kees")
+            .send("@hubot shout bot")
+            .then(() => {
+                expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
+                    ["kees", "@hubot shout bot"],
+                    ["hubot", "@kees Echo bot!"]
+                ]);
+                done();
+            })
+            .catch(ex => done(ex));
     });
 
 
+});
+
+
+describe("default_alias.spec.ts / exceptions", () => {
+
+    it('Exception on mapping twice', () => {
+
+        var options = new Options();
+        options.verbose = false;
+
+        pretend.start();
+
+        // map 1st alias
+        map_default_alias(pretend.robot, 'alpha', options);
+
+        // 2nd alias should throw an exception
+        expect(() => map_default_alias(pretend.robot, 'beta', options)).to.throw('A default has already been mapped. Cannot map a 2nd default alias.');
+
+        pretend.shutdown();
+    });
+
+    it('Exception on empty alias', () => {
+
+        var options = new Options();
+        options.verbose = false;
+
+        pretend.start();
+
+        expect(() => map_default_alias(pretend.robot, '', options)).to.throw("Argument 'destination' is empty.");
+
+        pretend.shutdown();
+    });
+
+    
+
+    it('Exception on empty robot', () => {
+
+        var options = new Options();
+        options.verbose = false;
+
+        expect(() => map_default_alias(null, 'alpha', options)).to.throw("Argument 'robot' is empty.");
+    });
 });

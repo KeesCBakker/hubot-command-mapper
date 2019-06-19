@@ -12,8 +12,9 @@ export function removeTrailingBotWhitespaceCharactersFromIncommingMessages(
   if (!robot) throw "Argument 'robot' is empty.";
 
   if (hasSwitch(robot, SWITCH)) {
-    if (options.verbose)
+    if (options.verbose) {
       console.log("The fix trailing spaces after bot middleware has already been registered.");
+    }
 
     return;
   }

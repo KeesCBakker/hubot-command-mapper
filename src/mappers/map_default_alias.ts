@@ -1,5 +1,8 @@
 import { IOptions, ITool, defaultOptions } from "..";
 import { escapeRegExp } from "../utils/regex";
+import { hasSwitch, setSwitch } from "../utils/switches";
+
+const SWITCH = 'mda';
 
 /**
  * If no tool is mapped to the text, this default alias
@@ -18,6 +21,12 @@ export function map_default_alias(
 
   if (!robot) throw "Argument 'robot' is empty.";
   if (!destination) throw "Argument 'destination' is empty.";
+
+  if (hasSwitch(robot, SWITCH)) {
+    throw 'A default has already been mapped. Cannot map a 2nd default alias.';
+  }
+
+  setSwitch(robot, SWITCH);
 
   if (options.verbose) {
     console.log(`Aliasing default to '${destination}'.`);
