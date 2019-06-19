@@ -12,7 +12,7 @@ class AliasMapping implements IMutable {
 
   constructor(map: IMap, robot: Hubot.Robot) {
 
-    this.splitter = createSplitter(robot.name, robot.alias || robot.name);
+    this.splitter = createBotCommandExtractor(robot.name, robot.alias || robot.name);
     this.matchers = convertMapIntoRegularExpression(map);
   }
 
@@ -78,7 +78,16 @@ export function alias(
   });
 }
 
-function createSplitter(name: string, alias: string): RegExp {
+/**
+ * Creates a regular expression that can extract the bot name and the
+ * rest of the command.
+ * 
+ * @export
+ * @param {string} name The name of the bot.
+ * @param {string} alias The alias of the bot.
+ * @returns {RegExp} The regular expression.
+ */
+function createBotCommandExtractor(name: string, alias: string): RegExp {
   return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`, "i");
 }
 
