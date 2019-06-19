@@ -6,11 +6,14 @@ _Helps with the mapping of tools and commands for your Hubot. No more regex. No 
 _Why?_ Writing regular expressions for commands is hard. You have to spend some time to prevent expressions from colliding with others. Now the mapper takes care of that problem.
 
 ## Installation
-Install the command mapper like this: `npm install hubot-command-mapper --save`
+Install the command mapper like this: 
+```sh
+npm install hubot-command-mapper --save
+```
 
 ## A simple example
 Let's define the _clear screen_ command by replying with 48 space-lines:
-```
+```js
 const { map_command } = require("hubot-command-mapper");
 
 map_command(pretend.robot, "clear screen", options, context => {
@@ -18,14 +21,13 @@ map_command(pretend.robot, "clear screen", options, context => {
         context.res.emote(' ');
     }
 });
-
 ```
 The mapper will map the command into the robot using the `respond` method. The `hear` method is currently not supported.
 
 ## A complexer example
 Let's group a few actions into a _tool_. A tool has a name and a collection of named commands. They are mapped in such a way that the actions will not collide. Here we've created a todo list with the `add`, `list` and `remove` actions:
 
-```
+```js
 const { map_tool, RestParameter } = require("hubot-command-mapper");
 
 module.exports = robot => {
@@ -73,10 +75,48 @@ module.exports = robot => {
 
 ```
 
+## Alias
+Sometimes you want to have more control over the way commands and tools are
+prented to user. The rigid control you need as a developer does not have to
+end up in your tool. You can use the `alias` and `map_default_alias` to
+route messages to your tools and commands.
+
+Alias will take a map and route accordingly. Please use `*` to match more 
+than the alias itself.
+
+```js
+// imagine you have the following commands:
+// @bot todo list: lists all the items on the todo list
+// @bot todo add {item}: adds the item to the list
+
+const { alias } = require("hubot-command-mapper");
+
+module.exports = robot => {
+  alias(robot, {
+    'list': 'todo list',
+    'todo*': 'todo add'
+  });
+};
+```
+
+But what if you want to route all messages that are not handled by tools
+to a certain action? Use `map_default_alias`.
+
+```js
+// imagine you have the following commands:
+// @bot search `query`: searches the database
+
+const { alias } = require("hubot-command-mapper");
+
+module.exports = robot => {
+  map_default_alias(robot, 'search');
+};
+```
+
 ## Capturing with named parameters
 A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accesed through the `match` object in the invoke:
 
-```
+```js
 const { mapper } = require("hubot-command-mapper");
 
 module.exports = robot => {
@@ -89,8 +129,8 @@ module.exports = robot => {
 
           // because an alias might be used, we need to select
           // from the end of the matches.
-          const a = Number(context.match[context.match.length - 2])
-          const b = Number(context.match[context.match.length - 1])
+          const a = Number(context.match[context.match.length - 2]);
+          const b = Number(context.match[context.match.length - 1]);
 
           for (let i = a; i < b + 1; i++) {
             context.res.reply(`${i}!`)
@@ -105,7 +145,7 @@ module.exports = robot => {
 
 Another way is using named parameters. The values can be accessed by the `values` object. Each value is added as a named property.
 
-```
+```js
 const { mapper, StringParameter } = require("hubot-command-mapper");
 
 module.exports = robot => {
@@ -115,8 +155,8 @@ module.exports = robot => {
         name: 'impersonate',
         parameters: [new StringParameter('firstName'), new StringParameter('lastName')],
         execute: context => {
-          const firstName = encodeURIComponent(context.values.firstName)
-          const lastName = encodeURIComponent(context.values.lastName)
+          const firstName = context.values.firstName;
+          const lastName = context.values.lastName;
 
           context.res.reply(`${firstName} ${lastName} has counted to infinity. Twice!`)
         }     
