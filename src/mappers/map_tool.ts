@@ -91,10 +91,11 @@ export function map_tool(
   const toolRegexString = convertToolIntoRegexString(robot.name, robot.alias, tool);
   const toolRegex = new RegExp(toolRegexString, "i");
   tool.__robotRegex = toolRegex;
+  (tool as any).canHandle = (msg:string) => toolRegex.test(msg);
 
   // add tool to robot - helps with reloading and middleware
   robot.__tools = robot.__tools || [];
-  robot.__tools.push(tool);
+  robot.__tools.push(tool as any);
 
   const resolver = new CommandResolver(robot);
 

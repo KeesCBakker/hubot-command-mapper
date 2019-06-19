@@ -2,8 +2,9 @@ import { escapeRegExp } from "../utils/regex";
 import { IMutable } from "../definitions/IMutable";
 import { IOptions } from "../entities/options";
 import { IMap } from "../definitions";
+import { IMessageHandler } from "../definitions/IMessageHandler";
 
-class AliasMapping implements IMutable {
+class AliasMapping implements IMutable, IMessageHandler {
 
   public __source?: NodeModule;
   public __mute?: boolean;
@@ -38,6 +39,19 @@ class AliasMapping implements IMutable {
       newText = newText + " " + match[1];
 
     return newText;
+  }
+
+  public canHandle(msg: string): Boolean {
+    const data = this.splitter.exec(msg);
+    if (!data)
+      return false;
+
+    const command = data[3];
+    const alias = this.matchers.find(m => m.matcher.test(command));
+    if (!alias)
+      return false;
+
+    return true;
   }
 }
 

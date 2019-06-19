@@ -1,4 +1,5 @@
 import { IMutable, ICommand } from ".";
+import { IMessageHandler } from "./IMessageHandler";
 
 /**
  * A tool is a collection of command that can be executed. Each command

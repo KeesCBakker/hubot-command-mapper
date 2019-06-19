@@ -57,13 +57,8 @@ export function map_default_alias(
 function isUnhandledMessage(robot: Hubot.Robot, msg: string) {
   for (let tool of robot.__tools) {
     if (!tool.__mute) {
-      let t = tool as ITool;
-      if (t) {
-        if (t.__robotRegex) {
-          if (t.__robotRegex.test(msg)) {
-            return false;
-          }
-        }
+      if (tool.canHandle(msg)) {
+        return false;
       }
     }
   }

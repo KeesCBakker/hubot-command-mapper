@@ -1,4 +1,5 @@
 import { ITool, IMutable } from ".";
+import { IMessageHandler } from "./IMessageHandler";
 
 // Type definitions for hubot 2.19
 // Project: https://github.com/github/hubot
@@ -55,7 +56,7 @@ declare namespace Hubot {
         respond(regex: RegExp, options: any, callback: ListenerCallback<this>): void;
         receiveMiddleware(callback: receiveMiddlewareCallback): void;
 
-        __tools?: IMutable[];
+        __tools?: (IMutable & IMessageHandler)[];
         __switches?: string[];
     }
 

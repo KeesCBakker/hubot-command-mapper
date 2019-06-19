@@ -1,6 +1,6 @@
 const pretend: Hubot.Pretend = require("hubot-pretend");
 
-import { map_command, Options, alias, map_default_alias, RestParameter } from "./../src";
+import { map_tool, map_command, Options, alias, map_default_alias, RestParameter } from "./../src";
 import { expect } from "chai";
 import "mocha";
 
@@ -14,16 +14,57 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
 
         map_command(pretend.robot, "hello", options, new RestParameter('name', 'unknown'), context => context.res.reply(`Hi ${context.values.name}!`));
         map_command(pretend.robot, "bye", options, new RestParameter('name', 'unknown'), context => context.res.reply(`Toodles ${context.values.name}!`));
+        map_tool(pretend.robot, {
+            name: "echo",
+            commands: [{
+                name: 'default',
+                parameters: [new RestParameter('what', 'unknown')],
+                alias: [''],
+                execute: context => context.res.reply(`Echo ${context.values.what}!`)
+            }]
+        }, options);
 
         alias(pretend.robot, {
-            'hi': 'hello',
-            'hi*': 'hello'
+            'hi*': 'hello',
+            'say*': 'echo'
         }, options);
 
         map_default_alias(pretend.robot, 'bye', options);
+
+        alias(pretend.robot, {
+            'shout*': 'echo'
+        },options);
     });
 
     afterEach(() => pretend.shutdown());
+
+    it("Tool mapping", done => {
+        pretend
+            .user("kees")
+            .send("@hubot echo bot")
+            .then(() => {
+                expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
+                    ["kees", "@hubot echo bot"],
+                    ["hubot", "@kees Echo bot!"]
+                ]);
+                done();
+            })
+            .catch(ex => done(ex));
+    });
+    
+    it("Tool alias mapping", done => {
+        pretend
+            .user("kees")
+            .send("@hubot say bot")
+            .then(() => {
+                expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
+                    ["kees", "@hubot say bot"],
+                    ["hubot", "@kees Echo bot!"]
+                ]);
+                done();
+            })
+            .catch(ex => done(ex));
+    });
 
     it("Command mapping", done => {
         pretend
@@ -39,7 +80,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
             .catch(ex => done(ex));
     });
 
-    it("Alias mapping", done => {
+    it("Command alias mapping", done => {
         pretend
             .user("kees")
             .send("@hubot hi bot")
@@ -65,6 +106,20 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
                 done();
             })
             .catch(ex => done(ex));
+    });
+
+    it('Alias mapped after detault', done =>{
+        pretend
+        .user("kees")
+        .send("@hubot shout bot")
+        .then(() => {
+            expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
+                ["kees", "@hubot shout bot"],
+                ["hubot", "@kees Echo bot!"]
+            ]);
+            done();
+        })
+        .catch(ex => done(ex));
     });
 
 
