@@ -2,7 +2,7 @@ import { IOptions, defaultOptions } from "..";
 import { hasSwitch, setSwitch } from "../utils/switches";
 import { convertBotNameIntoRegexString } from "../utils/regex";
 
-const FIX_TRAILING_BOT_SPACES_SWITCH = 'ftss';
+const SWITCH = 'rtbwcfim';
 
 export function removeTrailingBotWhitespaceCharactersFromIncommingMessages(
   robot: Hubot.Robot,
@@ -11,14 +11,14 @@ export function removeTrailingBotWhitespaceCharactersFromIncommingMessages(
 
   if (!robot) throw "Argument 'robot' is empty.";
 
-  if (hasSwitch(robot, FIX_TRAILING_BOT_SPACES_SWITCH)) {
+  if (hasSwitch(robot, SWITCH)) {
     if (options.verbose)
       console.log("The fix trailing spaces after bot middleware has already been registered.");
 
     return;
   }
 
-  setSwitch(robot, FIX_TRAILING_BOT_SPACES_SWITCH);
+  setSwitch(robot, SWITCH);
 
   const robotNameRegexString = convertBotNameIntoRegexString(robot.name, robot.alias);
   robot.receiveMiddleware((context, next, done) => {
