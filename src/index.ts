@@ -17,6 +17,7 @@ import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
 import { removeTrailingWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncommingMessages";
 import { removeTrailingBotWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingBotWhitespaceCharactersFromIncommingMessages";
 import { addDiagnosticsMiddleware } from "./middleware/addDiagnosticsMiddleware";
+import { map_default_alias } from "./mappers/map_default_alias";
 
 export {
   IParameter,
@@ -41,7 +42,8 @@ export {
   ICommandResolverResultDebugInfo,
   removeTrailingWhitespaceCharactersFromIncommingMessages,
   removeTrailingBotWhitespaceCharactersFromIncommingMessages,
-  addDiagnosticsMiddleware
+  addDiagnosticsMiddleware,
+  map_default_alias
 }
 
 //needed for reload - otherwise the caller value will be cached
