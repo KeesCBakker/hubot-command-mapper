@@ -16,8 +16,8 @@ const SWITCH = 'mda';
 export function map_default_alias(
   robot: Hubot.Robot,
   destination: string,
-  options: IOptions = defaultOptions,
-  skipRegexes: RegExp[] = []
+  skipRegexes: RegExp[] = [],
+  options: IOptions = defaultOptions
 ) {
 
   if (!robot) throw "Argument 'robot' is empty.";

@@ -29,7 +29,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
             'say*': 'echo'
         }, options);
 
-        map_default_alias(pretend.robot, 'bye', options, [/help/i]);
+        map_default_alias(pretend.robot, 'bye', [/help/i], options);
         1
         alias(pretend.robot, {
             'shout*': 'echo'
@@ -149,10 +149,10 @@ describe("default_alias.spec.ts / exceptions", () => {
         pretend.start();
 
         // map 1st alias
-        map_default_alias(pretend.robot, 'alpha', options);
+        map_default_alias(pretend.robot, 'alpha', [], options);
 
         // 2nd alias should throw an exception
-        expect(() => map_default_alias(pretend.robot, 'beta', options)).to.throw('A default has already been mapped. Cannot map a 2nd default alias.');
+        expect(() => map_default_alias(pretend.robot, 'beta', [], options)).to.throw('A default has already been mapped. Cannot map a 2nd default alias.');
 
         pretend.shutdown();
     });
@@ -164,7 +164,7 @@ describe("default_alias.spec.ts / exceptions", () => {
 
         pretend.start();
 
-        expect(() => map_default_alias(pretend.robot, '', options)).to.throw("Argument 'destination' is empty.");
+        expect(() => map_default_alias(pretend.robot, '', [], options)).to.throw("Argument 'destination' is empty.");
 
         pretend.shutdown();
     });
@@ -176,6 +176,6 @@ describe("default_alias.spec.ts / exceptions", () => {
         var options = new Options();
         options.verbose = false;
 
-        expect(() => map_default_alias(null, 'alpha', options)).to.throw("Argument 'robot' is empty.");
+        expect(() => map_default_alias(null, 'alpha', [], options)).to.throw("Argument 'robot' is empty.");
     });
 });
