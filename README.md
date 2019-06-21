@@ -99,8 +99,7 @@ module.exports = robot => {
 };
 ```
 
-But what if you want to route all messages that are not handled by tools
-to a certain action? Use `map_default_alias`.
+But what if you want to route all messages that are not handled by tools to a certain action? Use `map_default_alias`. You can provide regular expressions for messages that should be skipped.
 
 ```js
 // imagine you have the following commands:
@@ -109,7 +108,7 @@ to a certain action? Use `map_default_alias`.
 const { alias } = require("hubot-command-mapper");
 
 module.exports = robot => {
-  map_default_alias(robot, 'search');
+  map_default_alias(robot, 'search', /help/i);
 };
 ```
 

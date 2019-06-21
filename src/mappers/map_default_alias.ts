@@ -16,7 +16,8 @@ const SWITCH = 'mda';
 export function map_default_alias(
   robot: Hubot.Robot,
   destination: string,
-  options: IOptions = defaultOptions
+  options: IOptions = defaultOptions,
+  skipRegexes: RegExp[] = []
 ) {
 
   if (!robot) throw "Argument 'robot' is empty.";
@@ -37,17 +38,23 @@ export function map_default_alias(
   robot.receiveMiddleware((context, next, done) => {
 
     let text = context.response.message.text;
+
     if (isUnhandledMessage(robot, text)) {
 
-      let data = splitter.exec(text);
-      let robotName = data[1];
-      let command = data[3].trim();
-      let newText = robotName + ' ' + destination + ' ' + command;
+      // should be skipped
+      const shouldBeSkipped = skipRegexes.some(s => s.test(text));
+      if (!shouldBeSkipped) {
 
-      if (text != newText) {
-        context.response.message.text = newText;
-        if (options.verbose) {
-          console.log(`Routing '${text}' to '${newText}'.`);
+        let data = splitter.exec(text);
+        let robotName = data[1];
+        let command = data[3].trim();
+        let newText = robotName + ' ' + destination + ' ' + command;
+
+        if (text != newText) {
+          context.response.message.text = newText;
+          if (options.verbose) {
+            console.log(`Routing '${text}' to '${newText}'.`);
+          }
         }
       }
     }

@@ -29,8 +29,8 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
             'say*': 'echo'
         }, options);
 
-        map_default_alias(pretend.robot, 'bye', options);
-
+        map_default_alias(pretend.robot, 'bye', options, [/help/i]);
+        1
         alias(pretend.robot, {
             'shout*': 'echo'
         }, options);
@@ -122,6 +122,19 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
             .catch(ex => done(ex));
     });
 
+    it('Alias should skip help', done => {
+        pretend
+            .user("kees")
+            .send("@hubot help")
+            .then(() => {
+                expect(pretend.messages, "This message should not be handled.").to.eql([
+                    ["kees", "@hubot help"]
+                ]);
+                done();
+            })
+            .catch(ex => done(ex));
+    });
+
 
 });
 
@@ -156,7 +169,7 @@ describe("default_alias.spec.ts / exceptions", () => {
         pretend.shutdown();
     });
 
-    
+
 
     it('Exception on empty robot', () => {
 
