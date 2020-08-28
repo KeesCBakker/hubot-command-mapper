@@ -1,4 +1,3 @@
-import { Robot, Response } from "./Hubot";
 import { ITool, ICommand, IParameterValueCollection } from ".";
 
 export interface IHelpCommand extends ICommand {
@@ -19,8 +18,8 @@ export interface IHelpCommand extends ICommand {
      */
     invoke(
         tool: ITool, 
-        robot: Robot, 
-        res: Response, 
+        robot: Hubot.Robot, 
+        res: Hubot.Response, 
         match: RegExpMatchArray, 
         values: IParameterValueCollection, 
         helpMsgPrefix?: string, 
