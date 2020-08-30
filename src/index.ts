@@ -11,7 +11,7 @@ import { RestParameter } from "./entities/parameters/RestParameter";
 import { AnyParameter } from "./entities/parameters/AnyParameter";
 import { StringParameter } from "./entities/parameters/StringParameter";
 import { ChoiceParameter } from "./entities/parameters/ChoiceParameter";
-import { RegExStringParameter } from "./entities/parameters/RegExStringParameter";
+import { RegExStringParameter, RegExParameter } from "./entities/parameters/RegExStringParameter";
 import { TokenParameter } from "./entities/parameters/TokenParameter";
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter";
 import { removeTrailingWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncommingMessages";
@@ -30,6 +30,7 @@ export {
   StringParameter,
   ChoiceParameter,
   RegExStringParameter,
+  RegExParameter,
   TokenParameter,
   IPv4Parameter,
   IOptions,

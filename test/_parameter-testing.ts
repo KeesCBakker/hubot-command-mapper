@@ -6,6 +6,11 @@ export function test(regex: string, dataToTest: string) {
   return r.test(dataToTest);
 }
 
+export function exec(regex: string, dataToTest: string) {
+  var r = new RegExp(regex, "i");
+  return r.exec(dataToTest);
+}
+
 export function createRegex(
   parameters: IParameter[],
   robotName = "hubot",
