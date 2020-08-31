@@ -46,7 +46,7 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias: str
 
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
-  let regexString =  convertBotNameIntoRegexString(robotName, robotAlias);
+  let regexString = convertBotNameIntoRegexString(robotName, robotAlias);
 
   regexString += " ";
 
@@ -89,7 +89,7 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias: str
         //a capture command.
         let postfix = "$";
         if (c.capture || (c.parameters != null && c.parameters.length > 0)) {
-          postfix = "";
+          postfix = "(?=( |$))";
         }
 
         commands.push(` ${escapeRegExp(c.name)}${postfix}`);
