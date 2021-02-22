@@ -20,6 +20,8 @@ declare namespace Hubot {
         user: User;
         text: string;
         id: string;
+        room: string;
+        thread_ts?: string;
     }
 
     class Response {
