@@ -29,7 +29,7 @@
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
     "named-regexp-groups": "^1.0.5",
-    "npm-force-resolutions": "0.0.3"
+    "npm-force-resolutions": "0.0.10"
   },
   "devDependencies": {
     "@types/chai": "^4.2.15",
