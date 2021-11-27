@@ -1,4 +1,4 @@
-import { ITool, ICommand } from "../definitions";
+import { ITool, ICommand } from "../definitions"
 
 /**
  * Validates the tool and throws and exception if the
@@ -6,12 +6,12 @@ import { ITool, ICommand } from "../definitions";
  * @param tool The tool.
  */
 export default function validateToolAndThrowWhenInvalid(tool: ITool): void {
-  if (!tool.name || tool.name === "") throw "Invalid name for tool.";
+  if (!tool.name || tool.name === "") throw "Invalid name for tool."
 
   if (!tool.commands || !tool.commands.length)
-    throw `No commands found for "${tool.name}"`;
+    throw `No commands found for "${tool.name}"`
 
-  tool.commands.forEach(cmd => validateCommandAndThrowWhenInvalid(tool, cmd));
+  tool.commands.forEach(cmd => validateCommandAndThrowWhenInvalid(tool, cmd))
 }
 
 /**
@@ -21,9 +21,9 @@ export default function validateToolAndThrowWhenInvalid(tool: ITool): void {
  * @param cmd The command.
  */
 export function validateCommandAndThrowWhenInvalid(tool: ITool, cmd: ICommand) {
-  if (!cmd) throw "Cannot map empty command.";
+  if (!cmd) throw "Cannot map empty command."
 
-  if (!cmd.name || cmd.name === "") throw "Invalid command name.";
+  if (!cmd.name || cmd.name === "") throw "Invalid command name."
 
   //validate if the command is registered only once
   if (
@@ -33,7 +33,5 @@ export function validateCommandAndThrowWhenInvalid(tool: ITool, cmd: ICommand) {
         (c.name == cmd.name || (c.alias && c.alias.indexOf(cmd.name) != -1))
     ).length > 0
   )
-    throw `Cannot create command '${cmd.name}' for tool '${
-      tool.name
-    }'. Multiple commands with the same name or alias found.`;
+    throw `Cannot create command '${cmd.name}' for tool '${tool.name}'. Multiple commands with the same name or alias found.`
 }

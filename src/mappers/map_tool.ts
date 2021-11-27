@@ -1,11 +1,13 @@
-import { ITool } from "../definitions";
-import { IOptions, defaultOptions } from "../entities/options";
-import { convertCommandIntoRegexString, convertToolIntoRegexString } from "../utils/regex";
-import createDebugCommand from "../entities/commands/debug";
-import createReloadCommand from "../entities/commands/reload";
-import createHelpCommand from "../entities/commands/help";
-import validateTool from "./validation";
-import { CommandResolver } from "../entities/CommandResolver";
+import { ITool } from "../definitions"
+import { IOptions, defaultOptions } from "../entities/options"
+import {
+  convertCommandIntoRegexString,
+  convertToolIntoRegexString,
+} from "../utils/regex"
+import createDebugCommand from "../entities/commands/debug"
+import createHelpCommand from "../entities/commands/help"
+import validateTool from "./validation"
+import { CommandResolver } from "../entities/CommandResolver"
 
 /**
  * Maps the specified tool to the Robot.
@@ -18,50 +20,31 @@ import { CommandResolver } from "../entities/CommandResolver";
  * @param {IOptions} [options] The options for this specific mapping.
  */
 export function map_tool(
-  caller: NodeModule,
-  packageModule: NodeModule,
   robot: Hubot.Robot,
   tool: ITool,
   options: IOptions = defaultOptions
 ) {
-  if (!robot) throw "Argument 'robot' is empty.";
-  if (!tool) throw "Argument 'tool' is empty.";
-  if (!tool.commands) tool.commands = [];
+  if (!robot) throw "Argument 'robot' is empty."
+  if (!tool) throw "Argument 'tool' is empty."
+  if (!tool.commands) tool.commands = []
 
-  validateTool(tool);
+  validateTool(tool)
 
   // add a debug command
-  tool.__registrations = [];
+  tool.__registrations = []
 
   if (options.addDebugCommand) {
-    tool.commands.push(createDebugCommand());
-  }
-
-  //add a reload command
-  if (options.addReloadCommand) {
-
-    // add caller
-    tool.__source = caller;
-
-    tool.commands.push(
-      createReloadCommand(
-        caller,
-        packageModule,
-        options.verbose,
-        options.reloadNodeModules
-      )
-    );
+    tool.commands.push(createDebugCommand())
   }
 
   //add help
-  const helpCommand = createHelpCommand();
-  if (options.addReloadCommand) {
-    tool.commands.push(helpCommand);
+  const helpCommand = createHelpCommand()
+  if (options.addHelpCommand) {
+    tool.commands.push(helpCommand)
   }
 
   //init every command
   tool.commands.forEach(cmd => {
-    
     //use a second validation regex to confirm the message we
     //are responding to, is as we expected. This will prevent command
     //match edge cases in which certain phrases end with a command name
@@ -70,72 +53,82 @@ export function map_tool(
       robot.alias,
       tool,
       cmd
-    );
+    )
 
-    cmd.validationRegex = new RegExp(strValidationRegex, "i");
+    cmd.validationRegex = new RegExp(strValidationRegex, "i")
 
     if (options.verbose) {
       console.log(
         `Mapping '${tool.name}.${cmd.name}' as '${strValidationRegex}'.`
-      );
+      )
     }
 
     //needed for the debug command
     tool.__registrations.push({
       commandName: cmd.name,
-      messageRegex: strValidationRegex
-    });
-  });
+      messageRegex: strValidationRegex,
+    })
+  })
 
   //listen for invocation of tool
-  const toolRegexString = convertToolIntoRegexString(robot.name, robot.alias, tool);
-  const toolRegex = new RegExp(toolRegexString, "i");
-  tool.__robotRegex = toolRegex;
-  (tool as any).canHandle = (msg:string) => toolRegex.test(msg);
+  const toolRegexString = convertToolIntoRegexString(
+    robot.name,
+    robot.alias,
+    tool
+  )
+  const toolRegex = new RegExp(toolRegexString, "i")
+  tool.__robotRegex = toolRegex
+  ;(tool as any).canHandle = (msg: string) => toolRegex.test(msg)
 
-  // add tool to robot - helps with reloading and middleware
-  robot.__tools = robot.__tools || [];
-  robot.__tools.push(tool as any);
+  // add tool to robot - helps with middleware
+  robot.__tools = robot.__tools || []
+  robot.__tools.push(tool as any)
 
-  const resolver = new CommandResolver(robot);
+  const resolver = new CommandResolver(robot)
 
   robot.respond(toolRegex, res => {
-
-    var action = resolver.resolveFromTool(tool, res);
+    var action = resolver.resolveFromTool(tool, res)
     if (!action || !action.tool) {
-      return;
+      return
     }
 
     //if no commands matched, show help command
     if (action.command == null) {
       if (options.showHelpOnInvalidSyntax) {
-        helpCommand.invoke(tool, robot, res, null, null, options.invalidSystaxHelpPrefix, options.invalidSyntaxMessage);
+        helpCommand.invoke(
+          tool,
+          robot,
+          res,
+          null,
+          null,
+          options.invalidSystaxHelpPrefix,
+          options.invalidSyntaxMessage
+        )
       } else if (options.showInvalidSyntax) {
-        res.reply(options.invalidSyntaxMessage);
+        res.reply(options.invalidSyntaxMessage)
       }
-      return;
+      return
     }
 
     if (options.verbose) {
-      action.log();
+      action.log()
     }
 
     if (!action.authorized) {
-      res.reply(options.notAuthorizedMessage);
-      return;
+      res.reply(options.notAuthorizedMessage)
+      return
     }
 
     if (action.command.invoke) {
-      action.command.invoke(tool, robot, res, action.match, action.values);
-    }
-    else if (action.command.execute) {
+      action.command.invoke(tool, robot, res, action.match, action.values)
+    } else if (action.command.execute) {
       action.command.execute({
         tool: tool,
         robot: robot,
         res: res,
         match: action.match,
-        values: action.values
-      });
+        values: action.values,
+      })
     }
-  });
+  })
 }

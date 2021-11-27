@@ -6,6 +6,6 @@
  * @interface IParameterValueCollection
  */
 export interface IParameterValueCollection {
-    /** Name of the parameter. */
-    readonly [name: string]: any;
+  /** Name of the parameter. */
+  readonly [name: string]: any
 }

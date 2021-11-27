@@ -1,4 +1,4 @@
-import { ParameterBase } from "./ParameterBase";
+import { ParameterBase } from "./ParameterBase"
 
 /**
  * Uses a regular expression to capture the value.
@@ -16,8 +16,8 @@ export class RegExStringParameter extends ParameterBase {
    * @memberof RegExStringParameter
    */
   public get regex() {
-    var x = this.regexString;
-    return `"${x}[^"]*"|'${x}[^']*'|${x}[^ ]*`;
+    var x = this.regexString
+    return `"${x}[^"]*"|'${x}[^']*'|${x}[^ ]*`
   }
   /**
    * Creates an instance of RegExStringParameter.
@@ -26,21 +26,25 @@ export class RegExStringParameter extends ParameterBase {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof RegExStringParameter
    */
-  constructor(name: string, public regexString: string, public defaultValue: string = null) {
-    super(name, defaultValue);
+  constructor(
+    name: string,
+    public regexString: string,
+    public defaultValue: string = null
+  ) {
+    super(name, defaultValue)
   }
 }
 
 export class RegExParameter extends ParameterBase {
   /**
- * Uses the regexStrig to capture the value. Values can also be written
- * between quotes.
- *
- * @readonly
- * @memberof RegExStringParameter
- */
+   * Uses the regexStrig to capture the value. Values can also be written
+   * between quotes.
+   *
+   * @readonly
+   * @memberof RegExStringParameter
+   */
   public get regex() {
-    return this.regexString;
+    return this.regexString
   }
   /**
    * Creates an instance of RegExStringParameter.
@@ -49,7 +53,11 @@ export class RegExParameter extends ParameterBase {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof RegExStringParameter
    */
-  constructor(name: string, public regexString: string, public defaultValue: string = null) {
-    super(name, defaultValue);
+  constructor(
+    name: string,
+    public regexString: string,
+    public defaultValue: string = null
+  ) {
+    super(name, defaultValue)
   }
 }

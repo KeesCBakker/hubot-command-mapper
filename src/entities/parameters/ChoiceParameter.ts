@@ -1,5 +1,5 @@
-import { ParameterBase } from "./ParameterBase";
-import { escapeRegExp } from "../../utils/regex";
+import { ParameterBase } from "./ParameterBase"
+import { escapeRegExp } from "../../utils/regex"
 
 /**
  * Parameter that has a fixed set of values. Remember all values
@@ -10,7 +10,6 @@ import { escapeRegExp } from "../../utils/regex";
  * @extends {ParameterBase}
  */
 export class ChoiceParameter extends ParameterBase {
-
   /**
    * Will only capture the choices.
    *
@@ -18,7 +17,7 @@ export class ChoiceParameter extends ParameterBase {
    * @memberof ChoiceParameter
    */
   public get regex() {
-    return `${this.values.map(v => escapeRegExp(v)).join("|")}`;
+    return `${this.values.map(v => escapeRegExp(v)).join("|")}`
   }
 
   /**
@@ -28,8 +27,11 @@ export class ChoiceParameter extends ParameterBase {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof ChoiceParameter
    */
-  constructor(name: string, public values: string[], public defaultValue: string = null) {
-    super(name, defaultValue);
+  constructor(
+    name: string,
+    public values: string[],
+    public defaultValue: string = null
+  ) {
+    super(name, defaultValue)
   }
-
 }

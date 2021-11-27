@@ -1,4 +1,4 @@
-import { ParameterBase } from "./ParameterBase";
+import { ParameterBase } from "./ParameterBase"
 
 /**
  * Parameter that will capture a string. This is an continued
@@ -10,7 +10,6 @@ import { ParameterBase } from "./ParameterBase";
  * @extends {ParameterBase}
  */
 export class StringParameter extends ParameterBase {
-  
   /**
    * Capture a quoted array or anything without spaces.
    *
@@ -18,7 +17,7 @@ export class StringParameter extends ParameterBase {
    * @memberof StringParameter
    */
   public get regex() {
-    return `"[^"]*"|'[^']*'|[^ ]+`;
+    return `"[^"]*"|'[^']*'|[^ ]+`
   }
 
   /**
@@ -28,6 +27,6 @@ export class StringParameter extends ParameterBase {
    * @memberof StringParameter
    */
   constructor(name: string, public defaultValue: string = null) {
-    super(name, defaultValue);
+    super(name, defaultValue)
   }
 }

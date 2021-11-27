@@ -1,41 +1,49 @@
-import { IHelpCommand, IParameterValueCollection, ITool } from "../../definitions";
-import { Robot, Response } from "../../definitions/Hubot";
+import {
+  IHelpCommand,
+  IParameterValueCollection,
+  ITool,
+} from "../../definitions"
+import { Robot, Response } from "../../definitions/Hubot"
 
 export default function createHelpCommand(): IHelpCommand {
   return {
     name: "help",
     alias: ["?", "/?", "--help"],
     invoke: (
-      tool: ITool, robot: Robot, res: Response,
-      match: RegExpMatchArray, values: IParameterValueCollection,
-      helpMsgPrefix?: string, noHelpMsg?: string
+      tool: ITool,
+      robot: Robot,
+      res: Response,
+      match: RegExpMatchArray,
+      values: IParameterValueCollection,
+      helpMsgPrefix?: string,
+      noHelpMsg?: string
     ): void => {
-      const botName = "@" + (robot.alias || robot.name);
+      const botName = "@" + (robot.alias || robot.name)
 
       let helpCommands = robot
         .helpCommands()
         .filter(cmd => cmd.startsWith("hubot " + tool.name))
-        .map(cmd => cmd.replace(/hubot/g, botName));
+        .map(cmd => cmd.replace(/hubot/g, botName))
 
-      helpCommands.sort();
+      helpCommands.sort()
 
       if (helpCommands.length === 0) {
         if (noHelpMsg) {
-          res.reply(noHelpMsg);
-          return;
+          res.reply(noHelpMsg)
+          return
         }
 
-        res.reply(`the tool _${tool.name}_ has no help.`);
-        return;
+        res.reply(`the tool _${tool.name}_ has no help.`)
+        return
       }
 
       if (!helpMsgPrefix) {
-        helpMsgPrefix = `the tool _${tool.name}_ has the following commands:\n- `;
+        helpMsgPrefix = `the tool _${tool.name}_ has the following commands:\n- `
       }
 
-      let msg = helpMsgPrefix + helpCommands.join("\n- ");
+      let msg = helpMsgPrefix + helpCommands.join("\n- ")
 
-      res.reply(msg);
-    }
-  };
+      res.reply(msg)
+    },
+  }
 }

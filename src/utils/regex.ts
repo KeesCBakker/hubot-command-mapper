@@ -1,36 +1,43 @@
-"strict";
+"strict"
 
-import { IParameter } from "../definitions/IParameter";
-import { ITool } from "../definitions/ITool";
-import { ICommand } from "../definitions/ICommand";
+import { IParameter } from "../definitions/IParameter"
+import { ITool } from "../definitions/ITool"
+import { ICommand } from "../definitions/ICommand"
 
 /**
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(robotName: string, robotAlias: string, tool: ITool) {
+export function convertToolIntoRegexString<A>(
+  robotName: string,
+  robotAlias: string,
+  tool: ITool
+) {
   // add space or end to the tool matcher to prevent tools
   // that are names similar to match and show an invalid
   // syntax warning. Like: ci and cicd tools.
-  let regexString = escapeRegExp(tool.name) + "($| )";
-  return regexString;
+  let regexString = escapeRegExp(tool.name) + "($| )"
+  return regexString
 }
 
-export function convertBotNameIntoRegexString(robotName: string, robotAlias: string){
-  let regexString = "^";
+export function convertBotNameIntoRegexString(
+  robotName: string,
+  robotAlias: string
+) {
+  let regexString = "^"
 
   if (robotName == robotAlias || !robotAlias) {
-    regexString += '@?';
-    regexString += robotName;
+    regexString += "@?"
+    regexString += robotName
   } else {
-    regexString += '(@?';
-    regexString += escapeRegExp(robotName);
-    regexString += '|@?';
-    regexString += escapeRegExp(robotAlias);
-    regexString += ')';
+    regexString += "(@?"
+    regexString += escapeRegExp(robotName)
+    regexString += "|@?"
+    regexString += escapeRegExp(robotAlias)
+    regexString += ")"
   }
 
-  return regexString;
+  return regexString
 }
 
 /**
@@ -42,100 +49,105 @@ export function convertBotNameIntoRegexString(robotName: string, robotAlias: str
  * @param cmd The command.
  * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  */
-export function convertCommandIntoRegexString(robotName: string, robotAlias: string, tool: ITool, cmd: ICommand, useNaming = false) {
-
+export function convertCommandIntoRegexString(
+  robotName: string,
+  robotAlias: string,
+  tool: ITool,
+  cmd: ICommand,
+  useNaming = false
+) {
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
-  let regexString = convertBotNameIntoRegexString(robotName, robotAlias);
+  let regexString = convertBotNameIntoRegexString(robotName, robotAlias)
 
-  regexString += " ";
+  regexString += " "
 
-  regexString += escapeRegExp(tool.name);
-  regexString += "( ";
-  regexString += escapeRegExp(cmd.name);
+  regexString += escapeRegExp(tool.name)
+  regexString += "( "
+  regexString += escapeRegExp(cmd.name)
 
-  let addOptionalCommand = false;
+  let addOptionalCommand = false
 
   if (cmd.alias) {
     cmd.alias.forEach(a => {
       if (a == "") {
-        addOptionalCommand = true;
-        return;
+        addOptionalCommand = true
+        return
       }
 
-      regexString += "| ";
-      regexString += escapeRegExp(a);
-    });
+      regexString += "| "
+      regexString += escapeRegExp(a)
+    })
   }
 
-  let extraSpace = true;
+  let extraSpace = true
 
   //convert parameters to capture
   if (cmd.parameters && cmd.parameters.length > 0) {
-    extraSpace = false;
-    cmd.capture = convertParametersToRegex(cmd.parameters, useNaming);
+    extraSpace = false
+    cmd.capture = convertParametersToRegex(cmd.parameters, useNaming)
   }
 
   if (cmd.capture) {
     if (addOptionalCommand) {
-      regexString += "|";
+      regexString += "|"
 
       //make sure capture does not interfere with other commands
       //as they take precedence over a capture.
-      const commands: string[] = [];
+      const commands: string[] = []
       tool.commands.forEach(c => {
         //if a command does not use capture, add string terminator
         //this prevents non-capture commands from flowing into
         //a capture command.
-        let postfix = "$";
+        let postfix = "$"
         if (c.capture || (c.parameters != null && c.parameters.length > 0)) {
-          postfix = "(?=( |$))";
+          postfix = "(?=( |$))"
         }
 
-        commands.push(` ${escapeRegExp(c.name)}${postfix}`);
+        commands.push(` ${escapeRegExp(c.name)}${postfix}`)
 
         if (c.alias) {
           c.alias
             .filter(c => c != "")
             .map(c => escapeRegExp(c))
             .map(c => " " + c + postfix)
-            .forEach(c => commands.push(c));
+            .forEach(c => commands.push(c))
         }
-      });
+      })
 
       if (commands.length > 0) {
-        regexString += "(?!(";
-        regexString += commands.join("|");
-        regexString += "))";
+        regexString += "(?!("
+        regexString += commands.join("|")
+        regexString += "))"
       }
     }
   }
 
-  regexString += ")";
+  regexString += ")"
 
   if (cmd.capture) {
     //command / tool sperator!
     if (extraSpace) {
-      regexString += " ";
+      regexString += " "
     }
 
     //capture the capture in a group so it will
     //be accessable through the matches
-    regexString += "(";
-    regexString += cmd.capture;
-    regexString += ")";
+    regexString += "("
+    regexString += cmd.capture
+    regexString += ")"
   } else if (addOptionalCommand) {
     //when an optional command is added and there is
     //no capturing of data, we need to make the group
     //options. Because there is no capture, the negative
     //lookahead will not be rendered, so the group
     //needs to be optional.
-    regexString += "?";
+    regexString += "?"
   }
 
-  regexString += "$";
+  regexString += "$"
 
-  return regexString;
+  return regexString
 }
 
 /**
@@ -146,8 +158,8 @@ export function convertCommandIntoRegexString(robotName: string, robotAlias: str
  * @returns The escaped regular expression.
  */
 export function escapeRegExp(str: string) {
-  str = str || "";
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&");
+  str = str || ""
+  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
 }
 
 /**
@@ -165,22 +177,22 @@ export function convertParametersToRegex(
   let r = parameters
     .map(p => {
       //{SPACE}{GROUP COMMAND}{PARAMETER REGEX}{/GROUP COMMAND}
-      let pr = "( ("; //space needed to seperate commands
+      let pr = "( (" //space needed to seperate commands
       if (useNaming) {
-        let name = escapeRegExp(p.name);
-        pr += `(?<${name}>`;
+        let name = escapeRegExp(p.name)
+        pr += `(?<${name}>`
       }
-      pr += p.regex;
+      pr += p.regex
       if (useNaming) {
-        pr += ")";
+        pr += ")"
       }
-      pr += "))";
+      pr += "))"
       if (p.optional) {
-        pr += "?";
+        pr += "?"
       }
-      return pr;
+      return pr
     })
-    .join("");
+    .join("")
 
-  return r;
+  return r
 }

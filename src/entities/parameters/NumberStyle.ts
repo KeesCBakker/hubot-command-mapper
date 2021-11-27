@@ -5,16 +5,16 @@
  * @enum {number}
  */
 export enum NumberStyle {
-    /**
-     * Allow positive numbers.
-     */
-    Positive,
-    /**
-     * Allow negative numbers.
-     */
-    Negative,
-    /**
-     * Allow both numbers.
-     */
-    Both
+  /**
+   * Allow positive numbers.
+   */
+  Positive,
+  /**
+   * Allow negative numbers.
+   */
+  Negative,
+  /**
+   * Allow both numbers.
+   */
+  Both,
 }
