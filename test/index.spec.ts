@@ -121,7 +121,7 @@ describe("index.spec.ts / Command mapping", () => {
       options
     );
 
-    new Promise(resolve => resolve())
+    Promise.resolve()
       .then(x =>
         pretend
           .user("kees")
@@ -169,7 +169,7 @@ describe("index.spec.ts / Command mapping", () => {
       options
     );
 
-    new Promise(resolve => resolve())
+    Promise.resolve()
       .then(x =>
         pretend
           .user("Kees")
