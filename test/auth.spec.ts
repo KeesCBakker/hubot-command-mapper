@@ -1,4 +1,4 @@
-const pretend: Hubot.Pretend = require("hubot-pretend")
+import pretend from "hubot-pretend"
 
 import { mapper, Options } from "./../src/index"
 import { expect } from "chai"

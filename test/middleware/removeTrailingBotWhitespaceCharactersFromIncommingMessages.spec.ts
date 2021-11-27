@@ -1,4 +1,4 @@
-const pretend: Hubot.Pretend = require("hubot-pretend")
+import pretend from "hubot-pretend"
 import { expect } from "chai"
 import "mocha"
 import {

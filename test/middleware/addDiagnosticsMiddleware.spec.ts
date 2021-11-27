@@ -1,4 +1,4 @@
-const pretend: Hubot.Pretend = require("hubot-pretend")
+import pretend from "hubot-pretend"
 import { expect } from "chai"
 import "mocha"
 import {
@@ -10,7 +10,7 @@ import {
   ICommandResolverResultDebugInfo,
 } from "../../src"
 
-const should = require("chai").should()
+import { should } from "chai"
 
 var options = new Options()
 options.verbose = false
@@ -73,11 +73,11 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
         expect(debug.user).to.eql("kees")
         expect(debug.text).to.eql("@hubot pong 127.0.0.1")
 
-        should.not.exist(debug.authorized)
-        should.not.exist(debug.tool)
-        should.not.exist(debug.command)
-        should.not.exist(debug.match)
-        should.not.exist(debug.values)
+        should().not.exist(debug.authorized)
+        should().not.exist(debug.tool)
+        should().not.exist(debug.command)
+        should().not.exist(debug.match)
+        should().not.exist(debug.values)
 
         done()
       })

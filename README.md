@@ -228,15 +228,15 @@ To counter this problem we've created a some middleware that will remove
 trailing whitespace characters from each message. It can be hooked up like
 this:
 
-```
+```js
 const {
-    removeTrailingWhitespaceCharactersFromIncommingMessages,
-    removeTrailingBotWhitespaceCharactersFromIncommingMessages
-} = require("hubot-command-mapper");
+  removeTrailingWhitespaceCharactersFromIncommingMessages,
+  removeTrailingBotWhitespaceCharactersFromIncommingMessages,
+} = require("hubot-command-mapper")
 
 module.exports = robot => {
-    removeTrailingWhitespaceCharactersFromIncommingMessages(robot);
-    removeTrailingBotWhitespaceCharactersFromIncommingMessages(robot);
+  removeTrailingWhitespaceCharactersFromIncommingMessages(robot)
+  removeTrailingBotWhitespaceCharactersFromIncommingMessages(robot)
 }
 ```
 

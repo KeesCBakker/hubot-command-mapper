@@ -1,5 +1,4 @@
 import { convertCommandIntoRegexString } from "../../utils/regex"
-import { isUndefined } from "util"
 import {
   IParameterValueCollection,
   ICommand,
@@ -7,7 +6,7 @@ import {
   IMap,
 } from "../../definitions"
 
-const NamedRegExp = require("named-regexp-groups")
+import NamedRegExp from "named-regexp-groups"
 
 export function getValues(
   robotName: string,
@@ -32,7 +31,7 @@ export function getValues(
 
     for (let parameter of command.parameters) {
       let value = answer[parameter.name]
-      if (isUndefined(value)) {
+      if (value == null) {
         value = parameter.defaultValue
       }
       collection[parameter.name] = value
