@@ -1,24 +1,37 @@
-const pretend: Hubot.Pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend")
 
-import { Options, map_command, IContext } from "./../src/";
-import { expect } from "chai";
-import "mocha";
+import { Options, map_command, IContext } from "./../src/"
+import { expect } from "chai"
+import "mocha"
 
 describe("same-start-name.spec.ts > execute commands with the same start name", () => {
-
   beforeEach(() => {
-    pretend.start();
+    pretend.start()
 
-    var options = new Options();
-    options.verbose = false;
+    var options = new Options()
+    options.verbose = false
 
-    map_command(pretend.robot, "ci", (context) => context.res.reply("ci"), options);
-    map_command(pretend.robot, "cd", (context) => context.res.reply("cd"), options);
-    map_command(pretend.robot, "cicd", (context) => context.res.reply("cicd"), options);
+    map_command(
+      pretend.robot,
+      "ci",
+      context => context.res.reply("ci"),
+      options
+    )
+    map_command(
+      pretend.robot,
+      "cd",
+      context => context.res.reply("cd"),
+      options
+    )
+    map_command(
+      pretend.robot,
+      "cicd",
+      context => context.res.reply("cicd"),
+      options
+    )
+  })
 
-  });
-
-  afterEach(() => pretend.shutdown());
+  afterEach(() => pretend.shutdown())
 
   it("Testing ci", done => {
     pretend
@@ -27,12 +40,12 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot ci"],
-          ["hubot", "@kees ci"]
-        ]);
-        done();
+          ["hubot", "@kees ci"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Testing cd", done => {
     pretend
@@ -41,12 +54,12 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot cd"],
-          ["hubot", "@kees cd"]
-        ]);
-        done();
+          ["hubot", "@kees cd"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Testing cicd", done => {
     pretend
@@ -55,11 +68,10 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot cicd"],
-          ["hubot", "@kees cicd"]
-        ]);
-        done();
+          ["hubot", "@kees cicd"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
-
-});
+      .catch(ex => done(ex))
+  })
+})

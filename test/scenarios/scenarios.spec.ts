@@ -1,15 +1,22 @@
-const pretend: Hubot.Pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend")
 
-import { mapper, Options, NumberParameter, RegExStringParameter, TokenParameter, IPv4Parameter } from "../../src";
-import { expect } from "chai";
-import "mocha";
+import {
+  mapper,
+  Options,
+  NumberParameter,
+  RegExStringParameter,
+  TokenParameter,
+  IPv4Parameter,
+} from "../../src"
+import { expect } from "chai"
+import "mocha"
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   beforeEach(() => {
-    pretend.start();
+    pretend.start()
 
-    var options = new Options();
-    options.verbose = false;
+    var options = new Options()
+    options.verbose = false
 
     mapper(
       pretend.robot,
@@ -24,11 +31,11 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
                 "https?://",
                 "https://wehkamp.nl"
               ),
-              new NumberParameter("times", 350)
+              new NumberParameter("times", 350),
             ],
             invoke: (tool, robot, res, match, values): void => {
-              res.reply(JSON.stringify(values));
-            }
+              res.reply(JSON.stringify(values))
+            },
           },
           {
             name: "ip",
@@ -36,83 +43,81 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
               new TokenParameter("source"),
               new IPv4Parameter("sourceIp"),
               new TokenParameter("destination"),
-              new IPv4Parameter("destinationIp")
+              new IPv4Parameter("destinationIp"),
             ],
             invoke: (tool, robot, res, match, values): void => {
-              res.reply(JSON.stringify(values));
-            }
-          }
-        ]
+              res.reply(JSON.stringify(values))
+            },
+          },
+        ],
       },
       options
-    );
-  });
+    )
+  })
 
-  afterEach(() => pretend.shutdown());
+  afterEach(() => pretend.shutdown())
 
   it("Testing 2 parameters", done => {
     pretend
       .user("kees")
       .send("@hubot wehkamp glitch https://google.com 150")
       .then(() => {
-        var message = pretend.messages[1][1];
+        var message = pretend.messages[1][1]
         expect(message).to.eq(
           `@kees {"url":"https://google.com","times":"150"}`
-        );
-        done();
+        )
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Testing default parameters", done => {
     pretend
       .user("kees")
       .send("@hubot wehkamp glitch")
       .then(() => {
-        var message = pretend.messages[1][1];
-        expect(message).to.eq(`@kees {"url":"https://wehkamp.nl","times":350}`);
-        done();
+        var message = pretend.messages[1][1]
+        expect(message).to.eq(`@kees {"url":"https://wehkamp.nl","times":350}`)
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Testing only 1st parameters", done => {
     pretend
       .user("kees")
       .send("@hubot wehkamp glitch https://google.com")
       .then(() => {
-        var message = pretend.messages[1][1];
-        expect(message).to.eq(`@kees {"url":"https://google.com","times":350}`);
-        done();
+        var message = pretend.messages[1][1]
+        expect(message).to.eq(`@kees {"url":"https://google.com","times":350}`)
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Testing only 2nd parameters", done => {
     pretend
       .user("kees")
       .send("@hubot wehkamp glitch 70")
       .then(() => {
-        var message = pretend.messages[1][1];
-        expect(message).to.eq(
-          `@kees {"url":"https://wehkamp.nl","times":"70"}`
-        );
-        done();
+        var message = pretend.messages[1][1]
+        expect(message).to.eq(`@kees {"url":"https://wehkamp.nl","times":"70"}`)
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Test IPv4", done => {
     pretend
       .user("kees")
       .send("@hubot wehkamp ip source 192.168.1.13 destination 10.0.0.13")
       .then(() => {
-        var message = pretend.messages[1][1];
+        var message = pretend.messages[1][1]
         expect(message).to.eq(
           `@kees {"source":"source","sourceIp":"192.168.1.13","destination":"destination","destinationIp":"10.0.0.13"}`
-        );
-        done();
+        )
+        done()
       })
-      .catch(ex => done(ex));
-  });
-});
+      .catch(ex => done(ex))
+  })
+})

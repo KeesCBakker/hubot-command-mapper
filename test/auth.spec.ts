@@ -1,15 +1,15 @@
-const pretend: Hubot.Pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend")
 
-import { mapper, Options } from "./../src/index";
-import { expect } from "chai";
-import "mocha";
+import { mapper, Options } from "./../src/index"
+import { expect } from "chai"
+import "mocha"
 
 describe("auth.spec.ts / Default commands", () => {
   beforeEach(() => {
-    pretend.start();
+    pretend.start()
 
-    var options = new Options();
-    options.verbose = false;
+    var options = new Options()
+    options.verbose = false
 
     mapper(
       pretend.robot,
@@ -19,20 +19,20 @@ describe("auth.spec.ts / Default commands", () => {
         commands: [
           {
             name: "action1",
-            invoke: (tool, robot, res) => res.reply("Hi!")
+            invoke: (tool, robot, res) => res.reply("Hi!"),
           },
           {
             name: "action2",
             auth: ["user2"],
-            invoke: (tool, robot, res) => res.reply("Hi!")
-          }
-        ]
+            invoke: (tool, robot, res) => res.reply("Hi!"),
+          },
+        ],
       },
       options
-    );
-  });
+    )
+  })
 
-  afterEach(() => pretend.shutdown());
+  afterEach(() => pretend.shutdown())
 
   it("Not authenticated for tool", done => {
     pretend
@@ -41,12 +41,12 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot test action1"],
-          ["hubot", "@kees sorry, you are not authorized to use this command."]
-        ]);
-        done();
+          ["hubot", "@kees sorry, you are not authorized to use this command."],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Authenticated for tool", done => {
     pretend
@@ -55,12 +55,12 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["user1", "@hubot test action1"],
-          ["hubot", "@user1 Hi!"]
-        ]);
-        done();
+          ["hubot", "@user1 Hi!"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Not authenticated for command", done => {
     pretend
@@ -69,12 +69,15 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["user1", "@hubot test action2"],
-          ["hubot", "@user1 sorry, you are not authorized to use this command."]
-        ]);
-        done();
+          [
+            "hubot",
+            "@user1 sorry, you are not authorized to use this command.",
+          ],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Authenticated for command", done => {
     pretend
@@ -83,10 +86,10 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["user2", "@hubot test action2"],
-          ["hubot", "@user2 Hi!"]
-        ]);
-        done();
+          ["hubot", "@user2 Hi!"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
-});
+      .catch(ex => done(ex))
+  })
+})

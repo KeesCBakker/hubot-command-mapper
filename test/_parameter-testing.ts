@@ -1,14 +1,14 @@
-import { IParameter, ITool } from "../src";
-import { convertCommandIntoRegexString } from "../src/utils/regex";
+import { IParameter, ITool } from "../src"
+import { convertCommandIntoRegexString } from "../src/utils/regex"
 
 export function test(regex: string, dataToTest: string) {
-  var r = new RegExp(regex, "i");
-  return r.test(dataToTest);
+  var r = new RegExp(regex, "i")
+  return r.test(dataToTest)
 }
 
 export function exec(regex: string, dataToTest: string) {
-  var r = new RegExp(regex, "i");
-  return r.exec(dataToTest);
+  var r = new RegExp(regex, "i")
+  return r.exec(dataToTest)
 }
 
 export function createRegex(
@@ -23,18 +23,18 @@ export function createRegex(
       {
         name: commandName,
         parameters: parameters,
-        invoke: () => { }
-      }
-    ]
-  };
+        invoke: () => {},
+      },
+    ],
+  }
 
-  return convertCommandIntoRegexString(robotName, null, tool, tool.commands[0]);
+  return convertCommandIntoRegexString(robotName, null, tool, tool.commands[0])
 }
 
 export function delay<T>(ms: number, val: T) {
   return new Promise<T>(r => {
     setTimeout(() => {
-      r(val);
-    }, ms);
-  });
+      r(val)
+    }, ms)
+  })
 }

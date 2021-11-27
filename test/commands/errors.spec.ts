@@ -1,70 +1,70 @@
-const pretend: Hubot.Pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend")
 
-import { mapper, alias } from "../../src";
-import { expect } from "chai";
-import "mocha";
+import { mapper, alias } from "../../src"
+import { expect } from "chai"
+import "mocha"
 
 describe("erros.spec.ts / Errors", () => {
   beforeEach(() => {
-    pretend.start();
-  });
+    pretend.start()
+  })
 
-  afterEach(() => pretend.shutdown());
+  afterEach(() => pretend.shutdown())
 
   describe("mapper", () => {
     it("No robot", done => {
       try {
-        mapper(null, null);
+        mapper(null, null)
       } catch (ex) {
-        expect(ex.toString()).to.eq("Argument 'robot' is empty.");
-        done();
+        expect(ex.toString()).to.eq("Argument 'robot' is empty.")
+        done()
       }
-    });
+    })
 
     it("No tool", done => {
       try {
-        mapper(pretend.robot, null);
+        mapper(pretend.robot, null)
       } catch (ex) {
-        expect(ex.toString()).to.eq("Argument 'tool' is empty.");
-        done();
+        expect(ex.toString()).to.eq("Argument 'tool' is empty.")
+        done()
       }
-    });
+    })
 
     it("Invalid tool name due to null", done => {
       try {
         mapper(pretend.robot, {
           name: null,
-          commands: []
-        });
+          commands: [],
+        })
       } catch (ex) {
-        expect(ex.toString()).to.eq("Invalid name for tool.");
-        done();
+        expect(ex.toString()).to.eq("Invalid name for tool.")
+        done()
       }
-    });
+    })
 
     it("Invalid tool name due to empty string", done => {
       try {
         mapper(pretend.robot, {
           name: "",
-          commands: []
-        });
+          commands: [],
+        })
       } catch (ex) {
-        expect(ex.toString()).to.eq("Invalid name for tool.");
-        done();
+        expect(ex.toString()).to.eq("Invalid name for tool.")
+        done()
       }
-    });
+    })
 
     it("Invalid commands", done => {
       try {
         mapper(pretend.robot, {
           name: "XXX",
-          commands: []
-        });
+          commands: [],
+        })
       } catch (ex) {
-        expect(ex.toString()).to.eq('No commands found for "XXX"');
-        done();
+        expect(ex.toString()).to.eq('No commands found for "XXX"')
+        done()
       }
-    });
+    })
 
     it("Invalid tool due to empty command name", done => {
       try {
@@ -73,15 +73,15 @@ describe("erros.spec.ts / Errors", () => {
           commands: [
             {
               name: "",
-              invoke: (tool, robot, res) => {}
-            }
-          ]
-        });
+              invoke: (tool, robot, res) => {},
+            },
+          ],
+        })
       } catch (ex) {
-        expect(ex.toString()).to.eq("Invalid command name.");
-        done();
+        expect(ex.toString()).to.eq("Invalid command name.")
+        done()
       }
-    });
+    })
 
     it("Invalid tool due to null command name", done => {
       try {
@@ -90,15 +90,15 @@ describe("erros.spec.ts / Errors", () => {
           commands: [
             {
               name: null,
-              invoke: (tool, robot, res) => {}
-            }
-          ]
-        });
+              invoke: (tool, robot, res) => {},
+            },
+          ],
+        })
       } catch (ex) {
-        expect(ex.toString()).to.eq("Invalid command name.");
-        done();
+        expect(ex.toString()).to.eq("Invalid command name.")
+        done()
       }
-    });
+    })
 
     it("Invalid tool due to reuse command alias", done => {
       try {
@@ -107,41 +107,41 @@ describe("erros.spec.ts / Errors", () => {
           commands: [
             {
               name: "list",
-              invoke: (tool, robot, res) => {}
+              invoke: (tool, robot, res) => {},
             },
             {
               name: "list2",
               alias: ["list"],
-              invoke: (tool, robot, res) => {}
-            }
-          ]
-        });
+              invoke: (tool, robot, res) => {},
+            },
+          ],
+        })
       } catch (ex) {
         expect(ex.toString()).to.eq(
           "Cannot create command 'list' for tool 'Test'. Multiple commands with the same name or alias found."
-        );
-        done();
+        )
+        done()
       }
-    });
-  });
+    })
+  })
 
   describe("alias", () => {
     it("No robot", done => {
       try {
-        alias(null, null);
+        alias(null, null)
       } catch (ex) {
-        expect(ex.toString()).to.eq("Argument 'robot' is empty.");
-        done();
+        expect(ex.toString()).to.eq("Argument 'robot' is empty.")
+        done()
       }
-    });
+    })
 
     it("No map", done => {
       try {
-        alias(pretend.robot, null);
+        alias(pretend.robot, null)
       } catch (ex) {
-        expect(ex.toString()).to.eq("Argument 'map' is empty.");
-        done();
+        expect(ex.toString()).to.eq("Argument 'map' is empty.")
+        done()
       }
-    });
-  });
-});
+    })
+  })
+})

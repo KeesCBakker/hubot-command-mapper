@@ -1,19 +1,27 @@
-const pretend: Hubot.Pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend")
 
-import { mapper, map_command, Options, alias, StringParameter, IContext } from "./../src";
-import { expect } from "chai";
-import "mocha";
+import {
+  mapper,
+  map_command,
+  Options,
+  alias,
+  StringParameter,
+  IContext,
+} from "./../src"
+import { expect } from "chai"
+import "mocha"
 
 describe("alias.spec.ts / Testing the alias features", () => {
-
   beforeEach(() => {
-    pretend.start();
+    pretend.start()
 
-    var options = new Options();
-    options.verbose = false;
+    var options = new Options()
+    options.verbose = false
 
-    map_command(pretend.robot, "version", options, (context) => context.res.reply("1"));
-    alias(pretend.robot, { AAA: "version" }, options);
+    map_command(pretend.robot, "version", options, context =>
+      context.res.reply("1")
+    )
+    alias(pretend.robot, { AAA: "version" }, options)
 
     mapper(
       pretend.robot,
@@ -24,27 +32,28 @@ describe("alias.spec.ts / Testing the alias features", () => {
             name: "default",
             alias: [""],
             parameters: [new StringParameter("msg")],
-            invoke: (tool, robot, res, match, values) => res.reply(values.msg)
+            invoke: (tool, robot, res, match, values) => res.reply(values.msg),
           },
           {
-          name: "bye",
-          parameters: [
-            new StringParameter("firstName"),
-            new StringParameter("lastName")
-          ],
-          invoke: (tool, robot, res, match, values) => res.reply(`Byeeeeeee ${values.firstName} ${values.lastName}!`)
-          }
-        ]
+            name: "bye",
+            parameters: [
+              new StringParameter("firstName"),
+              new StringParameter("lastName"),
+            ],
+            invoke: (tool, robot, res, match, values) =>
+              res.reply(`Byeeeeeee ${values.firstName} ${values.lastName}!`),
+          },
+        ],
       },
       options
-    );
+    )
 
-    alias(pretend.robot, { "zeg*": "echo" }, options);
-    alias(pretend.robot, { "scream and shout*": "echo"}, options)
-    alias(pretend.robot, { "super doei*": "echo bye"}, options)
-  });
+    alias(pretend.robot, { "zeg*": "echo" }, options)
+    alias(pretend.robot, { "scream and shout*": "echo" }, options)
+    alias(pretend.robot, { "super doei*": "echo bye" }, options)
+  })
 
-  afterEach(() => pretend.shutdown());
+  afterEach(() => pretend.shutdown())
 
   it("Map alias", done => {
     pretend
@@ -53,12 +62,12 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot AAA"],
-          ["hubot", "@kees 1"]
-        ]);
-        done();
+          ["hubot", "@kees 1"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Map * alias", done => {
     pretend
@@ -67,12 +76,12 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot zeg AAA"],
-          ["hubot", "@kees AAA"]
-        ]);
-        done();
+          ["hubot", "@kees AAA"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Map * alias with multiple words", done => {
     pretend
@@ -81,12 +90,12 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot scream and shout AAA"],
-          ["hubot", "@kees AAA"]
-        ]);
-        done();
+          ["hubot", "@kees AAA"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Map * alias with multiple words and multiple parameters", done => {
     pretend
@@ -95,11 +104,10 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot super doei Alpha Beta"],
-          ["hubot", "@kees Byeeeeeee Alpha Beta!"]
-        ]);
-        done();
+          ["hubot", "@kees Byeeeeeee Alpha Beta!"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
-
-});
+      .catch(ex => done(ex))
+  })
+})

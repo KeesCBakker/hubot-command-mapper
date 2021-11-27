@@ -1,21 +1,21 @@
-const pretend: Hubot.Pretend = require("hubot-pretend");
+const pretend: Hubot.Pretend = require("hubot-pretend")
 
-import { map_command, mapper, Options, RestParameter } from "./../src/";
-import { expect } from "chai";
-import "mocha";
+import { map_command, mapper, Options, RestParameter } from "./../src/"
+import { expect } from "chai"
+import "mocha"
 
 describe("index.spec.ts / Command mapping", () => {
-  const options = new Options();
-  options.verbose = false;
+  const options = new Options()
+  options.verbose = false
 
   beforeEach(() => {
-    pretend.start();
-  });
+    pretend.start()
+  })
 
-  afterEach(() => pretend.shutdown());
+  afterEach(() => pretend.shutdown())
 
   it("Basic command mapping and invocation", done => {
-    let i = 0;
+    let i = 0
     mapper(
       pretend.robot,
       {
@@ -23,37 +23,37 @@ describe("index.spec.ts / Command mapping", () => {
         commands: [
           {
             name: "screen",
-            invoke: (tool, robot, res, match) => i++
-          }
-        ]
+            invoke: (tool, robot, res, match) => i++,
+          },
+        ],
       },
       options
-    );
+    )
     pretend
       .user("kees")
       .send("@hubot clear screen")
       .then(() => {
-        expect(i).to.eq(1, "Message should increment i.");
-        done();
+        expect(i).to.eq(1, "Message should increment i.")
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Default command mapping", done => {
-    let i = 0;
-    map_command(pretend.robot, "cool", options, () => i++);
+    let i = 0
+    map_command(pretend.robot, "cool", options, () => i++)
     pretend
       .user("kees")
       .send("@hubot cool")
       .then(() => {
-        expect(i).to.eq(1, "Message should increment i.");
-        done();
+        expect(i).to.eq(1, "Message should increment i.")
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Alias", done => {
-    let i = 0;
+    let i = 0
     mapper(
       pretend.robot,
       {
@@ -62,24 +62,24 @@ describe("index.spec.ts / Command mapping", () => {
           {
             name: "screen",
             alias: ["scr"],
-            invoke: (tool, robot, res, match) => i++
-          }
-        ]
+            invoke: (tool, robot, res, match) => i++,
+          },
+        ],
       },
       options
-    );
+    )
     pretend
       .user("kees")
       .send("@hubot clear scr")
       .then(() => {
-        expect(i).to.eq(1, "Message should increment i.");
-        done();
+        expect(i).to.eq(1, "Message should increment i.")
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Empty alias", done => {
-    let i = 0;
+    let i = 0
     mapper(
       pretend.robot,
       {
@@ -88,24 +88,24 @@ describe("index.spec.ts / Command mapping", () => {
           {
             name: "screen",
             alias: [""],
-            invoke: (tool, robot, res, match) => i++
-          }
-        ]
+            invoke: (tool, robot, res, match) => i++,
+          },
+        ],
       },
       options
-    );
+    )
     pretend
       .user("kees")
       .send("@hubot clear")
       .then(() => {
-        expect(i).to.eq(1, "Message should increment i.");
-        done();
+        expect(i).to.eq(1, "Message should increment i.")
+        done()
       })
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Multiple aliases", done => {
-    let i = 0;
+    let i = 0
     mapper(
       pretend.robot,
       {
@@ -114,12 +114,12 @@ describe("index.spec.ts / Command mapping", () => {
           {
             name: "screen",
             alias: ["scr", ""],
-            invoke: (tool, robot, res, match) => i++
-          }
-        ]
+            invoke: (tool, robot, res, match) => i++,
+          },
+        ],
       },
       options
-    );
+    )
 
     Promise.resolve()
       .then(x =>
@@ -141,11 +141,11 @@ describe("index.spec.ts / Command mapping", () => {
           .then(() => expect(i).to.eq(3, "Message should increment i."))
       )
       .then(x => done())
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Multiple command mapping", done => {
-    let latest = "";
+    let latest = ""
     mapper(
       pretend.robot,
       {
@@ -153,21 +153,21 @@ describe("index.spec.ts / Command mapping", () => {
         commands: [
           {
             name: "a",
-            invoke: (tool, robot, res, match) => (latest = "a")
+            invoke: (tool, robot, res, match) => (latest = "a"),
           },
           {
             name: "b",
-            invoke: (tool, robot, res, match) => (latest = "b")
+            invoke: (tool, robot, res, match) => (latest = "b"),
           },
 
           {
             name: "c",
-            invoke: (tool, robot, res, match) => (latest = "c")
-          }
-        ]
+            invoke: (tool, robot, res, match) => (latest = "c"),
+          },
+        ],
       },
       options
-    );
+    )
 
     Promise.resolve()
       .then(x =>
@@ -189,8 +189,8 @@ describe("index.spec.ts / Command mapping", () => {
           .then(x => expect(latest).to.eq("a", "'a' was not called."))
       )
       .then(x => done())
-      .catch(ex => done(ex));
-  });
+      .catch(ex => done(ex))
+  })
 
   it("Tool segregation", done => {
     mapper(
@@ -200,12 +200,12 @@ describe("index.spec.ts / Command mapping", () => {
         commands: [
           {
             name: "c1",
-            invoke: (tool, robot, res, match) => res.reply("r1")
-          }
-        ]
+            invoke: (tool, robot, res, match) => res.reply("r1"),
+          },
+        ],
       },
       options
-    );
+    )
 
     mapper(
       pretend.robot,
@@ -214,12 +214,12 @@ describe("index.spec.ts / Command mapping", () => {
         commands: [
           {
             name: "c1",
-            invoke: (tool, robot, res, match) => res.reply("r2")
-          }
-        ]
+            invoke: (tool, robot, res, match) => res.reply("r2"),
+          },
+        ],
       },
       options
-    );
+    )
 
     pretend
       .user("Kees")
@@ -228,23 +228,28 @@ describe("index.spec.ts / Command mapping", () => {
       .then(x => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot t2 c1"],
-          ["hubot", "@Kees r2"]
-        ]);
-        done();
+          ["hubot", "@Kees r2"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
-
+      .catch(ex => done(ex))
+  })
 
   it("Tool and command casing", done => {
-    mapper(pretend.robot, {
-      name: "testing",
-      commands: [{
-        name: "everything",
-        parameters: [new RestParameter("rest")],
-        invoke: (tool, robot, res) => res.reply("kewl!")
-      }]
-    }, options);
+    mapper(
+      pretend.robot,
+      {
+        name: "testing",
+        commands: [
+          {
+            name: "everything",
+            parameters: [new RestParameter("rest")],
+            invoke: (tool, robot, res) => res.reply("kewl!"),
+          },
+        ],
+      },
+      options
+    )
 
     pretend
       .user("kees")
@@ -252,10 +257,10 @@ describe("index.spec.ts / Command mapping", () => {
       .then(x => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot TeStInG eVeRyThInG and maybe more!"],
-          ["hubot", "@kees kewl!"]
-        ]);
-        done();
+          ["hubot", "@kees kewl!"],
+        ])
+        done()
       })
-      .catch(ex => done(ex));
-  });
-});
+      .catch(ex => done(ex))
+  })
+})
