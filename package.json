@@ -1,6 +1,6 @@
 {
   "name": "hubot-command-mapper",
-  "version": "3.0.5",
+  "version": "3.1.0",
   "description": "Helps with mapping tools and commands to hubot",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,7 @@
     "build": "del-cli dist & tsc",
     "prepublishOnly": "npm run build & npm test & npm version patch",
     "postpublish": "git push origin --tags",
-    "audit-fix": "npm audit fix --force & npm install & npx npm-force-resolutions & npm install"
+    "patch": "npx npm-force-resolutions & npm audit"
   },
   "repository": {
     "type": "git",
@@ -28,13 +28,14 @@
   },
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
-    "named-regexp-groups": "^1.0.5"
+    "named-regexp-groups": "^1.0.5",
+    "remove-markdown": "^0.3.0"
   },
   "devDependencies": {
     "@types/chai": "^4.2.22",
     "@types/hubot": "^3.3.1",
     "@types/mocha": "^9.0.0",
-    "@types/node": "^16.11.10",
+    "@types/node": "^16.11.11",
     "chai": "^4.3.4",
     "coffeescript": "^2.6.1",
     "del-cli": "^4.0.1",
