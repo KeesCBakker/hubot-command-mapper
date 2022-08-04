@@ -4,14 +4,14 @@
  * this we've used into a Pretender class, so we can test if
  * our package still does what it needs to do. It is not ideal,
  * but it is the next best thing.
- * 
+ *
  */
 
 export class Pretender {
   private _currentUser: string = ""
-  private _robot: PretenderRobot;
-  private _responders = new Array<PretenderRobotResponder>();
-  private _recievers = new Array<PretenderRobotReiverMiddleware>();
+  private _robot: PretenderRobot
+  private _responders = new Array<PretenderRobotResponder>()
+  private _recievers = new Array<PretenderRobotReceiverMiddleware>()
 
   messages: string[][] = []
 
@@ -24,7 +24,7 @@ export class Pretender {
     }
   ) {
     this.shutdown()
-    this._robot = new PretenderRobot(this, options.name, options.alias);
+    this._robot = new PretenderRobot(this, options.name, options.alias)
   }
 
   user(name: string) {
@@ -39,43 +39,47 @@ export class Pretender {
   }
 
   send(msg: string) {
-
     this.messages.push([this._currentUser, msg])
 
-    let message = new Message(msg, new User(this._currentUser));
+    let message = new PretenderMessage(
+      msg,
+      new PretenderUser(this._currentUser)
+    )
 
     if (this._recievers.length > 0) {
-      let i = 0;
-      let shouldContinue = true;
-      let receivers = this._recievers;
+      let i = 0
+      let shouldContinue = true
+      let receivers = this._recievers
 
       function done() {
-        shouldContinue = false;
+        shouldContinue = false
       }
 
       function exec() {
         if (shouldContinue && i < receivers.length) {
-          receivers[i].callback({
-            response: {
-              message
-            }
-          }, next, done);
+          receivers[i].callback(
+            {
+              response: {
+                message,
+              },
+            },
+            next,
+            done
+          )
         }
       }
 
       function next() {
-        i++;
-        exec();
+        i++
+        exec()
       }
 
-      exec();
+      exec()
     }
-
 
     let res = new PretenderRobotRes(this._robot, message, this._currentUser)
     for (let r of this._responders) {
       if (r.regex.test(message.text)) {
-
         r.callback(res)
         break
       }
@@ -83,7 +87,7 @@ export class Pretender {
 
     return Promise.resolve<Pretender>(this)
   }
-  
+
   sendMessageFromBot(msg: string) {
     this.messages.push([this.robot.name, msg])
   }
@@ -91,80 +95,92 @@ export class Pretender {
   registerResponder(regex: RegExp, callback: (res: PretenderRobotRes) => void) {
     this._responders.push({
       regex,
-      callback
-    });
+      callback,
+    })
   }
 
-  registerReceiveMiddleware(callback: (context: Context, next: (done: () => void) => void, done: () => void) => void) {
+  registerReceiveMiddleware(
+    callback: (
+      context: PretenderRobotReceiverMiddlewareContext,
+      next: (done: () => void) => void,
+      done: () => void
+    ) => void
+  ) {
     this._recievers.push({
-      callback
-    });
+      callback,
+    })
   }
 
   public get robot(): any {
-    return this._robot;
+    return this._robot
   }
 }
 
-class PretenderRobot 
-{
-  constructor(public pretend: Pretender, public name: string, public alias: string) {
-    
-  }
+class PretenderRobot {
+  constructor(
+    public pretend: Pretender,
+    public name: string,
+    public alias: string
+  ) {}
 
   respond(regex: RegExp, callback: (res: PretenderRobotRes) => void) {
-    this.pretend.registerResponder(regex, callback);    
+    this.pretend.registerResponder(regex, callback)
   }
 
-  receiveMiddleware(callback: (context: Context, next: (done: () => void) => void, done: () => void) => void) {
-    this.pretend.registerReceiveMiddleware(callback);
+  receiveMiddleware(
+    callback: (
+      context: PretenderRobotReceiverMiddlewareContext,
+      next: (done: () => void) => void,
+      done: () => void
+    ) => void
+  ) {
+    this.pretend.registerReceiveMiddleware(callback)
   }
 
   helpCommands() {
     return []
   }
-
 }
 
-class PretenderRobotRes
-{
+class PretenderRobotRes {
   constructor(
     public robot: PretenderRobot,
-    public message: Message,
-    public toUser: string) { }
+    public message: PretenderMessage,
+    public toUser: string
+  ) {}
 
   reply(text: string) {
-    this.robot.pretend.sendMessageFromBot("@" + this.toUser + " " + text);
+    this.robot.pretend.sendMessageFromBot("@" + this.toUser + " " + text)
   }
 
   emote(text: string) {
-    this.robot.pretend.sendMessageFromBot(text);
+    this.robot.pretend.sendMessageFromBot(text)
   }
 }
 
-
-class Message {
-  constructor(public text: string, public user: User) {
-  }
+class PretenderMessage {
+  constructor(public text: string, public user: PretenderUser) {}
 }
 
-class User {
-  constructor(public name: string) {
-    
-  }
+class PretenderUser {
+  constructor(public name: string) {}
 }
 
 type PretenderRobotResponder = {
-  regex: RegExp,
+  regex: RegExp
   callback: (res: PretenderRobotRes) => void
 }
 
-type PretenderRobotReiverMiddleware = {
-  callback: (context: Context, next: (done: () => void) => void, done: () => void) => void
+type PretenderRobotReceiverMiddleware = {
+  callback: (
+    context: PretenderRobotReceiverMiddlewareContext,
+    next: (done: () => void) => void,
+    done: () => void
+  ) => void
 }
 
-type Context = {
+type PretenderRobotReceiverMiddlewareContext = {
   response: {
-    message: Message
+    message: PretenderMessage
   }
-};
+}
