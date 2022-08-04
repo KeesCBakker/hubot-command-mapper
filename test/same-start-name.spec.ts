@@ -1,4 +1,5 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "./pretender"
+const pretend = new Pretender();
 
 import { Options, map_command, IContext } from "./../src/"
 import { expect } from "chai"
@@ -66,6 +67,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .user("kees")
       .send("@hubot cicd")
       .then(() => {
+
         expect(pretend.messages).to.eql([
           ["kees", "@hubot cicd"],
           ["hubot", "@kees cicd"],

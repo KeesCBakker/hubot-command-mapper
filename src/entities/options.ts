@@ -1,5 +1,3 @@
-import { isUndefined, isBoolean, isNull, isNullOrUndefined } from "util"
-
 export interface IOptions {
   addDebugCommand: boolean
   addHelpCommand: boolean
@@ -50,6 +48,10 @@ function getS(name: string, defaultValue: string): string {
   }
 
   return value
+}
+
+function isNullOrUndefined(value: any) {
+  return value === undefined || value === null;
 }
 
 function getB(name: string, defaultValue: boolean): boolean {

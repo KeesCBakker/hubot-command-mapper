@@ -1,4 +1,5 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "./../pretender"
+const pretend = new Pretender();
 
 import { map_command, Options, alias } from "./../../src"
 import { expect } from "chai"
@@ -29,7 +30,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@aliasbot ping"],
-          ["hubot", "@kees pong"],
+          ["namebot", "@kees pong"],
         ])
         done()
       })
@@ -43,7 +44,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@aliasbot pang"],
-          ["hubot", "@kees pong"],
+          ["namebot", "@kees pong"],
         ])
         done()
       })

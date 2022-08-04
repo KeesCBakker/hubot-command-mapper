@@ -1,4 +1,5 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "./pretender"
+const pretend = new Pretender();
 
 import {
   mapper,
@@ -10,6 +11,7 @@ import {
 } from "./../src"
 import { expect } from "chai"
 import "mocha"
+
 
 describe("alias.spec.ts / Testing the alias features", () => {
   beforeEach(() => {
@@ -60,6 +62,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .user("kees")
       .send("@hubot AAA")
       .then(() => {
+
         expect(pretend.messages).to.eql([
           ["kees", "@hubot AAA"],
           ["hubot", "@kees 1"],

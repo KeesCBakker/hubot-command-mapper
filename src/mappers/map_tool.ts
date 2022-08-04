@@ -105,6 +105,7 @@ export function map_tool(
           options.invalidSyntaxMessage
         )
       } else if (options.showInvalidSyntax) {
+        throw 'Nooooo'
         res.reply(options.invalidSyntaxMessage)
       }
       return

@@ -15,8 +15,8 @@ export function convertToolIntoRegexString<A>(
 ) {
   // add space or end to the tool matcher to prevent tools
   // that are names similar to match and show an invalid
-  // syntax warning. Like: ci and cicd tools.
-  let regexString = escapeRegExp(tool.name) + "($| )"
+  // syntax warning. Like: ci and cicd, and cd and cicd
+  let regexString = " " + escapeRegExp(tool.name) + "($| )"
   return regexString
 }
 

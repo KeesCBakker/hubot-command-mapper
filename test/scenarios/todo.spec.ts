@@ -1,4 +1,5 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "../pretender"
+const pretend = new Pretender();
 
 import { map_tool, Options, RestParameter } from "./../../src/"
 import { expect } from "chai"

@@ -1,4 +1,5 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "./pretender"
+const pretend = new Pretender();
 
 import {
   map_tool,
@@ -93,6 +94,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot say bot")
       .then(() => {
+
         expect(
           pretend.messages,
           "This message should be mapped to the `echo` command."

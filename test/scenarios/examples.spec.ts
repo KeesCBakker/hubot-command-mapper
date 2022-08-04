@@ -1,4 +1,6 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "../pretender"
+const pretend = new Pretender();
+
 
 import { Options, ITool } from "./../../src/"
 import { expect } from "chai"
@@ -41,9 +43,9 @@ describe("examples.spec.ts > check count/capture example", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hb count from 1 to 3"],
-          ["hubot", "@kees 1!"],
-          ["hubot", "@kees 2!"],
-          ["hubot", "@kees 3!"],
+          ["hb", "@kees 1!"],
+          ["hb", "@kees 2!"],
+          ["hb", "@kees 3!"],
         ])
 
         pretend.shutdown()
@@ -92,7 +94,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hb norris impersonate Cool Cat"],
-          ["hubot", "@kees Cool Cat has counted to infinity. Twice!"],
+          ["hb", "@kees Cool Cat has counted to infinity. Twice!"],
         ])
 
         pretend.shutdown()

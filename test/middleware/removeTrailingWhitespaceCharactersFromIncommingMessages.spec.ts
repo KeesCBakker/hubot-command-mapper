@@ -1,4 +1,6 @@
-import pretend from "hubot-pretend"
+import { Pretender }  from "./../pretender"
+const pretend = new Pretender();
+
 import { expect } from "chai"
 import "mocha"
 import {
