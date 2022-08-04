@@ -2,6 +2,7 @@ import { escapeRegExp } from "../utils/regex"
 import { IOptions } from "../entities/options"
 import { IMap } from "../definitions"
 import { IMessageHandler } from "../definitions/IMessageHandler"
+import { IRobot } from "../definitions/IRobot"
 
 class AliasMapping implements IMessageHandler {
   public matchers: RegularExpessionMap[]
@@ -55,8 +56,9 @@ export function alias(robot: Hubot.Robot, map: any, options: IOptions) {
   }
 
   var mapping = new AliasMapping(map, robot)
-  robot.__tools = robot.__tools || []
-  robot.__tools.push(mapping)
+  let r = robot as IRobot
+  r.__tools = r.__tools || []
+  r.__tools.push(mapping)
 
   robot.receiveMiddleware((context, next, done) => {
     var text = context.response.message.text

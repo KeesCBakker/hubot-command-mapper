@@ -1,3 +1,12 @@
+/*
+ * We've used Hubot Pretend in the past to test our command mapper
+ * but that project is no longer maintained. We've copied the
+ * this we've used into a Pretender class, so we can test if
+ * our package still does what it needs to do. It is not ideal,
+ * but it is the next best thing.
+ * 
+ */
+
 export class Pretender {
   private _currentUser: string = ""
   private _robot: PretenderRobot;

@@ -8,6 +8,7 @@ import createDebugCommand from "../entities/commands/debug"
 import createHelpCommand from "../entities/commands/help"
 import validateTool from "./validation"
 import { CommandResolver } from "../entities/CommandResolver"
+import { IRobot } from "../definitions/IRobot"
 
 /**
  * Maps the specified tool to the Robot.
@@ -15,7 +16,7 @@ import { CommandResolver } from "../entities/CommandResolver"
  * @export
  * @param {NodeModule} caller The caller.
  * @param {NodeModule} packageModule The package module.
- * @param {IRobot} robot The robot.
+ * @param {Hubot.Robot} robot The robot.
  * @param {ITool} tool The tool that will be mapped.
  * @param {IOptions} [options] The options for this specific mapping.
  */
@@ -81,8 +82,9 @@ export function map_tool(
   ;(tool as any).canHandle = (msg: string) => toolRegex.test(msg)
 
   // add tool to robot - helps with middleware
-  robot.__tools = robot.__tools || []
-  robot.__tools.push(tool as any)
+  let r = robot as IRobot
+  r.__tools = r.__tools || []
+  r.__tools.push(tool as any)
 
   const resolver = new CommandResolver(robot)
 

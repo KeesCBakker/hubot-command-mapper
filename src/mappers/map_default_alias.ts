@@ -1,4 +1,5 @@
-import { IOptions, ITool, defaultOptions } from ".."
+import { IOptions, defaultOptions } from ".."
+import { IRobot } from "../definitions/IRobot"
 import { escapeRegExp } from "../utils/regex"
 import { hasSwitch, setSwitch } from "../utils/switches"
 
@@ -66,7 +67,7 @@ export function map_default_alias(
  * @param {string} msg The message.
  * @returns true when unhandled.
  */
-function isUnhandledMessage(robot: Hubot.Robot, msg: string) {
+function isUnhandledMessage(robot: Hubot.Robot & IRobot, msg: string) {
   for (let tool of robot.__tools) {
     if (tool.canHandle(msg)) {
       return false

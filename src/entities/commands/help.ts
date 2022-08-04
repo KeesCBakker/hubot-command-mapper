@@ -3,7 +3,6 @@ import {
   IParameterValueCollection,
   ITool,
 } from "../../definitions"
-import { Robot, Response } from "../../definitions/Hubot"
 
 export default function createHelpCommand(): IHelpCommand {
   return {
@@ -11,8 +10,8 @@ export default function createHelpCommand(): IHelpCommand {
     alias: ["?", "/?", "--help"],
     invoke: (
       tool: ITool,
-      robot: Robot,
-      res: Response,
+      robot: Hubot.Robot,
+      res: Hubot.Response,
       match: RegExpMatchArray,
       values: IParameterValueCollection,
       helpMsgPrefix?: string,

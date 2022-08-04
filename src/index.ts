@@ -65,7 +65,7 @@ export {
  * @export
  * @param {NodeModule} caller The caller.
  * @param {NodeModule} packageModule The package module.
- * @param {IRobot} robot The robot.
+ * @param {Hubot.Robot} robot The robot.
  * @param {ITool} tool The tool that will be mapped.
  * @param {IOptions} [options] The options for this specific mapping.
  */

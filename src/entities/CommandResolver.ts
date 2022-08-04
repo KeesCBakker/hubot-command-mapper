@@ -4,10 +4,11 @@ import {
   IParameterValueCollection,
   ICommandResolverResultDebugInfo,
 } from "../definitions"
+import { IRobot } from "../definitions/IRobot"
 import { getValues } from "./parameters/ValueExtractor"
 
 export class CommandResolver {
-  constructor(private robot: Hubot.Robot) {}
+  constructor(private robot: Hubot.Robot & IRobot) {}
 
   public resolve(res: Hubot.Response): CommandResolverResult | null {
     let tool: ITool = null
