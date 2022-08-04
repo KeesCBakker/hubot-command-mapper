@@ -1,7 +1,7 @@
 {
   "name": "hubot-command-mapper",
-  "version": "3.1.1",
-  "description": "Helps with mapping tools and commands to hubot",
+  "version": "4.0.0",
+  "description": "Helps with mapping tools and commands to Hubot.",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
   "scripts": {
@@ -9,8 +9,7 @@
     "mocha": "mocha -r ts-node/register",
     "build": "del-cli dist & tsc",
     "prepublishOnly": "npm run build & npm test & npm version patch",
-    "postpublish": "git push origin --tags",
-    "patch": "npx npm-force-resolutions & npm audit"
+    "postpublish": "git push origin --tags"
   },
   "repository": {
     "type": "git",
