@@ -101,7 +101,7 @@ export function map_tool(
           res,
           null,
           null,
-          options.invalidSystaxHelpPrefix,
+          options.invalidSyntaxHelpPrefix,
           options.invalidSyntaxMessage
         )
       } else if (options.showInvalidSyntax) {

@@ -7,7 +7,7 @@ export interface IOptions {
   showInvalidSyntax: boolean
   showHelpOnInvalidSyntax: boolean
   invalidSyntaxMessage: string
-  invalidSystaxHelpPrefix: string
+  invalidSyntaxHelpPrefix: string
   notAuthorizedMessage: string
 }
 
@@ -17,7 +17,7 @@ export class Options implements IOptions {
   public showInvalidSyntax: boolean
   public showHelpOnInvalidSyntax: boolean
   public invalidSyntaxMessage: string
-  public invalidSystaxHelpPrefix: string
+  public invalidSyntaxHelpPrefix: string
   public notAuthorizedMessage: string
   public verbose: boolean
 
@@ -30,7 +30,7 @@ export class Options implements IOptions {
       "HCM_INVALID_SYNTAX_MESSAGE",
       "invalid syntax."
     )
-    this.invalidSystaxHelpPrefix = getS(
+    this.invalidSyntaxHelpPrefix = getS(
       "HCM_INVALID_SYNTAX_HELP_PREFIX",
       "sorry, I don't understand. Maybe you could try:\n- "
     )
