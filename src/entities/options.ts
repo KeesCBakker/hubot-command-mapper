@@ -1,5 +1,3 @@
-import { isUndefined, isBoolean, isNull, isNullOrUndefined } from "util"
-
 export interface IOptions {
   addDebugCommand: boolean
   addHelpCommand: boolean
@@ -45,7 +43,7 @@ export class Options implements IOptions {
 function getS(name: string, defaultValue: string): string {
   let value = process.env[name]
 
-  if (isNullOrUndefined(value) || value === "") {
+  if (!value) {
     value = defaultValue
   }
 
@@ -55,7 +53,7 @@ function getS(name: string, defaultValue: string): string {
 function getB(name: string, defaultValue: boolean): boolean {
   let value = process.env[name]
 
-  if (isNullOrUndefined(value) || value === "") {
+  if (!value) {
     value = defaultValue.toString()
   }
 
