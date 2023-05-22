@@ -61,8 +61,8 @@ describe("map_command.spec.ts / Single command mapping", () => {
     pretend
       .user("Kees")
       .send("@hubot c")
-      .then(x => new Promise<any>(resolve => setTimeout(resolve, 100)))
-      .then(x => {
+      .then(() => new Promise<any>(resolve => setTimeout(resolve, 100)))
+      .then(() => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot c"],
           ["hubot", "@Kees r1"],
