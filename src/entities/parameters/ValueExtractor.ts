@@ -13,7 +13,7 @@ export function getValues(
   robotAlias: string,
   tool: ITool,
   command: ICommand,
-  messsage: string
+  message: string
 ): IParameterValueCollection {
   let collection: IMap = {}
 
@@ -27,7 +27,7 @@ export function getValues(
     )
     let nr = new NamedRegExp(r, "i")
 
-    let answer = nr.exec(messsage).groups
+    let answer = nr.exec(message).groups
 
     for (let parameter of command.parameters) {
       let value = answer[parameter.name]
