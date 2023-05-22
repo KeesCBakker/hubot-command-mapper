@@ -207,7 +207,7 @@ A **tool** is an object with the following:
 
 - `name:string`: the name of the tool. Required.
 - `commands:Array<Command>`: The commands that are supported by the tool. Only tools with at least 1 command can be mapped. Required.
-- `auth:Array<string>`: Used for user-name based authorization. Only the specificed users may access the tool. Optional.
+- `auth:Array<string>`: Used for user-name based authorization. Only the specified users may access the tool. Optional.
 
 A **command** has the following specification:
 
