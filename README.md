@@ -21,11 +21,13 @@ Let's define the _clear screen_ command by replying with 48 space-lines:
 ```js
 const { map_command } = require("hubot-command-mapper")
 
-map_command(pretend.robot, "clear screen", options, context => {
-  for (let i = 0; i < 48; i++) {
-    context.res.emote(" ")
-  }
-})
+module.exports = robot => {
+  map_command(pretend.robot, "clear screen", options, context => {
+    for (let i = 0; i < 48; i++) {
+      context.res.emote(" ")
+    }
+  })
+}
 ```
 
 The mapper will map the command into the robot using the `respond` method. The `hear` method is currently not supported.
@@ -243,6 +245,28 @@ module.exports = robot => {
   removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot)
 }
 ```
+
+## Move feature to another bot
+As bots grow, you might want to move features from one bot to another.
+You can add the `replacedByBot` option:
+
+```js
+const { map_command } = require("hubot-command-mapper")
+
+module.exports = robot => {
+  map_command(robot, "clear screen", { replacedByBot: "kz" }, context => {
+    // remove code
+  })
+}
+```
+
+This will print:
+
+> @user Sorry, this feature has been replaced by @kz. Please use:
+> ```
+> @kz clear screen
+> ```
+
 
 ## Want to contribute?
 
