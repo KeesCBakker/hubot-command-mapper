@@ -24,9 +24,9 @@ import {
 } from "./entities/parameters/RegExStringParameter"
 import { TokenParameter } from "./entities/parameters/TokenParameter"
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter"
-import { removeTrailingWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncommingMessages"
-import { removeTrailingBotWhitespaceCharactersFromIncommingMessages } from "./middleware/removeTrailingBotWhitespaceCharactersFromIncommingMessages"
-import { removeMarkdownFromIncommingMessages } from "./middleware/removeMarkdownFromIncommingMessages"
+import { removeTrailingWhitespaceCharactersFromIncomingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncomingMessages"
+import { removeTrailingBotWhitespaceCharactersFromIncomingMessages } from "./middleware/removeTrailingBotWhitespaceCharactersFromIncomingMessages"
+import { removeMarkdownFromIncomingMessages } from "./middleware/removeMarkdownFromIncomingMessages"
 import { addDiagnosticsMiddleware } from "./middleware/addDiagnosticsMiddleware"
 import { map_default_alias } from "./mappers/map_default_alias"
 
@@ -52,9 +52,9 @@ export {
   ICallback,
   IContext,
   ICommandResolverResultDebugInfo,
-  removeTrailingWhitespaceCharactersFromIncommingMessages,
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages,
-  removeMarkdownFromIncommingMessages,
+  removeTrailingWhitespaceCharactersFromIncomingMessages,
+  removeTrailingBotWhitespaceCharactersFromIncomingMessages,
+  removeMarkdownFromIncomingMessages as removeMarkdownFromIncomingMessages,
   addDiagnosticsMiddleware,
   map_default_alias,
 }

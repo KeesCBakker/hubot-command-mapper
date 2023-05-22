@@ -232,15 +232,15 @@ this:
 
 ```js
 const {
-  removeMarkdownFromIncommingMessages
-  removeTrailingWhitespaceCharactersFromIncommingMessages,
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages,
+  removeMarkdownFromIncomingMessages
+  removeTrailingWhitespaceCharactersFromIncomingMessages,
+  removeTrailingBotWhitespaceCharactersFromIncomingMessages,
 } = require("hubot-command-mapper")
 
 module.exports = robot => {
-  removeMarkdownFromIncommingMessages(robot)
-  removeTrailingWhitespaceCharactersFromIncommingMessages(robot)
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages(robot)
+  removeMarkdownFromIncomingMessages(robot)
+  removeTrailingWhitespaceCharactersFromIncomingMessages(robot)
+  removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot)
 }
 ```
 
