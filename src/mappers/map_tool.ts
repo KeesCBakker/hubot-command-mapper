@@ -1,6 +1,7 @@
 import { ITool } from "../definitions"
 import { IOptions, defaultOptions } from "../entities/options"
 import {
+  convertBotNameIntoRegexString,
   convertCommandIntoRegexString,
   convertToolIntoRegexString,
 } from "../utils/regex"
@@ -119,7 +120,19 @@ export function map_tool(
       return
     }
 
-    if (action.command.invoke) {
+    if (options.replacedByBot) {
+      const botRegexStr = convertBotNameIntoRegexString(robot.name, robot.alias)
+      const botRegex = new RegExp(botRegexStr)
+      const command =
+        `@${options.replacedByBot} ` + action.text.replace(botRegex, "").trim()
+
+      res.reply(
+        `Sorry, this feature has been replaced by @${options.replacedByBot}. Please use:\n` +
+          "```'n" +
+          command +
+          "\n```\n"
+      )
+    } else if (action.command.invoke) {
       action.command.invoke(tool, robot, res, action.match, action.values)
     } else if (action.command.execute) {
       action.command.execute({

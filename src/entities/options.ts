@@ -7,6 +7,7 @@ export interface IOptions {
   invalidSyntaxMessage: string
   invalidSyntaxHelpPrefix: string
   notAuthorizedMessage: string
+  replacedByBot: string
 }
 
 export class Options implements IOptions {
@@ -18,6 +19,7 @@ export class Options implements IOptions {
   public invalidSyntaxHelpPrefix: string
   public notAuthorizedMessage: string
   public verbose: boolean
+  public replacedByBot: string
 
   constructor() {
     this.addDebugCommand = getB("HCM_ADD_DEBUG_COMMAND", false)
