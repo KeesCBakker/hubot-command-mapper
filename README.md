@@ -84,7 +84,7 @@ module.exports = robot => {
 ## Alias
 
 Sometimes you want to have more control over the way commands and tools are
-prented to user. The rigid control you need as a developer does not have to
+presented to the user. The rigid control you need as a developer does not have to
 end up in your tool. You can use the `alias` and `map_default_alias` to
 route messages to your tools and commands.
 
@@ -121,7 +121,7 @@ module.exports = robot => {
 
 ## Capturing with named parameters
 
-A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accesed through the `match` object in the invoke:
+A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accessed through the `match` object in the invoke:
 
 ```js
 const { mapper } = require("hubot-command-mapper")
