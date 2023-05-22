@@ -4,7 +4,7 @@ import { mapper, alias } from "../../src"
 import { expect } from "chai"
 import "mocha"
 
-describe("erros.spec.ts / Errors", () => {
+describe("errors.spec.ts / Errors", () => {
   beforeEach(() => {
     pretend.start()
   })
@@ -14,7 +14,7 @@ describe("erros.spec.ts / Errors", () => {
   describe("mapper", () => {
     it("No robot", done => {
       try {
-        mapper(null, null)
+        mapper(<any>null, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'robot' is empty.")
         done()
@@ -23,7 +23,7 @@ describe("erros.spec.ts / Errors", () => {
 
     it("No tool", done => {
       try {
-        mapper(pretend.robot, null)
+        mapper(pretend.robot, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'tool' is empty.")
         done()
@@ -33,7 +33,7 @@ describe("erros.spec.ts / Errors", () => {
     it("Invalid tool name due to null", done => {
       try {
         mapper(pretend.robot, {
-          name: null,
+          name: <any>null,
           commands: [],
         })
       } catch (ex) {
@@ -89,7 +89,7 @@ describe("erros.spec.ts / Errors", () => {
           name: "Test",
           commands: [
             {
-              name: null,
+              name: <any>null,
               invoke: (tool, robot, res) => {},
             },
           ],
@@ -128,7 +128,7 @@ describe("erros.spec.ts / Errors", () => {
   describe("alias", () => {
     it("No robot", done => {
       try {
-        alias(null, null)
+        alias(<any>null, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'robot' is empty.")
         done()
