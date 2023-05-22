@@ -3,7 +3,7 @@ import { hasSwitch, setSwitch } from "../utils/switches"
 
 const SWITCH = "rtwcfim"
 
-export function removeTrailingWhitespaceCharactersFromIncommingMessages(
+export function removeTrailingWhitespaceCharactersFromIncomingMessages(
   robot: Hubot.Robot,
   options: IOptions = defaultOptions
 ) {

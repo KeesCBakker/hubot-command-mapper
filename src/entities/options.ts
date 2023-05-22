@@ -1,5 +1,3 @@
-import { isUndefined, isBoolean, isNull, isNullOrUndefined } from "util"
-
 export interface IOptions {
   addDebugCommand: boolean
   addHelpCommand: boolean
@@ -7,8 +5,9 @@ export interface IOptions {
   showInvalidSyntax: boolean
   showHelpOnInvalidSyntax: boolean
   invalidSyntaxMessage: string
-  invalidSystaxHelpPrefix: string
+  invalidSyntaxHelpPrefix: string
   notAuthorizedMessage: string
+  replacedByBot: string
 }
 
 export class Options implements IOptions {
@@ -17,9 +16,10 @@ export class Options implements IOptions {
   public showInvalidSyntax: boolean
   public showHelpOnInvalidSyntax: boolean
   public invalidSyntaxMessage: string
-  public invalidSystaxHelpPrefix: string
+  public invalidSyntaxHelpPrefix: string
   public notAuthorizedMessage: string
   public verbose: boolean
+  public replacedByBot: string
 
   constructor() {
     this.addDebugCommand = getB("HCM_ADD_DEBUG_COMMAND", false)
@@ -30,7 +30,7 @@ export class Options implements IOptions {
       "HCM_INVALID_SYNTAX_MESSAGE",
       "invalid syntax."
     )
-    this.invalidSystaxHelpPrefix = getS(
+    this.invalidSyntaxHelpPrefix = getS(
       "HCM_INVALID_SYNTAX_HELP_PREFIX",
       "sorry, I don't understand. Maybe you could try:\n- "
     )
@@ -45,7 +45,7 @@ export class Options implements IOptions {
 function getS(name: string, defaultValue: string): string {
   let value = process.env[name]
 
-  if (isNullOrUndefined(value) || value === "") {
+  if (!value) {
     value = defaultValue
   }
 
@@ -55,7 +55,7 @@ function getS(name: string, defaultValue: string): string {
 function getB(name: string, defaultValue: boolean): boolean {
   let value = process.env[name]
 
-  if (isNullOrUndefined(value) || value === "") {
+  if (!value) {
     value = defaultValue.toString()
   }
 

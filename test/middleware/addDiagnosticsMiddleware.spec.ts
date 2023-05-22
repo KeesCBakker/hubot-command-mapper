@@ -5,7 +5,7 @@ import {
   map_command,
   Options,
   RestParameter,
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages,
+  removeTrailingBotWhitespaceCharactersFromIncomingMessages,
   addDiagnosticsMiddleware,
   ICommandResolverResultDebugInfo,
 } from "../../src"

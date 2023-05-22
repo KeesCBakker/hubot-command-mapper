@@ -5,10 +5,10 @@ import {
   map_command,
   Options,
   RestParameter,
-  removeMarkdownFromIncommingMessages,
+  removeMarkdownFromIncomingMessages,
 } from "../../src"
 
-describe("removeMarkdownFromIncommingMessages.spec.ts / remove markdown", () => {
+describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
   beforeEach(() => {
     pretend.start()
     var options = new Options()
@@ -24,7 +24,7 @@ describe("removeMarkdownFromIncommingMessages.spec.ts / remove markdown", () => 
     )
 
     // map the markdown remover
-    removeMarkdownFromIncommingMessages(pretend.robot)
+    removeMarkdownFromIncomingMessages(pretend.robot)
   })
 
   afterEach(() => pretend.shutdown())

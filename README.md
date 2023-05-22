@@ -21,11 +21,13 @@ Let's define the _clear screen_ command by replying with 48 space-lines:
 ```js
 const { map_command } = require("hubot-command-mapper")
 
-map_command(pretend.robot, "clear screen", options, context => {
-  for (let i = 0; i < 48; i++) {
-    context.res.emote(" ")
-  }
-})
+module.exports = robot => {
+  map_command(pretend.robot, "clear screen", options, context => {
+    for (let i = 0; i < 48; i++) {
+      context.res.emote(" ")
+    }
+  })
+}
 ```
 
 The mapper will map the command into the robot using the `respond` method. The `hear` method is currently not supported.
@@ -84,7 +86,7 @@ module.exports = robot => {
 ## Alias
 
 Sometimes you want to have more control over the way commands and tools are
-prented to user. The rigid control you need as a developer does not have to
+presented to the user. The rigid control you need as a developer does not have to
 end up in your tool. You can use the `alias` and `map_default_alias` to
 route messages to your tools and commands.
 
@@ -121,7 +123,7 @@ module.exports = robot => {
 
 ## Capturing with named parameters
 
-A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accesed through the `match` object in the invoke:
+A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accessed through the `match` object in the invoke:
 
 ```js
 const { mapper } = require("hubot-command-mapper")
@@ -207,7 +209,7 @@ A **tool** is an object with the following:
 
 - `name:string`: the name of the tool. Required.
 - `commands:Array<Command>`: The commands that are supported by the tool. Only tools with at least 1 command can be mapped. Required.
-- `auth:Array<string>`: Used for user-name based authorization. Only the specificed users may access the tool. Optional.
+- `auth:Array<string>`: Used for user-name based authorization. Only the specified users may access the tool. Optional.
 
 A **command** has the following specification:
 
@@ -232,17 +234,39 @@ this:
 
 ```js
 const {
-  removeMarkdownFromIncommingMessages
-  removeTrailingWhitespaceCharactersFromIncommingMessages,
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages,
+  removeMarkdownFromIncomingMessages
+  removeTrailingWhitespaceCharactersFromIncomingMessages,
+  removeTrailingBotWhitespaceCharactersFromIncomingMessages,
 } = require("hubot-command-mapper")
 
 module.exports = robot => {
-  removeMarkdownFromIncommingMessages(robot)
-  removeTrailingWhitespaceCharactersFromIncommingMessages(robot)
-  removeTrailingBotWhitespaceCharactersFromIncommingMessages(robot)
+  removeMarkdownFromIncomingMessages(robot)
+  removeTrailingWhitespaceCharactersFromIncomingMessages(robot)
+  removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot)
 }
 ```
+
+## Move feature to another bot
+As bots grow, you might want to move features from one bot to another.
+You can add the `replacedByBot` option:
+
+```js
+const { map_command } = require("hubot-command-mapper")
+
+module.exports = robot => {
+  map_command(robot, "clear screen", { replacedByBot: "kz" }, context => {
+    // remove code
+  })
+}
+```
+
+This will print:
+
+> @user Sorry, this feature has been replaced by @kz. Please use:
+> ```
+> @kz clear screen
+> ```
+
 
 ## Want to contribute?
 

@@ -1,6 +1,6 @@
 import removeMarkDown from "remove-markdown"
 
-export function removeMarkdownFromIncommingMessages(robot: Hubot.Robot) {
+export function removeMarkdownFromIncomingMessages(robot: Hubot.Robot) {
   if (!robot) throw "Argument 'robot' is empty."
 
   robot.receiveMiddleware((context, next, done) => {

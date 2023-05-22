@@ -4,7 +4,7 @@ import { convertBotNameIntoRegexString } from "../utils/regex"
 
 const SWITCH = "rtbwcfim"
 
-export function removeTrailingBotWhitespaceCharactersFromIncommingMessages(
+export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(
   robot: Hubot.Robot,
   options: IOptions = defaultOptions
 ) {

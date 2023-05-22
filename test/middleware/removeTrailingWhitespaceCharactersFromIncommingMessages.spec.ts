@@ -5,10 +5,10 @@ import {
   map_command,
   Options,
   RestParameter,
-  removeTrailingWhitespaceCharactersFromIncommingMessages,
+  removeTrailingWhitespaceCharactersFromIncomingMessages,
 } from "../../src"
 
-describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trailing spaces fixer", () => {
+describe("removeTrailingWhitespaceCharactersFromIncomingMessages.spec.ts / trailing spaces fixer", () => {
   beforeEach(() => {
     pretend.start()
     var options = new Options()
@@ -24,7 +24,7 @@ describe("removeTrailingWhitespaceCharactersFromIncommingMessages.spec.ts / trai
     )
 
     // map the trailing space fixer
-    removeTrailingWhitespaceCharactersFromIncommingMessages(
+    removeTrailingWhitespaceCharactersFromIncomingMessages(
       pretend.robot,
       options
     )
