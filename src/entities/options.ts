@@ -1,13 +1,13 @@
 export interface IOptions {
-  addDebugCommand: boolean
-  addHelpCommand: boolean
-  verbose: boolean
-  showInvalidSyntax: boolean
-  showHelpOnInvalidSyntax: boolean
-  invalidSyntaxMessage: string
-  invalidSyntaxHelpPrefix: string
-  notAuthorizedMessage: string
-  replacedByBot: string
+  addDebugCommand?: boolean
+  addHelpCommand?: boolean
+  verbose?: boolean
+  showInvalidSyntax?: boolean
+  showHelpOnInvalidSyntax?: boolean
+  invalidSyntaxMessage?: string
+  invalidSyntaxHelpPrefix?: string
+  notAuthorizedMessage?: string
+  replacedByBot?: string
 }
 
 export class Options implements IOptions {

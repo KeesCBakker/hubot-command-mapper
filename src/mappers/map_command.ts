@@ -20,6 +20,12 @@ export function map_command(
       a =>
         (a as IOptions).addDebugCommand ||
         (a as IOptions).addHelpCommand ||
+        (a as IOptions).invalidSyntaxHelpPrefix ||
+        (a as IOptions).invalidSyntaxMessage ||
+        (a as IOptions).notAuthorizedMessage ||
+        (a as IOptions).replacedByBot ||
+        (a as IOptions).showHelpOnInvalidSyntax ||
+        (a as IOptions).showInvalidSyntax ||
         (a as IOptions).verbose
     ) as IOptions) || defaultOptions
 

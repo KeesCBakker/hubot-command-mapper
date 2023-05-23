@@ -128,7 +128,7 @@ export function map_tool(
 
       res.reply(
         `Sorry, this feature has been replaced by @${options.replacedByBot}. Please use:\n` +
-          "```'n" +
+          "```\n" +
           command +
           "\n```\n"
       )

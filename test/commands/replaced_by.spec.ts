@@ -1,13 +1,14 @@
 import pretend from "hubot-pretend"
 
-import { map_command, Options } from "../../src"
+import { map_command, map_tool } from "../../src"
 import { expect } from "chai"
 import "mocha"
 
 describe("replaced_by.spec.ts / Replaced by another bot", () => {
-  const options = new Options()
-  options.verbose = false
-  options.replacedByBot = "kz"
+  const options = {
+    verbose: false,
+    replacedByBot: "kz"
+  }
 
   beforeEach(() => {
     pretend.start()
@@ -29,7 +30,7 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
           ["kees", "@hubot clear screen"],
           [
             "hubot",
-            "@kees Sorry, this feature has been replaced by @kz. Please use:\n```'n@kz clear screen\n```\n",
+            "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz clear screen\n```\n",
           ],
         ])
 
@@ -40,23 +41,25 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
   })
 
   it("Tool replacement", done => {
-    let x = ""
 
-    map_command(pretend.robot, "c", options, context => context.res.reply("r1"))
-    map_command(pretend.robot, "cc", options, context =>
-      context.res.reply("r2")
-    )
+    map_tool(pretend.robot, {
+      name: "c",
+      commands: [{
+        name: "d",
+        execute: context => context.res.reply("r1")
+      }]
+    }, options)
 
     pretend
       .user("kees")
-      .send("@hubot c")
+      .send("@hubot c d")
       .then(() => new Promise<any>(resolve => setTimeout(resolve, 100)))
       .then(() => {
         expect(pretend.messages).to.eql([
-          ["kees", "@hubot c"],
+          ["kees", "@hubot c d"],
           [
             "hubot",
-            "@kees Sorry, this feature has been replaced by @kz. Please use:\n```'n@kz c\n```\n",
+            "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz c d\n```\n",
           ],
         ])
         done()
