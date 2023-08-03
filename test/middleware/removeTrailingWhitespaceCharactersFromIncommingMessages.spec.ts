@@ -1,33 +1,19 @@
 import pretend from "hubot-pretend"
 import { expect } from "chai"
 import "mocha"
-import {
-  map_command,
-  Options,
-  RestParameter,
-  removeTrailingWhitespaceCharactersFromIncomingMessages,
-} from "../../src"
+import { map_command, RestParameter, removeTrailingWhitespaceCharactersFromIncomingMessages } from "../../src"
 
 describe("removeTrailingWhitespaceCharactersFromIncomingMessages.spec.ts / trailing spaces fixer", () => {
   beforeEach(() => {
     pretend.start()
-    var options = new Options()
-    options.verbose = false
 
     // map dummy command
-    map_command(
-      pretend.robot,
-      "ping",
-      new RestParameter("rest"),
-      options,
-      context => context.res.reply(`Got this: "${context.values.rest}"`)
+    map_command(pretend.robot, "ping", new RestParameter("rest"), context =>
+      context.res.reply(`Got this: "${context.values.rest}"`)
     )
 
     // map the trailing space fixer
-    removeTrailingWhitespaceCharactersFromIncomingMessages(
-      pretend.robot,
-      options
-    )
+    removeTrailingWhitespaceCharactersFromIncomingMessages(pretend.robot)
   })
 
   afterEach(() => pretend.shutdown())

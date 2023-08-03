@@ -9,7 +9,6 @@ describe("commands.spec.ts / Default commands", () => {
     pretend.start()
 
     var options = new Options()
-    options.verbose = false
     options.addDebugCommand = true
     options.addHelpCommand = true
 
@@ -20,9 +19,9 @@ describe("commands.spec.ts / Default commands", () => {
         commands: [
           {
             name: "dummy",
-            invoke: (tool, robot, res) => {},
-          },
-        ],
+            invoke: (tool, robot, res) => {}
+          }
+        ]
       },
       options
     )

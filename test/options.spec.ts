@@ -17,7 +17,7 @@ describe("options.spec.ts / Options", () => {
   })
 
   it("ENV:HCM_ADD_DEBUG_COMMAND => NULL", () => {
-    process.env["HCM_ADD_DEBUG_COMMAND"] = null
+    process.env["HCM_ADD_DEBUG_COMMAND"] = ""
     var opts = new Options()
     expect(opts.addDebugCommand).to.eq(false)
   })

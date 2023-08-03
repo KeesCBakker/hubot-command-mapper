@@ -8,8 +8,7 @@ import { ITool, ICommand } from "../definitions"
 export default function validateToolAndThrowWhenInvalid(tool: ITool): void {
   if (!tool.name || tool.name === "") throw "Invalid name for tool."
 
-  if (!tool.commands || !tool.commands.length)
-    throw `No commands found for "${tool.name}"`
+  if (!tool.commands || !tool.commands.length) throw `No commands found for "${tool.name}"`
 
   tool.commands.forEach(cmd => validateCommandAndThrowWhenInvalid(tool, cmd))
 }
@@ -27,11 +26,8 @@ export function validateCommandAndThrowWhenInvalid(tool: ITool, cmd: ICommand) {
 
   //validate if the command is registered only once
   if (
-    tool.commands.filter(
-      c =>
-        c != cmd &&
-        (c.name == cmd.name || (c.alias && c.alias.indexOf(cmd.name) != -1))
-    ).length > 0
+    tool.commands.filter(c => c != cmd && (c.name == cmd.name || (c.alias && c.alias.indexOf(cmd.name) != -1))).length >
+    0
   )
     throw `Cannot create command '${cmd.name}' for tool '${tool.name}'. Multiple commands with the same name or alias found.`
 }

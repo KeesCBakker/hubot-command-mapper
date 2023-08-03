@@ -1,9 +1,4 @@
-import {
-  StringParameter,
-  ChoiceParameter,
-  TokenParameter,
-  IPv4Parameter,
-} from "../../src"
+import { StringParameter, ChoiceParameter, TokenParameter, IPv4Parameter } from "../../src"
 
 import { RestParameter } from "../../src/index"
 import { expect } from "chai"
@@ -24,13 +19,8 @@ describe("StringParameters.spec.ts", () => {
       var p = new StringParameter("a")
       var r = createRegex([p])
 
-      expect(test(r, "hubot test cmd TestingAWord1337")).to.eq(
-        true,
-        "Word capturing."
-      )
-      expect(
-        test(r, 'hubot test cmd "Testing a multiple 6 word phrase"')
-      ).to.eq(true, "Phrase capturing.")
+      expect(test(r, "hubot test cmd TestingAWord1337")).to.eq(true, "Word capturing.")
+      expect(test(r, 'hubot test cmd "Testing a multiple 6 word phrase"')).to.eq(true, "Phrase capturing.")
     })
 
     it("Double parameters", () => {
@@ -38,14 +28,8 @@ describe("StringParameters.spec.ts", () => {
       var p2 = new StringParameter("b")
       var r = createRegex([p1, p2])
 
-      expect(test(r, "hubot test cmd word 'and a phrase'")).to.eq(
-        true,
-        "Word and phrase capture."
-      )
-      expect(test(r, 'hubot test cmd "phrase and" word')).to.eq(
-        true,
-        "Phrase and word capture."
-      )
+      expect(test(r, "hubot test cmd word 'and a phrase'")).to.eq(true, "Word and phrase capture.")
+      expect(test(r, 'hubot test cmd "phrase and" word')).to.eq(true, "Phrase and word capture.")
     })
   })
 
@@ -67,18 +51,9 @@ describe("StringParameters.spec.ts", () => {
 
       expect(test(r, "hubot test cmd 127.0.0.1")).to.eq(true, "127.0.0.1")
       expect(test(r, "hubot test cmd 1.1.1.1")).to.eq(true, "1.1.1.1")
-      expect(test(r, "hubot test cmd 255.255.255.255")).to.eq(
-        true,
-        "255.255.255.255"
-      )
-      expect(test(r, "hubot test cmd 255.255.255.256")).to.eq(
-        false,
-        "255.255.255.256"
-      )
-      expect(test(r, "hubot test cmd 255.255.255.01")).to.eq(
-        false,
-        "255.255.255.01"
-      )
+      expect(test(r, "hubot test cmd 255.255.255.255")).to.eq(true, "255.255.255.255")
+      expect(test(r, "hubot test cmd 255.255.255.256")).to.eq(false, "255.255.255.256")
+      expect(test(r, "hubot test cmd 255.255.255.01")).to.eq(false, "255.255.255.01")
     })
 
     it("IP prefix", () => {
@@ -93,10 +68,7 @@ describe("StringParameters.spec.ts", () => {
 
       // bad cases
       expect(test(r, "hubot test cmd 127.0.0.1/0")).to.eq(false, "127.0.0.1/0")
-      expect(test(r, "hubot test cmd 127.0.0.1/33")).to.eq(
-        false,
-        "127.0.0.1/33"
-      )
+      expect(test(r, "hubot test cmd 127.0.0.1/33")).to.eq(false, "127.0.0.1/33")
     })
 
     it("No prefix", () => {
@@ -117,14 +89,12 @@ describe("StringParameters.spec.ts", () => {
         new TokenParameter("source"),
         new IPv4Parameter("sourceIp"),
         new TokenParameter("destination"),
-        new IPv4Parameter("destinationIp"),
+        new IPv4Parameter("destinationIp")
       ]
 
       var r = createRegex(p)
 
-      expect(
-        test(r, "hubot test cmd source 127.0.0.1 destination 192.168.1.4")
-      ).to.eq(true)
+      expect(test(r, "hubot test cmd source 127.0.0.1 destination 192.168.1.4")).to.eq(true)
     })
   })
 })

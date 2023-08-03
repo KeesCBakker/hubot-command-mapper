@@ -1,10 +1,7 @@
 import { ITool } from ".."
-import {
-  ICommand,
-  IParameterValueCollection,
-  ICommandResolverResultDebugInfo,
-} from "../definitions"
+import { ICommand, IParameterValueCollection, ICommandResolverResultDebugInfo } from "../definitions"
 import { getValues } from "./parameters/ValueExtractor"
+import { Logger } from "pino"
 
 export class CommandResolver {
   constructor(private robot: Hubot.Robot) {}
@@ -15,21 +12,13 @@ export class CommandResolver {
     if (this.robot.__tools) {
       tool = this.robot.__tools
         .map(t => (<any>t) as ITool)
-        .find(
-          t =>
-            t != null &&
-            t.__robotRegex != null &&
-            t.__robotRegex.test(res.message.text)
-        )
+        .find(t => t != null && t.__robotRegex != null && t.__robotRegex.test(res.message.text))
     }
 
     return this.resolveFromTool(tool, res)
   }
 
-  public resolveFromTool(
-    tool: ITool,
-    res: Hubot.Response
-  ): CommandResolverResult {
+  public resolveFromTool(tool: ITool, res: Hubot.Response): CommandResolverResult {
     if (!res.message.text) return null
 
     const result = new CommandResolverResult()
@@ -42,9 +31,7 @@ export class CommandResolver {
 
     result.tool = tool
 
-    const matchingCommands = result.tool.commands.filter(cmd =>
-      cmd.validationRegex.test(res.message.text)
-    )
+    const matchingCommands = result.tool.commands.filter(cmd => cmd.validationRegex.test(res.message.text))
 
     if (matchingCommands.length == 0) {
       return result
@@ -52,21 +39,13 @@ export class CommandResolver {
 
     result.command = matchingCommands[0]
     result.authorized =
-      (!result.tool.auth ||
-        result.tool.auth.length === 0 ||
-        result.tool.auth.indexOf(res.message.user.name) > -1) &&
+      (!result.tool.auth || result.tool.auth.length === 0 || result.tool.auth.indexOf(res.message.user.name) > -1) &&
       (!result.command.auth ||
         result.command.auth.length === 0 ||
         result.command.auth.indexOf(res.message.user.name) > -1)
 
     result.match = result.command.validationRegex.exec(res.message.text)
-    result.values = getValues(
-      this.robot.name,
-      this.robot.alias,
-      result.tool,
-      result.command,
-      res.message.text
-    )
+    result.values = getValues(this.robot.name, this.robot.alias, result.tool, result.command, res.message.text)
 
     return result
   }
@@ -82,9 +61,11 @@ export class CommandResolverResult {
   public text: string
   public user: Hubot.User
 
-  public log(): void {
-    const debug = this.getDebugInfo()
-    console.log(debug)
+  public log(logger: Logger): void {
+    if (logger) {
+      const debug = this.getDebugInfo()
+      logger.info(debug)
+    }
   }
 
   public getDebugInfo(): ICommandResolverResultDebugInfo {
@@ -96,7 +77,7 @@ export class CommandResolverResult {
       tool: this.tool ? this.tool.name : null,
       command: this.command ? this.command.name : null,
       match: this.match,
-      values: this.values,
+      values: this.values
     }
   }
 }

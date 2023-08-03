@@ -7,25 +7,18 @@ import {
   RestParameter,
   removeTrailingBotWhitespaceCharactersFromIncomingMessages,
   addDiagnosticsMiddleware,
-  ICommandResolverResultDebugInfo,
+  ICommandResolverResultDebugInfo
 } from "../../src"
 
 import { should } from "chai"
-
-var options = new Options()
-options.verbose = false
 
 describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", () => {
   beforeEach(() => {
     pretend.start()
 
     // map dummy command
-    map_command(
-      pretend.robot,
-      "ping",
-      new RestParameter("rest"),
-      options,
-      context => context.res.reply(`Got this: "${context.values.rest}"`)
+    map_command(pretend.robot, "ping", new RestParameter("rest"), context =>
+      context.res.reply(`Got this: "${context.values.rest}"`)
     )
   })
 
@@ -34,13 +27,9 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
   it("A command should trigger a debug callback", done => {
     let debug: ICommandResolverResultDebugInfo
 
-    addDiagnosticsMiddleware(
-      pretend.robot,
-      info => {
-        debug = info
-      },
-      options
-    )
+    addDiagnosticsMiddleware(pretend.robot, info => {
+      debug = info
+    })
 
     pretend
       .user("kees")
@@ -53,7 +42,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
         expect(debug.command).to.eql("cmd")
         expect(debug.match[0]).to.eql("@hubot ping 127.0.0.1")
         expect(debug.values).to.eql({
-          rest: "127.0.0.1",
+          rest: "127.0.0.1"
         })
 
         done()
@@ -64,7 +53,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
   it("A non command should also trigger a debug callback", done => {
     let debug: ICommandResolverResultDebugInfo
 
-    addDiagnosticsMiddleware(pretend.robot, info => (debug = info), options)
+    addDiagnosticsMiddleware(pretend.robot, info => (debug = info))
 
     pretend
       .user("kees")

@@ -1,6 +1,6 @@
 {
   "name": "hubot-command-mapper",
-  "version": "4.0.5",
+  "version": "5.0.0",
   "description": "Helps with mapping tools and commands to hubot",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -10,7 +10,8 @@
     "build": "del-cli dist & tsc",
     "prepublishOnly": "npm run build & npm test & npm version patch",
     "postpublish": "git push origin --tags",
-    "patch": "npx npm-force-resolutions & npm audit"
+    "patch": "npx npm-force-resolutions & npm audit",
+    "format": "prettier --config .prettierrc {test,src}/**/*.ts --write"
   },
   "repository": {
     "type": "git",
@@ -35,15 +36,17 @@
     "@types/chai": "^4.3.5",
     "@types/hubot": "^3.3.2",
     "@types/mocha": "^10.0.1",
-    "@types/node": "^20.2.3",
+    "@types/node": "^20.4.6",
     "chai": "^4.3.7",
     "coffeescript": "^2.7.0",
-    "del-cli": "^4.0.1",
+    "del-cli": "^5.0.0",
     "hubot-pretend": "^1.2.0",
     "mocha": "^10.2.0",
     "npm-force-resolutions": "0.0.10",
+    "pino": "^8.14.2",
+    "prettier": "^3.0.1",
     "ts-node": "^10.9.1",
-    "typescript": "^5.0.4"
+    "typescript": "^5.1.6"
   },
   "resolutions": {
     "base64-url": "2.3.2",

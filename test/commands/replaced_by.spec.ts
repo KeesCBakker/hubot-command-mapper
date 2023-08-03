@@ -28,10 +28,7 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot clear screen"],
-          [
-            "hubot",
-            "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz clear screen\n```\n",
-          ],
+          ["hubot", "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz clear screen\n```\n"]
         ])
 
         expect(i).to.eq(0, "Message should not increment i.")
@@ -41,14 +38,19 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
   })
 
   it("Tool replacement", done => {
-
-    map_tool(pretend.robot, {
-      name: "c",
-      commands: [{
-        name: "d",
-        execute: context => context.res.reply("r1")
-      }]
-    }, options)
+    map_tool(
+      pretend.robot,
+      {
+        name: "c",
+        commands: [
+          {
+            name: "d",
+            execute: context => context.res.reply("r1")
+          }
+        ]
+      },
+      options
+    )
 
     pretend
       .user("kees")
@@ -57,10 +59,7 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot c d"],
-          [
-            "hubot",
-            "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz c d\n```\n",
-          ],
+          ["hubot", "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz c d\n```\n"]
         ])
         done()
       })

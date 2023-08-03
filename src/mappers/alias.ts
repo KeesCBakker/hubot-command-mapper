@@ -4,14 +4,11 @@ import { IMap } from "../definitions"
 import { IMessageHandler } from "../definitions/IMessageHandler"
 
 class AliasMapping implements IMessageHandler {
-  public matchers: RegularExpessionMap[]
+  public matchers: RegularExpressionMap[]
   public splitter: RegExp
 
   constructor(map: IMap, robot: Hubot.Robot) {
-    this.splitter = createBotCommandExtractor(
-      robot.name,
-      robot.alias || robot.name
-    )
+    this.splitter = createBotCommandExtractor(robot.name, robot.alias || robot.name)
     this.matchers = convertMapIntoRegularExpression(map)
   }
 
@@ -44,14 +41,12 @@ class AliasMapping implements IMessageHandler {
   }
 }
 
-export function alias(robot: Hubot.Robot, map: any, options: IOptions) {
+export function alias(robot: Hubot.Robot, map: any) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!map) throw "Argument 'map' is empty."
 
-  if (options.verbose) {
-    Object.keys(map).forEach(key =>
-      console.log(`Aliasing '${key}' to '${map[key]}'.`)
-    )
+  if (robot.logger) {
+    Object.keys(map).forEach(key => robot.logger.info(`Aliasing '${key}' to '${map[key]}'.`))
   }
 
   var mapping = new AliasMapping(map, robot)
@@ -64,8 +59,8 @@ export function alias(robot: Hubot.Robot, map: any, options: IOptions) {
 
     if (text != newText) {
       context.response.message.text = newText
-      if (options.verbose) {
-        console.log(`Routing '${text}' to '${newText}'.`)
+      if (robot.logger) {
+        robot.logger.info(`Routing '${text}' to '${newText}'.`)
       }
     }
 
@@ -83,24 +78,21 @@ export function alias(robot: Hubot.Robot, map: any, options: IOptions) {
  * @returns {RegExp} The regular expression.
  */
 function createBotCommandExtractor(name: string, alias: string): RegExp {
-  return new RegExp(
-    `^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`,
-    "i"
-  )
+  return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`, "i")
 }
 
-function convertMapIntoRegularExpression(map: IMap): RegularExpessionMap[] {
+function convertMapIntoRegularExpression(map: IMap): RegularExpressionMap[] {
   return Object.keys(map).map(key => {
     let value = map[key]
     let regex = key.endsWith("*")
       ? new RegExp(`^${escapeRegExp(key.substr(0, key.length - 1))} (.+)$`, "i")
       : new RegExp(`^${escapeRegExp(key)}$`, "i")
 
-    return new RegularExpessionMap(regex, value)
+    return new RegularExpressionMap(regex, value)
   })
 }
 
-class RegularExpessionMap {
+class RegularExpressionMap {
   public matcher: RegExp
   public value: string
 

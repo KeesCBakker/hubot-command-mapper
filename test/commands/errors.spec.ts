@@ -34,7 +34,7 @@ describe("errors.spec.ts / Errors", () => {
       try {
         mapper(pretend.robot, {
           name: <any>null,
-          commands: [],
+          commands: []
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid name for tool.")
@@ -46,7 +46,7 @@ describe("errors.spec.ts / Errors", () => {
       try {
         mapper(pretend.robot, {
           name: "",
-          commands: [],
+          commands: []
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid name for tool.")
@@ -58,7 +58,7 @@ describe("errors.spec.ts / Errors", () => {
       try {
         mapper(pretend.robot, {
           name: "XXX",
-          commands: [],
+          commands: []
         })
       } catch (ex) {
         expect(ex.toString()).to.eq('No commands found for "XXX"')
@@ -73,9 +73,9 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: "",
-              invoke: (tool, robot, res) => {},
-            },
-          ],
+              invoke: (tool, robot, res) => {}
+            }
+          ]
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid command name.")
@@ -90,9 +90,9 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: <any>null,
-              invoke: (tool, robot, res) => {},
-            },
-          ],
+              invoke: (tool, robot, res) => {}
+            }
+          ]
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid command name.")
@@ -107,14 +107,14 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: "list",
-              invoke: (tool, robot, res) => {},
+              invoke: (tool, robot, res) => {}
             },
             {
               name: "list2",
               alias: ["list"],
-              invoke: (tool, robot, res) => {},
-            },
-          ],
+              invoke: (tool, robot, res) => {}
+            }
+          ]
         })
       } catch (ex) {
         expect(ex.toString()).to.eq(

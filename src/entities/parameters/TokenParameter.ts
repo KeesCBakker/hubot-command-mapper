@@ -1,4 +1,4 @@
-import { ChoiceParameter } from "./ChoiceParameter";
+import { ChoiceParameter } from "./ChoiceParameter"
 
 /**
  * Matches a token. A token must be present.
@@ -8,13 +8,12 @@ import { ChoiceParameter } from "./ChoiceParameter";
  * @extends {ChoiceParameter}
  */
 export class TokenParameter extends ChoiceParameter {
-
   /**
    *Creates an instance of TokenParameter.
    * @param {string} name The name of the token.
    * @memberof TokenParameter
    */
   constructor(token: string) {
-    super(token, [token], null);
+    super(token, [token], null)
   }
 }

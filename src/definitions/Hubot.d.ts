@@ -1,4 +1,5 @@
 import { IMessageHandler } from "./IMessageHandler"
+import { Logger } from "pino"
 
 // Type definitions for hubot 2.19
 // Project: https://github.com/github/hubot
@@ -20,7 +21,6 @@ declare namespace Hubot {
     text: string
     id: string
     room: string
-    thread_ts?: string
   }
 
   class Response {
@@ -36,24 +36,15 @@ declare namespace Hubot {
 
   type ListenerCallback<R> = (response: Response) => void
 
-  type receiveMiddlewareCallback = (
-    context: any,
-    next: (done: any) => void,
-    done: any
-  ) => void
+  type receiveMiddlewareCallback = (context: any, next: (done: any) => void, done: any) => void
 
   class Robot {
     alias: string
     brain: Brain
     name: string
+    logger: Logger
 
-    constructor(
-      adapterPath: string,
-      adapter: string,
-      httpd: boolean,
-      name: string,
-      alias?: string
-    )
+    constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string)
 
     hear(regex: RegExp, callback: ListenerCallback<this>): void
     hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void

@@ -28,8 +28,8 @@ export function map_default_alias(
 
   setSwitch(robot, SWITCH)
 
-  if (options.verbose) {
-    console.log(`Aliasing default to '${destination}'.`)
+  if (robot.logger) {
+    robot.logger.info(`Aliasing default to '${destination}'.`)
   }
 
   let splitter = createBotCommandExtractor(robot.name, robot.alias)
@@ -48,8 +48,8 @@ export function map_default_alias(
 
         if (text != newText) {
           context.response.message.text = newText
-          if (options.verbose) {
-            console.log(`Routing '${text}' to '${newText}'.`)
+          if (robot.logger) {
+            robot.logger.info(`Routing '${text}' to '${newText}'.`)
           }
         }
       }
@@ -86,8 +86,5 @@ function isUnhandledMessage(robot: Hubot.Robot, msg: string) {
  * @returns {RegExp} The regular expression.
  */
 function createBotCommandExtractor(name: string, alias: string): RegExp {
-  return new RegExp(
-    `^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}))(.*)$`,
-    "i"
-  )
+  return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}))(.*)$`, "i")
 }

@@ -8,16 +8,11 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
   beforeEach(() => {
     pretend.start({
       name: "namebot",
-      alias: "aliasbot",
+      alias: "aliasbot"
     })
 
-    var options = new Options()
-    options.verbose = false
-
-    map_command(pretend.robot, "ping", options, context =>
-      context.res.reply("pong")
-    )
-    alias(pretend.robot, { pang: "ping" }, options)
+    map_command(pretend.robot, "ping", context => context.res.reply("pong"))
+    alias(pretend.robot, { pang: "ping" })
   })
 
   afterEach(() => pretend.shutdown())
@@ -29,7 +24,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@aliasbot ping"],
-          ["hubot", "@kees pong"],
+          ["hubot", "@kees pong"]
         ])
         done()
       })
@@ -43,7 +38,7 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@aliasbot pang"],
-          ["hubot", "@kees pong"],
+          ["hubot", "@kees pong"]
         ])
         done()
       })

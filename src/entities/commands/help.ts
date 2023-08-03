@@ -1,8 +1,4 @@
-import {
-  IHelpCommand,
-  IParameterValueCollection,
-  ITool,
-} from "../../definitions"
+import { IHelpCommand, IParameterValueCollection, ITool } from "../../definitions"
 import { Robot, Response } from "../../definitions/Hubot"
 
 export default function createHelpCommand(): IHelpCommand {
@@ -44,6 +40,6 @@ export default function createHelpCommand(): IHelpCommand {
       let msg = helpMsgPrefix + helpCommands.join("\n- ")
 
       res.reply(msg)
-    },
+    }
   }
 }
