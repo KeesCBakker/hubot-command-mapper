@@ -21,7 +21,6 @@ declare namespace Hubot {
     text: string
     id: string
     room: string
-    thread_ts?: string
   }
 
   class Response {
