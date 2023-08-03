@@ -1,23 +1,15 @@
 import pretend from "hubot-pretend"
 import { expect } from "chai"
 import "mocha"
-import {
-  map_command,
-  Options,
-  RestParameter,
-  removeMarkdownFromIncomingMessages,
-} from "../../src"
+import { map_command, Options, RestParameter, removeMarkdownFromIncomingMessages } from "../../src"
 
 describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
   beforeEach(() => {
     pretend.start()
 
     // map dummy command
-    map_command(
-      pretend.robot,
-      "ping",
-      new RestParameter("rest"),
-      context => context.res.reply(`Got this: "${context.values.rest}"`)
+    map_command(pretend.robot, "ping", new RestParameter("rest"), context =>
+      context.res.reply(`Got this: "${context.values.rest}"`)
     )
 
     // map the markdown remover
@@ -44,9 +36,7 @@ describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
       .send("@hubot ping this is a `test` with `let code = true`")
       .then(() => {
         var message = pretend.messages[1][1]
-        expect(message).to.eq(
-          '@kees Got this: "this is a test with let code = true"'
-        )
+        expect(message).to.eq('@kees Got this: "this is a test with let code = true"')
         done()
       })
       .catch(ex => done(ex))
@@ -70,9 +60,7 @@ describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
       .send("@hubot ping this is a *test* with _italics_ and `code`")
       .then(() => {
         var message = pretend.messages[1][1]
-        expect(message).to.eq(
-          '@kees Got this: "this is a test with italics and code"'
-        )
+        expect(message).to.eq('@kees Got this: "this is a test with italics and code"')
         done()
       })
       .catch(ex => done(ex))

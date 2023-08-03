@@ -6,11 +6,7 @@ import { map_tool } from "./map_tool"
 import { ICallback } from "../definitions/ICallback"
 import { IContext } from "../definitions/IContext"
 
-export function map_command(
-  robot: Hubot.Robot,
-  command: string,
-  args: (IParameter | ICallback | IOptions)[]
-): void {
+export function map_command(robot: Hubot.Robot, command: string, args: (IParameter | ICallback | IOptions)[]): void {
   let callback = args.find(a => a instanceof Function) as ICallback
   if (!callback) throw "Missing callback function."
 
@@ -47,13 +43,13 @@ export function map_command(
             robot: robot,
             res: res,
             match: match,
-            values: values,
+            values: values
           } as IContext
 
           callback(context)
-        },
-      },
-    ],
+        }
+      }
+    ]
   } as ITool
 
   map_tool(robot, tool, options)

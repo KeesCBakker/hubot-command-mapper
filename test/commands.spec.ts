@@ -19,9 +19,9 @@ describe("commands.spec.ts / Default commands", () => {
         commands: [
           {
             name: "dummy",
-            invoke: (tool, robot, res) => {},
-          },
-        ],
+            invoke: (tool, robot, res) => {}
+          }
+        ]
       },
       options
     )

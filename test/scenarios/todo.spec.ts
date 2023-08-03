@@ -17,7 +17,7 @@ function mapTodo(robot: Hubot.Robot) {
         execute: context => {
           todos.push(context.values.item)
           context.res.reply(`Added _${context.values.item}_ to the list.`)
-        },
+        }
       },
       {
         name: "list",
@@ -29,7 +29,7 @@ function mapTodo(robot: Hubot.Robot) {
             txt += todos.map(t => "- " + t).join("\n")
             context.res.reply(txt)
           }
-        },
+        }
       },
       {
         name: "remove",
@@ -41,9 +41,9 @@ function mapTodo(robot: Hubot.Robot) {
           const x = todos.length - a.length
           todos = a
           context.res.reply(`Removed ${x} item(s) from the list.`)
-        },
-      },
-    ],
+        }
+      }
+    ]
   })
 }
 
@@ -74,17 +74,11 @@ describe("todo.spec.ts > todo example", () => {
           ["kees", "@hubot todo Eieren halen"],
           ["hubot", "@kees Added _Eieren halen_ to the list."],
           ["kees", "@hubot todo"],
-          [
-            "hubot",
-            "@kees The following item(s) are on the list:\n- Boter halen\n- Kaas halen\n- Eieren halen",
-          ],
+          ["hubot", "@kees The following item(s) are on the list:\n- Boter halen\n- Kaas halen\n- Eieren halen"],
           ["kees", "@hubot todo del er"],
           ["hubot", "@kees Removed 2 item(s) from the list."],
           ["kees", "@hubot todo list"],
-          [
-            "hubot",
-            "@kees The following item(s) are on the list:\n- Kaas halen",
-          ],
+          ["hubot", "@kees The following item(s) are on the list:\n- Kaas halen"]
         ])
       })
       .then(x => done())

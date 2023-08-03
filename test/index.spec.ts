@@ -18,9 +18,9 @@ describe("index.spec.ts / Command mapping", () => {
       commands: [
         {
           name: "screen",
-          invoke: (tool, robot, res, match) => i++,
-        },
-      ],
+          invoke: (tool, robot, res, match) => i++
+        }
+      ]
     })
     pretend
       .user("kees")
@@ -53,9 +53,9 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "screen",
           alias: ["scr"],
-          invoke: (tool, robot, res, match) => i++,
-        },
-      ],
+          invoke: (tool, robot, res, match) => i++
+        }
+      ]
     })
     pretend
       .user("kees")
@@ -75,9 +75,9 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "screen",
           alias: [""],
-          invoke: (tool, robot, res, match) => i++,
-        },
-      ],
+          invoke: (tool, robot, res, match) => i++
+        }
+      ]
     })
     pretend
       .user("kees")
@@ -97,9 +97,9 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "screen",
           alias: ["scr", ""],
-          invoke: (tool, robot, res, match) => i++,
-        },
-      ],
+          invoke: (tool, robot, res, match) => i++
+        }
+      ]
     })
 
     Promise.resolve()
@@ -132,18 +132,18 @@ describe("index.spec.ts / Command mapping", () => {
       commands: [
         {
           name: "a",
-          invoke: (tool, robot, res, match) => (latest = "a"),
+          invoke: (tool, robot, res, match) => (latest = "a")
         },
         {
           name: "b",
-          invoke: (tool, robot, res, match) => (latest = "b"),
+          invoke: (tool, robot, res, match) => (latest = "b")
         },
 
         {
           name: "c",
-          invoke: (tool, robot, res, match) => (latest = "c"),
-        },
-      ],
+          invoke: (tool, robot, res, match) => (latest = "c")
+        }
+      ]
     })
 
     Promise.resolve()
@@ -175,9 +175,9 @@ describe("index.spec.ts / Command mapping", () => {
       commands: [
         {
           name: "c1",
-          invoke: (tool, robot, res, match) => res.reply("r1"),
-        },
-      ],
+          invoke: (tool, robot, res, match) => res.reply("r1")
+        }
+      ]
     })
 
     mapper(pretend.robot, {
@@ -185,9 +185,9 @@ describe("index.spec.ts / Command mapping", () => {
       commands: [
         {
           name: "c1",
-          invoke: (tool, robot, res, match) => res.reply("r2"),
-        },
-      ],
+          invoke: (tool, robot, res, match) => res.reply("r2")
+        }
+      ]
     })
 
     pretend
@@ -197,7 +197,7 @@ describe("index.spec.ts / Command mapping", () => {
       .then(x => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot t2 c1"],
-          ["hubot", "@Kees r2"],
+          ["hubot", "@Kees r2"]
         ])
         done()
       })
@@ -211,9 +211,9 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "everything",
           parameters: [new RestParameter("rest")],
-          invoke: (tool, robot, res) => res.reply("kewl!"),
-        },
-      ],
+          invoke: (tool, robot, res) => res.reply("kewl!")
+        }
+      ]
     })
 
     pretend
@@ -222,7 +222,7 @@ describe("index.spec.ts / Command mapping", () => {
       .then(_ => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot TeStInG eVeRyThInG and maybe more!"],
-          ["hubot", "@kees kewl!"],
+          ["hubot", "@kees kewl!"]
         ])
         done()
       })

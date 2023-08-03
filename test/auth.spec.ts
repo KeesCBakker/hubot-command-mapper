@@ -18,14 +18,14 @@ describe("auth.spec.ts / Default commands", () => {
         commands: [
           {
             name: "action1",
-            invoke: (tool, robot, res) => res.reply("Hi!"),
+            invoke: (tool, robot, res) => res.reply("Hi!")
           },
           {
             name: "action2",
             auth: ["user2"],
-            invoke: (tool, robot, res) => res.reply("Hi!"),
-          },
-        ],
+            invoke: (tool, robot, res) => res.reply("Hi!")
+          }
+        ]
       },
       options
     )
@@ -40,7 +40,7 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot test action1"],
-          ["hubot", "@kees sorry, you are not authorized to use this command."],
+          ["hubot", "@kees sorry, you are not authorized to use this command."]
         ])
         done()
       })
@@ -54,7 +54,7 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["user1", "@hubot test action1"],
-          ["hubot", "@user1 Hi!"],
+          ["hubot", "@user1 Hi!"]
         ])
         done()
       })
@@ -68,10 +68,7 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["user1", "@hubot test action2"],
-          [
-            "hubot",
-            "@user1 sorry, you are not authorized to use this command.",
-          ],
+          ["hubot", "@user1 sorry, you are not authorized to use this command."]
         ])
         done()
       })
@@ -85,7 +82,7 @@ describe("auth.spec.ts / Default commands", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["user2", "@hubot test action2"],
-          ["hubot", "@user2 Hi!"],
+          ["hubot", "@user2 Hi!"]
         ])
         done()
       })

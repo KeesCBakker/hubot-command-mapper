@@ -29,7 +29,7 @@ export function map_default_alias(
   setSwitch(robot, SWITCH)
 
   if (robot.logger) {
-      robot.logger.info(`Aliasing default to '${destination}'.`)
+    robot.logger.info(`Aliasing default to '${destination}'.`)
   }
 
   let splitter = createBotCommandExtractor(robot.name, robot.alias)
@@ -86,8 +86,5 @@ function isUnhandledMessage(robot: Hubot.Robot, msg: string) {
  * @returns {RegExp} The regular expression.
  */
 function createBotCommandExtractor(name: string, alias: string): RegExp {
-  return new RegExp(
-    `^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}))(.*)$`,
-    "i"
-  )
+  return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}))(.*)$`, "i")
 }

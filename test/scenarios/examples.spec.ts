@@ -9,7 +9,7 @@ describe("examples.spec.ts > check count/capture example", () => {
   it("Should count to 3", done => {
     pretend.start({
       name: "hb",
-      alias: "lb",
+      alias: "lb"
     })
 
     const tool: ITool = {
@@ -25,9 +25,9 @@ describe("examples.spec.ts > check count/capture example", () => {
             for (let i = a; i < b + 1; i++) {
               context.res.reply(`${i}!`)
             }
-          },
-        },
-      ],
+          }
+        }
+      ]
     }
 
     mapper(pretend.robot, tool)
@@ -40,7 +40,7 @@ describe("examples.spec.ts > check count/capture example", () => {
           ["kees", "@hb count from 1 to 3"],
           ["hubot", "@kees 1!"],
           ["hubot", "@kees 2!"],
-          ["hubot", "@kees 3!"],
+          ["hubot", "@kees 3!"]
         ])
 
         pretend.shutdown()
@@ -54,7 +54,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
   it("Should return a quote", done => {
     pretend.start({
       name: "hb",
-      alias: "lb",
+      alias: "lb"
     })
 
     const tool: ITool = {
@@ -62,20 +62,15 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
       commands: [
         {
           name: "impersonate",
-          parameters: [
-            new StringParameter("firstName"),
-            new StringParameter("lastName"),
-          ],
+          parameters: [new StringParameter("firstName"), new StringParameter("lastName")],
           execute: context => {
             const firstName = encodeURIComponent(context.values.firstName)
             const lastName = encodeURIComponent(context.values.lastName)
 
-            context.res.reply(
-              `${firstName} ${lastName} has counted to infinity. Twice!`
-            )
-          },
-        },
-      ],
+            context.res.reply(`${firstName} ${lastName} has counted to infinity. Twice!`)
+          }
+        }
+      ]
     }
 
     mapper(pretend.robot, tool)
@@ -86,7 +81,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hb norris impersonate Cool Cat"],
-          ["hubot", "@kees Cool Cat has counted to infinity. Twice!"],
+          ["hubot", "@kees Cool Cat has counted to infinity. Twice!"]
         ])
 
         pretend.shutdown()

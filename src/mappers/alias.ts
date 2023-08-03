@@ -8,10 +8,7 @@ class AliasMapping implements IMessageHandler {
   public splitter: RegExp
 
   constructor(map: IMap, robot: Hubot.Robot) {
-    this.splitter = createBotCommandExtractor(
-      robot.name,
-      robot.alias || robot.name
-    )
+    this.splitter = createBotCommandExtractor(robot.name, robot.alias || robot.name)
     this.matchers = convertMapIntoRegularExpression(map)
   }
 
@@ -49,9 +46,7 @@ export function alias(robot: Hubot.Robot, map: any) {
   if (!map) throw "Argument 'map' is empty."
 
   if (robot.logger) {
-    Object.keys(map).forEach(key =>
-      robot.logger.info(`Aliasing '${key}' to '${map[key]}'.`)
-    )
+    Object.keys(map).forEach(key => robot.logger.info(`Aliasing '${key}' to '${map[key]}'.`))
   }
 
   var mapping = new AliasMapping(map, robot)
@@ -83,10 +78,7 @@ export function alias(robot: Hubot.Robot, map: any) {
  * @returns {RegExp} The regular expression.
  */
 function createBotCommandExtractor(name: string, alias: string): RegExp {
-  return new RegExp(
-    `^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`,
-    "i"
-  )
+  return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`, "i")
 }
 
 function convertMapIntoRegularExpression(map: IMap): RegularExpressionMap[] {

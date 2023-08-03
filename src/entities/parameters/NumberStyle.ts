@@ -16,5 +16,5 @@ export enum NumberStyle {
   /**
    * Allow both numbers.
    */
-  Both,
+  Both
 }

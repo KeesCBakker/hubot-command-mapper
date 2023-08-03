@@ -11,21 +11,16 @@ export function exec(regex: string, dataToTest: string) {
   return r.exec(dataToTest)
 }
 
-export function createRegex(
-  parameters: IParameter[],
-  robotName = "hubot",
-  toolName = "test",
-  commandName = "cmd"
-) {
+export function createRegex(parameters: IParameter[], robotName = "hubot", toolName = "test", commandName = "cmd") {
   let tool: ITool = {
     name: toolName,
     commands: [
       {
         name: commandName,
         parameters: parameters,
-        invoke: () => {},
-      },
-    ],
+        invoke: () => {}
+      }
+    ]
   }
 
   return convertCommandIntoRegexString(robotName, null, tool, tool.commands[0])

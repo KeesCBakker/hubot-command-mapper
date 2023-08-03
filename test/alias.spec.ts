@@ -1,13 +1,6 @@
 import pretend from "hubot-pretend"
 
-import {
-  mapper,
-  map_command,
-  Options,
-  alias,
-  StringParameter,
-  IContext,
-} from "./../src"
+import { mapper, map_command, Options, alias, StringParameter, IContext } from "./../src"
 import { expect } from "chai"
 import "mocha"
 
@@ -17,9 +10,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
 
     var options = new Options()
 
-    map_command(pretend.robot, "version", options, context =>
-      context.res.reply("1")
-    )
+    map_command(pretend.robot, "version", options, context => context.res.reply("1"))
     alias(pretend.robot, { AAA: "version" })
 
     mapper(
@@ -31,18 +22,14 @@ describe("alias.spec.ts / Testing the alias features", () => {
             name: "default",
             alias: [""],
             parameters: [new StringParameter("msg")],
-            invoke: (tool, robot, res, match, values) => res.reply(values.msg),
+            invoke: (tool, robot, res, match, values) => res.reply(values.msg)
           },
           {
             name: "bye",
-            parameters: [
-              new StringParameter("firstName"),
-              new StringParameter("lastName"),
-            ],
-            invoke: (tool, robot, res, match, values) =>
-              res.reply(`Byeeeeeee ${values.firstName} ${values.lastName}!`),
-          },
-        ],
+            parameters: [new StringParameter("firstName"), new StringParameter("lastName")],
+            invoke: (tool, robot, res, match, values) => res.reply(`Byeeeeeee ${values.firstName} ${values.lastName}!`)
+          }
+        ]
       },
       options
     )
@@ -61,7 +48,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot AAA"],
-          ["hubot", "@kees 1"],
+          ["hubot", "@kees 1"]
         ])
         done()
       })
@@ -75,7 +62,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot zeg AAA"],
-          ["hubot", "@kees AAA"],
+          ["hubot", "@kees AAA"]
         ])
         done()
       })
@@ -89,7 +76,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot scream and shout AAA"],
-          ["hubot", "@kees AAA"],
+          ["hubot", "@kees AAA"]
         ])
         done()
       })
@@ -103,7 +90,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot super doei Alpha Beta"],
-          ["hubot", "@kees Byeeeeeee Alpha Beta!"],
+          ["hubot", "@kees Byeeeeeee Alpha Beta!"]
         ])
         done()
       })

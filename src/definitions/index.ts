@@ -17,5 +17,5 @@ export {
   IParameterValueCollection,
   ITool,
   ICommandResolverResultDebugInfo,
-  IMap,
+  IMap
 }

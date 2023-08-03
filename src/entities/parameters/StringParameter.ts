@@ -26,7 +26,10 @@ export class StringParameter extends ParameterBase {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof StringParameter
    */
-  constructor(name: string, public defaultValue: string = null) {
+  constructor(
+    name: string,
+    public defaultValue: string = null
+  ) {
     super(name, defaultValue)
   }
 }

@@ -32,7 +32,7 @@ describe("clear-screen.spec.ts > clear screen example", () => {
           ["hubot", " "],
           ["hubot", " "],
           ["hubot", " "],
-          ["hubot", " "],
+          ["hubot", " "]
         ])
       })
       .then(_ => done())

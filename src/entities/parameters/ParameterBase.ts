@@ -38,5 +38,8 @@ export abstract class ParameterBase implements IParameter {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof ParameterBase
    */
-  constructor(public name: string, public defaultValue: any = null) {}
+  constructor(
+    public name: string,
+    public defaultValue: any = null
+  ) {}
 }

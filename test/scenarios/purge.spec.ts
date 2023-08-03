@@ -12,21 +12,21 @@ function mapPurge(robot: Hubot.Robot) {
         name: "default",
         alias: [""],
         parameters: [new RestParameter("url")],
-        execute: async context => context.res.reply("default"),
+        execute: async context => context.res.reply("default")
       },
       {
         name: "prefix",
         alias: ["p"],
         parameters: [new RestParameter("url")],
-        execute: async context => context.res.reply("prefix"),
+        execute: async context => context.res.reply("prefix")
       },
       {
         name: "images",
         alias: ["image", "img", "i"],
         parameters: [new RestParameter("productId")],
-        execute: async context => context.res.reply("images"),
-      },
-    ],
+        execute: async context => context.res.reply("images")
+      }
+    ]
   })
 }
 
@@ -46,7 +46,7 @@ describe("purge.spec.ts > purge example", () => {
       .then(x => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot purge pers"],
-          ["hubot", "@kees default"],
+          ["hubot", "@kees default"]
         ])
       })
       .then(_ => done())

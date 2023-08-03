@@ -1,13 +1,6 @@
 import pretend from "hubot-pretend"
 
-import {
-  map_tool,
-  map_command,
-  Options,
-  alias,
-  map_default_alias,
-  RestParameter,
-} from "./../src"
+import { map_tool, map_command, Options, alias, map_default_alias, RestParameter } from "./../src"
 import { expect } from "chai"
 import "mocha"
 
@@ -15,17 +8,11 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
   beforeEach(() => {
     pretend.start()
 
-    map_command(
-      pretend.robot,
-      "hello",
-      new RestParameter("name", "unknown"),
-      context => context.res.reply(`Hi ${context.values.name}!`)
+    map_command(pretend.robot, "hello", new RestParameter("name", "unknown"), context =>
+      context.res.reply(`Hi ${context.values.name}!`)
     )
-    map_command(
-      pretend.robot,
-      "bye",
-      new RestParameter("name", "unknown"),
-      context => context.res.reply(`Toodles ${context.values.name}!`)
+    map_command(pretend.robot, "bye", new RestParameter("name", "unknown"), context =>
+      context.res.reply(`Toodles ${context.values.name}!`)
     )
     map_tool(pretend.robot, {
       name: "echo",
@@ -34,19 +21,19 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
           name: "default",
           parameters: [new RestParameter("what", "unknown")],
           alias: [""],
-          execute: context => context.res.reply(`Echo ${context.values.what}!`),
-        },
-      ],
+          execute: context => context.res.reply(`Echo ${context.values.what}!`)
+        }
+      ]
     })
 
     alias(pretend.robot, {
       "hi*": "hello",
-      "say*": "echo",
+      "say*": "echo"
     })
 
     map_default_alias(pretend.robot, "bye", [/help/i])
     alias(pretend.robot, {
-      "shout*": "echo",
+      "shout*": "echo"
     })
   })
 
@@ -57,12 +44,9 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot echo bot")
       .then(() => {
-        expect(
-          pretend.messages,
-          "This message should be mapped to the `echo` command."
-        ).to.eql([
+        expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
           ["kees", "@hubot echo bot"],
-          ["hubot", "@kees Echo bot!"],
+          ["hubot", "@kees Echo bot!"]
         ])
         done()
       })
@@ -74,12 +58,9 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot say bot")
       .then(() => {
-        expect(
-          pretend.messages,
-          "This message should be mapped to the `echo` command."
-        ).to.eql([
+        expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
           ["kees", "@hubot say bot"],
-          ["hubot", "@kees Echo bot!"],
+          ["hubot", "@kees Echo bot!"]
         ])
         done()
       })
@@ -91,12 +72,9 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot hello bot")
       .then(() => {
-        expect(
-          pretend.messages,
-          "This message should be mapped to the `hello` command."
-        ).to.eql([
+        expect(pretend.messages, "This message should be mapped to the `hello` command.").to.eql([
           ["kees", "@hubot hello bot"],
-          ["hubot", "@kees Hi bot!"],
+          ["hubot", "@kees Hi bot!"]
         ])
         done()
       })
@@ -108,12 +86,9 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot hi bot")
       .then(() => {
-        expect(
-          pretend.messages,
-          "This message should be mapped to the `hello` command."
-        ).to.eql([
+        expect(pretend.messages, "This message should be mapped to the `hello` command.").to.eql([
           ["kees", "@hubot hi bot"],
-          ["hubot", "@kees Hi bot!"],
+          ["hubot", "@kees Hi bot!"]
         ])
         done()
       })
@@ -125,12 +100,9 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot kaas")
       .then(() => {
-        expect(
-          pretend.messages,
-          "This message should be mapped to the `bye` command."
-        ).to.eql([
+        expect(pretend.messages, "This message should be mapped to the `bye` command.").to.eql([
           ["kees", "@hubot kaas"],
-          ["hubot", "@kees Toodles kaas!"],
+          ["hubot", "@kees Toodles kaas!"]
         ])
         done()
       })
@@ -142,12 +114,9 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot shout bot")
       .then(() => {
-        expect(
-          pretend.messages,
-          "This message should be mapped to the `echo` command."
-        ).to.eql([
+        expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
           ["kees", "@hubot shout bot"],
-          ["hubot", "@kees Echo bot!"],
+          ["hubot", "@kees Echo bot!"]
         ])
         done()
       })
@@ -159,9 +128,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .user("kees")
       .send("@hubot help")
       .then(() => {
-        expect(pretend.messages, "This message should not be handled.").to.eql([
-          ["kees", "@hubot help"],
-        ])
+        expect(pretend.messages, "This message should not be handled.").to.eql([["kees", "@hubot help"]])
         done()
       })
       .catch(ex => done(ex))
@@ -186,16 +153,12 @@ describe("default_alias.spec.ts / exceptions", () => {
   it("Exception on empty alias", () => {
     pretend.start()
 
-    expect(() => map_default_alias(pretend.robot, "", [])).to.throw(
-      "Argument 'destination' is empty."
-    )
+    expect(() => map_default_alias(pretend.robot, "", [])).to.throw("Argument 'destination' is empty.")
 
     pretend.shutdown()
   })
 
   it("Exception on empty robot", () => {
-    expect(() =>
-      map_default_alias(null as unknown as Hubot.Robot, "alpha", [])
-    ).to.throw("Argument 'robot' is empty.")
+    expect(() => map_default_alias(null as unknown as Hubot.Robot, "alpha", [])).to.throw("Argument 'robot' is empty.")
   })
 })

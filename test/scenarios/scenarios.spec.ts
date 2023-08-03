@@ -1,12 +1,6 @@
 import pretend from "hubot-pretend"
 
-import {
-  mapper,
-  NumberParameter,
-  RegExStringParameter,
-  TokenParameter,
-  IPv4Parameter
-} from "../../src"
+import { mapper, NumberParameter, RegExStringParameter, TokenParameter, IPv4Parameter } from "../../src"
 import { expect } from "chai"
 import "mocha"
 
@@ -51,9 +45,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
       .send("@hubot wehkamp glitch https://google.com 150")
       .then(() => {
         var message = pretend.messages[1][1]
-        expect(message).to.eq(
-          `@kees {"url":"https://google.com","times":"150"}`
-        )
+        expect(message).to.eq(`@kees {"url":"https://google.com","times":"150"}`)
         done()
       })
       .catch(ex => done(ex))

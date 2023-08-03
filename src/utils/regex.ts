@@ -8,11 +8,7 @@ import { ICommand } from "../definitions/ICommand"
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(
-  robotName: string,
-  robotAlias: string,
-  tool: ITool
-) {
+export function convertToolIntoRegexString<A>(robotName: string, robotAlias: string, tool: ITool) {
   // add space or end to the tool matcher to prevent tools
   // that are names similar to match and show an invalid
   // syntax warning. Like: ci and cicd tools.
@@ -20,10 +16,7 @@ export function convertToolIntoRegexString<A>(
   return regexString
 }
 
-export function convertBotNameIntoRegexString(
-  robotName: string,
-  robotAlias: string
-) {
+export function convertBotNameIntoRegexString(robotName: string, robotAlias: string) {
   let regexString = "^"
 
   if (robotName == robotAlias || !robotAlias) {
@@ -170,10 +163,7 @@ export function escapeRegExp(str: string) {
  * @param {boolean} [useNaming=false] If the value is true, named groups will be used for each parameter.
  * @returns
  */
-export function convertParametersToRegex(
-  parameters: IParameter[],
-  useNaming = false
-) {
+export function convertParametersToRegex(parameters: IParameter[], useNaming = false) {
   let r = parameters
     .map(p => {
       //{SPACE}{GROUP COMMAND}{PARAMETER REGEX}{/GROUP COMMAND}

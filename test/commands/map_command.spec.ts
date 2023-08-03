@@ -28,14 +28,9 @@ describe("map_command.spec.ts / Single command mapping", () => {
 
   it("Basic command mapping and parameter", done => {
     let x = ""
-    map_command(
-      pretend.robot,
-      "hello",
-      new StringParameter("person"),
-      context => {
-        x = context.values.person
-      }
-    )
+    map_command(pretend.robot, "hello", new StringParameter("person"), context => {
+      x = context.values.person
+    })
     pretend
       .user("kees")
       .send("@hubot hello world")
@@ -59,7 +54,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
       .then(() => {
         expect(pretend.messages).to.eql([
           ["Kees", "@hubot c"],
-          ["hubot", "@Kees r1"],
+          ["hubot", "@Kees r1"]
         ])
         done()
       })

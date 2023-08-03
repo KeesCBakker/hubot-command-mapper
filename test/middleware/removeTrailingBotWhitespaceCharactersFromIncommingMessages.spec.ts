@@ -1,11 +1,7 @@
 import pretend from "hubot-pretend"
 import { expect } from "chai"
 import "mocha"
-import {
-  map_command,
-  RestParameter,
-  removeTrailingBotWhitespaceCharactersFromIncomingMessages,
-} from "../../src"
+import { map_command, RestParameter, removeTrailingBotWhitespaceCharactersFromIncomingMessages } from "../../src"
 
 describe("removeTrailingBotWhitespaceCharactersFromIncomingMessages.spec.ts / trailing spaces fixer", () => {
   beforeEach(() => {

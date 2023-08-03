@@ -6,22 +6,12 @@ import { NumberParameter } from "./entities/parameters/NumberParameter"
 import { NumberStyle } from "./entities/parameters/NumberStyle"
 import { FractionParameter } from "./entities/parameters/FractionParameter"
 import { FractionStyle } from "./entities/parameters/FractionStyle"
-import {
-  IParameter,
-  ITool,
-  ICommand,
-  ICallback,
-  IContext,
-  ICommandResolverResultDebugInfo,
-} from "./definitions"
+import { IParameter, ITool, ICommand, ICallback, IContext, ICommandResolverResultDebugInfo } from "./definitions"
 import { RestParameter } from "./entities/parameters/RestParameter"
 import { AnyParameter } from "./entities/parameters/AnyParameter"
 import { StringParameter } from "./entities/parameters/StringParameter"
 import { ChoiceParameter } from "./entities/parameters/ChoiceParameter"
-import {
-  RegExStringParameter,
-  RegExParameter,
-} from "./entities/parameters/RegExStringParameter"
+import { RegExStringParameter, RegExParameter } from "./entities/parameters/RegExStringParameter"
 import { TokenParameter } from "./entities/parameters/TokenParameter"
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter"
 import { removeTrailingWhitespaceCharactersFromIncomingMessages } from "./middleware/removeTrailingWhitespaceCharactersFromIncomingMessages"
@@ -56,7 +46,7 @@ export {
   removeTrailingBotWhitespaceCharactersFromIncomingMessages,
   removeMarkdownFromIncomingMessages as removeMarkdownFromIncomingMessages,
   addDiagnosticsMiddleware,
-  map_default_alias,
+  map_default_alias
 }
 
 /**
@@ -69,11 +59,7 @@ export {
  * @param {ITool} tool The tool that will be mapped.
  * @param {IOptions} [options] The options for this specific mapping.
  */
-export function mapper(
-  robot: Hubot.Robot,
-  tool: ITool,
-  options: IOptions = defaultOptions
-) {
+export function mapper(robot: Hubot.Robot, tool: ITool, options: IOptions = defaultOptions) {
   _map_tool(robot, tool, options)
 }
 
@@ -85,11 +71,7 @@ export function mapper(
  * @param {string} command The command.
  * @param {(...(IParameter | ICallback | IOptions)[])} args You can specify parameters, the callback and options here.
  */
-export function map_command(
-  robot: Hubot.Robot,
-  command: string,
-  ...args: (IParameter | ICallback | IOptions)[]
-): void {
+export function map_command(robot: Hubot.Robot, command: string, ...args: (IParameter | ICallback | IOptions)[]): void {
   _map_command(robot, command, args)
 }
 
@@ -100,11 +82,7 @@ export function map_command(
  * @param tool The tool.
  * @param options The options.
  */
-export function map_tool(
-  robot: Hubot.Robot,
-  tool: ITool,
-  options: IOptions = defaultOptions
-) {
+export function map_tool(robot: Hubot.Robot, tool: ITool, options: IOptions = defaultOptions) {
   mapper(robot, tool, options)
 }
 
@@ -116,9 +94,6 @@ export function map_tool(
  * @param {*} map An object with keys and redirects.
  * @param {IOptions} [options=defaultOptions] The options.
  */
-export function alias(
-  robot: Hubot.Robot,
-  map: any
-): void {
+export function alias(robot: Hubot.Robot, map: any): void {
   _alias(robot, map)
 }

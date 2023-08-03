@@ -16,5 +16,5 @@ export enum FractionStyle {
   /**
    * Fractions can be seperated by both a '.' and a ','.
    */
-  Both,
+  Both
 }

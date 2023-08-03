@@ -7,7 +7,7 @@ import {
   RestParameter,
   removeTrailingBotWhitespaceCharactersFromIncomingMessages,
   addDiagnosticsMiddleware,
-  ICommandResolverResultDebugInfo,
+  ICommandResolverResultDebugInfo
 } from "../../src"
 
 import { should } from "chai"
@@ -42,7 +42,7 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
         expect(debug.command).to.eql("cmd")
         expect(debug.match[0]).to.eql("@hubot ping 127.0.0.1")
         expect(debug.values).to.eql({
-          rest: "127.0.0.1",
+          rest: "127.0.0.1"
         })
 
         done()

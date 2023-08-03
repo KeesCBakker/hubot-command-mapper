@@ -12,9 +12,7 @@ export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(
 
   if (hasSwitch(robot, SWITCH)) {
     if (robot.logger) {
-      robot.logger.info(
-        "The fix trailing spaces after bot middleware has already been registered."
-      )
+      robot.logger.info("The fix trailing spaces after bot middleware has already been registered.")
     }
 
     return
@@ -22,17 +20,11 @@ export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(
 
   setSwitch(robot, SWITCH)
 
-  const robotNameRegexString = convertBotNameIntoRegexString(
-    robot.name,
-    robot.alias
-  )
+  const robotNameRegexString = convertBotNameIntoRegexString(robot.name, robot.alias)
   robot.receiveMiddleware((context, next, done) => {
     const text = context.response.message.text
     if (text) {
-      const newText = text.replace(
-        new RegExp(`(${robotNameRegexString})\\s+`, "i"),
-        "$1 "
-      )
+      const newText = text.replace(new RegExp(`(${robotNameRegexString})\\s+`, "i"), "$1 ")
       if (text != newText) {
         context.response.message.text = newText
       }

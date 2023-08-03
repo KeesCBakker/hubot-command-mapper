@@ -36,11 +36,7 @@ declare namespace Hubot {
 
   type ListenerCallback<R> = (response: Response) => void
 
-  type receiveMiddlewareCallback = (
-    context: any,
-    next: (done: any) => void,
-    done: any
-  ) => void
+  type receiveMiddlewareCallback = (context: any, next: (done: any) => void, done: any) => void
 
   class Robot {
     alias: string
@@ -48,13 +44,7 @@ declare namespace Hubot {
     name: string
     logger: Logger
 
-    constructor(
-      adapterPath: string,
-      adapter: string,
-      httpd: boolean,
-      name: string,
-      alias?: string
-    )
+    constructor(adapterPath: string, adapter: string, httpd: boolean, name: string, alias?: string)
 
     hear(regex: RegExp, callback: ListenerCallback<this>): void
     hear(regex: RegExp, options: any, callback: ListenerCallback<this>): void

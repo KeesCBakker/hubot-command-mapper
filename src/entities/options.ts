@@ -24,18 +24,12 @@ export class Options implements IOptions {
     this.addHelpCommand = getB("HCM_ADD_HELP_COMMAND", true)
     this.showInvalidSyntax = getB("HCM_SHOW_INVALID_SYNTAX", true)
     this.showHelpOnInvalidSyntax = getB("HCM_SHOW_HELP_ON_INVALID_SYNTAX", true)
-    this.invalidSyntaxMessage = getS(
-      "HCM_INVALID_SYNTAX_MESSAGE",
-      "invalid syntax."
-    )
+    this.invalidSyntaxMessage = getS("HCM_INVALID_SYNTAX_MESSAGE", "invalid syntax.")
     this.invalidSyntaxHelpPrefix = getS(
       "HCM_INVALID_SYNTAX_HELP_PREFIX",
       "sorry, I don't understand. Maybe you could try:\n- "
     )
-    this.notAuthorizedMessage = getS(
-      "HCM_NOT_AUTHORIZED_MESSAGE",
-      "sorry, you are not authorized to use this command."
-    )
+    this.notAuthorizedMessage = getS("HCM_NOT_AUTHORIZED_MESSAGE", "sorry, you are not authorized to use this command.")
   }
 }
 

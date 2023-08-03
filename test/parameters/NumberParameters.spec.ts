@@ -34,14 +34,8 @@ describe("NumberParameters.param.spec.ts / Default commands", () => {
       var p2 = new NumberParameter("b")
       var r = createRegex([p1, p2])
 
-      expect(test(r, "hubot test cmd -10 1337")).to.eq(
-        true,
-        "Negative number followed by a positive number."
-      )
-      expect(test(r, "hubot test cmd 1337 -10")).to.eq(
-        true,
-        "Positive number followed by a negative number."
-      )
+      expect(test(r, "hubot test cmd -10 1337")).to.eq(true, "Negative number followed by a positive number.")
+      expect(test(r, "hubot test cmd 1337 -10")).to.eq(true, "Positive number followed by a negative number.")
     })
   })
 
