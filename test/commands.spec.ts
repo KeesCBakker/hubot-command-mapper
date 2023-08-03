@@ -9,7 +9,6 @@ describe("commands.spec.ts / Default commands", () => {
     pretend.start()
 
     var options = new Options()
-    options.verbose = false
     options.addDebugCommand = true
     options.addHelpCommand = true
 

@@ -1,6 +1,6 @@
 import pretend from "hubot-pretend"
 
-import { Options, ITool } from "./../../src/"
+import { ITool } from "./../../src/"
 import { expect } from "chai"
 import "mocha"
 import { mapper, StringParameter } from "./../../src/"
@@ -11,9 +11,6 @@ describe("examples.spec.ts > check count/capture example", () => {
       name: "hb",
       alias: "lb",
     })
-
-    var options = new Options()
-    options.verbose = false
 
     const tool: ITool = {
       name: "count",
@@ -33,7 +30,7 @@ describe("examples.spec.ts > check count/capture example", () => {
       ],
     }
 
-    mapper(pretend.robot, tool, options)
+    mapper(pretend.robot, tool)
 
     pretend
       .user("kees")
@@ -60,9 +57,6 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
       alias: "lb",
     })
 
-    var options = new Options()
-    options.verbose = false
-
     const tool: ITool = {
       name: "norris",
       commands: [
@@ -84,7 +78,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
       ],
     }
 
-    mapper(pretend.robot, tool, options)
+    mapper(pretend.robot, tool)
 
     pretend
       .user("kees")

@@ -5,9 +5,6 @@ import { expect } from "chai"
 import "mocha"
 
 describe("map_command.spec.ts / Single command mapping", () => {
-  const options = new Options()
-  options.verbose = false
-
   beforeEach(() => {
     pretend.start()
   })
@@ -16,7 +13,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
 
   it("Basic command mapping and invocation", done => {
     let i = 0
-    map_command(pretend.robot, "clear screen", options, context => {
+    map_command(pretend.robot, "clear screen", () => {
       i++
     })
     pretend
@@ -35,7 +32,6 @@ describe("map_command.spec.ts / Single command mapping", () => {
       pretend.robot,
       "hello",
       new StringParameter("person"),
-      options,
       context => {
         x = context.values.person
       }
@@ -53,10 +49,8 @@ describe("map_command.spec.ts / Single command mapping", () => {
   it("Tool segregation with command mapping", done => {
     let x = ""
 
-    map_command(pretend.robot, "c", options, context => context.res.reply("r1"))
-    map_command(pretend.robot, "cc", options, context =>
-      context.res.reply("r2")
-    )
+    map_command(pretend.robot, "c", context => context.res.reply("r1"))
+    map_command(pretend.robot, "cc", context => context.res.reply("r2"))
 
     pretend
       .user("Kees")
@@ -76,7 +70,6 @@ describe("map_command.spec.ts / Single command mapping", () => {
     let options = new Options()
     options.addDebugCommand = true
     options.addHelpCommand = true
-    options.verbose = false
 
     map_command(pretend.robot, "my amazing command", options, () => {})
 

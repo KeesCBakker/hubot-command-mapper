@@ -16,12 +16,11 @@ describe("alias.spec.ts / Testing the alias features", () => {
     pretend.start()
 
     var options = new Options()
-    options.verbose = false
 
     map_command(pretend.robot, "version", options, context =>
       context.res.reply("1")
     )
-    alias(pretend.robot, { AAA: "version" }, options)
+    alias(pretend.robot, { AAA: "version" })
 
     mapper(
       pretend.robot,
@@ -48,9 +47,9 @@ describe("alias.spec.ts / Testing the alias features", () => {
       options
     )
 
-    alias(pretend.robot, { "zeg*": "echo" }, options)
-    alias(pretend.robot, { "scream and shout*": "echo" }, options)
-    alias(pretend.robot, { "super doei*": "echo bye" }, options)
+    alias(pretend.robot, { "zeg*": "echo" })
+    alias(pretend.robot, { "scream and shout*": "echo" })
+    alias(pretend.robot, { "super doei*": "echo bye" })
   })
 
   afterEach(() => pretend.shutdown())

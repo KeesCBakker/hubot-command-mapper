@@ -15,58 +15,39 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
   beforeEach(() => {
     pretend.start()
 
-    var options = new Options()
-    options.verbose = false
-
     map_command(
       pretend.robot,
       "hello",
-      options,
       new RestParameter("name", "unknown"),
       context => context.res.reply(`Hi ${context.values.name}!`)
     )
     map_command(
       pretend.robot,
       "bye",
-      options,
       new RestParameter("name", "unknown"),
       context => context.res.reply(`Toodles ${context.values.name}!`)
     )
-    map_tool(
-      pretend.robot,
-      {
-        name: "echo",
-        commands: [
-          {
-            name: "default",
-            parameters: [new RestParameter("what", "unknown")],
-            alias: [""],
-            execute: context =>
-              context.res.reply(`Echo ${context.values.what}!`),
-          },
-        ],
-      },
-      options
-    )
+    map_tool(pretend.robot, {
+      name: "echo",
+      commands: [
+        {
+          name: "default",
+          parameters: [new RestParameter("what", "unknown")],
+          alias: [""],
+          execute: context => context.res.reply(`Echo ${context.values.what}!`),
+        },
+      ],
+    })
 
-    alias(
-      pretend.robot,
-      {
-        "hi*": "hello",
-        "say*": "echo",
-      },
-      options
-    )
+    alias(pretend.robot, {
+      "hi*": "hello",
+      "say*": "echo",
+    })
 
-    map_default_alias(pretend.robot, "bye", [/help/i], options)
-    1
-    alias(
-      pretend.robot,
-      {
-        "shout*": "echo",
-      },
-      options
-    )
+    map_default_alias(pretend.robot, "bye", [/help/i])
+    alias(pretend.robot, {
+      "shout*": "echo",
+    })
   })
 
   afterEach(() => pretend.shutdown())
@@ -156,7 +137,7 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       .catch(ex => done(ex))
   })
 
-  it("Alias mapped after detault", done => {
+  it("Alias mapped after default", done => {
     pretend
       .user("kees")
       .send("@hubot shout bot")
@@ -189,18 +170,13 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
 
 describe("default_alias.spec.ts / exceptions", () => {
   it("Exception on mapping twice", () => {
-    var options = new Options()
-    options.verbose = false
-
     pretend.start()
 
     // map 1st alias
-    map_default_alias(pretend.robot, "alpha", [], options)
+    map_default_alias(pretend.robot, "alpha", [])
 
     // 2nd alias should throw an exception
-    expect(() =>
-      map_default_alias(pretend.robot, "beta", [], options)
-    ).to.throw(
+    expect(() => map_default_alias(pretend.robot, "beta", [])).to.throw(
       "A default has already been mapped. Cannot map a 2nd default alias."
     )
 
@@ -208,12 +184,9 @@ describe("default_alias.spec.ts / exceptions", () => {
   })
 
   it("Exception on empty alias", () => {
-    var options = new Options()
-    options.verbose = false
-
     pretend.start()
 
-    expect(() => map_default_alias(pretend.robot, "", [], options)).to.throw(
+    expect(() => map_default_alias(pretend.robot, "", [])).to.throw(
       "Argument 'destination' is empty."
     )
 
@@ -221,11 +194,8 @@ describe("default_alias.spec.ts / exceptions", () => {
   })
 
   it("Exception on empty robot", () => {
-    var options = new Options()
-    options.verbose = false
-
-    expect(() => map_default_alias(null, "alpha", [], options)).to.throw(
-      "Argument 'robot' is empty."
-    )
+    expect(() =>
+      map_default_alias(null as unknown as Hubot.Robot, "alpha", [])
+    ).to.throw("Argument 'robot' is empty.")
   })
 })

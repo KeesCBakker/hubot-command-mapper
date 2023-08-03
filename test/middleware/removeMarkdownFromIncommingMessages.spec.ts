@@ -11,15 +11,12 @@ import {
 describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
   beforeEach(() => {
     pretend.start()
-    var options = new Options()
-    options.verbose = false
 
     // map dummy command
     map_command(
       pretend.robot,
       "ping",
       new RestParameter("rest"),
-      options,
       context => context.res.reply(`Got this: "${context.values.rest}"`)
     )
 

@@ -58,8 +58,8 @@ export function map_tool(
 
     cmd.validationRegex = new RegExp(strValidationRegex, "i")
 
-    if (options.verbose) {
-      console.log(
+    if (robot.logger) {
+      robot.logger.info(
         `Mapping '${tool.name}.${cmd.name}' as '${strValidationRegex}'.`
       )
     }
@@ -111,9 +111,7 @@ export function map_tool(
       return
     }
 
-    if (options.verbose) {
-      action.log()
-    }
+    action.log(robot.logger)
 
     if (!action.authorized) {
       res.reply(options.notAuthorizedMessage)

@@ -1,4 +1,5 @@
 import { IMessageHandler } from "./IMessageHandler"
+import { Logger } from "pino"
 
 // Type definitions for hubot 2.19
 // Project: https://github.com/github/hubot
@@ -46,6 +47,7 @@ declare namespace Hubot {
     alias: string
     brain: Brain
     name: string
+    logger: Logger
 
     constructor(
       adapterPath: string,

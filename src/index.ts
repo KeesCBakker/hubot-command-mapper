@@ -118,8 +118,7 @@ export function map_tool(
  */
 export function alias(
   robot: Hubot.Robot,
-  map: any,
-  options: IOptions = defaultOptions
+  map: any
 ): void {
-  _alias(robot, map, options)
+  _alias(robot, map)
 }

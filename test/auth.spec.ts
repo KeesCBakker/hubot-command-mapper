@@ -9,7 +9,6 @@ describe("auth.spec.ts / Default commands", () => {
     pretend.start()
 
     var options = new Options()
-    options.verbose = false
 
     mapper(
       pretend.robot,

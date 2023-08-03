@@ -1,7 +1,6 @@
 export interface IOptions {
   addDebugCommand?: boolean
   addHelpCommand?: boolean
-  verbose?: boolean
   showInvalidSyntax?: boolean
   showHelpOnInvalidSyntax?: boolean
   invalidSyntaxMessage?: string
@@ -18,7 +17,6 @@ export class Options implements IOptions {
   public invalidSyntaxMessage: string
   public invalidSyntaxHelpPrefix: string
   public notAuthorizedMessage: string
-  public verbose: boolean
   public replacedByBot: string
 
   constructor() {
@@ -38,7 +36,6 @@ export class Options implements IOptions {
       "HCM_NOT_AUTHORIZED_MESSAGE",
       "sorry, you are not authorized to use this command."
     )
-    this.verbose = getB("HCM_VERBOSE", true)
   }
 }
 

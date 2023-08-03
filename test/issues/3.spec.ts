@@ -11,13 +11,8 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
       alias: "aliasbot",
     })
 
-    var options = new Options()
-    options.verbose = false
-
-    map_command(pretend.robot, "ping", options, context =>
-      context.res.reply("pong")
-    )
-    alias(pretend.robot, { pang: "ping" }, options)
+    map_command(pretend.robot, "ping", context => context.res.reply("pong"))
+    alias(pretend.robot, { pang: "ping" })
   })
 
   afterEach(() => pretend.shutdown())

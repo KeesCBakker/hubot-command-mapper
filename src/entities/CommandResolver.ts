@@ -5,6 +5,7 @@ import {
   ICommandResolverResultDebugInfo,
 } from "../definitions"
 import { getValues } from "./parameters/ValueExtractor"
+import { Logger } from "pino"
 
 export class CommandResolver {
   constructor(private robot: Hubot.Robot) {}
@@ -82,9 +83,11 @@ export class CommandResolverResult {
   public text: string
   public user: Hubot.User
 
-  public log(): void {
-    const debug = this.getDebugInfo()
-    console.log(debug)
+  public log(logger: Logger): void {
+    if (logger) {
+      const debug = this.getDebugInfo()
+      logger.info(debug)
+    }
   }
 
   public getDebugInfo(): ICommandResolverResultDebugInfo {

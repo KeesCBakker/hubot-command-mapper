@@ -1,6 +1,6 @@
 import pretend from "hubot-pretend"
 
-import { map_command, Options } from "../../src"
+import { map_command } from "../../src"
 import { expect } from "chai"
 import "mocha"
 
@@ -8,10 +8,7 @@ describe("clear-screen.spec.ts > clear screen example", () => {
   beforeEach(() => {
     pretend.start()
 
-    var options = new Options()
-    options.verbose = false
-
-    map_command(pretend.robot, "clear screen", options, context => {
+    map_command(pretend.robot, "clear screen", context => {
       for (let i = 0; i < 8; i++) {
         context.res.emote(" ")
       }
@@ -38,7 +35,7 @@ describe("clear-screen.spec.ts > clear screen example", () => {
           ["hubot", " "],
         ])
       })
-      .then(x => done())
+      .then(_ => done())
       .catch(ex => done(ex))
   })
 })

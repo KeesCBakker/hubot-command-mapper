@@ -25,8 +25,7 @@ export function map_command(
         (a as IOptions).notAuthorizedMessage ||
         (a as IOptions).replacedByBot ||
         (a as IOptions).showHelpOnInvalidSyntax ||
-        (a as IOptions).showInvalidSyntax ||
-        (a as IOptions).verbose
+        (a as IOptions).showInvalidSyntax
     ) as IOptions) || defaultOptions
 
   let tool = {

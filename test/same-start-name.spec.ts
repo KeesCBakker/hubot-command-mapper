@@ -1,6 +1,6 @@
 import pretend from "hubot-pretend"
 
-import { Options, map_command, IContext } from "./../src/"
+import { map_command, IContext } from "./../src/"
 import { expect } from "chai"
 import "mocha"
 
@@ -8,27 +8,9 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
   beforeEach(() => {
     pretend.start()
 
-    var options = new Options()
-    options.verbose = false
-
-    map_command(
-      pretend.robot,
-      "ci",
-      context => context.res.reply("ci"),
-      options
-    )
-    map_command(
-      pretend.robot,
-      "cd",
-      context => context.res.reply("cd"),
-      options
-    )
-    map_command(
-      pretend.robot,
-      "cicd",
-      context => context.res.reply("cicd"),
-      options
-    )
+    map_command(pretend.robot, "ci", context => context.res.reply("ci"))
+    map_command(pretend.robot, "cd", context => context.res.reply("cd"))
+    map_command(pretend.robot, "cicd", context => context.res.reply("cicd"))
   })
 
   afterEach(() => pretend.shutdown())
@@ -40,7 +22,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot ci"],
-          ["hubot", "@kees ci"],
+          ["hubot", "@kees ci"]
         ])
         done()
       })
@@ -54,7 +36,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot cd"],
-          ["hubot", "@kees cd"],
+          ["hubot", "@kees cd"]
         ])
         done()
       })
@@ -68,7 +50,7 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
       .then(() => {
         expect(pretend.messages).to.eql([
           ["kees", "@hubot cicd"],
-          ["hubot", "@kees cicd"],
+          ["hubot", "@kees cicd"]
         ])
         done()
       })

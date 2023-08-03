@@ -4,7 +4,7 @@ import { IMap } from "../definitions"
 import { IMessageHandler } from "../definitions/IMessageHandler"
 
 class AliasMapping implements IMessageHandler {
-  public matchers: RegularExpessionMap[]
+  public matchers: RegularExpressionMap[]
   public splitter: RegExp
 
   constructor(map: IMap, robot: Hubot.Robot) {
@@ -44,13 +44,13 @@ class AliasMapping implements IMessageHandler {
   }
 }
 
-export function alias(robot: Hubot.Robot, map: any, options: IOptions) {
+export function alias(robot: Hubot.Robot, map: any) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!map) throw "Argument 'map' is empty."
 
-  if (options.verbose) {
+  if (robot.logger) {
     Object.keys(map).forEach(key =>
-      console.log(`Aliasing '${key}' to '${map[key]}'.`)
+      robot.logger.info(`Aliasing '${key}' to '${map[key]}'.`)
     )
   }
 
@@ -64,8 +64,8 @@ export function alias(robot: Hubot.Robot, map: any, options: IOptions) {
 
     if (text != newText) {
       context.response.message.text = newText
-      if (options.verbose) {
-        console.log(`Routing '${text}' to '${newText}'.`)
+      if (robot.logger) {
+        robot.logger.info(`Routing '${text}' to '${newText}'.`)
       }
     }
 
@@ -89,18 +89,18 @@ function createBotCommandExtractor(name: string, alias: string): RegExp {
   )
 }
 
-function convertMapIntoRegularExpression(map: IMap): RegularExpessionMap[] {
+function convertMapIntoRegularExpression(map: IMap): RegularExpressionMap[] {
   return Object.keys(map).map(key => {
     let value = map[key]
     let regex = key.endsWith("*")
       ? new RegExp(`^${escapeRegExp(key.substr(0, key.length - 1))} (.+)$`, "i")
       : new RegExp(`^${escapeRegExp(key)}$`, "i")
 
-    return new RegularExpessionMap(regex, value)
+    return new RegularExpressionMap(regex, value)
   })
 }
 
-class RegularExpessionMap {
+class RegularExpressionMap {
   public matcher: RegExp
   public value: string
 
