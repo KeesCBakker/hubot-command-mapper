@@ -2,7 +2,7 @@
 
 _Helps with the mapping of tools and commands for your Hubot. No more regex. No more tool restarts during development._
 
-[![Build Status](https://travis-ci.org/KeesCBakker/hubot-command-mapper.svg?branch=master)](https://travis-ci.org/KeesCBakker/hubot-command-mapper) [![npm version](https://badge.fury.io/js/hubot-command-mapper.svg)](https://badge.fury.io/js/hubot-command-mapper) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
+[![npm version](https://badge.fury.io/js/hubot-command-mapper.svg)](https://badge.fury.io/js/hubot-command-mapper) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 _Why?_ Writing regular expressions for commands is hard. You have to spend some time to prevent expressions from colliding with others. Now the mapper takes care of that problem.
 
@@ -52,7 +52,7 @@ module.exports = robot => {
         execute: context => {
           todos.push(context.values.item)
           context.res.reply(`Added _${context.values.item}_ to the list.`)
-        },
+        }
       },
       {
         name: "list",
@@ -64,7 +64,7 @@ module.exports = robot => {
             txt += todos.map(t => "- " + t).join("\n")
             context.res.reply(txt)
           }
-        },
+        }
       },
       {
         name: "remove",
@@ -76,9 +76,9 @@ module.exports = robot => {
           const x = todos.length - a.length
           todos = a
           context.res.reply(`Removed ${x} item(s) from the list.`)
-        },
-      },
-    ],
+        }
+      }
+    ]
   })
 }
 ```
@@ -103,7 +103,7 @@ const { alias } = require("hubot-command-mapper")
 module.exports = robot => {
   alias(robot, {
     list: "todo list",
-    "todo*": "todo add",
+    "todo*": "todo add"
   })
 }
 ```
@@ -144,9 +144,9 @@ module.exports = robot => {
           for (let i = a; i < b + 1; i++) {
             context.res.reply(`${i}!`)
           }
-        },
-      },
-    ],
+        }
+      }
+    ]
   }
 
   mapper(robot, tool)
@@ -164,20 +164,15 @@ module.exports = robot => {
     commands: [
       {
         name: "impersonate",
-        parameters: [
-          new StringParameter("firstName"),
-          new StringParameter("lastName"),
-        ],
+        parameters: [new StringParameter("firstName"), new StringParameter("lastName")],
         execute: context => {
           const firstName = context.values.firstName
           const lastName = context.values.lastName
 
-          context.res.reply(
-            `${firstName} ${lastName} has counted to infinity. Twice!`
-          )
-        },
-      },
-    ],
+          context.res.reply(`${firstName} ${lastName} has counted to infinity. Twice!`)
+        }
+      }
+    ]
   }
 
   mapper(robot, tool)
@@ -247,6 +242,7 @@ module.exports = robot => {
 ```
 
 ## Move feature to another bot
+
 As bots grow, you might want to move features from one bot to another.
 You can add the `replacedByBot` option:
 
@@ -263,10 +259,10 @@ module.exports = robot => {
 This will print:
 
 > @user Sorry, this feature has been replaced by @kz. Please use:
+>
 > ```
 > @kz clear screen
 > ```
-
 
 ## Want to contribute?
 
