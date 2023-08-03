@@ -44,7 +44,7 @@ export {
   ICommandResolverResultDebugInfo,
   removeTrailingWhitespaceCharactersFromIncomingMessages,
   removeTrailingBotWhitespaceCharactersFromIncomingMessages,
-  removeMarkdownFromIncomingMessages as removeMarkdownFromIncomingMessages,
+  removeMarkdownFromIncomingMessages,
   addDiagnosticsMiddleware,
   map_default_alias
 }
