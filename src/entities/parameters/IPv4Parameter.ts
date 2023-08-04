@@ -15,7 +15,7 @@ export class IPv4Parameter extends ParameterBase {
    */
   constructor(
     name: string,
-    defaultValue: string = null,
+    defaultValue: string | null = null,
     public supportPrefix = true
   ) {
     super(name, defaultValue)
