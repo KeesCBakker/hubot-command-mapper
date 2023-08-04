@@ -1,4 +1,4 @@
-import { ITool, ICommand } from "../definitions"
+import { ITool, ICommand } from "../types"
 
 /**
  * Validates the tool and throws and exception if the

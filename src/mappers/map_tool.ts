@@ -1,4 +1,3 @@
-import { ITool } from "../definitions"
 import { IOptions, defaultOptions } from "../entities/options"
 import {
   convertBotNameIntoRegexString,
@@ -9,6 +8,7 @@ import createDebugCommand from "../entities/commands/debug"
 import createHelpCommand from "../entities/commands/help"
 import validateTool from "./validation"
 import { CommandResolver } from "../entities/CommandResolver"
+import { IMessageHandler, InternalRobot, InternalTool } from "../types"
 
 /**
  * Maps the specified tool to the Robot.
@@ -20,7 +20,7 @@ import { CommandResolver } from "../entities/CommandResolver"
  * @param {ITool} tool The tool that will be mapped.
  * @param {IOptions} [options] The options for this specific mapping.
  */
-export function map_tool(robot: Hubot.Robot, tool: ITool, options: IOptions = defaultOptions) {
+export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptions = defaultOptions) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!tool) throw "Argument 'tool' is empty."
   if (!tool.commands) tool.commands = []
@@ -64,11 +64,14 @@ export function map_tool(robot: Hubot.Robot, tool: ITool, options: IOptions = de
   const toolRegexString = convertToolIntoRegexString(robot.name, robot.alias, tool)
   const toolRegex = new RegExp(toolRegexString, "i")
   tool.__robotRegex = toolRegex
-  ;(tool as any).canHandle = (msg: string) => toolRegex.test(msg)
+
+  const handler = tool as any as IMessageHandler
+  handler.canHandle = (msg: string) => toolRegex.test(msg)
 
   // add tool to robot - helps with middleware
-  robot.__tools = robot.__tools || []
-  robot.__tools.push(tool as any)
+  const bot = robot as InternalRobot
+  bot.__tools = bot.__tools || []
+  bot.__tools.push(handler)
 
   const resolver = new CommandResolver(robot)
 
@@ -81,14 +84,25 @@ export function map_tool(robot: Hubot.Robot, tool: ITool, options: IOptions = de
     //if no commands matched, show help command
     if (action.command == null) {
       if (options.showHelpOnInvalidSyntax) {
-        helpCommand.invoke(tool, robot, res, null, null, options.invalidSyntaxHelpPrefix, options.invalidSyntaxMessage)
+        helpCommand.execute(
+          {
+            robot,
+            match: null,
+            res,
+            tool,
+            values: {}
+          },
+
+          options.invalidSyntaxHelpPrefix,
+          options.invalidSyntaxMessage
+        )
       } else if (options.showInvalidSyntax) {
         res.reply(options.invalidSyntaxMessage)
       }
       return
     }
 
-    action.log(robot.logger)
+    action.log(bot.logger)
 
     if (!action.authorized) {
       res.reply(options.notAuthorizedMessage)
@@ -106,9 +120,7 @@ export function map_tool(robot: Hubot.Robot, tool: ITool, options: IOptions = de
           command +
           "\n```\n"
       )
-    } else if (action.command.invoke) {
-      action.command.invoke(tool, robot, res, action.match, action.values)
-    } else if (action.command.execute) {
+    } else {
       action.command.execute({
         tool: tool,
         robot: robot,

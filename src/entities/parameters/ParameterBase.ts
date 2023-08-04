@@ -1,4 +1,4 @@
-import { IParameter } from "../../definitions"
+import { IParameter } from "../../types"
 
 /**
  * Base class for a parameter.

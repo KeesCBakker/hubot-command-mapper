@@ -1,4 +1,4 @@
-export interface IOptions {
+export type IOptions = {
   addDebugCommand?: boolean
   addHelpCommand?: boolean
   showInvalidSyntax?: boolean

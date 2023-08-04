@@ -35,7 +35,7 @@ export class NumberParameter extends ParameterBase {
    */
   constructor(
     name: string,
-    defaultValue: Number = null,
+    defaultValue: Number | null = null,
     public numberStyle: NumberStyle = NumberStyle.Both
   ) {
     super(name, defaultValue)

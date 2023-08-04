@@ -22,12 +22,12 @@ describe("alias.spec.ts / Testing the alias features", () => {
             name: "default",
             alias: [""],
             parameters: [new StringParameter("msg")],
-            invoke: (tool, robot, res, match, values) => res.reply(values.msg)
+            execute: context => context.res.reply(context.values.msg)
           },
           {
             name: "bye",
             parameters: [new StringParameter("firstName"), new StringParameter("lastName")],
-            invoke: (tool, robot, res, match, values) => res.reply(`Byeeeeeee ${values.firstName} ${values.lastName}!`)
+            execute: context => context.res.reply(`Byeeeeeee ${context.values.firstName} ${context.values.lastName}!`)
           }
         ]
       },

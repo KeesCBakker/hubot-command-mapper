@@ -1,5 +1,5 @@
+import { ITool, ICommand } from "../../types"
 import { convertCommandIntoRegexString } from "../../utils/regex"
-import { IParameterValueCollection, ICommand, ITool, IMap } from "../../definitions"
 
 import NamedRegExp from "named-regexp-groups"
 
@@ -9,8 +9,8 @@ export function getValues(
   tool: ITool,
   command: ICommand,
   message: string
-): IParameterValueCollection {
-  let collection: IMap = {}
+): Record<string, any> {
+  let collection: Record<string, any> = {}
 
   if (command.parameters) {
     let r = convertCommandIntoRegexString(robotName, robotAlias, tool, command, true)
@@ -27,5 +27,5 @@ export function getValues(
     }
   }
 
-  return collection as IParameterValueCollection
+  return collection
 }

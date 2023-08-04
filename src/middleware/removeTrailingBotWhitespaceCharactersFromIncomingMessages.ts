@@ -1,13 +1,9 @@
-import { IOptions, defaultOptions } from ".."
 import { hasSwitch, setSwitch } from "../utils/switches"
 import { convertBotNameIntoRegexString } from "../utils/regex"
 
 const SWITCH = "rtbwcfim"
 
-export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(
-  robot: Hubot.Robot,
-  options: IOptions = defaultOptions
-) {
+export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot: Hubot.Robot) {
   if (!robot) throw "Argument 'robot' is empty."
 
   if (hasSwitch(robot, SWITCH)) {

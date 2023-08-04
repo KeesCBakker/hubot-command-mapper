@@ -1,14 +1,17 @@
-import { ITool, ICommand } from "./../../definitions"
+import { ICommand, IContext, InternalTool } from "../../types"
 
 export default function createDebugCommand(): ICommand {
   return {
     name: "debug",
-    invoke: (tool: ITool, robot: Hubot.Robot, res: Hubot.Response, match: RegExpMatchArray): void => {
-      let msg = `The tool "${tool.name}" uses the following commands:`
+    execute: (context: IContext): void => {
+      let msg = `The tool "${context.tool.name}" uses the following commands:`
 
-      tool.__registrations.forEach(r => (msg += `\n- ${r.commandName}: ${r.messageRegex}`))
+      const internalTool = context.tool as InternalTool
+      const registrations = internalTool?.__registrations || []
 
-      res.reply(msg)
+      registrations.forEach(r => (msg += `\n- ${r.commandName}: ${r.messageRegex}`))
+
+      context.res.reply(msg)
     }
   }
 }

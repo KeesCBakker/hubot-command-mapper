@@ -1,4 +1,4 @@
-import { IOptions, ITool, defaultOptions } from ".."
+import { InternalRobot } from "../types"
 import { escapeRegExp } from "../utils/regex"
 import { hasSwitch, setSwitch } from "../utils/switches"
 
@@ -13,12 +13,7 @@ const SWITCH = "mda"
  * @param {string} destination The destination alias of the command the text should be aliased to.
  * @param {IOptions} options The options.
  */
-export function map_default_alias(
-  robot: Hubot.Robot,
-  destination: string,
-  skipRegexes: RegExp[] = [],
-  options: IOptions = defaultOptions
-) {
+export function map_default_alias(robot: Hubot.Robot, destination: string, skipRegexes: RegExp[] = []) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!destination) throw "Argument 'destination' is empty."
 
@@ -66,8 +61,9 @@ export function map_default_alias(
  * @param {string} msg The message.
  * @returns true when unhandled.
  */
-function isUnhandledMessage(robot: Hubot.Robot, msg: string) {
-  for (let tool of robot.__tools) {
+function isUnhandledMessage(robot: InternalRobot, msg: string) {
+  const tools = robot.__tools || []
+  for (let tool of tools) {
     if (tool.canHandle(msg)) {
       return false
     }

@@ -17,9 +17,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
             new RegExStringParameter("url", "https?://", "https://wehkamp.nl"),
             new NumberParameter("times", 350)
           ],
-          invoke: (tool, robot, res, match, values): void => {
-            res.reply(JSON.stringify(values))
-          }
+          execute: context => context.res.reply(JSON.stringify(context.values))
         },
         {
           name: "ip",
@@ -29,9 +27,7 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
             new TokenParameter("destination"),
             new IPv4Parameter("destinationIp")
           ],
-          invoke: (tool, robot, res, match, values): void => {
-            res.reply(JSON.stringify(values))
-          }
+          execute: context => context.res.reply(JSON.stringify(context.values))
         }
       ]
     })

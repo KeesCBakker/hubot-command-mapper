@@ -18,12 +18,12 @@ describe("auth.spec.ts / Default commands", () => {
         commands: [
           {
             name: "action1",
-            invoke: (tool, robot, res) => res.reply("Hi!")
+            execute: context => context.res.reply("Hi!")
           },
           {
             name: "action2",
             auth: ["user2"],
-            invoke: (tool, robot, res) => res.reply("Hi!")
+            execute: context => context.res.reply("Hi!")
           }
         ]
       },

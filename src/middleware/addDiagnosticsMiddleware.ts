@@ -1,11 +1,9 @@
-import { IOptions, defaultOptions, ICommandResolverResultDebugInfo } from ".."
-import { hasSwitch, setSwitch } from "../utils/switches"
 import { CommandResolver } from "../entities/CommandResolver"
+import { ICommandResolverResultDebugInfo } from "../types"
 
 export function addDiagnosticsMiddleware(
   robot: Hubot.Robot,
-  callback: (debug: ICommandResolverResultDebugInfo) => void,
-  options: IOptions = defaultOptions
+  callback: (debug: ICommandResolverResultDebugInfo) => void
 ) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!callback) throw "Argument 'callback' is empty."

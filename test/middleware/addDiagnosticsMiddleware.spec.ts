@@ -1,16 +1,10 @@
 import pretend from "hubot-pretend"
 import { expect } from "chai"
 import "mocha"
-import {
-  map_command,
-  Options,
-  RestParameter,
-  removeTrailingBotWhitespaceCharactersFromIncomingMessages,
-  addDiagnosticsMiddleware,
-  ICommandResolverResultDebugInfo
-} from "../../src"
+import { map_command, RestParameter, addDiagnosticsMiddleware } from "../../src"
 
 import { should } from "chai"
+import { ICommandResolverResultDebugInfo } from "../../src/types"
 
 describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", () => {
   beforeEach(() => {

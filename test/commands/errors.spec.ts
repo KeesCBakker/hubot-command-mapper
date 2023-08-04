@@ -73,7 +73,7 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: "",
-              invoke: (tool, robot, res) => {}
+              execute: _ => {}
             }
           ]
         })
@@ -90,7 +90,7 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: <any>null,
-              invoke: (tool, robot, res) => {}
+              execute: _ => {}
             }
           ]
         })
@@ -107,12 +107,12 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: "list",
-              invoke: (tool, robot, res) => {}
+              execute: _ => {}
             },
             {
               name: "list2",
               alias: ["list"],
-              invoke: (tool, robot, res) => {}
+              execute: _ => {}
             }
           ]
         })

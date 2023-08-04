@@ -1,13 +1,11 @@
+import { IMessageHandler, InternalRobot } from "../types"
 import { escapeRegExp } from "../utils/regex"
-import { IOptions } from "../entities/options"
-import { IMap } from "../definitions"
-import { IMessageHandler } from "../definitions/IMessageHandler"
 
 class AliasMapping implements IMessageHandler {
   public matchers: RegularExpressionMap[]
   public splitter: RegExp
 
-  constructor(map: IMap, robot: Hubot.Robot) {
+  constructor(map: Record<string, string>, robot: Hubot.Robot) {
     this.splitter = createBotCommandExtractor(robot.name, robot.alias || robot.name)
     this.matchers = convertMapIntoRegularExpression(map)
   }
@@ -50,8 +48,12 @@ export function alias(robot: Hubot.Robot, map: any) {
   }
 
   var mapping = new AliasMapping(map, robot)
-  robot.__tools = robot.__tools || []
-  robot.__tools.push(mapping)
+
+  //TODO: do wee need to add this to the tools?
+  //without it the map_default_alias will not work
+  var bot = robot as InternalRobot
+  bot.__tools = bot.__tools || []
+  bot.__tools.push(mapping)
 
   robot.receiveMiddleware((context, next, done) => {
     var text = context.response.message.text
@@ -81,7 +83,7 @@ function createBotCommandExtractor(name: string, alias: string): RegExp {
   return new RegExp(`^(@?(${escapeRegExp(name)}|${escapeRegExp(alias)}) )(.*)$`, "i")
 }
 
-function convertMapIntoRegularExpression(map: IMap): RegularExpressionMap[] {
+function convertMapIntoRegularExpression(map: Record<string, string>): RegularExpressionMap[] {
   return Object.keys(map).map(key => {
     let value = map[key]
     let regex = key.endsWith("*")

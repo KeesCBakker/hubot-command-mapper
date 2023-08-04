@@ -1,18 +1,15 @@
-import { ITool } from ".."
-import { ICommand, IParameterValueCollection, ICommandResolverResultDebugInfo } from "../definitions"
+import { Log } from "hubot"
 import { getValues } from "./parameters/ValueExtractor"
-import { Logger } from "pino"
+import { ICommandResolverResultDebugInfo, ICommand, ITool, InternalRobot, InternalTool } from "../types"
 
 export class CommandResolver {
-  constructor(private robot: Hubot.Robot) {}
+  constructor(private robot: InternalRobot) {}
 
   public resolve(res: Hubot.Response): CommandResolverResult | null {
-    let tool: ITool = null
+    let tool: InternalTool = null
 
     if (this.robot.__tools) {
-      tool = this.robot.__tools
-        .map(t => (<any>t) as ITool)
-        .find(t => t != null && t.__robotRegex != null && t.__robotRegex.test(res.message.text))
+      tool = this.robot.__tools.find(t => t != null && t.canHandle(res.message.text)) as any as InternalTool
     }
 
     return this.resolveFromTool(tool, res)
@@ -56,15 +53,15 @@ export class CommandResolverResult {
   public command: ICommand
   public authorized: Boolean
   public match: RegExpExecArray
-  public values: IParameterValueCollection
+  public values: Record<string, any>
 
   public text: string
   public user: Hubot.User
 
-  public log(logger: Logger): void {
+  public log(logger: Log): void {
     if (logger) {
       const debug = this.getDebugInfo()
-      logger.info(debug)
+      logger.info("Command", debug)
     }
   }
 

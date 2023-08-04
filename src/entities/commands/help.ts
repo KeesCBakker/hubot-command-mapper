@@ -1,45 +1,50 @@
-import { IHelpCommand, IParameterValueCollection, ITool } from "../../definitions"
-import { Robot, Response } from "../../definitions/Hubot"
+import { ICommand, IContext } from "../../types"
+
+interface IHelpCommand extends ICommand {
+  /**
+   * Called when the command is invoked. The parameters show the
+   * scope in which the command was called. The match contains
+   * captured information.
+   *
+   * @param {IContext} [context] The context of the help tool that is created.
+   * @param {string} [helpMsgPrefix] The prefix that should be shown before printing the help.
+   * @param {string} [noHelpMsg] The message that is shown when no help is available.
+   * @memberof ICommand
+   */
+  execute(context: IContext, helpMsgPrefix?: string, noHelpMsg?: string): void
+}
 
 export default function createHelpCommand(): IHelpCommand {
   return {
     name: "help",
     alias: ["?", "/?", "--help"],
-    invoke: (
-      tool: ITool,
-      robot: Robot,
-      res: Response,
-      match: RegExpMatchArray,
-      values: IParameterValueCollection,
-      helpMsgPrefix?: string,
-      noHelpMsg?: string
-    ): void => {
-      const botName = "@" + (robot.alias || robot.name)
+    execute: (context: IContext, helpMsgPrefix?: string, noHelpMsg?: string): void => {
+      const botName = "@" + (context.robot.alias || context.robot.name)
 
-      let helpCommands = robot
+      let helpCommands = context.robot
         .helpCommands()
-        .filter(cmd => cmd.startsWith("hubot " + tool.name))
+        .filter(cmd => cmd.startsWith("hubot " + context.tool.name))
         .map(cmd => cmd.replace(/hubot/g, botName))
 
       helpCommands.sort()
 
       if (helpCommands.length === 0) {
         if (noHelpMsg) {
-          res.reply(noHelpMsg)
+          context.res.reply(noHelpMsg)
           return
         }
 
-        res.reply(`the tool _${tool.name}_ has no help.`)
+        context.res.reply(`the tool _${context.tool.name}_ has no help.`)
         return
       }
 
       if (!helpMsgPrefix) {
-        helpMsgPrefix = `the tool _${tool.name}_ has the following commands:\n- `
+        helpMsgPrefix = `the tool _${context.tool.name}_ has the following commands:\n- `
       }
 
       let msg = helpMsgPrefix + helpCommands.join("\n- ")
 
-      res.reply(msg)
+      context.res.reply(msg)
     }
   }
 }

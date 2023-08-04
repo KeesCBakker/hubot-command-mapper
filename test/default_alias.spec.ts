@@ -1,6 +1,6 @@
 import pretend from "hubot-pretend"
 
-import { map_tool, map_command, Options, alias, map_default_alias, RestParameter } from "./../src"
+import { map_tool, map_command, alias, map_default_alias, RestParameter } from "./../src"
 import { expect } from "chai"
 import "mocha"
 

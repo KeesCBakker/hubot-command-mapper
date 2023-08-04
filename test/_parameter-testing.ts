@@ -18,12 +18,12 @@ export function createRegex(parameters: IParameter[], robotName = "hubot", toolN
       {
         name: commandName,
         parameters: parameters,
-        invoke: () => {}
+        execute: _ => {}
       }
     ]
   }
 
-  return convertCommandIntoRegexString(robotName, null, tool, tool.commands[0])
+  return convertCommandIntoRegexString(robotName, null, tool, tool.commands![0])
 }
 
 export function delay<T>(ms: number, val: T) {

@@ -1,8 +1,6 @@
 "strict"
 
-import { IParameter } from "../definitions/IParameter"
-import { ITool } from "../definitions/ITool"
-import { ICommand } from "../definitions/ICommand"
+import { ITool, ICommand, IParameter } from "../types"
 
 /**
  * Converts the specified tool into a regular expression
@@ -44,7 +42,7 @@ export function convertBotNameIntoRegexString(robotName: string, robotAlias: str
  */
 export function convertCommandIntoRegexString(
   robotName: string,
-  robotAlias: string,
+  robotAlias: string | null,
   tool: ITool,
   cmd: ICommand,
   useNaming = false
