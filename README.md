@@ -123,7 +123,7 @@ module.exports = robot => {
 
 ## Capturing with named parameters
 
-A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accessed through the `match` object in the invoke:
+A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accessed through the `match` object in the execute:
 
 ```js
 const { mapper } = require("hubot-command-mapper")
@@ -213,7 +213,7 @@ A **command** has the following specification:
 - `alias:Array<string>`: A list of aliases of the command. Can be used to support multiple names to trigger the command like: `["del", "rm"]`. An empty alias is also possible to add default commands to tools. Optional.
 - `auth:Array<string>`: A list of usernames that will be used to authorize access to the command. Optional.
 - `capture:string`: A regex that can be used to match values behind a command. Optional.
-- `parameters:[IParameter]`: a list of named parameters. The value of each parameter is added to the `values` object of the invoke callback. Possible values: `StringParameter`, `NumberParameter`, `FractionParameter`, `RegExParameter` and `RestParameter`.
+- `parameters:[IParameter]`: a list of named parameters. The value of each parameter is added to the `values` object of the invoked callback. Possible values: `StringParameter`, `NumberParameter`, `FractionParameter`, `RegExParameter` and `RestParameter`.
 
 ## Middleware
 
