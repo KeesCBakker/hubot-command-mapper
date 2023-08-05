@@ -1,68 +1,42 @@
-import pretend from "hubot-pretend"
+import { createTestBot, TestBotContext } from "../common/test"
 import { expect } from "chai"
+import { map_command, removeMarkdownFromIncomingMessages, RestParameter } from "../../src"
 import "mocha"
-import { map_command, Options, RestParameter, removeMarkdownFromIncomingMessages } from "../../src"
 
 describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
 
     // map dummy command
-    map_command(pretend.robot, "ping", new RestParameter("rest"), context =>
+    map_command(context.robot, "ping", new RestParameter("rest"), context =>
       context.res.reply(`Got this: "${context.values.rest}"`)
     )
 
     // map the markdown remover
-    removeMarkdownFromIncomingMessages(pretend.robot)
+    removeMarkdownFromIncomingMessages(context.robot)
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Bold removed", done => {
-    pretend
-      .user("kees")
-      .send("@hubot ping this is a *test* with *bold*")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with bold"')
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Bold removed", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with *bold*")
+    expect(response).to.eql('Got this: "this is a test with bold"')
   })
 
-  it("Code removed", done => {
-    pretend
-      .user("kees")
-      .send("@hubot ping this is a `test` with `let code = true`")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with let code = true"')
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Code removed", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot ping this is a `test` with `let code = true`")
+    expect(response).to.eql('Got this: "this is a test with let code = true"')
   })
 
-  it("Italics removed", done => {
-    pretend
-      .user("kees")
-      .send("@hubot ping this is a _test_ with _italics_")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with italics"')
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Italics removed", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot ping this is a _test_ with _italics_")
+    expect(response).to.eql('Got this: "this is a test with italics"')
   })
 
-  it("Multiple elements removed", done => {
-    pretend
-      .user("kees")
-      .send("@hubot ping this is a *test* with _italics_ and `code`")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with italics and code"')
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Multiple elements removed", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with _italics_ and `code`")
+    expect(response).to.eql('Got this: "this is a test with italics and code"')
   })
 })

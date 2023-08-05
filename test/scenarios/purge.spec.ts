@@ -1,7 +1,6 @@
-import pretend from "hubot-pretend"
-
-import { map_tool, RestParameter } from "./../../src/"
+import { createTestBot } from "../common/test"
 import { expect } from "chai"
+import { map_tool, RestParameter } from "./../../src/"
 import "mocha"
 
 function mapPurge(robot: Hubot.Robot) {
@@ -31,25 +30,11 @@ function mapPurge(robot: Hubot.Robot) {
 }
 
 describe("purge.spec.ts > purge example", () => {
-  beforeEach(() => {
-    pretend.start()
-    mapPurge(pretend.robot)
-  })
-
-  afterEach(() => pretend.shutdown())
-
-  it("Scenario", done => {
-    const user = pretend.user("kees")
-
-    user
-      .send("@hubot purge pers")
-      .then(x => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot purge pers"],
-          ["hubot", "@kees default"]
-        ])
-      })
-      .then(_ => done())
-      .catch(ex => done(ex))
+  it("Scenario", async () => {
+    let context = await createTestBot()
+    mapPurge(context.robot)
+    let response = await context.sendAndWaitForResponse("@hubot purge pers")
+    expect(response).to.eql("default")
+    context.shutdown()
   })
 })

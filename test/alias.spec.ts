@@ -1,20 +1,21 @@
-import pretend from "hubot-pretend"
-
-import { mapper, map_command, Options, alias, StringParameter } from "./../src"
+import { alias, map_command, mapper, Options, StringParameter } from "./../src"
+import { createTestBot, TestBotContext } from "./common/test"
 import { expect } from "chai"
 import "mocha"
 
 describe("alias.spec.ts / Testing the alias features", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
 
     var options = new Options()
 
-    map_command(pretend.robot, "version", options, context => context.res.reply("1"))
-    alias(pretend.robot, { AAA: "version" })
+    map_command(context.robot, "version", options, context => context.res.reply("1"))
+    alias(context.robot, { AAA: "version" })
 
     mapper(
-      pretend.robot,
+      context.robot,
       {
         name: "echo",
         commands: [
@@ -34,66 +35,30 @@ describe("alias.spec.ts / Testing the alias features", () => {
       options
     )
 
-    alias(pretend.robot, { "zeg*": "echo" })
-    alias(pretend.robot, { "scream and shout*": "echo" })
-    alias(pretend.robot, { "super doei*": "echo bye" })
+    alias(context.robot, { "zeg*": "echo" })
+    alias(context.robot, { "scream and shout*": "echo" })
+    alias(context.robot, { "super doei*": "echo bye" })
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Map alias", done => {
-    pretend
-      .user("kees")
-      .send("@hubot AAA")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot AAA"],
-          ["hubot", "@kees 1"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Map alias", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot AAA")
+    expect(response).to.eql("1")
   })
 
-  it("Map * alias", done => {
-    pretend
-      .user("kees")
-      .send("@hubot zeg AAA")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot zeg AAA"],
-          ["hubot", "@kees AAA"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Map * alias", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot zeg AAA")
+    expect(response).to.eql("AAA")
   })
 
-  it("Map * alias with multiple words", done => {
-    pretend
-      .user("kees")
-      .send("@hubot scream and shout AAA")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot scream and shout AAA"],
-          ["hubot", "@kees AAA"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Map * alias with multiple words", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot scream and shout AAA")
+    expect(response).to.eql("AAA")
   })
 
-  it("Map * alias with multiple words and multiple parameters", done => {
-    pretend
-      .user("kees")
-      .send("@hubot super doei Alpha Beta")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot super doei Alpha Beta"],
-          ["hubot", "@kees Byeeeeeee Alpha Beta!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Map * alias with multiple words and multiple parameters", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot super doei Alpha Beta")
+    expect(response).to.eql("Byeeeeeee Alpha Beta!")
   })
 })

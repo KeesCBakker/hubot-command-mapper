@@ -1,74 +1,70 @@
-import pretend from "hubot-pretend"
-
 import { mapper, alias } from "../../src"
 import { expect } from "chai"
 import "mocha"
+import { TestBotContext, createTestBot } from "../common/test"
 
 describe("errors.spec.ts / Errors", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.robot.shutdown())
 
   describe("mapper", () => {
-    it("No robot", done => {
+    it("No robot", async () => {
       try {
         mapper(<any>null, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'robot' is empty.")
-        done()
       }
     })
 
-    it("No tool", done => {
+    it("No tool", async () => {
       try {
-        mapper(pretend.robot, <any>null)
+        mapper(context.robot, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'tool' is empty.")
-        done()
       }
     })
 
-    it("Invalid tool name due to null", done => {
+    it("Invalid tool name due to null", async () => {
       try {
-        mapper(pretend.robot, {
+        mapper(context.robot, {
           name: <any>null,
           commands: []
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid name for tool.")
-        done()
       }
     })
 
-    it("Invalid tool name due to empty string", done => {
+    it("Invalid tool name due to empty string", async () => {
       try {
-        mapper(pretend.robot, {
+        mapper(context.robot, {
           name: "",
           commands: []
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid name for tool.")
-        done()
       }
     })
 
-    it("Invalid commands", done => {
+    it("Invalid commands", async () => {
       try {
-        mapper(pretend.robot, {
+        mapper(context.robot, {
           name: "XXX",
           commands: []
         })
       } catch (ex) {
         expect(ex.toString()).to.eq('No commands found for "XXX"')
-        done()
       }
     })
 
-    it("Invalid tool due to empty command name", done => {
+    it("Invalid tool due to empty command name", async () => {
       try {
-        mapper(pretend.robot, {
+        mapper(context.robot, {
           name: "Test",
           commands: [
             {
@@ -79,13 +75,12 @@ describe("errors.spec.ts / Errors", () => {
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid command name.")
-        done()
       }
     })
 
-    it("Invalid tool due to null command name", done => {
+    it("Invalid tool due to null command name", async () => {
       try {
-        mapper(pretend.robot, {
+        mapper(context.robot, {
           name: "Test",
           commands: [
             {
@@ -96,13 +91,12 @@ describe("errors.spec.ts / Errors", () => {
         })
       } catch (ex) {
         expect(ex.toString()).to.eq("Invalid command name.")
-        done()
       }
     })
 
-    it("Invalid tool due to reuse command alias", done => {
+    it("Invalid tool due to reuse command alias", async () => {
       try {
-        mapper(pretend.robot, {
+        mapper(context.robot, {
           name: "Test",
           commands: [
             {
@@ -120,27 +114,24 @@ describe("errors.spec.ts / Errors", () => {
         expect(ex.toString()).to.eq(
           "Cannot create command 'list' for tool 'Test'. Multiple commands with the same name or alias found."
         )
-        done()
       }
     })
   })
 
   describe("alias", () => {
-    it("No robot", done => {
+    it("No robot", async () => {
       try {
         alias(<any>null, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'robot' is empty.")
-        done()
       }
     })
 
-    it("No map", done => {
+    it("No map", async () => {
       try {
-        alias(pretend.robot, null)
+        alias(context.robot, null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'map' is empty.")
-        done()
       }
     })
   })

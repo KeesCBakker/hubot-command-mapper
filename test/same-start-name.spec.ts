@@ -1,59 +1,33 @@
-import pretend from "hubot-pretend"
-
-import { map_command, IContext } from "./../src/"
+import { createTestBot, TestBotContext } from "./common/test"
 import { expect } from "chai"
+import { map_command } from "./../src/"
 import "mocha"
 
 describe("same-start-name.spec.ts > execute commands with the same start name", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
 
-    map_command(pretend.robot, "ci", context => context.res.reply("ci"))
-    map_command(pretend.robot, "cd", context => context.res.reply("cd"))
-    map_command(pretend.robot, "cicd", context => context.res.reply("cicd"))
+  beforeEach(async () => {
+    context = await createTestBot()
+
+    map_command(context.robot, "ci", context => context.res.reply("ci"))
+    map_command(context.robot, "cd", context => context.res.reply("cd"))
+    map_command(context.robot, "cicd", context => context.res.reply("cicd"))
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Testing ci", done => {
-    pretend
-      .user("kees")
-      .send("@hubot ci")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot ci"],
-          ["hubot", "@kees ci"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing ci", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot ci")
+    expect(response).to.eql("ci")
   })
 
-  it("Testing cd", done => {
-    pretend
-      .user("kees")
-      .send("@hubot cd")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot cd"],
-          ["hubot", "@kees cd"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing cd", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot cd")
+    expect(response).to.eql("cd")
   })
 
-  it("Testing cicd", done => {
-    pretend
-      .user("kees")
-      .send("@hubot cicd")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot cicd"],
-          ["hubot", "@kees cicd"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing cicd", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot cicd")
+    expect(response).to.eql("cicd")
   })
 })

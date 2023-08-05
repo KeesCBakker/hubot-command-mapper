@@ -1,13 +1,12 @@
-import pretend from "hubot-pretend"
-
-import { ITool } from "./../../src/"
+import { createTestBot } from "../common/test"
 import { expect } from "chai"
-import "mocha"
+import { ITool } from "./../../src/"
 import { mapper, StringParameter } from "./../../src/"
+import "mocha"
 
 describe("examples.spec.ts > check count/capture example", () => {
-  it("Should count to 3", done => {
-    pretend.start({
+  it("Should count to 3", async () => {
+    let context = await createTestBot({
       name: "hb",
       alias: "lb"
     })
@@ -30,31 +29,20 @@ describe("examples.spec.ts > check count/capture example", () => {
       ]
     }
 
-    mapper(pretend.robot, tool)
+    mapper(context.robot, tool)
 
-    pretend
-      .user("kees")
-      .send("@hb count from 1 to 3")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hb count from 1 to 3"],
-          ["hubot", "@kees 1!"],
-          ["hubot", "@kees 2!"],
-          ["hubot", "@kees 3!"]
-        ])
+    await context.send("@hb count from 1 to 3")
+    expect(context.replies).to.eql(["1!", "2!", "3!"])
 
-        pretend.shutdown()
-        done()
-      })
-      .catch(ex => done(ex))
+    context.shutdown()
   })
 })
 
 describe("examples.spec.ts > check norris impersonate / parameter", () => {
-  it("Should return a quote", done => {
-    pretend.start({
-      name: "hb",
-      alias: "lb"
+  it("Should return a quote", async () => {
+    let context = await createTestBot({
+      name: "hubot",
+      alias: "hb"
     })
 
     const tool: ITool = {
@@ -73,20 +61,11 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
       ]
     }
 
-    mapper(pretend.robot, tool)
+    mapper(context.robot, tool)
 
-    pretend
-      .user("kees")
-      .send("@hb norris impersonate Cool Cat")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hb norris impersonate Cool Cat"],
-          ["hubot", "@kees Cool Cat has counted to infinity. Twice!"]
-        ])
+    let response = await context.sendAndWaitForResponse("@hb norris impersonate Cool Cat")
+    expect(response).to.eql("Cool Cat has counted to infinity. Twice!")
 
-        pretend.shutdown()
-        done()
-      })
-      .catch(ex => done(ex))
+    context.shutdown()
   })
 })

@@ -1,7 +1,6 @@
-import pretend from "hubot-pretend"
-
-import { map_tool, RestParameter } from "./../../src/"
+import { createTestBot, TestBotContext } from "../common/test"
 import { expect } from "chai"
+import { map_tool, RestParameter } from "./../../src/"
 import "mocha"
 
 function mapTodo(robot: Hubot.Robot) {
@@ -48,40 +47,31 @@ function mapTodo(robot: Hubot.Robot) {
 }
 
 describe("todo.spec.ts > todo example", () => {
-  beforeEach(() => {
-    pretend.start()
-    mapTodo(pretend.robot)
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
+    mapTodo(context.robot)
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Scenario", done => {
-    const user = pretend.user("kees")
+  it("Scenario", async () => {
+    await context.send("@hubot todo Boter halen")
 
-    user
-      .send("@hubot todo Boter halen")
-      .then(x => user.send("@hubot todo Kaas halen"))
-      .then(x => user.send("@hubot todo Eieren halen"))
-      .then(x => user.send("@hubot todo"))
-      .then(x => user.send("@hubot todo del er"))
-      .then(x => user.send("@hubot todo list"))
-      .then(x => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot todo Boter halen"],
-          ["hubot", "@kees Added _Boter halen_ to the list."],
-          ["kees", "@hubot todo Kaas halen"],
-          ["hubot", "@kees Added _Kaas halen_ to the list."],
-          ["kees", "@hubot todo Eieren halen"],
-          ["hubot", "@kees Added _Eieren halen_ to the list."],
-          ["kees", "@hubot todo"],
-          ["hubot", "@kees The following item(s) are on the list:\n- Boter halen\n- Kaas halen\n- Eieren halen"],
-          ["kees", "@hubot todo del er"],
-          ["hubot", "@kees Removed 2 item(s) from the list."],
-          ["kees", "@hubot todo list"],
-          ["hubot", "@kees The following item(s) are on the list:\n- Kaas halen"]
-        ])
-      })
-      .then(x => done())
-      .catch(ex => done(ex))
+    await context.send("@hubot todo Kaas halen")
+    await context.send("@hubot todo Eieren halen")
+    await context.send("@hubot todo")
+    await context.send("@hubot todo del er")
+    await context.send("@hubot todo list")
+
+    expect(context.replies).to.eql([
+      "Added _Boter halen_ to the list.",
+      "Added _Kaas halen_ to the list.",
+      "Added _Eieren halen_ to the list.",
+      "The following item(s) are on the list:\n- Boter halen\n- Kaas halen\n- Eieren halen",
+      "Removed 2 item(s) from the list.",
+      "The following item(s) are on the list:\n- Kaas halen"
+    ])
   })
 })

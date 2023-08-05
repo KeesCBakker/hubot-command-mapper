@@ -1,25 +1,25 @@
-import pretend from "hubot-pretend"
+import { createTestBot, TestBotContext } from "../common/test"
 import { expect } from "chai"
-import "mocha"
 import { hasSwitch, setSwitch } from "../../src/utils/switches"
+import "mocha"
 
 describe("switches.spec.ts / switches", () => {
+  let context: TestBotContext
+
   const SWITCH = "SOME_SWITCH_NAME"
 
-  beforeEach(() => {
-    pretend.start()
+  beforeEach(async () => {
+    context = await createTestBot()
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("No parameters set should return false.", done => {
-    expect(hasSwitch(pretend.robot, SWITCH)).to.eql(false)
-    done()
+  it("No parameters set should return false.", async () => {
+    expect(hasSwitch(context.robot, SWITCH)).to.eql(false)
   })
 
-  it("Setting a parameter should return true.", done => {
-    setSwitch(pretend.robot, SWITCH)
-    expect(hasSwitch(pretend.robot, SWITCH)).to.eql(true)
-    done()
+  it("Setting a parameter should return true.", async () => {
+    setSwitch(context.robot, SWITCH)
+    expect(hasSwitch(context.robot, SWITCH)).to.eql(true)
   })
 })

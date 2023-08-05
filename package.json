@@ -40,6 +40,8 @@
     "chai": "^4.3.7",
     "coffeescript": "^2.7.0",
     "del-cli": "^5.0.0",
+    "hubot": "^7.0.0",
+    "hubot-mock-adapter": "^1.1.1",
     "hubot-pretend": "^1.2.0",
     "mocha": "^10.2.0",
     "npm-force-resolutions": "0.0.10",
