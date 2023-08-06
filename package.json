@@ -40,6 +40,7 @@
     "chai": "^4.3.7",
     "del-cli": "^5.0.0",
     "hubot": "^7.0.0",
+    "hubot-mock-adapter": "^1.1.1",
     "mocha": "^10.2.0",
     "prettier": "^3.0.1",
     "ts-node": "^10.9.1"
