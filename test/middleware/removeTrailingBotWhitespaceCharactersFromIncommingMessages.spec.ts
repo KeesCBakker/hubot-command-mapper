@@ -1,61 +1,41 @@
-import pretend from "hubot-pretend"
+import { createTestBot, TestBotContext } from "./../common/test-bot"
 import { expect } from "chai"
-import "mocha"
-import { map_command, RestParameter, removeTrailingBotWhitespaceCharactersFromIncomingMessages } from "../../src"
+import { map_command, removeTrailingBotWhitespaceCharactersFromIncomingMessages, RestParameter } from "../../src"
 
 describe("removeTrailingBotWhitespaceCharactersFromIncomingMessages.spec.ts / trailing spaces fixer", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
 
     // map dummy command
-    map_command(pretend.robot, "ping", new RestParameter("rest"), context =>
+    map_command(context.robot, "ping", new RestParameter("rest"), context =>
       context.res.reply(`Got this: "${context.values.rest}"`)
     )
 
     // map the trailing space fixer
-    removeTrailingBotWhitespaceCharactersFromIncomingMessages(pretend.robot)
+    removeTrailingBotWhitespaceCharactersFromIncomingMessages(context.robot)
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Trailing spaces should be removed", done => {
-    pretend
-      .user("kees")
-      .send("@hubot     ping this is a test with spaces")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with spaces"')
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Trailing spaces should be removed", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot     ping this is a test with spaces")
+    expect(response).to.eq('Got this: "this is a test with spaces"')
   })
 
-  it("Trailing tabs should be removed", done => {
-    pretend
-      .user("kees")
-      .send("@hubot\t\tping this is a test with tabs")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with tabs"')
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Trailing tabs should be removed", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot\t\tping this is a test with tabs")
+    expect(response).to.eq('Got this: "this is a test with tabs"')
   })
 
-  it("Trailing enters should be removed", done => {
-    pretend
-      .user("kees")
-      .send(
-        `@hubot
+  it("Trailing enters should be removed", async () => {
+    let response = await context.sendAndWaitForResponse(
+      `@hubot
 
 
 ping this is a test with enters`
-      )
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq('@kees Got this: "this is a test with enters"')
-        done()
-      })
-      .catch(ex => done(ex))
+    )
+    expect(response).to.eq('Got this: "this is a test with enters"')
   })
 })

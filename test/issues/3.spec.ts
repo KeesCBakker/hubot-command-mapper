@@ -1,47 +1,25 @@
-import pretend from "hubot-pretend"
-
-import { map_command, alias } from "./../../src"
+import { alias, map_command } from "./../../src"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import "mocha"
 
-describe("issues / 3.spec.ts / Testing problems with robot not responding to alias.", () => {
-  beforeEach(() => {
-    pretend.start({
-      name: "namebot",
-      alias: "aliasbot"
-    })
+describe("issues / 3.spec.ts / Testing problems with robot not responding to alias.", async () => {
+  let context: TestBotContext
 
-    map_command(pretend.robot, "ping", context => context.res.reply("pong"))
-    alias(pretend.robot, { pang: "ping" })
+  beforeEach(async () => {
+    context = await createTestBot({ name: "namebot", alias: "aliasbot" })
+    map_command(context.robot, "ping", context => context.res.reply("pong"))
+    alias(context.robot, { pang: "ping" })
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Should respond to the alias and execute the command", done => {
-    pretend
-      .user("kees")
-      .send("@aliasbot ping")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@aliasbot ping"],
-          ["hubot", "@kees pong"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Should respond to the alias and execute the command", async () => {
+    let response = await context.sendAndWaitForResponse("@aliasbot ping")
+    expect(response).to.eql("pong")
   })
 
-  it("Should respond to the alias and execute the command alias", done => {
-    pretend
-      .user("kees")
-      .send("@aliasbot pang")
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@aliasbot pang"],
-          ["hubot", "@kees pong"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Should respond to the alias and execute the command alias", async () => {
+    let response = await context.sendAndWaitForResponse("@aliasbot pang")
+    expect(response).to.eql("pong")
   })
 })

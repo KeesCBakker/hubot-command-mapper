@@ -1,6 +1,6 @@
 import { RestParameter, RegExParameter } from "../../src/index"
 import { expect } from "chai"
-import "mocha"
+
 import { createRegex, test, exec } from "../_parameter-testing"
 
 describe("RegExParameters.spec.ts", () => {

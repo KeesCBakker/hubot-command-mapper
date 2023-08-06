@@ -1,20 +1,20 @@
-import pretend from "hubot-pretend"
-
-import { map_tool, map_command, alias, map_default_alias, RestParameter } from "./../src"
+import { alias, map_command, map_default_alias, map_tool, RestParameter } from "./../src"
+import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
-import "mocha"
 
 describe("default_alias.spec.ts / Testing the default alias feature", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
 
-    map_command(pretend.robot, "hello", new RestParameter("name", "unknown"), context =>
+  beforeEach(async () => {
+    context = await createTestBot()
+
+    map_command(context.robot, "hello", new RestParameter("name", "unknown"), context =>
       context.res.reply(`Hi ${context.values.name}!`)
     )
-    map_command(pretend.robot, "bye", new RestParameter("name", "unknown"), context =>
+    map_command(context.robot, "bye", new RestParameter("name", "unknown"), context =>
       context.res.reply(`Toodles ${context.values.name}!`)
     )
-    map_tool(pretend.robot, {
+    map_tool(context.robot, {
       name: "echo",
       commands: [
         {
@@ -26,136 +26,78 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
       ]
     })
 
-    alias(pretend.robot, {
+    alias(context.robot, {
       "hi*": "hello",
       "say*": "echo"
     })
 
-    map_default_alias(pretend.robot, "bye", [/help/i])
-    alias(pretend.robot, {
+    map_default_alias(context.robot, "bye", [/help/i])
+    alias(context.robot, {
       "shout*": "echo"
     })
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Tool mapping", done => {
-    pretend
-      .user("kees")
-      .send("@hubot echo bot")
-      .then(() => {
-        expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
-          ["kees", "@hubot echo bot"],
-          ["hubot", "@kees Echo bot!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Tool mapping", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot echo bot")
+    expect(response, "This message should be mapped to the `echo` command.").to.eql("Echo bot!")
   })
 
-  it("Tool alias mapping", done => {
-    pretend
-      .user("kees")
-      .send("@hubot say bot")
-      .then(() => {
-        expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
-          ["kees", "@hubot say bot"],
-          ["hubot", "@kees Echo bot!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Tool alias mapping", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot say bot")
+    expect(response, "This message should be mapped to the `echo` command.").to.eql("Echo bot!")
   })
 
-  it("Command mapping", done => {
-    pretend
-      .user("kees")
-      .send("@hubot hello bot")
-      .then(() => {
-        expect(pretend.messages, "This message should be mapped to the `hello` command.").to.eql([
-          ["kees", "@hubot hello bot"],
-          ["hubot", "@kees Hi bot!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Command mapping", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot hello bot")
+    expect(response, "This message should be mapped to the `hello` command.").to.eql("Hi bot!")
   })
 
-  it("Command alias mapping", done => {
-    pretend
-      .user("kees")
-      .send("@hubot hi bot")
-      .then(() => {
-        expect(pretend.messages, "This message should be mapped to the `hello` command.").to.eql([
-          ["kees", "@hubot hi bot"],
-          ["hubot", "@kees Hi bot!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Command alias mapping", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot hi bot")
+    expect(response, "This message should be mapped to the `hello` command.").to.eql("Hi bot!")
   })
 
-  it("Default alias mapping", done => {
-    pretend
-      .user("kees")
-      .send("@hubot kaas")
-      .then(() => {
-        expect(pretend.messages, "This message should be mapped to the `bye` command.").to.eql([
-          ["kees", "@hubot kaas"],
-          ["hubot", "@kees Toodles kaas!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Default alias mapping", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot kaas")
+    expect(response, "This message should be mapped to the `bye` command.").to.eql("Toodles kaas!")
   })
 
-  it("Alias mapped after default", done => {
-    pretend
-      .user("kees")
-      .send("@hubot shout bot")
-      .then(() => {
-        expect(pretend.messages, "This message should be mapped to the `echo` command.").to.eql([
-          ["kees", "@hubot shout bot"],
-          ["hubot", "@kees Echo bot!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Alias mapped after default", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot shout bot")
+    expect(response, "This message should be mapped to the `echo` command.").to.eql("Echo bot!")
   })
 
-  it("Alias should skip help", done => {
-    pretend
-      .user("kees")
-      .send("@hubot help")
-      .then(() => {
-        expect(pretend.messages, "This message should not be handled.").to.eql([["kees", "@hubot help"]])
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Alias should skip help", async () => {
+    let response = await context.send("@hubot help")
+
+    expect(context.sends, "This message should not be handled.").to.eql([])
+    expect(context.replies, "This message should not be handled.").to.eql([])
   })
 })
 
 describe("default_alias.spec.ts / exceptions", () => {
-  it("Exception on mapping twice", () => {
-    pretend.start()
+  let context: TestBotContext
 
+  beforeEach(async () => {
+    context = await createTestBot()
+  })
+
+  afterEach(() => context.shutdown())
+
+  it("Exception on mapping twice", async () => {
     // map 1st alias
-    map_default_alias(pretend.robot, "alpha", [])
+    map_default_alias(context.robot, "alpha", [])
 
     // 2nd alias should throw an exception
-    expect(() => map_default_alias(pretend.robot, "beta", [])).to.throw(
+    expect(() => map_default_alias(context.robot, "beta", [])).to.throw(
       "A default has already been mapped. Cannot map a 2nd default alias."
     )
-
-    pretend.shutdown()
   })
 
   it("Exception on empty alias", () => {
-    pretend.start()
-
-    expect(() => map_default_alias(pretend.robot, "", [])).to.throw("Argument 'destination' is empty.")
-
-    pretend.shutdown()
+    expect(() => map_default_alias(context.robot, "", [])).to.throw("Argument 'destination' is empty.")
   })
 
   it("Exception on empty robot", () => {

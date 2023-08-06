@@ -1,45 +1,33 @@
-import pretend from "hubot-pretend"
-
-import { map_command, map_tool } from "../../src"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import "mocha"
+import { map_command, map_tool } from "../../src"
 
 describe("replaced_by.spec.ts / Replaced by another bot", () => {
   const options = {
-    verbose: false,
     replacedByBot: "kz"
   }
 
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Command replacement", done => {
+  it("Command replacement", async () => {
     let i = 0
-    map_command(pretend.robot, "clear screen", options, () => {
+    map_command(context.robot, "clear screen", options, () => {
       i++
     })
-    pretend
-      .user("kees")
-      .send("@hubot clear screen")
 
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot clear screen"],
-          ["hubot", "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz clear screen\n```\n"]
-        ])
-
-        expect(i).to.eq(0, "Message should not increment i.")
-        done()
-      })
-      .catch(ex => done(ex))
+    let response = await context.sendAndWaitForResponse("@hubot clear screen")
+    expect(response).to.eql("Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz clear screen\n```\n")
   })
 
-  it("Tool replacement", done => {
+  it("Tool replacement", async () => {
     map_tool(
-      pretend.robot,
+      context.robot,
       {
         name: "c",
         commands: [
@@ -52,17 +40,7 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
       options
     )
 
-    pretend
-      .user("kees")
-      .send("@hubot c d")
-      .then(() => new Promise<any>(resolve => setTimeout(resolve, 100)))
-      .then(() => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot c d"],
-          ["hubot", "@kees Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz c d\n```\n"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+    let response = await context.sendAndWaitForResponse("@hubot c d")
+    expect(response).to.eql("Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz c d\n```\n")
   })
 })

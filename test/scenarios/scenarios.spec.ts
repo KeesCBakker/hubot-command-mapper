@@ -1,14 +1,14 @@
-import pretend from "hubot-pretend"
-
-import { mapper, NumberParameter, RegExStringParameter, TokenParameter, IPv4Parameter } from "../../src"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import "mocha"
+import { IPv4Parameter, mapper, NumberParameter, RegExStringParameter, TokenParameter } from "../../src"
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
 
-    mapper(pretend.robot, {
+  beforeEach(async () => {
+    context = await createTestBot()
+
+    mapper(context.robot, {
       name: "wehkamp",
       commands: [
         {
@@ -33,67 +33,32 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
     })
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Testing 2 parameters", done => {
-    pretend
-      .user("kees")
-      .send("@hubot wehkamp glitch https://google.com 150")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq(`@kees {"url":"https://google.com","times":"150"}`)
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing 2 parameters", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com 150")
+    expect(response).to.eq(`{"url":"https://google.com","times":"150"}`)
   })
 
-  it("Testing default parameters", done => {
-    pretend
-      .user("kees")
-      .send("@hubot wehkamp glitch")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq(`@kees {"url":"https://wehkamp.nl","times":350}`)
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing default parameters", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch")
+    expect(response).to.eq(`{"url":"https://wehkamp.nl","times":350}`)
   })
 
-  it("Testing only 1st parameters", done => {
-    pretend
-      .user("kees")
-      .send("@hubot wehkamp glitch https://google.com")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq(`@kees {"url":"https://google.com","times":350}`)
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing only 1st parameters", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com")
+    expect(response).to.eq(`{"url":"https://google.com","times":350}`)
   })
 
-  it("Testing only 2nd parameters", done => {
-    pretend
-      .user("kees")
-      .send("@hubot wehkamp glitch 70")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq(`@kees {"url":"https://wehkamp.nl","times":"70"}`)
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Testing only 2nd parameters", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch 70")
+    expect(response).to.eq(`{"url":"https://wehkamp.nl","times":"70"}`)
   })
 
-  it("Test IPv4", done => {
-    pretend
-      .user("kees")
-      .send("@hubot wehkamp ip source 192.168.1.13 destination 10.0.0.13")
-      .then(() => {
-        var message = pretend.messages[1][1]
-        expect(message).to.eq(
-          `@kees {"source":"source","sourceIp":"192.168.1.13","destination":"destination","destinationIp":"10.0.0.13"}`
-        )
-        done()
-      })
-      .catch(ex => done(ex))
+  it("Test IPv4", async () => {
+    let response = await context.sendAndWaitForResponse("@hubot wehkamp ip source 192.168.1.13 destination 10.0.0.13")
+    expect(response).to.eq(
+      `{"source":"source","sourceIp":"192.168.1.13","destination":"destination","destinationIp":"10.0.0.13"}`
+    )
   })
 })

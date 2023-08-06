@@ -1,69 +1,57 @@
-import pretend from "hubot-pretend"
+import { addDiagnosticsMiddleware, map_command, RestParameter } from "../../src"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import "mocha"
-import { map_command, RestParameter, addDiagnosticsMiddleware } from "../../src"
-
-import { should } from "chai"
 import { ICommandResolverResultDebugInfo } from "../../src/types"
+import { should } from "chai"
 
 describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+
+  beforeEach(async () => {
+    context = await createTestBot()
 
     // map dummy command
-    map_command(pretend.robot, "ping", new RestParameter("rest"), context =>
+    map_command(context.robot, "ping", new RestParameter("rest"), context =>
       context.res.reply(`Got this: "${context.values.rest}"`)
     )
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("A command should trigger a debug callback", done => {
+  it("A command should trigger a debug callback", async () => {
     let debug: ICommandResolverResultDebugInfo
 
-    addDiagnosticsMiddleware(pretend.robot, info => {
+    addDiagnosticsMiddleware(context.robot, info => {
       debug = info
     })
 
-    pretend
-      .user("kees")
-      .send("@hubot ping 127.0.0.1")
-      .then(() => {
-        expect(debug.user).to.eql("kees")
-        expect(debug.authorized).to.eql(true)
-        expect(debug.text).to.eql("@hubot ping 127.0.0.1")
-        expect(debug.tool).to.eql("ping")
-        expect(debug.command).to.eql("cmd")
-        expect(debug.match[0]).to.eql("@hubot ping 127.0.0.1")
-        expect(debug.values).to.eql({
-          rest: "127.0.0.1"
-        })
+    await context.send("@hubot ping 127.0.0.1")
 
-        done()
-      })
-      .catch(ex => done(ex))
+    expect(debug!.user).to.eql("mocha")
+    expect(debug!.authorized).to.eql(true)
+    expect(debug!.text).to.eql("@hubot ping 127.0.0.1")
+    expect(debug!.tool).to.eql("ping")
+    expect(debug!.command).to.eql("cmd")
+    expect(debug!.match[0]).to.eql("@hubot ping 127.0.0.1")
+    expect(debug!.values).to.eql({
+      rest: "127.0.0.1"
+    })
   })
 
-  it("A non command should also trigger a debug callback", done => {
+  it("A non command should also trigger a debug callback", async () => {
     let debug: ICommandResolverResultDebugInfo
 
-    addDiagnosticsMiddleware(pretend.robot, info => (debug = info))
+    addDiagnosticsMiddleware(context.robot, info => (debug = info))
 
-    pretend
-      .user("kees")
-      .send("@hubot pong 127.0.0.1")
-      .then(() => {
-        expect(debug.user).to.eql("kees")
-        expect(debug.text).to.eql("@hubot pong 127.0.0.1")
+    await context.send("@hubot pong 127.0.0.1")
 
-        should().not.exist(debug.authorized)
-        should().not.exist(debug.tool)
-        should().not.exist(debug.command)
-        should().not.exist(debug.match)
-        should().not.exist(debug.values)
+    expect(debug!.user).to.eql("mocha")
+    expect(debug!.text).to.eql("@hubot pong 127.0.0.1")
 
-        done()
-      })
-      .catch(ex => done(ex))
+    should().not.exist(debug!.authorized)
+    should().not.exist(debug!.tool)
+    should().not.exist(debug!.command)
+    should().not.exist(debug!.match)
+    should().not.exist(debug!.values)
   })
 })

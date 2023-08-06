@@ -1,19 +1,18 @@
-import pretend from "hubot-pretend"
-
-import { map_command, mapper, RestParameter } from "./../src/"
+import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
-import "mocha"
+import { map_command, mapper, RestParameter } from "./../src/"
 
 describe("index.spec.ts / Command mapping", () => {
-  beforeEach(() => {
-    pretend.start()
+  let context: TestBotContext
+  beforeEach(async () => {
+    context = await createTestBot()
   })
 
-  afterEach(() => pretend.shutdown())
+  afterEach(() => context.shutdown())
 
-  it("Basic command mapping and invocation", done => {
+  it("Basic command mapping and invocation", async () => {
     let i = 0
-    mapper(pretend.robot, {
+    mapper(context.robot, {
       name: "clear",
       commands: [
         {
@@ -22,32 +21,20 @@ describe("index.spec.ts / Command mapping", () => {
         }
       ]
     })
-    pretend
-      .user("kees")
-      .send("@hubot clear screen")
-      .then(() => {
-        expect(i).to.eq(1, "Message should increment i.")
-        done()
-      })
-      .catch(ex => done(ex))
+    await context.send("@hubot clear screen")
+    expect(i).to.eq(1, "Message should increment i.")
   })
 
-  it("Default command mapping", done => {
+  it("Default command mapping", async () => {
     let i = 0
-    map_command(pretend.robot, "cool", () => i++)
-    pretend
-      .user("kees")
-      .send("@hubot cool")
-      .then(() => {
-        expect(i).to.eq(1, "Message should increment i.")
-        done()
-      })
-      .catch(ex => done(ex))
+    map_command(context.robot, "cool", () => i++)
+    await context.send("@hubot cool")
+    expect(i).to.eq(1, "Message should increment i.")
   })
 
-  it("Alias", done => {
+  it("Alias", async () => {
     let i = 0
-    mapper(pretend.robot, {
+    mapper(context.robot, {
       name: "clear",
       commands: [
         {
@@ -57,19 +44,13 @@ describe("index.spec.ts / Command mapping", () => {
         }
       ]
     })
-    pretend
-      .user("kees")
-      .send("@hubot clear scr")
-      .then(() => {
-        expect(i).to.eq(1, "Message should increment i.")
-        done()
-      })
-      .catch(ex => done(ex))
+    await context.send("@hubot clear scr")
+    expect(i).to.eq(1, "Message should increment i.")
   })
 
-  it("Empty alias", done => {
+  it("Empty alias", async () => {
     let i = 0
-    mapper(pretend.robot, {
+    mapper(context.robot, {
       name: "clear",
       commands: [
         {
@@ -79,19 +60,13 @@ describe("index.spec.ts / Command mapping", () => {
         }
       ]
     })
-    pretend
-      .user("kees")
-      .send("@hubot clear")
-      .then(() => {
-        expect(i).to.eq(1, "Message should increment i.")
-        done()
-      })
-      .catch(ex => done(ex))
+    await context.send("@hubot clear")
+    expect(i).to.eq(1, "Message should increment i.")
   })
 
-  it("Multiple aliases", done => {
+  it("Multiple aliases", async () => {
     let i = 0
-    mapper(pretend.robot, {
+    mapper(context.robot, {
       name: "clear",
       commands: [
         {
@@ -102,32 +77,19 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    Promise.resolve()
-      .then(x =>
-        pretend
-          .user("kees")
-          .send("@hubot clear screen")
-          .then(() => expect(i).to.eq(1, "Message should increment i."))
-      )
-      .then(x =>
-        pretend
-          .user("kees")
-          .send("@hubot clear scr")
-          .then(() => expect(i).to.eq(2, "Message should increment i."))
-      )
-      .then(x =>
-        pretend
-          .user("kees")
-          .send("@hubot clear")
-          .then(() => expect(i).to.eq(3, "Message should increment i."))
-      )
-      .then(x => done())
-      .catch(ex => done(ex))
+    await context.send("@hubot clear screen")
+    expect(i).to.eq(1, "Message should increment i.")
+
+    await context.send("@hubot clear scr")
+    expect(i).to.eq(2, "Message should increment i.")
+
+    await context.send("@hubot clear")
+    expect(i).to.eq(3, "Message should increment i.")
   })
 
-  it("Multiple command mapping", done => {
+  it("Multiple command mapping", async () => {
     let latest = ""
-    mapper(pretend.robot, {
+    mapper(context.robot, {
       name: "tool",
       commands: [
         {
@@ -146,31 +108,16 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    Promise.resolve()
-      .then(x =>
-        pretend
-          .user("Kees")
-          .send("@hubot tool a")
-          .then(x => expect(latest).to.eq("a", "'a' was not called."))
-      )
-      .then(x =>
-        pretend
-          .user("Kees")
-          .send("@hubot tool a")
-          .then(x => expect(latest).to.eq("a", "'a' was not called."))
-      )
-      .then(x =>
-        pretend
-          .user("Kees")
-          .send("@hubot tool a")
-          .then(x => expect(latest).to.eq("a", "'a' was not called."))
-      )
-      .then(x => done())
-      .catch(ex => done(ex))
+    await context.send("@hubot tool a")
+    expect(latest).to.eq("a", "'a' was not called.")
+    await context.send("@hubot tool a")
+    expect(latest).to.eq("a", "'a' was not called.")
+    await context.send("@hubot tool a")
+    expect(latest).to.eq("a", "'a' was not called.")
   })
 
-  it("Tool segregation", done => {
-    mapper(pretend.robot, {
+  it("Tool segregation", async () => {
+    mapper(context.robot, {
       name: "t1",
       commands: [
         {
@@ -180,7 +127,7 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    mapper(pretend.robot, {
+    mapper(context.robot, {
       name: "t2",
       commands: [
         {
@@ -190,22 +137,12 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    pretend
-      .user("Kees")
-      .send("@hubot t2 c1")
-      .then(_ => new Promise(resolve => setTimeout(resolve, 100)))
-      .then(_ => {
-        expect(pretend.messages).to.eql([
-          ["Kees", "@hubot t2 c1"],
-          ["hubot", "@Kees r2"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+    let response = await context.sendAndWaitForResponse("@hubot t2 c1")
+    expect(response).to.eql("r2")
   })
 
-  it("Tool and command casing", done => {
-    mapper(pretend.robot, {
+  it("Tool and command casing", async () => {
+    mapper(context.robot, {
       name: "testing",
       commands: [
         {
@@ -216,16 +153,7 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    pretend
-      .user("kees")
-      .send("@hubot TeStInG eVeRyThInG and maybe more!")
-      .then(_ => {
-        expect(pretend.messages).to.eql([
-          ["kees", "@hubot TeStInG eVeRyThInG and maybe more!"],
-          ["hubot", "@kees kewl!"]
-        ])
-        done()
-      })
-      .catch(ex => done(ex))
+    let response = await context.sendAndWaitForResponse("@hubot TeStInG eVeRyThInG and maybe more!")
+    expect(response).to.eql("kewl!")
   })
 })

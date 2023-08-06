@@ -22,7 +22,7 @@ Let's define the _clear screen_ command by replying with 48 space-lines:
 const { map_command } = require("hubot-command-mapper")
 
 module.exports = robot => {
-  map_command(pretend.robot, "clear screen", options, context => {
+  map_command(context.robot, "clear screen", options, context => {
     for (let i = 0; i < 48; i++) {
       context.res.emote(" ")
     }
