@@ -1,7 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
 import { map_tool, RestParameter } from "./../../src/"
-import "mocha"
 
 function mapTodo(robot: Hubot.Robot) {
   let todos: string[] = []

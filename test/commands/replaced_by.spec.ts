@@ -1,7 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
 import { map_command, map_tool } from "../../src"
-import "mocha"
 
 describe("replaced_by.spec.ts / Replaced by another bot", () => {
   const options = {

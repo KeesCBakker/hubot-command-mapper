@@ -1,7 +1,6 @@
 import { alias, map_command } from "./../../src"
-import { createTestBot, TestBotContext } from "../common/test"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import "mocha"
 
 describe("issues / 3.spec.ts / Testing problems with robot not responding to alias.", async () => {
   let context: TestBotContext

@@ -1,6 +1,8 @@
 import Hubot, { TextMessage } from "hubot"
 import { Robot } from "hubot/es2015"
 
+export type ResponseType = "send" | "reply"
+
 export class TestBotContext {
   public readonly replies: string[] = []
   public readonly sends: string[] = []
@@ -18,16 +20,13 @@ export class TestBotContext {
     })
   }
 
-  async sendAndWaitForResponse(message: string) {
+  async sendAndWaitForResponse(message: string, responseType: ResponseType = "reply") {
     return new Promise<string>(done => {
-      // here's where the magic happens!
-      this.robot.adapter.once("reply", function (_, strings) {
+      this.robot.adapter.once(responseType, function (_, strings) {
         done(strings[0])
       })
 
-      const id = (Math.random() + 1).toString(36).substring(7)
-      const textMessage = new TextMessage(this.user, message, id)
-      this.robot.adapter.receive(textMessage)
+      this.send(message)
     })
   }
 
@@ -48,7 +47,6 @@ export class TestBotContext {
     this.robot.shutdown()
   }
 }
-export type LoadScriptsFn = (Robot: Hubot.Robot) => void
 
 export type TestBotSettings = {
   name?: string
@@ -60,28 +58,25 @@ export type TestBotSettings = {
 export async function createTestBot(settings: TestBotSettings | null = null): Promise<TestBotContext> {
   process.env["HUBOT_LOG_LEVEL"] = settings?.logLevel || "error"
 
-  return new Promise<TestBotContext>(done => {
+  return new Promise<TestBotContext>(async done => {
     // create new robot, without http, using the mock adapter
     const botName = settings?.name || "hubot"
     const botAlias = settings?.alias || null
     const robot = new Robot("hubot-mock-adapter", false, botName, botAlias)
 
-    robot.loadAdapter().then(_ => {
-      robot.adapter.on("connected", () => {
-        // only load scripts we absolutely need, like auth.coffee
-        process.env.HUBOT_AUTH_ADMIN = "1"
+    await robot.loadAdapter()
 
-        // create a user
-        const user = robot.brain.userForId("1", {
-          name: settings?.testUserName || "mocha",
-          room: "#mocha"
-        })
-
-        const context = new TestBotContext(robot as unknown as Hubot.Robot, user)
-        done(context)
+    robot.adapter.on("connected", () => {
+      // create a user
+      const user = robot.brain.userForId("1", {
+        name: settings?.testUserName || "mocha",
+        room: "#mocha"
       })
 
-      robot.run()
+      const context = new TestBotContext(robot as unknown as Hubot.Robot, user)
+      done(context)
     })
+
+    robot.run()
   })
 }

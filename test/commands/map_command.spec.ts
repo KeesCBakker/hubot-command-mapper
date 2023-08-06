@@ -1,7 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
 import { map_command, Options, StringParameter } from "../../src"
-import "mocha"
 
 describe("map_command.spec.ts / Single command mapping", () => {
   let context: TestBotContext

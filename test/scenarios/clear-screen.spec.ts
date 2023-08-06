@@ -1,7 +1,6 @@
-import { createTestBot } from "../common/test"
+import { createTestBot } from "../common/test-bot"
 import { expect } from "chai"
 import { map_command } from "../../src"
-import "mocha"
 
 describe("clear-screen.spec.ts > clear screen example", () => {
   it("Scenario", async () => {

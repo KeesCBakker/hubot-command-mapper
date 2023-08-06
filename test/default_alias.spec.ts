@@ -1,7 +1,6 @@
 import { alias, map_command, map_default_alias, map_tool, RestParameter } from "./../src"
-import { createTestBot, TestBotContext } from "./common/test"
+import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
-import "mocha"
 
 describe("default_alias.spec.ts / Testing the default alias feature", () => {
   let context: TestBotContext

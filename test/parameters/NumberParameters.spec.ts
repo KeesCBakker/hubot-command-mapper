@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import "mocha"
+
 import { createRegex, test } from "../_parameter-testing"
 import { NumberParameter, NumberStyle, FractionParameter } from "../../src"
 

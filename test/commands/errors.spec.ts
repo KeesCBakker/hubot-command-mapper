@@ -1,7 +1,7 @@
 import { mapper, alias } from "../../src"
 import { expect } from "chai"
-import "mocha"
-import { TestBotContext, createTestBot } from "../common/test"
+
+import { TestBotContext, createTestBot } from "../common/test-bot"
 
 describe("errors.spec.ts / Errors", () => {
   let context: TestBotContext

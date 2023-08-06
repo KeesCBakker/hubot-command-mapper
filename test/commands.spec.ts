@@ -1,7 +1,7 @@
 import { mapper, Options } from "./../src/"
 import { expect } from "chai"
-import "mocha"
-import { createTestBot, TestBotContext } from "./common/test"
+
+import { createTestBot, TestBotContext } from "./common/test-bot"
 
 describe("commands.spec.ts / Default commands", function () {
   let context: TestBotContext

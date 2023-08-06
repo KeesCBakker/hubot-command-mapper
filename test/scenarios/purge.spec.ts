@@ -1,7 +1,6 @@
-import { createTestBot } from "../common/test"
+import { createTestBot } from "../common/test-bot"
 import { expect } from "chai"
 import { map_tool, RestParameter } from "./../../src/"
-import "mocha"
 
 function mapPurge(robot: Hubot.Robot) {
   map_tool(robot, {

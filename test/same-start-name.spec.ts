@@ -1,7 +1,6 @@
-import { createTestBot, TestBotContext } from "./common/test"
+import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
 import { map_command } from "./../src/"
-import "mocha"
 
 describe("same-start-name.spec.ts > execute commands with the same start name", () => {
   let context: TestBotContext

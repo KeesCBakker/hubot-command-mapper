@@ -1,7 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test"
+import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
 import { hasSwitch, setSwitch } from "../../src/utils/switches"
-import "mocha"
 
 describe("switches.spec.ts / switches", () => {
   let context: TestBotContext

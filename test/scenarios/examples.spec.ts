@@ -1,8 +1,7 @@
-import { createTestBot } from "../common/test"
+import { createTestBot } from "../common/test-bot"
 import { expect } from "chai"
 import { ITool } from "./../../src/"
 import { mapper, StringParameter } from "./../../src/"
-import "mocha"
 
 describe("examples.spec.ts > check count/capture example", () => {
   it("Should count to 3", async () => {

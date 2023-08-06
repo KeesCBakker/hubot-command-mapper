@@ -2,7 +2,7 @@ import { StringParameter, ChoiceParameter, TokenParameter, IPv4Parameter } from 
 
 import { RestParameter } from "../../src/index"
 import { expect } from "chai"
-import "mocha"
+
 import { createRegex, test } from "../_parameter-testing"
 
 describe("StringParameters.spec.ts", () => {
