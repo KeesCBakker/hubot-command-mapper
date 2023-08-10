@@ -7,10 +7,10 @@
   "scripts": {
     "test": "npm run mocha --recursive test/**/*.spec.ts --exit",
     "mocha": "mocha -r ts-node/register",
-    "build": "del-cli dist & tsc",
-    "prepublishOnly": "npm run build & npm test & npm version patch",
+    "build": "del-cli dist && tsc",
+    "prepublishOnly": "npm test",
     "postpublish": "git push origin --tags",
-    "patch": "npx npm-force-resolutions & npm audit",
+    "publish-patch": "npm run build && npm test && npm version patch && npm publish",
     "format": "prettier --config .prettierrc {test,src}/**/*.ts --write"
   },
   "repository": {
