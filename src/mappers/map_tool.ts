@@ -8,7 +8,7 @@ import createDebugCommand from "../entities/commands/debug"
 import createHelpCommand from "../entities/commands/help"
 import validateTool from "./validation"
 import { CommandResolver } from "../entities/CommandResolver"
-import { IMessageHandler, InternalRobot, InternalTool } from "../types"
+import { InternalTool, IMessageHandler, InternalRobot } from "../internals"
 
 /**
  * Maps the specified tool to the Robot.

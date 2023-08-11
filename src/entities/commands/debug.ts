@@ -1,4 +1,5 @@
-import { ICommand, IContext, InternalTool } from "../../types"
+import { InternalTool } from "../../internals"
+import { ICommand, IContext } from "../../types"
 
 export default function createDebugCommand(): ICommand {
   return {

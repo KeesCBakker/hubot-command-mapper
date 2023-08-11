@@ -1,4 +1,4 @@
-import { IMessageHandler, InternalRobot } from "../types"
+import { IMessageHandler, InternalRobot } from "../internals"
 import { escapeRegExp } from "../utils/regex"
 
 class AliasMapping implements IMessageHandler {

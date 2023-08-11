@@ -1,4 +1,4 @@
-import { InternalRobot } from "../types"
+import { InternalRobot } from "../internals"
 import { escapeRegExp } from "../utils/regex"
 import { hasSwitch, setSwitch } from "../utils/switches"
 

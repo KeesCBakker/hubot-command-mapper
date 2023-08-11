@@ -1,6 +1,7 @@
 import { Log } from "hubot"
 import { getValues } from "./parameters/ValueExtractor"
-import { ICommandResolverResultDebugInfo, ICommand, ITool, InternalRobot, InternalTool } from "../types"
+import { InternalRobot, InternalTool } from "../internals"
+import { ITool, ICommand, ICommandResolverResultDebugInfo } from "../types"
 
 export class CommandResolver {
   constructor(private robot: InternalRobot) {}
