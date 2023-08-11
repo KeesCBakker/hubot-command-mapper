@@ -1,4 +1,4 @@
-import { ITool } from "./types"
+import { ICommand, ITool } from "./types"
 
 /**
  * Indicates the object can handle messages.
@@ -37,4 +37,16 @@ type InternalTool = ITool & {
    * The regex that is used by the robot to match this tool.
    */
   __robotRegex?: RegExp
+}
+
+type InternalCommand = ICommand & {
+  /**
+   * The regular expression that is used to validate if a certain
+   * typed command string can execute against this command. Needed
+   * to prevent unwated execution of commands.
+   *
+   * @type {RegExp}
+   * @memberof ICommand
+   */
+  __validationRegex?: RegExp
 }

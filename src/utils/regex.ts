@@ -45,7 +45,7 @@ export function convertCommandIntoRegexString(
   robotAlias: string | null,
   tool: ITool,
   cmd: ICommand,
-  useNaming = false
+  useNaming: boolean = false
 ) {
   //the following regex is created:
   //^{botname} {tool-name} {command-name or alias list} {capture of the rest}$
@@ -92,10 +92,7 @@ export function convertCommandIntoRegexString(
         //if a command does not use capture, add string terminator
         //this prevents non-capture commands from flowing into
         //a capture command.
-        let postfix = "$"
-        if (capture || (c.parameters != null && c.parameters.length > 0)) {
-          postfix = "(?=( |$))"
-        }
+        let postfix = "(?=( |$))"
 
         commands.push(` ${escapeRegExp(c.name)}${postfix}`)
 

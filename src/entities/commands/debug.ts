@@ -8,9 +8,11 @@ export default function createDebugCommand(): ICommand {
       let msg = `The tool "${context.tool.name}" uses the following commands:`
 
       const internalTool = context.tool as InternalTool
-      const registrations = internalTool?.__registrations || []
+      const registrations = internalTool.__registrations || []
 
-      registrations.forEach(r => (msg += `\n- ${r.commandName}: ${r.messageRegex}`))
+      registrations.forEach(r => {
+        msg += `\n- ${r.commandName}: ${r.messageRegex}`
+      })
 
       context.res.reply(msg)
     }

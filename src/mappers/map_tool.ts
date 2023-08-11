@@ -8,14 +8,12 @@ import createDebugCommand from "../entities/commands/debug"
 import createHelpCommand from "../entities/commands/help"
 import validateTool from "./validation"
 import { CommandResolver } from "../entities/CommandResolver"
-import { InternalTool, IMessageHandler, InternalRobot } from "../internals"
+import { InternalTool, IMessageHandler, InternalRobot, InternalCommand } from "../internals"
 
 /**
  * Maps the specified tool to the Robot.
  *
  * @export
- * @param {NodeModule} caller The caller.
- * @param {NodeModule} packageModule The package module.
  * @param {IRobot} robot The robot.
  * @param {ITool} tool The tool that will be mapped.
  * @param {IOptions} [options] The options for this specific mapping.
@@ -41,13 +39,13 @@ export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptio
   }
 
   //init every command
-  tool.commands.forEach(cmd => {
+  tool.commands.forEach((cmd: InternalCommand) => {
     //use a second validation regex to confirm the message we
     //are responding to, is as we expected. This will prevent command
     //match edge cases in which certain phrases end with a command name
     const strValidationRegex = convertCommandIntoRegexString(robot.name, robot.alias, tool, cmd)
 
-    cmd.validationRegex = new RegExp(strValidationRegex, "i")
+    cmd.__validationRegex = new RegExp(strValidationRegex, "i")
 
     if (robot.logger) {
       robot.logger.info(`Mapping '${tool.name}.${cmd.name}' as '${strValidationRegex}'.`)

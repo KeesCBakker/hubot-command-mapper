@@ -10,17 +10,18 @@ export default function validateToolAndThrowWhenInvalid(tool: ITool): void {
 
   if (!tool.commands || !tool.commands.length) throw `No commands found for "${tool.name}"`
 
-  tool.commands.forEach(cmd => validateCommandAndThrowWhenInvalid(tool, cmd))
+  tool.commands.forEach(cmd => validateCommandAndThrowWhenInvalid(cmd))
 }
 
 /**
  * Validates the command and throws an exception if
  * the command is invalid.
- * @param tool The tool.
  * @param cmd The command.
  */
-export function validateCommandAndThrowWhenInvalid(tool: ITool, cmd: ICommand) {
+function validateCommandAndThrowWhenInvalid(cmd: ICommand) {
   if (!cmd) throw "Cannot map empty command."
 
   if (!cmd.name || cmd.name === "") throw "Invalid command name."
+
+  if (!cmd.execute) throw "Execute cannot be empty for " + cmd.name
 }

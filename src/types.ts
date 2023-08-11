@@ -44,17 +44,7 @@ export interface ICommand {
    *
    * @param context Contextual data.
    */
-  execute(context: IContext): void
-
-  /**
-   * The regular expression that is used to validate if a certain
-   * typed command string can execute against this command. Needed
-   * to prevent unwated execution of commands.
-   *
-   * @type {RegExp}
-   * @memberof ICommand
-   */
-  validationRegex?: RegExp
+  execute(context: IContext): void | Promise<void>
 }
 
 export interface IContext {

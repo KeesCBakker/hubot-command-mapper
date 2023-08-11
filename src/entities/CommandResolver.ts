@@ -1,7 +1,7 @@
-import { Log } from "hubot"
 import { getValues } from "./parameters/ValueExtractor"
-import { InternalRobot, InternalTool } from "../internals"
-import { ITool, ICommand, ICommandResolverResultDebugInfo } from "../types"
+import { ICommand, ICommandResolverResultDebugInfo, ITool } from "../types"
+import { InternalCommand, InternalRobot, InternalTool } from "../internals"
+import { Log } from "hubot"
 
 export class CommandResolver {
   constructor(private robot: InternalRobot) {}
@@ -16,7 +16,7 @@ export class CommandResolver {
     return this.resolveFromTool(tool, res)
   }
 
-  public resolveFromTool(tool: ITool, res: Hubot.Response): CommandResolverResult {
+  public resolveFromTool(tool: ITool, res: Hubot.Response): CommandResolverResult | null {
     if (!res.message.text) return null
 
     const result = new CommandResolverResult()
@@ -29,20 +29,24 @@ export class CommandResolver {
 
     result.tool = tool
 
-    const matchingCommands = result.tool.commands.filter(cmd => cmd.validationRegex.test(res.message.text))
+    const matchingCommands = result.tool.commands.filter(
+      (cmd: InternalCommand) => cmd.__validationRegex && cmd.__validationRegex.test(res.message.text)
+    ) as InternalCommand[]
 
     if (matchingCommands.length == 0) {
       return result
     }
 
-    result.command = matchingCommands[0]
+    const command = matchingCommands[0]
+
+    result.command = command
     result.authorized =
       (!result.tool.auth || result.tool.auth.length === 0 || result.tool.auth.indexOf(res.message.user.name) > -1) &&
       (!result.command.auth ||
         result.command.auth.length === 0 ||
         result.command.auth.indexOf(res.message.user.name) > -1)
 
-    result.match = result.command.validationRegex.exec(res.message.text)
+    result.match = command.__validationRegex.exec(res.message.text)
     result.values = getValues(this.robot.name, this.robot.alias, result.tool, result.command, res.message.text)
 
     return result
@@ -68,12 +72,12 @@ export class CommandResolverResult {
 
   public getDebugInfo(): ICommandResolverResultDebugInfo {
     return {
-      user: this.user ? this.user.name : null,
-      userId: this.user ? this.user.id : null,
+      user: this.user?.name,
+      userId: this.user?.id,
       authorized: this.authorized,
       text: this.text,
-      tool: this.tool ? this.tool.name : null,
-      command: this.command ? this.command.name : null,
+      tool: this.tool?.name,
+      command: this.command?.name,
       match: this.match,
       values: this.values
     }
