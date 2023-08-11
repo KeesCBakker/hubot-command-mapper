@@ -30,9 +30,6 @@ export interface ICommand {
    */
   alias?: string[]
 
-  /** A regex that can be used to match values behind a command.*/
-  capture?: string
-
   /**
    * Specifies the parameters the command uses. Parameters will be used
    * to map values from the string to parameter values.

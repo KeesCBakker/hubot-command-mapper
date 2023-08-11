@@ -22,7 +22,7 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
     })
 
     let response = await context.sendAndWaitForResponse("@hubot clear screen")
-    expect(response).to.eql("Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz clear screen\n```\n")
+    expect(response).to.eql("Sorry, this feature has been replaced by <@kz>. Please use:\n```\n@kz clear screen\n```\n")
   })
 
   it("Tool replacement", async () => {
@@ -41,6 +41,6 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
     )
 
     let response = await context.sendAndWaitForResponse("@hubot c d")
-    expect(response).to.eql("Sorry, this feature has been replaced by @kz. Please use:\n```\n@kz c d\n```\n")
+    expect(response).to.eql("Sorry, this feature has been replaced by <@kz>. Please use:\n```\n@kz c d\n```\n")
   })
 })

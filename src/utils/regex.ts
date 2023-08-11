@@ -73,13 +73,15 @@ export function convertCommandIntoRegexString(
 
   let extraSpace = true
 
+  let capture = ""
+
   //convert parameters to capture
   if (cmd.parameters && cmd.parameters.length > 0) {
     extraSpace = false
-    cmd.capture = convertParametersToRegex(cmd.parameters, useNaming)
+    capture = convertParametersToRegex(cmd.parameters, useNaming)
   }
 
-  if (cmd.capture) {
+  if (capture) {
     if (addOptionalCommand) {
       regexString += "|"
 
@@ -91,7 +93,7 @@ export function convertCommandIntoRegexString(
         //this prevents non-capture commands from flowing into
         //a capture command.
         let postfix = "$"
-        if (c.capture || (c.parameters != null && c.parameters.length > 0)) {
+        if (capture || (c.parameters != null && c.parameters.length > 0)) {
           postfix = "(?=( |$))"
         }
 
@@ -116,7 +118,7 @@ export function convertCommandIntoRegexString(
 
   regexString += ")"
 
-  if (cmd.capture) {
+  if (capture) {
     //command / tool sperator!
     if (extraSpace) {
       regexString += " "
@@ -125,7 +127,7 @@ export function convertCommandIntoRegexString(
     //capture the capture in a group so it will
     //be accessable through the matches
     regexString += "("
-    regexString += cmd.capture
+    regexString += capture
     regexString += ")"
   } else if (addOptionalCommand) {
     //when an optional command is added and there is
