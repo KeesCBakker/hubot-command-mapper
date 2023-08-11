@@ -115,7 +115,7 @@ export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptio
       const command = `@${options.replacedByBot} ` + action.text.replace(botRegex, "").trim()
 
       res.reply(
-        `Sorry, this feature has been replaced by @${options.replacedByBot}. Please use:\n` +
+        `Sorry, this feature has been replaced by <@${options.replacedByBot}>. Please use:\n` +
           "```\n" +
           command +
           "\n```\n"
