@@ -123,37 +123,7 @@ module.exports = robot => {
 
 ## Capturing with named parameters
 
-A capture can be done in two ways. The first way is providing a regular expression-string as the `capture`. The values can be accessed through the `match` object in the execute:
-
-```js
-const { mapper } = require("hubot-command-mapper")
-
-module.exports = robot => {
-  const tool = {
-    name: "count",
-    commands: [
-      {
-        name: "from",
-        capture: "(\\d+) to (\\d+)",
-        execute: context => {
-          // because an alias might be used, we need to select
-          // from the end of the matches.
-          const a = Number(context.match[context.match.length - 2])
-          const b = Number(context.match[context.match.length - 1])
-
-          for (let i = a; i < b + 1; i++) {
-            context.res.reply(`${i}!`)
-          }
-        }
-      }
-    ]
-  }
-
-  mapper(robot, tool)
-}
-```
-
-Another way is using named parameters. The values can be accessed by the `values` object. Each value is added as a named property.
+You can use parameters to capture values. These values can be accessed by the `values` object. Each value is added as a named property.
 
 ```js
 const { mapper, StringParameter } = require("hubot-command-mapper")
