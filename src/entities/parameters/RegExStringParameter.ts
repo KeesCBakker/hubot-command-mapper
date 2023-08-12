@@ -7,7 +7,7 @@ import { ParameterBase } from "./ParameterBase"
  * @class RegExStringParameter
  * @extends {ParameterBase}
  */
-export class RegExStringParameter extends ParameterBase {
+export class RegExStringParameter extends ParameterBase<string> {
   /**
    * Uses the regexStrig to capture the value. Values can also be written
    * between quotes.
@@ -16,14 +16,14 @@ export class RegExStringParameter extends ParameterBase {
    * @memberof RegExStringParameter
    */
   public get regex() {
-    var x = this.regexString
+    const x = this.regexString
     return `"${x}[^"]*"|'${x}[^']*'|${x}[^ ]*`
   }
   /**
    * Creates an instance of RegExStringParameter.
    * @param {string} name The name of the parameter.
    * @param {string} regexString This regex string will be added to the regex that captures the value.
-   * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
+   * @param {string} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof RegExStringParameter
    */
   constructor(
@@ -35,7 +35,7 @@ export class RegExStringParameter extends ParameterBase {
   }
 }
 
-export class RegExParameter extends ParameterBase {
+export class RegExParameter extends ParameterBase<string> {
   /**
    * Uses the regexStrig to capture the value. Values can also be written
    * between quotes.

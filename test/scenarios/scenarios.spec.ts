@@ -36,27 +36,27 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
   afterEach(() => context.shutdown())
 
   it("Testing 2 parameters", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com 150")
+    const response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com 150")
     expect(response).to.eq(`{"url":"https://google.com","times":"150"}`)
   })
 
   it("Testing default parameters", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch")
+    const response = await context.sendAndWaitForResponse("@hubot wehkamp glitch")
     expect(response).to.eq(`{"url":"https://wehkamp.nl","times":350}`)
   })
 
   it("Testing only 1st parameters", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com")
+    const response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com")
     expect(response).to.eq(`{"url":"https://google.com","times":350}`)
   })
 
   it("Testing only 2nd parameters", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch 70")
+    const response = await context.sendAndWaitForResponse("@hubot wehkamp glitch 70")
     expect(response).to.eq(`{"url":"https://wehkamp.nl","times":"70"}`)
   })
 
   it("Test IPv4", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot wehkamp ip source 192.168.1.13 destination 10.0.0.13")
+    const response = await context.sendAndWaitForResponse("@hubot wehkamp ip source 192.168.1.13 destination 10.0.0.13")
     expect(response).to.eq(
       `{"source":"source","sourceIp":"192.168.1.13","destination":"destination","destinationIp":"10.0.0.13"}`
     )

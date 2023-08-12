@@ -9,7 +9,7 @@ import { NumberStyle } from "./NumberStyle"
  * @extends {ParameterBase}
  * @implements {IOptionalParameter}
  */
-export class NumberParameter extends ParameterBase {
+export class NumberParameter extends ParameterBase<number> {
   /**
    * Captures the optional minus sign, as well
    * as the whole number.
@@ -18,7 +18,7 @@ export class NumberParameter extends ParameterBase {
    * @memberof NumberParameter
    */
   public get regex() {
-    var r = "\\d+"
+    let r = "\\d+"
     if (this.numberStyle == NumberStyle.Negative) {
       r = "-" + r
     } else if (this.numberStyle == NumberStyle.Both) {
@@ -30,12 +30,12 @@ export class NumberParameter extends ParameterBase {
   /**
    * Creates an instance of NumberParameter.
    * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
-   * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
+   * @param {Number} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof NumberParameter
    */
   constructor(
     name: string,
-    defaultValue: Number | null = null,
+    defaultValue: number | null = null,
     public numberStyle: NumberStyle = NumberStyle.Both
   ) {
     super(name, defaultValue)

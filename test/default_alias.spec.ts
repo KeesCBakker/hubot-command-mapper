@@ -40,38 +40,37 @@ describe("default_alias.spec.ts / Testing the default alias feature", () => {
   afterEach(() => context.shutdown())
 
   it("Tool mapping", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot echo bot")
+    const response = await context.sendAndWaitForResponse("@hubot echo bot")
     expect(response, "This message should be mapped to the `echo` command.").to.eql("Echo bot!")
   })
 
   it("Tool alias mapping", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot say bot")
+    const response = await context.sendAndWaitForResponse("@hubot say bot")
     expect(response, "This message should be mapped to the `echo` command.").to.eql("Echo bot!")
   })
 
   it("Command mapping", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot hello bot")
+    const response = await context.sendAndWaitForResponse("@hubot hello bot")
     expect(response, "This message should be mapped to the `hello` command.").to.eql("Hi bot!")
   })
 
   it("Command alias mapping", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot hi bot")
+    const response = await context.sendAndWaitForResponse("@hubot hi bot")
     expect(response, "This message should be mapped to the `hello` command.").to.eql("Hi bot!")
   })
 
   it("Default alias mapping", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot kaas")
+    const response = await context.sendAndWaitForResponse("@hubot kaas")
     expect(response, "This message should be mapped to the `bye` command.").to.eql("Toodles kaas!")
   })
 
   it("Alias mapped after default", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot shout bot")
+    const response = await context.sendAndWaitForResponse("@hubot shout bot")
     expect(response, "This message should be mapped to the `echo` command.").to.eql("Echo bot!")
   })
 
   it("Alias should skip help", async () => {
-    let response = await context.send("@hubot help")
-
+    await context.send("@hubot help")
     expect(context.sends, "This message should not be handled.").to.eql([])
     expect(context.replies, "This message should not be handled.").to.eql([])
   })

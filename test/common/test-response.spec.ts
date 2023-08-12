@@ -23,13 +23,13 @@ class TestBotContext {
 }
 
 async function createTestBot() {
-  return new Promise<TestBotContext>(async done => {
-    // create new robot, without http, using the mock adapter
-    const robot = new Robot("hubot-mock-adapter", false, "Eddie")
+  // create new robot, without http, using the mock adapter
+  const robot = new Robot("hubot-mock-adapter", false, "Eddie")
 
-    // start adapter
-    await robot.loadAdapter()
+  // start adapter
+  await robot.loadAdapter()
 
+  return await new Promise<TestBotContext>(done => {
     robot.adapter.on("connected", () => {
       // create a user
       const user = robot.brain.userForId("1", {
@@ -46,12 +46,12 @@ async function createTestBot() {
 
 describe("Eddie the shipboard computer - sendAndWaitForResponse", function () {
   it("responds when greeted", async () => {
-    let context = await createTestBot()
+    const context = await createTestBot()
 
     // 1. programatically add command:
     context.robot.hear(/computer!/i, res => res.reply("Why hello there"))
 
-    let response = await context.sendAndWaitForResponse("Computer!")
+    const response = await context.sendAndWaitForResponse("Computer!")
     expect(response).match(/Why hello there/)
 
     context.robot.shutdown()

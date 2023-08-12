@@ -30,9 +30,9 @@ function mapPurge(robot: Hubot.Robot) {
 
 describe("purge.spec.ts > purge example", () => {
   it("Scenario", async () => {
-    let context = await createTestBot()
+    const context = await createTestBot()
     mapPurge(context.robot)
-    let response = await context.sendAndWaitForResponse("@hubot purge pers")
+    const response = await context.sendAndWaitForResponse("@hubot purge pers")
     expect(response).to.eql("default")
     context.shutdown()
   })

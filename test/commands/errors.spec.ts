@@ -15,6 +15,7 @@ describe("errors.spec.ts / Errors", () => {
   describe("mapper", () => {
     it("No robot", async () => {
       try {
+        /* eslint-disable  @typescript-eslint/no-explicit-any */
         mapper(<any>null, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'robot' is empty.")
@@ -23,6 +24,7 @@ describe("errors.spec.ts / Errors", () => {
 
     it("No tool", async () => {
       try {
+        /* eslint-disable  @typescript-eslint/no-explicit-any */
         mapper(context.robot, <any>null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'tool' is empty.")
@@ -69,7 +71,7 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: "",
-              execute: _ => {}
+              execute: () => {}
             }
           ]
         })
@@ -85,7 +87,7 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: <any>null,
-              execute: _ => {}
+              execute: () => {}
             }
           ]
         })
@@ -101,12 +103,12 @@ describe("errors.spec.ts / Errors", () => {
           commands: [
             {
               name: "list",
-              execute: _ => {}
+              execute: () => {}
             },
             {
               name: "list2",
               alias: ["list"],
-              execute: _ => {}
+              execute: () => {}
             }
           ]
         })
@@ -121,7 +123,8 @@ describe("errors.spec.ts / Errors", () => {
   describe("alias", () => {
     it("No robot", async () => {
       try {
-        alias(<any>null, <any>null)
+        const fn: (x: unknown, y: unknown) => void = alias as unknown as (x: unknown, y: unknown) => void
+        fn(null, null)
       } catch (ex) {
         expect(ex.toString()).to.eq("Argument 'robot' is empty.")
       }

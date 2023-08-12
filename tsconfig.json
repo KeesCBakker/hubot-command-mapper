@@ -1,21 +1,15 @@
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-        "target": "ES2018",
-        "module": "commonjs",
-        "outDir": "dist",
-        "esModuleInterop": true,
-        "declaration": true
-    },
-    "include": [
-        "src/**/*",
-        "src/types.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
-    "typeAcquisition": {
-        "enable": true
-    }
+  "compileOnSave": true,
+  "compilerOptions": {
+    "target": "ES2018",
+    "module": "commonjs",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "declaration": true
+  },
+  "include": ["src/**/*", "test/**/*", "src/types.ts"],
+  "exclude": ["node_modules", "dist"],
+  "typeAcquisition": {
+    "enable": true
+  }
 }

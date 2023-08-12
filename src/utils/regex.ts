@@ -6,11 +6,11 @@ import { ITool, ICommand, IParameter } from "../types"
  * Converts the specified tool into a regular expression
  * that can be used by the bot.
  */
-export function convertToolIntoRegexString<A>(robotName: string, robotAlias: string, tool: ITool) {
+export function convertToolIntoRegexString(robotName: string, robotAlias: string, tool: ITool) {
   // add space or end to the tool matcher to prevent tools
   // that are names similar to match and show an invalid
   // syntax warning. Like: ci and cicd tools.
-  let regexString = escapeRegExp(tool.name) + "($| )"
+  const regexString = escapeRegExp(tool.name) + "($| )"
   return regexString
 }
 
@@ -92,7 +92,7 @@ export function convertCommandIntoRegexString(
         //if a command does not use capture, add string terminator
         //this prevents non-capture commands from flowing into
         //a capture command.
-        let postfix = "(?=( |$))"
+        const postfix = "(?=( |$))"
 
         commands.push(` ${escapeRegExp(c.name)}${postfix}`)
 
@@ -149,7 +149,7 @@ export function convertCommandIntoRegexString(
  */
 export function escapeRegExp(str: string) {
   str = str || ""
-  return str.replace(/[\-\[\]\/\{\}\(\)\*\+\?\.\\\^\$\|]/g, "\\$&")
+  return str.replace(/[-[\]/{}()*+?.\\^$|]/g, "\\$&")
 }
 
 /**
@@ -161,12 +161,12 @@ export function escapeRegExp(str: string) {
  * @returns
  */
 export function convertParametersToRegex(parameters: IParameter[], useNaming = false) {
-  let r = parameters
+  const r = parameters
     .map(p => {
       //{SPACE}{GROUP COMMAND}{PARAMETER REGEX}{/GROUP COMMAND}
       let pr = "( (" //space needed to seperate commands
       if (useNaming) {
-        let name = escapeRegExp(p.name)
+        const name = escapeRegExp(p.name)
         pr += `(?<${name}>`
       }
       pr += p.regex

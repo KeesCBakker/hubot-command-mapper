@@ -20,17 +20,17 @@ describe("removeTrailingBotWhitespaceCharactersFromIncomingMessages.spec.ts / tr
   afterEach(() => context.shutdown())
 
   it("Trailing spaces should be removed", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot     ping this is a test with spaces")
+    const response = await context.sendAndWaitForResponse("@hubot     ping this is a test with spaces")
     expect(response).to.eq('Got this: "this is a test with spaces"')
   })
 
   it("Trailing tabs should be removed", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot\t\tping this is a test with tabs")
+    const response = await context.sendAndWaitForResponse("@hubot\t\tping this is a test with tabs")
     expect(response).to.eq('Got this: "this is a test with tabs"')
   })
 
   it("Trailing enters should be removed", async () => {
-    let response = await context.sendAndWaitForResponse(
+    const response = await context.sendAndWaitForResponse(
       `@hubot
 
 

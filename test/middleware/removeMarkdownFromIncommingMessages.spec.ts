@@ -20,22 +20,22 @@ describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
   afterEach(() => context.shutdown())
 
   it("Bold removed", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with *bold*")
+    const response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with *bold*")
     expect(response).to.eql('Got this: "this is a test with bold"')
   })
 
   it("Code removed", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot ping this is a `test` with `let code = true`")
+    const response = await context.sendAndWaitForResponse("@hubot ping this is a `test` with `let code = true`")
     expect(response).to.eql('Got this: "this is a test with let code = true"')
   })
 
   it("Italics removed", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot ping this is a _test_ with _italics_")
+    const response = await context.sendAndWaitForResponse("@hubot ping this is a _test_ with _italics_")
     expect(response).to.eql('Got this: "this is a test with italics"')
   })
 
   it("Multiple elements removed", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with _italics_ and `code`")
+    const response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with _italics_ and `code`")
     expect(response).to.eql('Got this: "this is a test with italics and code"')
   })
 })

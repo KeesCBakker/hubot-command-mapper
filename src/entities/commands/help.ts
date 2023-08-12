@@ -21,7 +21,7 @@ export default function createHelpCommand(): IHelpCommand {
     execute: (context: IContext, helpMsgPrefix?: string, noHelpMsg?: string): void => {
       const botName = "@" + (context.robot.alias || context.robot.name)
 
-      let helpCommands = context.robot
+      const helpCommands = context.robot
         .helpCommands()
         .filter(cmd => cmd.startsWith("hubot " + context.tool.name))
         .map(cmd => cmd.replace(/hubot/g, botName))
@@ -42,7 +42,7 @@ export default function createHelpCommand(): IHelpCommand {
         helpMsgPrefix = `the tool _${context.tool.name}_ has the following commands:\n- `
       }
 
-      let msg = helpMsgPrefix + helpCommands.join("\n- ")
+      const msg = helpMsgPrefix + helpCommands.join("\n- ")
 
       context.res.reply(msg)
     }

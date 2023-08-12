@@ -9,7 +9,7 @@ describe("commands.spec.ts / Default commands", function () {
   beforeEach(async () => {
     context = await createTestBot()
 
-    var options = new Options()
+    const options = new Options()
     options.addDebugCommand = true
     options.addHelpCommand = true
 
@@ -20,7 +20,7 @@ describe("commands.spec.ts / Default commands", function () {
         commands: [
           {
             name: "dummy",
-            execute: _ => {}
+            execute: () => {}
           }
         ]
       },
@@ -31,7 +31,7 @@ describe("commands.spec.ts / Default commands", function () {
   afterEach(() => context.robot.shutdown())
 
   it("Debug", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot test debug")
+    const response = await context.sendAndWaitForResponse("@hubot test debug")
     expect(response).eql(
       'The tool "test" uses the following commands:\n' +
         "- dummy: ^@?hubot test( dummy)$\n" +
@@ -41,7 +41,7 @@ describe("commands.spec.ts / Default commands", function () {
   })
 
   it("Invalid command", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot test invalid")
+    const response = await context.sendAndWaitForResponse("@hubot test invalid")
     expect(response).eql("invalid syntax.")
   })
 })

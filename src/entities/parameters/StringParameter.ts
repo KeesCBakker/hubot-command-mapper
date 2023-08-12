@@ -9,7 +9,7 @@ import { ParameterBase } from "./ParameterBase"
  * @class StringParameter
  * @extends {ParameterBase}
  */
-export class StringParameter extends ParameterBase {
+export class StringParameter extends ParameterBase<string> {
   /**
    * Capture a quoted array or anything without spaces.
    *
@@ -23,7 +23,7 @@ export class StringParameter extends ParameterBase {
   /**
    * Creates an instance of StringParameter.
    * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
-   * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
+   * @param {string} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof StringParameter
    */
   constructor(

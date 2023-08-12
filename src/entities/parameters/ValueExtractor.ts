@@ -1,4 +1,4 @@
-import { ITool, ICommand } from "../../types"
+import { ITool, ICommand, ValueMap } from "../../types"
 import { convertCommandIntoRegexString } from "../../utils/regex"
 
 import NamedRegExp from "named-regexp-groups"
@@ -9,17 +9,17 @@ export function getValues(
   tool: ITool,
   command: ICommand,
   message: string
-): Record<string, any> {
-  let collection: Record<string, any> = {}
+): ValueMap {
+  const collection: ValueMap = {}
 
   if (command.parameters) {
-    let r = convertCommandIntoRegexString(robotName, robotAlias, tool, command, true)
-    let nr = new NamedRegExp(r, "i")
+    const r = convertCommandIntoRegexString(robotName, robotAlias, tool, command, true)
+    const nr = new NamedRegExp(r, "i")
 
-    let answer = nr.exec(message).groups
+    const answer = nr.exec(message).groups
 
-    for (let parameter of command.parameters) {
-      let value = answer[parameter.name]
+    for (const parameter of command.parameters) {
+      let value: unknown = answer[parameter.name]
       if (value == null) {
         value = parameter.defaultValue
       }

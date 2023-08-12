@@ -8,25 +8,25 @@ import { createRegex, test } from "../_parameter-testing"
 describe("StringParameters.spec.ts", () => {
   describe("RestParameter", () => {
     it("Single parameter", () => {
-      var p = new RestParameter("a")
-      var r = createRegex([p])
+      const p = new RestParameter("a")
+      const r = createRegex([p])
       expect(test(r, "hubot test cmd Capture all")).to.eq(true)
     })
   })
 
   describe("StringParameter", () => {
     it("Single parameter", () => {
-      var p = new StringParameter("a")
-      var r = createRegex([p])
+      const p = new StringParameter("a")
+      const r = createRegex([p])
 
       expect(test(r, "hubot test cmd TestingAWord1337")).to.eq(true, "Word capturing.")
       expect(test(r, 'hubot test cmd "Testing a multiple 6 word phrase"')).to.eq(true, "Phrase capturing.")
     })
 
     it("Double parameters", () => {
-      var p1 = new StringParameter("a")
-      var p2 = new StringParameter("b")
-      var r = createRegex([p1, p2])
+      const p1 = new StringParameter("a")
+      const p2 = new StringParameter("b")
+      const r = createRegex([p1, p2])
 
       expect(test(r, "hubot test cmd word 'and a phrase'")).to.eq(true, "Word and phrase capture.")
       expect(test(r, 'hubot test cmd "phrase and" word')).to.eq(true, "Phrase and word capture.")
@@ -35,8 +35,8 @@ describe("StringParameters.spec.ts", () => {
 
   describe("ChoiceParameter", () => {
     it("Single parameter", () => {
-      var p = new ChoiceParameter("a", ["alpha", "beta", "gamma"])
-      var r = createRegex([p])
+      const p = new ChoiceParameter("a", ["alpha", "beta", "gamma"])
+      const r = createRegex([p])
 
       expect(test(r, "hubot test cmd alpha")).to.eq(true, "alpha")
       expect(test(r, "hubot test cmd beta")).to.eq(true, "beta")
@@ -46,8 +46,8 @@ describe("StringParameters.spec.ts", () => {
 
   describe("IPv4Parameter", () => {
     it("Some IPs", () => {
-      var p = new IPv4Parameter("ip")
-      var r = createRegex([p])
+      const p = new IPv4Parameter("ip")
+      const r = createRegex([p])
 
       expect(test(r, "hubot test cmd 127.0.0.1")).to.eq(true, "127.0.0.1")
       expect(test(r, "hubot test cmd 1.1.1.1")).to.eq(true, "1.1.1.1")
@@ -57,8 +57,8 @@ describe("StringParameters.spec.ts", () => {
     })
 
     it("IP prefix", () => {
-      var p = new IPv4Parameter("ip")
-      var r = createRegex([p])
+      const p = new IPv4Parameter("ip")
+      const r = createRegex([p])
 
       // good cases
       expect(test(r, "hubot test cmd 127.0.0.1/8")).to.eq(true, "127.0.0.1/8")
@@ -72,8 +72,8 @@ describe("StringParameters.spec.ts", () => {
     })
 
     it("No prefix", () => {
-      var p = new IPv4Parameter("ip", null, false)
-      var r = createRegex([p])
+      const p = new IPv4Parameter("ip", null, false)
+      const r = createRegex([p])
 
       // good cases
       expect(test(r, "hubot test cmd 127.0.0.1")).to.eq(true, "127.0.0.1")
@@ -85,14 +85,14 @@ describe("StringParameters.spec.ts", () => {
 
   describe("TokenParameter", () => {
     it("Capture IP using parameters", () => {
-      var p = [
+      const p = [
         new TokenParameter("source"),
         new IPv4Parameter("sourceIp"),
         new TokenParameter("destination"),
         new IPv4Parameter("destinationIp")
       ]
 
-      var r = createRegex(p)
+      const r = createRegex(p)
 
       expect(test(r, "hubot test cmd source 127.0.0.1 destination 192.168.1.4")).to.eq(true)
     })

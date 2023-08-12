@@ -44,7 +44,7 @@ export interface ICommand {
    *
    * @param context Contextual data.
    */
-  execute(context: IContext): void | Promise<void>
+  execute(context: IContext): void | unknown
 }
 
 export interface IContext {
@@ -52,8 +52,14 @@ export interface IContext {
   robot: Hubot.Robot
   res: Hubot.Response
   match: RegExpMatchArray
-  values: Record<string, any>
+  values: ValueMap
 }
+
+export type ValueMap = Record<
+  string,
+  /* eslint-disable  @typescript-eslint/no-explicit-any */
+  any
+>
 
 /**
  * Indicates the object implements a parameter.
@@ -106,7 +112,7 @@ export interface IParameter {
    * @type {*}
    * @memberof IParameter
    */
-  readonly defaultValue: any
+  readonly defaultValue: unknown
 }
 
 /**
@@ -146,10 +152,10 @@ export interface ITool {
 export type ICommandResolverResultDebugInfo = {
   user: string
   userId: string
-  authorized: Boolean
+  authorized: boolean
   text: string
   tool: string
   command: string
   match: RegExpExecArray
-  values: Record<string, any>
+  values: ValueMap
 }

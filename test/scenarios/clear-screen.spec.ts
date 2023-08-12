@@ -4,7 +4,7 @@ import { map_command } from "../../src"
 
 describe("clear-screen.spec.ts > clear screen example", () => {
   it("Scenario", async () => {
-    let context = await createTestBot()
+    const context = await createTestBot()
 
     map_command(context.robot, "clear screen", context => {
       for (let i = 0; i < 8; i++) {

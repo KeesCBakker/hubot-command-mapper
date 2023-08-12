@@ -10,7 +10,7 @@ describe("auth.spec.ts / Default commands", () => {
       testUserName: "user1"
     })
 
-    var options = new Options()
+    const options = new Options()
 
     mapper(
       context.robot,
@@ -36,12 +36,12 @@ describe("auth.spec.ts / Default commands", () => {
   afterEach(() => context.shutdown())
 
   it("Authenticated for tool", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot test action1")
+    const response = await context.sendAndWaitForResponse("@hubot test action1")
     expect(response).to.eql("Hi!")
   })
 
   it("Not authenticated for command", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot test action2")
+    const response = await context.sendAndWaitForResponse("@hubot test action2")
     expect(response).to.eql("sorry, you are not authorized to use this command.")
   })
 })

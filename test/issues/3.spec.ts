@@ -14,12 +14,12 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
   afterEach(() => context.shutdown())
 
   it("Should respond to the alias and execute the command", async () => {
-    let response = await context.sendAndWaitForResponse("@aliasbot ping")
+    const response = await context.sendAndWaitForResponse("@aliasbot ping")
     expect(response).to.eql("pong")
   })
 
   it("Should respond to the alias and execute the command alias", async () => {
-    let response = await context.sendAndWaitForResponse("@aliasbot pang")
+    const response = await context.sendAndWaitForResponse("@aliasbot pang")
     expect(response).to.eql("pong")
   })
 })

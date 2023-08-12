@@ -17,7 +17,9 @@ describe("index.spec.ts / Command mapping", () => {
       commands: [
         {
           name: "screen",
-          execute: _ => i++
+          execute: () => {
+            i++
+          }
         }
       ]
     })
@@ -40,7 +42,9 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "screen",
           alias: ["scr"],
-          execute: _ => i++
+          execute: () => {
+            i++
+          }
         }
       ]
     })
@@ -56,7 +60,7 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "screen",
           alias: [""],
-          execute: _ => i++
+          execute: () => i++
         }
       ]
     })
@@ -72,7 +76,7 @@ describe("index.spec.ts / Command mapping", () => {
         {
           name: "screen",
           alias: ["scr", ""],
-          execute: _ => i++
+          execute: () => i++
         }
       ]
     })
@@ -94,16 +98,16 @@ describe("index.spec.ts / Command mapping", () => {
       commands: [
         {
           name: "a",
-          execute: _ => (latest = "a")
+          execute: () => (latest = "a")
         },
         {
           name: "b",
-          execute: _ => (latest = "b")
+          execute: () => (latest = "b")
         },
 
         {
           name: "c",
-          execute: _ => (latest = "c")
+          execute: () => (latest = "c")
         }
       ]
     })
@@ -137,7 +141,7 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    let response = await context.sendAndWaitForResponse("@hubot t2 c1")
+    const response = await context.sendAndWaitForResponse("@hubot t2 c1")
     expect(response).to.eql("r2")
   })
 
@@ -153,7 +157,7 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
 
-    let response = await context.sendAndWaitForResponse("@hubot TeStInG eVeRyThInG and maybe more!")
+    const response = await context.sendAndWaitForResponse("@hubot TeStInG eVeRyThInG and maybe more!")
     expect(response).to.eql("kewl!")
   })
 })

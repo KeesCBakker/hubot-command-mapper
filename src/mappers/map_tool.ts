@@ -63,7 +63,7 @@ export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptio
   const toolRegex = new RegExp(toolRegexString, "i")
   tool.__robotRegex = toolRegex
 
-  const handler = tool as any as IMessageHandler
+  const handler = tool as unknown as IMessageHandler
   handler.canHandle = (msg: string) => toolRegex.test(msg)
 
   // add tool to robot - helps with middleware
@@ -74,7 +74,7 @@ export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptio
   const resolver = new CommandResolver(robot)
 
   robot.respond(toolRegex, res => {
-    var action = resolver.resolveFromTool(tool, res)
+    const action = resolver.resolveFromTool(tool, res)
     if (!action || !action.tool) {
       return
     }

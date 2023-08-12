@@ -3,11 +3,11 @@ import { IParameter, ICallback, ITool } from "../types"
 import { map_tool } from "./map_tool"
 
 export function map_command(robot: Hubot.Robot, command: string, args: (IParameter | ICallback | IOptions)[]): void {
-  let callback = args.find(a => a instanceof Function) as ICallback
+  const callback = args.find(a => a instanceof Function) as ICallback
   if (!callback) throw "Missing callback function."
 
-  let parameters = args.filter(a => (a as IParameter).name) as IParameter[]
-  let options =
+  const parameters = args.filter(a => (a as IParameter).name) as IParameter[]
+  const options =
     (args.find(
       a =>
         (a as IOptions).addDebugCommand ||
@@ -20,7 +20,7 @@ export function map_command(robot: Hubot.Robot, command: string, args: (IParamet
         (a as IOptions).showInvalidSyntax
     ) as IOptions) || defaultOptions
 
-  let tool = {
+  const tool = {
     name: command,
     commands: [
       {

@@ -8,7 +8,7 @@ import { IParameter } from "../../types"
  * @class ParameterBase
  * @implements {IParameter}
  */
-export abstract class ParameterBase implements IParameter {
+export abstract class ParameterBase<T> implements IParameter {
   /**
    * Gets the string version of the regular expression
    * that will be used to map the parameter value.
@@ -35,11 +35,11 @@ export abstract class ParameterBase implements IParameter {
   /**
    * Creates an instance of ParameterBase.
    * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
-   * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
+   * @param {T} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof ParameterBase
    */
   constructor(
     public name: string,
-    public defaultValue: any = null
+    public defaultValue: T = null
   ) {}
 }

@@ -8,7 +8,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
   beforeEach(async () => {
     context = await createTestBot()
 
-    var options = new Options()
+    const options = new Options()
 
     map_command(context.robot, "version", options, context => context.res.reply("1"))
     alias(context.robot, { AAA: "version" })
@@ -22,7 +22,7 @@ describe("alias.spec.ts / Testing the alias features", () => {
             name: "default",
             alias: [""],
             parameters: [new StringParameter("msg")],
-            execute: context => context.res.reply(context.values.msg)
+            execute: context => context.res.reply(context.values.msg as string)
           },
           {
             name: "bye",
@@ -42,22 +42,22 @@ describe("alias.spec.ts / Testing the alias features", () => {
   afterEach(() => context.shutdown())
 
   it("Map alias", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot AAA")
+    const response = await context.sendAndWaitForResponse("@hubot AAA")
     expect(response).to.eql("1")
   })
 
   it("Map * alias", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot zeg AAA")
+    const response = await context.sendAndWaitForResponse("@hubot zeg AAA")
     expect(response).to.eql("AAA")
   })
 
   it("Map * alias with multiple words", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot scream and shout AAA")
+    const response = await context.sendAndWaitForResponse("@hubot scream and shout AAA")
     expect(response).to.eql("AAA")
   })
 
   it("Map * alias with multiple words and multiple parameters", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot super doei Alpha Beta")
+    const response = await context.sendAndWaitForResponse("@hubot super doei Alpha Beta")
     expect(response).to.eql("Byeeeeeee Alpha Beta!")
   })
 })

@@ -27,7 +27,7 @@ class AliasMapping implements IMessageHandler {
     return newText
   }
 
-  public canHandle(msg: string): Boolean {
+  public canHandle(msg: string): boolean {
     const data = this.splitter.exec(msg)
     if (!data) return false
 
@@ -39,7 +39,7 @@ class AliasMapping implements IMessageHandler {
   }
 }
 
-export function alias(robot: Hubot.Robot, map: any) {
+export function alias(robot: Hubot.Robot, map: Record<string, string>) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!map) throw "Argument 'map' is empty."
 
@@ -47,17 +47,17 @@ export function alias(robot: Hubot.Robot, map: any) {
     Object.keys(map).forEach(key => robot.logger.info(`Aliasing '${key}' to '${map[key]}'.`))
   }
 
-  var mapping = new AliasMapping(map, robot)
+  const mapping = new AliasMapping(map, robot)
 
   //TODO: do wee need to add this to the tools?
   //without it the map_default_alias will not work
-  var bot = robot as InternalRobot
+  const bot = robot as InternalRobot
   bot.__tools = bot.__tools || []
   bot.__tools.push(mapping)
 
   robot.receiveMiddleware((context, next, done) => {
-    var text = context.response.message.text
-    var newText = mapping.process(text)
+    const text = context.response.message.text
+    const newText = mapping.process(text)
 
     if (text != newText) {
       context.response.message.text = newText
@@ -85,8 +85,8 @@ function createBotCommandExtractor(name: string, alias: string): RegExp {
 
 function convertMapIntoRegularExpression(map: Record<string, string>): RegularExpressionMap[] {
   return Object.keys(map).map(key => {
-    let value = map[key]
-    let regex = key.endsWith("*")
+    const value = map[key]
+    const regex = key.endsWith("*")
       ? new RegExp(`^${escapeRegExp(key.substr(0, key.length - 1))} (.+)$`, "i")
       : new RegExp(`^${escapeRegExp(key)}$`, "i")
 

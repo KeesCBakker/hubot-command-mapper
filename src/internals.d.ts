@@ -15,7 +15,7 @@ type IMessageHandler = {
    *
    * @memberOf IMessageHandler
    */
-  canHandle(msg: string): Boolean
+  canHandle(msg: string): boolean
 }
 
 type InternalRobot = Hubot.Robot & {

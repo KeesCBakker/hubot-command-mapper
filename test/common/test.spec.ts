@@ -3,9 +3,9 @@ import { Robot } from "hubot/es2015"
 import { TextMessage } from "hubot"
 
 describe("Eddie the shipboard computer", function () {
-  var robot
-  var user
-  var adapter
+  let robot
+  let user
+  let adapter
 
   beforeEach(done => {
     // create new robot, without http, using the mock adapter

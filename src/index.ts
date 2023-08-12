@@ -5,7 +5,7 @@ import { ChoiceParameter } from "./entities/parameters/ChoiceParameter"
 import { defaultOptions, IOptions, Options } from "./entities/options"
 import { FractionParameter } from "./entities/parameters/FractionParameter"
 import { FractionStyle } from "./entities/parameters/FractionStyle"
-import { ICallback, ICommand, ICommandResolverResultDebugInfo, IContext, IParameter, ITool } from "./types"
+import { ICallback, ICommand, ICommandResolverResultDebugInfo, IContext, IParameter, ITool, ValueMap } from "./types"
 import { IPv4Parameter } from "./entities/parameters/IPv4Parameter"
 import { map_command as _map_command } from "./mappers/map_command"
 import { map_default_alias } from "./mappers/map_default_alias"
@@ -91,9 +91,8 @@ export function map_tool(robot: Hubot.Robot, tool: ITool, options: IOptions = de
  *
  * @export
  * @param {Hubot.Robot} robot The robot.
- * @param {*} map An object with keys and redirects.
- * @param {IOptions} [options=defaultOptions] The options.
+ * @param {ValueMap} map An object with keys and redirects.
  */
-export function alias(robot: Hubot.Robot, map: any): void {
+export function alias(robot: Hubot.Robot, map: ValueMap): void {
   _alias(robot, map)
 }

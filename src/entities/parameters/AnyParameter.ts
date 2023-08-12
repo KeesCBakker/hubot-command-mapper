@@ -5,7 +5,7 @@ import { ParameterBase } from "./ParameterBase"
  * @class RestParameter
  * @extends {ParameterBase}
  */
-export class AnyParameter extends ParameterBase {
+export class AnyParameter extends ParameterBase<string> {
   /**
    * Captures everything until the end of the string.
    *
@@ -18,7 +18,7 @@ export class AnyParameter extends ParameterBase {
   /**
    * Creates an instance of AnyParameter.
    * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
-   * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
+   * @param {string} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof AnyParameter
    */
   constructor(name: string, defaultValue: string = null) {

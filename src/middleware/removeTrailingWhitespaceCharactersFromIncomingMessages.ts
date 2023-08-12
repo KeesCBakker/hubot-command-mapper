@@ -14,9 +14,9 @@ export function removeTrailingWhitespaceCharactersFromIncomingMessages(robot: Hu
   setSwitch(robot, SWITCH)
 
   robot.receiveMiddleware((context, next, done) => {
-    var text = context.response.message.text
+    const text = context.response.message.text
     if (text) {
-      var newText = text.replace(/\s+$/, "")
+      const newText = text.replace(/\s+$/, "")
       if (text != newText) {
         context.response.message.text = newText
       }

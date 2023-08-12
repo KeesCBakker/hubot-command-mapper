@@ -3,13 +3,13 @@ import { Robot } from "hubot/es2015"
 import { TextMessage } from "hubot"
 
 async function createTestBot() {
-  return new Promise<{ robot: Hubot.Robot; user: Hubot.User }>(async done => {
-    // create new robot, without http, using the mock adapter
-    const robot = new Robot("hubot-mock-adapter", false, "Eddie")
+  // create new robot, without http, using the mock adapter
+  const robot = new Robot("hubot-mock-adapter", false, "Eddie")
 
-    // start adapter
-    await robot.loadAdapter()
+  // start adapter
+  await robot.loadAdapter()
 
+  return await new Promise<{ robot: Hubot.Robot; user: Hubot.User }>(done => {
     robot.adapter.on("connected", () => {
       // create a user
       const user = robot.brain.userForId("1", {

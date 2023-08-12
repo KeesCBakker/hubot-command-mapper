@@ -1,5 +1,5 @@
 import { getValues } from "./parameters/ValueExtractor"
-import { ICommand, ICommandResolverResultDebugInfo, ITool } from "../types"
+import { ICommand, ICommandResolverResultDebugInfo, ITool, ValueMap } from "../types"
 import { InternalCommand, InternalRobot, InternalTool } from "../internals"
 import { Log } from "hubot"
 
@@ -10,7 +10,7 @@ export class CommandResolver {
     let tool: InternalTool = null
 
     if (this.robot.__tools) {
-      tool = this.robot.__tools.find(t => t != null && t.canHandle(res.message.text)) as any as InternalTool
+      tool = this.robot.__tools.find(t => t != null && t.canHandle(res.message.text)) as unknown as InternalTool
     }
 
     return this.resolveFromTool(tool, res)
@@ -56,9 +56,9 @@ export class CommandResolver {
 export class CommandResolverResult {
   public tool: ITool
   public command: ICommand
-  public authorized: Boolean
+  public authorized: boolean
   public match: RegExpExecArray
-  public values: Record<string, any>
+  public values: ValueMap
 
   public text: string
   public user: Hubot.User

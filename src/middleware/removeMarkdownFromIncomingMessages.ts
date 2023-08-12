@@ -6,7 +6,7 @@ export function removeMarkdownFromIncomingMessages(robot: Hubot.Robot) {
   robot.receiveMiddleware((context, next, done) => {
     const text = context.response.message.text
     if (text) {
-      let newText = removeMarkDown(text)
+      const newText = removeMarkDown(text)
       if (text != newText) {
         context.response.message.text = newText
       }

@@ -39,7 +39,7 @@ import { mapper, StringParameter } from "./../../src/"
 
 describe("examples.spec.ts > check norris impersonate / parameter", () => {
   it("Should return a quote", async () => {
-    let context = await createTestBot({
+    const context = await createTestBot({
       name: "hubot",
       alias: "hb"
     })
@@ -62,7 +62,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
 
     mapper(context.robot, tool)
 
-    let response = await context.sendAndWaitForResponse("@hb norris impersonate Cool Cat")
+    const response = await context.sendAndWaitForResponse("@hb norris impersonate Cool Cat")
     expect(response).to.eql("Cool Cat has counted to infinity. Twice!")
 
     context.shutdown()

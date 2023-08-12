@@ -11,7 +11,6 @@ const SWITCH = "mda"
  * @export
  * @param {Hubot.Robot} robot The robot.
  * @param {string} destination The destination alias of the command the text should be aliased to.
- * @param {IOptions} options The options.
  */
 export function map_default_alias(robot: Hubot.Robot, destination: string, skipRegexes: RegExp[] = []) {
   if (!robot) throw "Argument 'robot' is empty."
@@ -27,19 +26,19 @@ export function map_default_alias(robot: Hubot.Robot, destination: string, skipR
     robot.logger.info(`Aliasing default to '${destination}'.`)
   }
 
-  let splitter = createBotCommandExtractor(robot.name, robot.alias)
+  const splitter = createBotCommandExtractor(robot.name, robot.alias)
 
   robot.receiveMiddleware((context, next, done) => {
-    let text = context.response.message.text
+    const text = context.response.message.text
 
     if (isUnhandledMessage(robot, text)) {
       // should be skipped
       const shouldBeSkipped = skipRegexes.some(s => s.test(text))
       if (!shouldBeSkipped) {
-        let data = splitter.exec(text)
-        let robotName = data[1]
-        let command = data[3].trim()
-        let newText = robotName + " " + destination + " " + command
+        const data = splitter.exec(text)
+        const robotName = data[1]
+        const command = data[3].trim()
+        const newText = robotName + " " + destination + " " + command
 
         if (text != newText) {
           context.response.message.text = newText
@@ -63,7 +62,7 @@ export function map_default_alias(robot: Hubot.Robot, destination: string, skipR
  */
 function isUnhandledMessage(robot: InternalRobot, msg: string) {
   const tools = robot.__tools || []
-  for (let tool of tools) {
+  for (const tool of tools) {
     if (tool.canHandle(msg)) {
       return false
     }

@@ -6,7 +6,7 @@ import { ParameterBase } from "./ParameterBase"
  * @class IPv4Parameter
  * @extends {ParameterBase}
  */
-export class IPv4Parameter extends ParameterBase {
+export class IPv4Parameter extends ParameterBase<string> {
   /**
    *
    * @param name The name of the parameter.

@@ -58,14 +58,14 @@ export type TestBotSettings = {
 export async function createTestBot(settings: TestBotSettings | null = null): Promise<TestBotContext> {
   process.env["HUBOT_LOG_LEVEL"] = settings?.logLevel || "error"
 
-  return new Promise<TestBotContext>(async done => {
-    // create new robot, without http, using the mock adapter
-    const botName = settings?.name || "hubot"
-    const botAlias = settings?.alias || null
-    const robot = new Robot("hubot-mock-adapter", false, botName, botAlias)
+  // create new robot, without http, using the mock adapter
+  const botName = settings?.name || "hubot"
+  const botAlias = settings?.alias || null
+  const robot = new Robot("hubot-mock-adapter", false, botName, botAlias)
 
-    await robot.loadAdapter()
+  await robot.loadAdapter()
 
+  return await new Promise<TestBotContext>(done => {
     robot.adapter.on("connected", () => {
       // create a user
       const user = robot.brain.userForId("1", {

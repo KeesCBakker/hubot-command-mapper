@@ -16,17 +16,17 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
   afterEach(() => context.shutdown())
 
   it("Testing ci", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot ci")
+    const response = await context.sendAndWaitForResponse("@hubot ci")
     expect(response).to.eql("ci")
   })
 
   it("Testing cd", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot cd")
+    const response = await context.sendAndWaitForResponse("@hubot cd")
     expect(response).to.eql("cd")
   })
 
   it("Testing cicd", async () => {
-    let response = await context.sendAndWaitForResponse("@hubot cicd")
+    const response = await context.sendAndWaitForResponse("@hubot cicd")
     expect(response).to.eql("cicd")
   })
 })

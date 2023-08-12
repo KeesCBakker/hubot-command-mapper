@@ -9,7 +9,7 @@ import { escapeRegExp } from "../../utils/regex"
  * @class ChoiceParameter
  * @extends {ParameterBase}
  */
-export class ChoiceParameter extends ParameterBase {
+export class ChoiceParameter extends ParameterBase<string> {
   /**
    * Will only capture the choices.
    *
@@ -24,7 +24,7 @@ export class ChoiceParameter extends ParameterBase {
    * Creates an instance of ChoiceParameter.
    * @param {string} name The name of the parameter. Can be used to identify the parameter value as well.
    * @param {string[]} values The array of possible values.
-   * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
+   * @param {string} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof ChoiceParameter
    */
   constructor(

@@ -24,7 +24,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
   it("Basic command mapping and parameter", async () => {
     let x = ""
     map_command(context.robot, "hello", new StringParameter("person"), context => {
-      x = context.values.person
+      x = context.values.person as string
     })
 
     await context.send("@hubot hello world")
@@ -43,13 +43,13 @@ describe("map_command.spec.ts / Single command mapping", () => {
   })
 
   it("Test debug", async () => {
-    let options = new Options()
+    const options = new Options()
     options.addDebugCommand = true
     options.addHelpCommand = true
 
     map_command(context.robot, "my amazing command", options, () => {})
 
-    let response = await context.sendAndWaitForResponse("@hubot my amazing command debug")
+    const response = await context.sendAndWaitForResponse("@hubot my amazing command debug")
     expect(response).to.eql(
       'The tool "my amazing command" uses the following commands:\n' +
         "- cmd: ^@?hubot my amazing command( cmd)?$\n" +
