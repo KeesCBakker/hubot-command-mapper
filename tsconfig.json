@@ -7,7 +7,7 @@
     "esModuleInterop": true,
     "declaration": true
   },
-  "include": ["src/**/*", "test/**/*", "src/types.ts"],
+  "include": ["src/**/*.ts", "src/**/*.d.ts", "test/**/*.ts", "test/**/*.d.ts"],
   "exclude": ["node_modules", "dist"],
   "typeAcquisition": {
     "enable": true
