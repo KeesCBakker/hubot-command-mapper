@@ -12,6 +12,12 @@ describe("StringParameters.spec.ts", () => {
       var r = createRegex([p])
       expect(test(r, "hubot test cmd Capture all")).to.eq(true)
     })
+
+    it("Multi line parameter", () => {
+      var p = new RestParameter("a")
+      var r = createRegex([p])
+      expect(test(r, "hubot test cmd Capture all\nnew lines\n")).to.eq(true)
+    })
   })
 
   describe("StringParameter", () => {
