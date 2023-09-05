@@ -20,7 +20,7 @@ export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot:
   robot.receiveMiddleware((context, next, done) => {
     const text = context.response.message.text
     if (text) {
-      const newText = text.replace(new RegExp(`(${robotNameRegexString})\\s+`, "i"), "$1 ")
+      const newText = text.replace(new RegExp(`(${robotNameRegexString})\\s+`, "si"), "$1 ")
       if (text != newText) {
         context.response.message.text = newText
       }

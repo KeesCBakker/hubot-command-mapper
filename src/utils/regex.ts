@@ -117,13 +117,13 @@ export function convertCommandIntoRegexString(
   regexString += ")"
 
   if (cmd.capture) {
-    //command / tool sperator!
+    //command / tool separator!
     if (extraSpace) {
       regexString += " "
     }
 
     //capture the capture in a group so it will
-    //be accessable through the matches
+    //be accessible through the matches
     regexString += "("
     regexString += cmd.capture
     regexString += ")"
