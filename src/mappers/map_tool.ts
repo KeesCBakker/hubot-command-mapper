@@ -47,7 +47,7 @@ export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptio
     //match edge cases in which certain phrases end with a command name
     const strValidationRegex = convertCommandIntoRegexString(robot.name, robot.alias, tool, cmd)
 
-    cmd.validationRegex = new RegExp(strValidationRegex, "i")
+    cmd.validationRegex = new RegExp(strValidationRegex, "si")
 
     if (robot.logger) {
       robot.logger.info(`Mapping '${tool.name}.${cmd.name}' as '${strValidationRegex}'.`)

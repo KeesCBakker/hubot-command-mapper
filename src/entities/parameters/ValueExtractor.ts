@@ -14,7 +14,7 @@ export function getValues(
 
   if (command.parameters) {
     let r = convertCommandIntoRegexString(robotName, robotAlias, tool, command, true)
-    let nr = new NamedRegExp(r, "i")
+    let nr = new NamedRegExp(r, "si")
 
     let answer = nr.exec(message).groups
 
