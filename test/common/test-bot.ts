@@ -45,6 +45,7 @@ export class TestBotContext {
 
   shutdown(): void {
     this.robot.shutdown()
+    delete process.env.HUBOT_LOG_LEVEL
   }
 }
 
@@ -56,7 +57,7 @@ export type TestBotSettings = {
 }
 
 export async function createTestBot(settings: TestBotSettings | null = null): Promise<TestBotContext> {
-  process.env["HUBOT_LOG_LEVEL"] = settings?.logLevel || "error"
+  process.env.HUBOT_LOG_LEVEL = settings?.logLevel || "silent"
 
   return new Promise<TestBotContext>(async done => {
     // create new robot, without http, using the mock adapter
