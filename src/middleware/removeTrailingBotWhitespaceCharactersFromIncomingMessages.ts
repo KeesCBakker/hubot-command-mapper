@@ -17,7 +17,7 @@ export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot:
   setSwitch(robot, SWITCH)
 
   const robotNameRegexString = convertBotNameIntoRegexString(robot.name, robot.alias)
-  robot.receiveMiddleware((context, next, done) => {
+  robot.receiveMiddleware(async context => {
     const text = context.response.message.text
     if (text) {
       const newText = text.replace(new RegExp(`(${robotNameRegexString})\\s+`, "si"), "$1 ")
@@ -26,6 +26,6 @@ export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot:
       }
     }
 
-    next(done)
+    return true
   })
 }

@@ -29,7 +29,7 @@ export function map_default_alias(robot: Hubot.Robot, destination: string, skipR
 
   let splitter = createBotCommandExtractor(robot.name, robot.alias)
 
-  robot.receiveMiddleware((context, next, done) => {
+  robot.receiveMiddleware(async context => {
     let text = context.response.message.text
 
     if (isUnhandledMessage(robot, text)) {
@@ -50,7 +50,7 @@ export function map_default_alias(robot: Hubot.Robot, destination: string, skipR
       }
     }
 
-    next(done)
+    return true
   })
 }
 

@@ -13,7 +13,7 @@ export function removeTrailingWhitespaceCharactersFromIncomingMessages(robot: Hu
 
   setSwitch(robot, SWITCH)
 
-  robot.receiveMiddleware((context, next, done) => {
+  robot.receiveMiddleware(async context => {
     var text = context.response.message.text
     if (text) {
       var newText = text.replace(/\s+$/, "")
@@ -22,6 +22,6 @@ export function removeTrailingWhitespaceCharactersFromIncomingMessages(robot: Hu
       }
     }
 
-    next(done)
+    return true
   })
 }

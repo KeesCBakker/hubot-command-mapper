@@ -8,7 +8,7 @@ export function addDiagnosticsMiddleware(
   if (!robot) throw "Argument 'robot' is empty."
   if (!callback) throw "Argument 'callback' is empty."
 
-  robot.receiveMiddleware((context, next, done) => {
+  robot.receiveMiddleware(async context => {
     const resolver = new CommandResolver(robot)
     const action = resolver.resolve(context.response)
 
@@ -17,6 +17,6 @@ export function addDiagnosticsMiddleware(
       callback(debug)
     }
 
-    next(done)
+    return true
   })
 }
