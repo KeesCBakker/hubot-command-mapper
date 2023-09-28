@@ -29,4 +29,4 @@ describe("multiline.spec.ts > todo example", () => {
     let result = await context.sendAndWaitForResponse("hubot act " + line)
     expect(result).to.eql(line)
   })
-}) 
+})

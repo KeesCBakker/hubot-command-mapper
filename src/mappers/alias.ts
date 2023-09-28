@@ -56,17 +56,16 @@ export function alias(robot: Hubot.Robot, map: any) {
   bot.__tools.push(mapping)
 
   robot.receiveMiddleware(async context => {
-    var text = context.response.message.text;
-    var newText = mapping.process(text);
+    var text = context.response.message.text
+    var newText = mapping.process(text)
     if (text != newText) {
-        context.response.message.text = newText;
-        if (robot.logger) {
-            robot.logger.info(`Routing '${text}' to '${newText}'.`);
-        }
+      context.response.message.text = newText
+      if (robot.logger) {
+        robot.logger.info(`Routing '${text}' to '${newText}'.`)
+      }
     }
-    return true;
-  });
-  
+    return true
+  })
 }
 
 /**
