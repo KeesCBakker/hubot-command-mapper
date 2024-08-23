@@ -32,7 +32,7 @@
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
     "named-regexp-groups": "^1.0.6",
-    "remove-markdown": "^0.5.0"
+    "remove-markdown": "^0.5.2"
   },
   "peerDependencies": {
     "hubot": "^9.0.2"
