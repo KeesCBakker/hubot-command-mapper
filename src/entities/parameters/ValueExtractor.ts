@@ -1,7 +1,7 @@
-import { ITool, ICommand } from "../../types"
-import { convertCommandIntoRegexString } from "../../utils/regex"
 
 import NamedRegExp from "named-regexp-groups"
+import { ITool, ICommand } from "../../types.js"
+import { convertCommandIntoRegexString } from "../../utils/regex.js"
 
 export function getValues(
   robotName: string,

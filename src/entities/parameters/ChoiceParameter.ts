@@ -1,5 +1,5 @@
-import { ParameterBase } from "./ParameterBase"
-import { escapeRegExp } from "../../utils/regex"
+import { escapeRegExp } from "../../utils/regex.js"
+import { ParameterBase } from "./ParameterBase.js"
 
 /**
  * Parameter that has a fixed set of values. Remember all values

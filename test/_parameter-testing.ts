@@ -1,5 +1,5 @@
-import { IParameter, ITool } from "../src"
-import { convertCommandIntoRegexString } from "../src/utils/regex"
+import { IParameter, ITool } from "../src/types.js"
+import { convertCommandIntoRegexString } from "../src/utils/regex.js"
 
 export function test(regex: string, dataToTest: string) {
   var r = new RegExp(regex, "si")

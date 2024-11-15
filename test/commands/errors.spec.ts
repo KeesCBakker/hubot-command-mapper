@@ -1,7 +1,7 @@
-import { mapper, alias } from "../../src"
 import { expect } from "chai"
+import { mapper, alias } from "../../src/index.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
-import { TestBotContext, createTestBot } from "../common/test-bot"
 
 describe("errors.spec.ts / Errors", () => {
   let context: TestBotContext

@@ -1,4 +1,4 @@
-import { ParameterBase } from "./ParameterBase"
+import { ParameterBase } from "./ParameterBase.js"
 
 /**
  * The "any" parameter captures anything until a new parameter is met.

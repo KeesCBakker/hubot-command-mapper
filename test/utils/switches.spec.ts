@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import { hasSwitch, setSwitch } from "../../src/utils/switches"
+import { hasSwitch, setSwitch } from "../../src/utils/switches.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
 describe("switches.spec.ts / switches", () => {
   let context: TestBotContext
@@ -11,7 +11,11 @@ describe("switches.spec.ts / switches", () => {
     context = await createTestBot()
   })
 
-  afterEach(() => context.shutdown())
+  afterEach(() => {
+    if (context) {
+      context.shutdown()
+    }
+  })
 
   it("No parameters set should return false.", async () => {
     expect(hasSwitch(context.robot, SWITCH)).to.eql(false)

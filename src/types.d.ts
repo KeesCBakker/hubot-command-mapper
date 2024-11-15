@@ -1,10 +1,12 @@
+import { Robot, Response } from "hubot"
+
 /**
- * Called when a command is excuted.
+ * Called when a command is executed.
  *
  * @export
  * @interface ICallback
  */
-export interface ICallback {
+interface ICallback {
   /**
    * The context contains all the information of
    * the command that was executed.
@@ -16,7 +18,7 @@ export interface ICallback {
  * Models a command that can be invoked by the Hubot.
  * @interface ICommand
  */
-export interface ICommand {
+interface ICommand {
   /** The name of the command. Required property. */
   name: string
 
@@ -52,7 +54,7 @@ export interface ICommand {
   /**
    * The regular expression that is used to validate if a certain
    * typed command string can execute against this command. Needed
-   * to prevent unwated execution of commands.
+   * to prevent unwanted execution of commands.
    *
    * @type {RegExp}
    * @memberof ICommand
@@ -60,10 +62,10 @@ export interface ICommand {
   validationRegex?: RegExp
 }
 
-export interface IContext {
+interface IContext {
   tool: ITool
-  robot: Hubot.Robot
-  res: Hubot.Response
+  robot: Robot
+  res: Response
   match: RegExpMatchArray
   values: Record<string, any>
 }
@@ -78,7 +80,7 @@ export interface IContext {
  * @export
  * @interface IParameter
  */
-export interface IParameter {
+interface IParameter {
   /**
    * The name of the parameter should uniquely
    * identify the parameter. It can be used
@@ -128,7 +130,7 @@ export interface IParameter {
  *
  * @interface ITool
  */
-export interface ITool {
+interface ITool {
   /**
    * Name of the tool. A required property.
    *
@@ -147,7 +149,7 @@ export interface ITool {
   commands?: ICommand[]
 
   /**
-   * Used for user-name based authorization. Only the specificed
+   * Used for user-name based authorization. Only the specified
    * users may access the tool.
    *
    * @type {string[]}
@@ -156,7 +158,7 @@ export interface ITool {
   auth?: string[]
 }
 
-export type ICommandResolverResultDebugInfo = {
+type ICommandResolverResultDebugInfo = {
   user: string
   userId: string
   authorized: Boolean

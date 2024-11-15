@@ -1,6 +1,7 @@
 import { expect } from "chai"
-import { Robot } from "hubot/es2015"
+import { Robot } from "hubot"
 import { TextMessage } from "hubot"
+import mockAdapter from "./test-adapter.js"
 
 describe("Eddie the shipboard computer", function () {
   var robot
@@ -9,11 +10,11 @@ describe("Eddie the shipboard computer", function () {
 
   beforeEach(done => {
     // create new robot, without http, using the mock adapter
-    robot = new Robot("hubot-mock-adapter", false, "Eddie")
+    robot = new Robot(mockAdapter as any, false, "Eddie")
 
     // start adapter
     robot.loadAdapter().then(() => {
-      // 1. programatically add command:
+      // 1. programmatically add command:
       robot.hear(/computer!/i, res => res.reply("Why hello there"))
 
       // 2. or load coffee script file:
@@ -45,8 +46,8 @@ describe("Eddie the shipboard computer", function () {
 
   it("responds when greeted", function (done) {
     // here's where the magic happens!
-    adapter.on("reply", (envelope, strings) => {
-      expect(strings[0]).match(/Why hello there/)
+    adapter.on("reply", (_, msg) => {
+      expect(msg).match(/Why hello there/)
       done()
     })
 

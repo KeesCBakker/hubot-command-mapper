@@ -1,6 +1,7 @@
-import { InternalRobot } from "../internals"
-import { escapeRegExp } from "../utils/regex"
-import { hasSwitch, setSwitch } from "../utils/switches"
+import { Robot } from "hubot"
+import { InternalRobot } from "../internals.js"
+import { escapeRegExp } from "../utils/regex.js"
+import { hasSwitch, setSwitch } from "../utils/switches.js"
 
 const SWITCH = "mda"
 
@@ -9,11 +10,12 @@ const SWITCH = "mda"
  * will be used to handle the text.
  *
  * @export
- * @param {Hubot.Robot} robot The robot.
+ * @param {Robot} robot The robot.
  * @param {string} destination The destination alias of the command the text should be aliased to.
  * @param {IOptions} options The options.
+ * @param {RegExp[]} skipRegexes The regular expressions that should be skipped.
  */
-export function map_default_alias(robot: Hubot.Robot, destination: string, skipRegexes: RegExp[] = []) {
+export function map_default_alias(robot: Robot, destination: string, skipRegexes: RegExp[] = []) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!destination) throw "Argument 'destination' is empty."
 
@@ -57,7 +59,7 @@ export function map_default_alias(robot: Hubot.Robot, destination: string, skipR
 /**
  * Determines if the message is not handled by any tools.
  *
- * @param {Hubot.Robot} robot The robot.
+ * @param {Robot} robot The robot.
  * @param {string} msg The message.
  * @returns true when unhandled.
  */

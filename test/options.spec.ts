@@ -1,6 +1,6 @@
 import { expect } from "chai"
+import { Options } from "../src/index.js"
 
-import { Options } from "./../src/"
 
 describe("options.spec.ts / Options", () => {
   it("ENV:HCM_ADD_DEBUG_COMMAND => false", () => {

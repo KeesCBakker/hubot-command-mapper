@@ -1,4 +1,5 @@
-import { ITool } from "./types"
+import { Robot } from "hubot"
+import { ITool } from "./types.js"
 
 /**
  * Indicates the object can handle messages.
@@ -18,7 +19,7 @@ type IMessageHandler = {
   canHandle(msg: string): Boolean
 }
 
-type InternalRobot = Hubot.Robot & {
+type InternalRobot = Robot & {
   __tools?: IMessageHandler[]
   __switches?: string[]
 }

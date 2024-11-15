@@ -1,9 +1,8 @@
-import { StringParameter, ChoiceParameter, TokenParameter, IPv4Parameter } from "../../src"
 
-import { RestParameter } from "../../src/index"
 import { expect } from "chai"
+import { RestParameter, StringParameter, ChoiceParameter, IPv4Parameter, TokenParameter } from "../../src/index.js"
+import { createRegex, test } from "../_parameter-testing.js"
 
-import { createRegex, test } from "../_parameter-testing"
 
 describe("StringParameters.spec.ts", () => {
   describe("RestParameter", () => {

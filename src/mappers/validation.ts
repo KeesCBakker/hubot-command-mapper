@@ -1,4 +1,4 @@
-import { ITool, ICommand } from "../types"
+import { ITool, ICommand } from "../index.js"
 
 /**
  * Validates the tool and throws and exception if the

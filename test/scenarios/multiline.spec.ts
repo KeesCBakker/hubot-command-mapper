@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import { map_command, RestParameter } from "../../src"
+import { createTestBot, TestBotContext } from "../common/test-bot.js"
+import { map_command, RestParameter } from "../../src/index.js"
 
 describe("multiline.spec.ts > todo example", () => {
   let context: TestBotContext

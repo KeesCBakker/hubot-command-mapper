@@ -1,4 +1,4 @@
-import { ICommand, IContext } from "../../types"
+import { ICommand, IContext } from "../../types.js"
 
 interface IHelpCommand extends ICommand {
   /**

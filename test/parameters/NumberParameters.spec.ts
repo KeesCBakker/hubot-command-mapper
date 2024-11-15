@@ -1,7 +1,7 @@
 import { expect } from "chai"
+import { NumberParameter, NumberStyle, FractionParameter } from "../../src/index.js"
+import { createRegex, test } from "../_parameter-testing.js"
 
-import { createRegex, test } from "../_parameter-testing"
-import { NumberParameter, NumberStyle, FractionParameter } from "../../src"
 
 describe("NumberParameters.param.spec.ts / Default commands", () => {
   describe("NumberParameter", () => {

@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
-import { map_command } from "./../src/"
+import { map_command } from "../src/index.js"
+import { TestBotContext, createTestBot } from "./common/test-bot.js"
 
 describe("same-start-name.spec.ts > execute commands with the same start name", () => {
   let context: TestBotContext
