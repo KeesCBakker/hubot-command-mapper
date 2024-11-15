@@ -1,5 +1,5 @@
 import { Robot } from "hubot"
-import { ITool } from "./types.ts"
+import { ITool } from "./types.js"
 
 /**
  * Indicates the object can handle messages.
