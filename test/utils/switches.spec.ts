@@ -11,7 +11,11 @@ describe("switches.spec.ts / switches", () => {
     context = await createTestBot()
   })
 
-  afterEach(() => context.shutdown())
+  afterEach(() => {
+    if (context) {
+      context.shutdown()
+    }
+  })
 
   it("No parameters set should return false.", async () => {
     expect(hasSwitch(context.robot, SWITCH)).to.eql(false)

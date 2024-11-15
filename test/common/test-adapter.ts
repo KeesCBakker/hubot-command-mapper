@@ -10,8 +10,7 @@ export class MockAdapter extends Adapter {
     this.name = "MockAdapter"
   }
 
-    async send(envelope: Envelope, ...strings: string[]) {
-      
+  async send(envelope: Envelope, ...strings: string[]) {
     super.emit("send", envelope, ...strings)
   }
 

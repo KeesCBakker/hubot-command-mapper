@@ -11,19 +11,19 @@ export class TestBotContext {
     public readonly robot: Robot,
     public readonly user: User
   ) {
-    this.robot.adapter.on("reply", (_, strings) => {
-      this.replies.push(strings.join("\n"))
+    this.robot.adapter.on("reply", (_, msg) => {
+      this.replies.push(msg)
     })
 
-    this.robot.adapter.on("send", (_, strings) => {
-      this.sends.push(strings.join("\n"))
+    this.robot.adapter.on("send", (_, msg) => {
+      this.sends.push(msg)
     })
   }
 
   async sendAndWaitForResponse(message: string, responseType: ResponseType = "reply") {
     return new Promise<string>(done => {
-      this.robot.adapter.once(responseType, function (_, strings) {
-        done(strings[0])
+      this.robot.adapter.once(responseType, function (_, msg) {
+        done(msg)
       })
 
       this.send(message)
@@ -59,13 +59,13 @@ export type TestBotSettings = {
 export async function createTestBot(settings: TestBotSettings | null = null): Promise<TestBotContext> {
   process.env.HUBOT_LOG_LEVEL = settings?.logLevel || "silent"
 
-  return new Promise<TestBotContext>(async done => {
+  return new Promise<TestBotContext>(done => {
     // create new robot, without http, using the mock adapter
     const botName = settings?.name || "hubot"
     const botAlias = settings?.alias || null
-    const robot = new Robot(mockAdapter as any, "mock-adapter", false, botName, botAlias)
+    const robot = new Robot(mockAdapter as any, false, botName, botAlias)
 
-    robot.adapter.on("connected", () => {
+    robot.loadAdapter().then(() => {
       // create a user
       const user = robot.brain.userForId("1", {
         name: settings?.testUserName || "mocha",

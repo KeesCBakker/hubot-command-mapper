@@ -5,6 +5,7 @@ import createHelpCommand from "../entities/commands/help.js"
 import { IOptions, defaultOptions } from "../index.js"
 import { InternalTool, IMessageHandler, InternalRobot } from "../internals.js"
 import { convertCommandIntoRegexString, convertToolIntoRegexString, convertBotNameIntoRegexString } from "../utils/regex.js"
+import validateToolAndThrowWhenInvalid from "./validation.js"
 
 /**
  * Maps the specified tool to the Robot.
@@ -19,7 +20,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
   if (!tool) throw "Argument 'tool' is empty."
   if (!tool.commands) tool.commands = []
 
-  validateTool(tool)
+  validateToolAndThrowWhenInvalid(tool)
 
   // add a debug command
   tool.__registrations = []
@@ -124,8 +125,5 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
       })
     }
   })
-}
-function validateTool(tool: any) {
-  throw new Error("Function not implemented.")
 }
 

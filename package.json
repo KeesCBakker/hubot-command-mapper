@@ -6,7 +6,7 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha 'test/**/*.spec.ts' ",
+    "test": "mocha -n=loader=ts-node/esm -n=es-module-specifier-resolution=node **/*.spec.ts --e",
     "build": "del-cli dist && tsc",
     "prepublishOnly": "npm test",
     "postpublish": "git push origin --tags",
@@ -35,7 +35,7 @@
     "remove-markdown": "^0.5.5"
   },
   "peerDependencies": {
-    "hubot": "^11.3.1"
+    "hubot": "^11.3.2"
   },
   "devDependencies": {
     "@types/chai": "^5.0.1",
@@ -46,8 +46,7 @@
     "del-cli": "^6.0.0",
     "mocha": "^10.8.2",
     "prettier": "^3.3.3",
-    "ts-node": "^10.9.2",
-    "typescript": "^5.6.3"
+    "ts-node": "^10.9.2"
   },
   "files": [
     "dist/**/*.js",
