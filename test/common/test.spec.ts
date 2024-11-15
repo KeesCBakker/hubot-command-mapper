@@ -1,5 +1,5 @@
 import { expect } from "chai"
-import { Robot } from "hubot/es2015"
+import { Robot } from "hubot"
 import { TextMessage } from "hubot"
 
 describe("Eddie the shipboard computer", function () {

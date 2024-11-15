@@ -1,11 +1,10 @@
 import { expect } from "chai"
-import { Robot } from "hubot/es2015"
-import { TextMessage } from "hubot"
+import { Robot, TextMessage, User } from "hubot"
 
 class TestBotContext {
   constructor(
-    public readonly robot: Hubot.Robot,
-    public readonly user: Hubot.User
+    public readonly robot: Robot,
+    public readonly user: User
   ) {}
 
   async sendAndWaitForResponse(message: string, type: "send" | "reply" = "reply") {

@@ -6,15 +6,15 @@
  */
 export enum FractionStyle {
   /**
-   * Fractions are seperated by a '.'.
+   * Fractions are separated by a '.'.
    */
   Dot,
   /**
-   * Fractions are seperated by a ','.
+   * Fractions are separated by a ','.
    */
   Comma,
   /**
-   * Fractions can be seperated by both a '.' and a ','.
+   * Fractions can be separated by both a '.' and a ','.
    */
   Both
 }

@@ -1,11 +1,10 @@
 import { expect } from "chai"
-import { Robot } from "hubot/es2015"
-import { TextMessage } from "hubot"
+import { Robot, TextMessage, User } from "hubot"
 
 async function createTestBot() {
-  return new Promise<{ robot: Hubot.Robot; user: Hubot.User }>(async done => {
+  return new Promise<{ robot: Robot; user: User }>(async done => {
     // create new robot, without http, using the mock adapter
-    const robot = new Robot("hubot-mock-adapter", false, "Eddie")
+    const robot = new Robot("", "hubot-mock-adapter", false, "Eddie")
 
     // start adapter
     await robot.loadAdapter()
@@ -17,7 +16,7 @@ async function createTestBot() {
         room: "#mocha"
       })
       done({
-        robot: robot as unknown as Hubot.Robot,
+        robot: robot as unknown as Robot,
         user
       })
     })

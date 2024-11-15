@@ -1,12 +1,12 @@
-import { Log } from "hubot"
-import { getValues } from "./parameters/ValueExtractor"
-import { InternalRobot, InternalTool } from "../internals"
-import { ITool, ICommand, ICommandResolverResultDebugInfo } from "../types"
+import { Log, Response, User } from "hubot"
+import { InternalRobot, InternalTool } from "../internals.js"
+import { ITool, ICommand, ICommandResolverResultDebugInfo } from "../types.js"
+import { getValues } from "./parameters/ValueExtractor.js"
 
 export class CommandResolver {
   constructor(private robot: InternalRobot) {}
 
-  public resolve(res: Hubot.Response): CommandResolverResult | null {
+  public resolve(res: Response): CommandResolverResult | null {
     let tool: InternalTool = null
 
     if (this.robot.__tools) {
@@ -16,7 +16,7 @@ export class CommandResolver {
     return this.resolveFromTool(tool, res)
   }
 
-  public resolveFromTool(tool: ITool, res: Hubot.Response): CommandResolverResult {
+  public resolveFromTool(tool: ITool, res: Response): CommandResolverResult {
     if (!res.message.text) return null
 
     const result = new CommandResolverResult()
@@ -57,7 +57,7 @@ export class CommandResolverResult {
   public values: Record<string, any>
 
   public text: string
-  public user: Hubot.User
+  public user: User
 
   public log(logger: Log): void {
     if (logger) {

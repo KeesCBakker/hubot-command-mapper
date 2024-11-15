@@ -1,6 +1,6 @@
-import { createTestBot } from "../common/test-bot"
 import { expect } from "chai"
-import { map_command } from "../../src"
+import { map_command } from "../../src/index.js"
+import { createTestBot } from "../common/test-bot.js"
 
 describe("clear-screen.spec.ts > clear screen example", () => {
   it("Scenario", async () => {

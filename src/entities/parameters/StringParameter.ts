@@ -1,4 +1,4 @@
-import { ParameterBase } from "./ParameterBase"
+import { ParameterBase } from "./ParameterBase.js"
 
 /**
  * Parameter that will capture a string. This is an continued

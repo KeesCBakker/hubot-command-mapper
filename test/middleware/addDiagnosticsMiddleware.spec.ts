@@ -1,8 +1,6 @@
-import { addDiagnosticsMiddleware, map_command, RestParameter } from "../../src"
-import { createTestBot, TestBotContext } from "../common/test-bot"
-import { expect } from "chai"
-import { ICommandResolverResultDebugInfo } from "../../src/types"
-import { should } from "chai"
+import { expect, should } from "chai"
+import { map_command, RestParameter, ICommandResolverResultDebugInfo, addDiagnosticsMiddleware } from "../../src/index.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
 describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", () => {
   let context: TestBotContext

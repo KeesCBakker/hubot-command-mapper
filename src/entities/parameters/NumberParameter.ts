@@ -1,5 +1,5 @@
-import { ParameterBase } from "./ParameterBase"
-import { NumberStyle } from "./NumberStyle"
+import { ParameterBase } from "./ParameterBase.js"
+import { NumberStyle } from "./NumberStyle.js"
 
 /**
  * This parameter will capture natural numbers.

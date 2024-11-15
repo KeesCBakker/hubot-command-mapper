@@ -1,26 +1,20 @@
-import { IOptions, defaultOptions } from "../entities/options"
-import {
-  convertBotNameIntoRegexString,
-  convertCommandIntoRegexString,
-  convertToolIntoRegexString
-} from "../utils/regex"
-import createDebugCommand from "../entities/commands/debug"
-import createHelpCommand from "../entities/commands/help"
-import validateTool from "./validation"
-import { CommandResolver } from "../entities/CommandResolver"
-import { InternalTool, IMessageHandler, InternalRobot } from "../internals"
+import { Robot } from "hubot"
+import { CommandResolver } from "../entities/CommandResolver.js"
+import createDebugCommand from "../entities/commands/debug.js"
+import createHelpCommand from "../entities/commands/help.js"
+import { IOptions, defaultOptions } from "../index.js"
+import { InternalTool, IMessageHandler, InternalRobot } from "../internals.js"
+import { convertCommandIntoRegexString, convertToolIntoRegexString, convertBotNameIntoRegexString } from "../utils/regex.js"
 
 /**
  * Maps the specified tool to the Robot.
  *
  * @export
- * @param {NodeModule} caller The caller.
- * @param {NodeModule} packageModule The package module.
  * @param {IRobot} robot The robot.
  * @param {ITool} tool The tool that will be mapped.
  * @param {IOptions} [options] The options for this specific mapping.
  */
-export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptions = defaultOptions) {
+export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = defaultOptions) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!tool) throw "Argument 'tool' is empty."
   if (!tool.commands) tool.commands = []
@@ -131,3 +125,7 @@ export function map_tool(robot: Hubot.Robot, tool: InternalTool, options: IOptio
     }
   })
 }
+function validateTool(tool: any) {
+  throw new Error("Function not implemented.")
+}
+

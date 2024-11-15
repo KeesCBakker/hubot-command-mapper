@@ -1,4 +1,5 @@
-import { ParameterBase } from "./ParameterBase"
+import { ParameterBase } from "./ParameterBase.js"
+
 /**
  * Captures IP v4 addresses.
  *

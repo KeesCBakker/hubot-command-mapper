@@ -1,6 +1,7 @@
 "strict"
 
-import { ITool, ICommand, IParameter } from "../types"
+import { ITool, ICommand, IParameter } from "../index.js"
+
 
 /**
  * Converts the specified tool into a regular expression

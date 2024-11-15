@@ -1,5 +1,5 @@
-import Hubot, { TextMessage } from "hubot"
-import { Robot } from "hubot/es2015"
+import { Robot, TextMessage, User } from "hubot"
+import mockAdapter from "./test-adapter.js"
 
 export type ResponseType = "send" | "reply"
 
@@ -8,8 +8,8 @@ export class TestBotContext {
   public readonly sends: string[] = []
 
   constructor(
-    public readonly robot: Hubot.Robot,
-    public readonly user: Hubot.User
+    public readonly robot: Robot,
+    public readonly user: User
   ) {
     this.robot.adapter.on("reply", (_, strings) => {
       this.replies.push(strings.join("\n"))
@@ -63,9 +63,7 @@ export async function createTestBot(settings: TestBotSettings | null = null): Pr
     // create new robot, without http, using the mock adapter
     const botName = settings?.name || "hubot"
     const botAlias = settings?.alias || null
-    const robot = new Robot("hubot-mock-adapter", false, botName, botAlias)
-
-    await robot.loadAdapter()
+    const robot = new Robot(mockAdapter as any, "mock-adapter", false, botName, botAlias)
 
     robot.adapter.on("connected", () => {
       // create a user
@@ -74,7 +72,7 @@ export async function createTestBot(settings: TestBotSettings | null = null): Pr
         room: "#mocha"
       })
 
-      const context = new TestBotContext(robot as unknown as Hubot.Robot, user)
+      const context = new TestBotContext(robot as unknown as Robot, user)
       done(context)
     })
 

@@ -1,4 +1,4 @@
-import { InternalRobot } from "../internals"
+import { InternalRobot } from "../internals.js"
 
 export function hasSwitch(robot: InternalRobot, name: string) {
   if (!robot.__switches) return false

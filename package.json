@@ -1,12 +1,12 @@
 {
   "name": "hubot-command-mapper",
-  "version": "9.0.0",
-  "description": "Helps with mapping tools and commands to hubot",
+  "version": "11.0.0",
+  "description": "Helps with mapping tools and commands to Hubot.",
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "npm run mocha --recursive test/**/*.spec.ts --exit",
-    "mocha": "mocha -r ts-node/register",
+    "test": "mocha 'test/**/*.spec.ts' ",
     "build": "del-cli dist && tsc",
     "prepublishOnly": "npm test",
     "postpublish": "git push origin --tags",
@@ -32,23 +32,21 @@
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
     "named-regexp-groups": "^1.0.6",
-    "remove-markdown": "^0.5.0"
+    "remove-markdown": "^0.5.5"
   },
   "peerDependencies": {
-    "hubot": "^9.0.2"
+    "hubot": "^11.3.1"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.6",
-    "@types/hubot": "^3.3.3",
-    "@types/mocha": "^10.0.1",
-    "@types/node": "^20.5.9",
-    "chai": "^4.3.8",
-    "del-cli": "^5.1.0",
-    "hubot": "^9.0.2",
-    "hubot-mock-adapter": "^2.0.0",
-    "mocha": "^10.2.0",
-    "prettier": "^3.0.3",
-    "ts-node": "^10.9.1"
+    "@types/chai": "^5.0.1",
+    "@types/mocha": "^10.0.9",
+    "@types/node": "^22.9.0",
+    "chai": "^5.1.2",
+    "cross-env": "^7.0.3",
+    "del-cli": "^6.0.0",
+    "mocha": "^10.8.2",
+    "prettier": "^3.3.3",
+    "ts-node": "^10.9.2"
   },
   "files": [
     "dist/**/*.js",

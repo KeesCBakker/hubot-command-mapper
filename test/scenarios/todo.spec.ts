@@ -1,8 +1,9 @@
-import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import { map_tool, RestParameter } from "./../../src/"
+import { Robot } from "hubot"
+import { map_tool, RestParameter } from "../../src/index.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
-function mapTodo(robot: Hubot.Robot) {
+function mapTodo(robot: Robot) {
   let todos: string[] = []
 
   map_tool(robot, {

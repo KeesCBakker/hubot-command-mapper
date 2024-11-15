@@ -1,3 +1,5 @@
+import { Robot, Response } from "hubot"
+
 /**
  * Called when a command is excuted.
  *
@@ -62,8 +64,8 @@ export interface ICommand {
 
 export interface IContext {
   tool: ITool
-  robot: Hubot.Robot
-  res: Hubot.Response
+  robot: Robot
+  res: Response
   match: RegExpMatchArray
   values: Record<string, any>
 }

@@ -1,21 +1,12 @@
 {
-    "compileOnSave": true,
-    "compilerOptions": {
-        "target": "ES2018",
-        "module": "commonjs",
-        "outDir": "dist",
-        "esModuleInterop": true,
-        "declaration": true
-    },
-    "include": [
-        "src/**/*",
-        "src/types.ts"
-    ],
-    "exclude": [
-        "node_modules",
-        "dist"
-    ],
-    "typeAcquisition": {
-        "enable": true
-    }
+  "compilerOptions": {
+    "module": "nodenext",
+    "target": "ES2022",
+    "outDir": "dist",
+    "esModuleInterop": true,
+    "declaration": true
+  },
+  "typeAcquisition": {
+    "enable": true
+  }
 }

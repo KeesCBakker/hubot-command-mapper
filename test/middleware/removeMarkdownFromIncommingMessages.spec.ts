@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import { map_command, removeMarkdownFromIncomingMessages, RestParameter } from "../../src"
+import { map_command, RestParameter, removeMarkdownFromIncomingMessages } from "../../src/index.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
 describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
   let context: TestBotContext
