@@ -1,5 +1,3 @@
-"use strict"
-
 import { Adapter, Envelope, Robot } from "hubot"
 
 export class MockAdapter extends Adapter {
