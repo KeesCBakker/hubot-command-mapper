@@ -1,6 +1,7 @@
+import { Robot } from "hubot"
 import removeMarkDown from "remove-markdown"
 
-export function removeMarkdownFromIncomingMessages(robot: Hubot.Robot) {
+export function removeMarkdownFromIncomingMessages(robot: Robot) {
   if (!robot) throw "Argument 'robot' is empty."
 
   robot.receiveMiddleware(async context => {

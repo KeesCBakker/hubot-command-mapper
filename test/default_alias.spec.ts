@@ -1,6 +1,7 @@
-import { alias, map_command, map_default_alias, map_tool, RestParameter } from "./../src"
-import { createTestBot, TestBotContext } from "./common/test-bot"
+import { Robot } from "hubot"
 import { expect } from "chai"
+import { map_command, RestParameter, map_tool, alias, map_default_alias } from "../src/index.js"
+import { TestBotContext, createTestBot } from "./common/test-bot.js"
 
 describe("default_alias.spec.ts / Testing the default alias feature", () => {
   let context: TestBotContext
@@ -101,6 +102,6 @@ describe("default_alias.spec.ts / exceptions", () => {
   })
 
   it("Exception on empty robot", () => {
-    expect(() => map_default_alias(null as unknown as Hubot.Robot, "alpha", [])).to.throw("Argument 'robot' is empty.")
+    expect(() => map_default_alias(null as unknown as Robot, "alpha", [])).to.throw("Argument 'robot' is empty.")
   })
 })

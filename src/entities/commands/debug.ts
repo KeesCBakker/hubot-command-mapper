@@ -1,5 +1,5 @@
-import { InternalTool } from "../../internals"
-import { ICommand, IContext } from "../../types"
+import { InternalTool } from "../../internals.js"
+import { ICommand, IContext } from "../../types.js"
 
 export default function createDebugCommand(): ICommand {
   return {

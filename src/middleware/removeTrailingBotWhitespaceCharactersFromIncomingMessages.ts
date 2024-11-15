@@ -1,9 +1,10 @@
-import { hasSwitch, setSwitch } from "../utils/switches"
-import { convertBotNameIntoRegexString } from "../utils/regex"
+import { Robot } from "hubot"
+import { convertBotNameIntoRegexString } from "../utils/regex.js"
+import { hasSwitch, setSwitch } from "../utils/switches.js"
 
 const SWITCH = "rtbwcfim"
 
-export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot: Hubot.Robot) {
+export function removeTrailingBotWhitespaceCharactersFromIncomingMessages(robot: Robot) {
   if (!robot) throw "Argument 'robot' is empty."
 
   if (hasSwitch(robot, SWITCH)) {

@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "./../common/test-bot"
 import { expect } from "chai"
-import { map_command, removeTrailingWhitespaceCharactersFromIncomingMessages, RestParameter } from "../../src"
+import { map_command, RestParameter, removeTrailingWhitespaceCharactersFromIncomingMessages } from "../../src/index.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
 describe("removeTrailingWhitespaceCharactersFromIncomingMessages.spec.ts / trailing spaces fixer", () => {
   let context: TestBotContext

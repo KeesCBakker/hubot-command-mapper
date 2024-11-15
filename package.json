@@ -1,12 +1,12 @@
 {
   "name": "hubot-command-mapper",
-  "version": "9.0.2",
-  "description": "Helps with mapping tools and commands to hubot",
+  "version": "11.0.0",
+  "description": "Helps with mapping tools and commands to Hubot.",
   "main": "dist/index.js",
+  "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "npm run mocha --recursive test/**/*.spec.ts --exit",
-    "mocha": "mocha -r ts-node/register",
+    "test": "mocha -n=loader=ts-node/esm -n=es-module-specifier-resolution=node test/**/*.spec.ts --exit",
     "build": "del-cli dist && tsc",
     "prepublishOnly": "npm test",
     "postpublish": "git push origin --tags",
@@ -35,16 +35,15 @@
     "remove-markdown": "^0.5.5"
   },
   "peerDependencies": {
-    "hubot": "^9.1.1"
+    "hubot": "^11.3.2"
   },
   "devDependencies": {
-    "@types/chai": "^4.3.20",
-    "@types/hubot": "^3.3.3",
+    "@types/chai": "^5.0.1",
     "@types/mocha": "^10.0.9",
     "@types/node": "^22.9.0",
-    "chai": "^4.5.0",
+    "chai": "^5.1.2",
+    "cross-env": "^7.0.3",
     "del-cli": "^6.0.0",
-    "hubot-mock-adapter": "^2.3.0",
     "mocha": "^10.8.2",
     "prettier": "^3.3.3",
     "ts-node": "^10.9.2"

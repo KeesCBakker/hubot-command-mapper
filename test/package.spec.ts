@@ -1,6 +1,6 @@
 import { expect } from "chai"
+import { mapper } from "../src/index.js"
 
-import { mapper } from "./../src/"
 
 describe("package.spec.ts / Package", () => {
   it("index.js", () => {

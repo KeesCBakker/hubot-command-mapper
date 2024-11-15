@@ -1,7 +1,7 @@
-import { RestParameter, RegExParameter } from "../../src/index"
 import { expect } from "chai"
+import { RegExParameter, RestParameter } from "../../src/index.js"
+import { createRegex, exec, test } from "../_parameter-testing.js"
 
-import { createRegex, test, exec } from "../_parameter-testing"
 
 describe("RegExParameters.spec.ts", () => {
   describe("RegexParameter+RestParameter", () => {

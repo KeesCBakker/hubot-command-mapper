@@ -1,23 +1,21 @@
 import { expect } from "chai"
-import { Robot } from "hubot/es2015"
-import { TextMessage } from "hubot"
+import { Robot, TextMessage, User } from "hubot"
+import mockAdapter from "./test-adapter.js"
 
 async function createTestBot() {
-  return new Promise<{ robot: Hubot.Robot; user: Hubot.User }>(async done => {
+  return new Promise<{ robot: Robot; user: User }>(async done => {
     // create new robot, without http, using the mock adapter
-    const robot = new Robot("hubot-mock-adapter", false, "Eddie")
+    const robot = new Robot(mockAdapter as any, false, "Eddie")
 
     // start adapter
-    await robot.loadAdapter()
-
-    robot.adapter.on("connected", () => {
+    await robot.loadAdapter().then(() => {
       // create a user
       const user = robot.brain.userForId("1", {
         name: "mocha",
         room: "#mocha"
       })
       done({
-        robot: robot as unknown as Hubot.Robot,
+        robot: robot as unknown as Robot,
         user
       })
     })
@@ -30,12 +28,12 @@ async function createTestBot() {
 describe("Eddie the shipboard computer - smaller", function () {
   it("responds when greeted", function (done) {
     createTestBot().then(({ robot, user }) => {
-      // 1. programatically add command:
+      // 1. programmatically add command:
       robot.hear(/computer!/i, res => res.reply("Why hello there"))
 
       // here's where the magic happens!
-      robot.adapter.on("reply", (envelope, strings) => {
-        expect(strings[0]).match(/Why hello there/)
+      robot.adapter.on("reply", (envelope, msg) => {
+        expect(msg).match(/Why hello there/)
 
         robot.shutdown()
         done()

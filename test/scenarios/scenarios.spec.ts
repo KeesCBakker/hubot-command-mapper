@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "../common/test-bot"
 import { expect } from "chai"
-import { IPv4Parameter, mapper, NumberParameter, RegExStringParameter, TokenParameter } from "../../src"
+import { mapper, RegExStringParameter, NumberParameter, TokenParameter, IPv4Parameter } from "../../src/index.js"
+import { TestBotContext, createTestBot } from "../common/test-bot.js"
 
 describe("scenarios.spec.ts > wehkamp glitch", () => {
   let context: TestBotContext

@@ -1,11 +1,12 @@
-import { IMessageHandler, InternalRobot } from "../internals"
-import { escapeRegExp } from "../utils/regex"
+import { Robot } from "hubot"
+import { IMessageHandler, InternalRobot } from "../internals.js"
+import { escapeRegExp } from "../utils/regex.js"
 
 class AliasMapping implements IMessageHandler {
   public matchers: RegularExpressionMap[]
   public splitter: RegExp
 
-  constructor(map: Record<string, string>, robot: Hubot.Robot) {
+  constructor(map: Record<string, string>, robot: Robot) {
     this.splitter = createBotCommandExtractor(robot.name, robot.alias || robot.name)
     this.matchers = convertMapIntoRegularExpression(map)
   }
@@ -39,7 +40,7 @@ class AliasMapping implements IMessageHandler {
   }
 }
 
-export function alias(robot: Hubot.Robot, map: any) {
+export function alias(robot: Robot, map: any) {
   if (!robot) throw "Argument 'robot' is empty."
   if (!map) throw "Argument 'map' is empty."
 

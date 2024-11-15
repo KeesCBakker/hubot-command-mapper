@@ -1,6 +1,6 @@
-import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
-import { mapper, Options } from "./../src/index"
+import { Options, mapper } from "../src/index.js"
+import { TestBotContext, createTestBot } from "./common/test-bot.js"
 
 describe("auth.spec.ts / Default commands", () => {
   let context: TestBotContext

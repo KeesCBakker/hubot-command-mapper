@@ -1,8 +1,9 @@
-import { CommandResolver } from "../entities/CommandResolver"
-import { ICommandResolverResultDebugInfo } from "../types"
+import { Robot } from "hubot"
+import { CommandResolver } from "../entities/CommandResolver.js"
+import { ICommandResolverResultDebugInfo } from "../index.js"
 
 export function addDiagnosticsMiddleware(
-  robot: Hubot.Robot,
+  robot: Robot,
   callback: (debug: ICommandResolverResultDebugInfo) => void
 ) {
   if (!robot) throw "Argument 'robot' is empty."

@@ -1,6 +1,6 @@
-import { alias, map_command, mapper, Options, StringParameter } from "./../src"
-import { createTestBot, TestBotContext } from "./common/test-bot"
 import { expect } from "chai"
+import { Options, map_command, alias, mapper, StringParameter } from "../src/index.js"
+import { TestBotContext, createTestBot } from "./common/test-bot.js"
 
 describe("alias.spec.ts / Testing the alias features", () => {
   let context: TestBotContext

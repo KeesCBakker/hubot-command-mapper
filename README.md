@@ -1,10 +1,13 @@
 # hubot-command-mapper
 
-_Helps with the mapping of tools and commands for your Hubot. No more regex. No more tool restarts during development._
+_Helps with the mapping of tools and commands for your Hubot. No more regex._
 
 [![npm version](https://badge.fury.io/js/hubot-command-mapper.svg)](https://badge.fury.io/js/hubot-command-mapper) [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 _Why?_ Writing regular expressions for commands is hard. You have to spend some time to prevent expressions from colliding with others. Now the mapper takes care of that problem.
+
+## Upgrade note
+Version 11 is now ESM, so it is compatible with Hubot 11. Version 9 is a non-ESM version, but going forward will continue to work on ESM.
 
 ## Installation
 

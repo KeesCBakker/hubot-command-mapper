@@ -1,4 +1,4 @@
-import { ParameterBase } from "./ParameterBase"
+import { ParameterBase } from "./ParameterBase.js"
 
 /**
  * Uses a regular expression to capture the value.
@@ -9,7 +9,7 @@ import { ParameterBase } from "./ParameterBase"
  */
 export class RegExStringParameter extends ParameterBase {
   /**
-   * Uses the regexStrig to capture the value. Values can also be written
+   * Uses the regexString to capture the value. Values can also be written
    * between quotes.
    *
    * @readonly
@@ -37,7 +37,7 @@ export class RegExStringParameter extends ParameterBase {
 
 export class RegExParameter extends ParameterBase {
   /**
-   * Uses the regexStrig to capture the value. Values can also be written
+   * Uses the regexString to capture the value. Values can also be written
    * between quotes.
    *
    * @readonly

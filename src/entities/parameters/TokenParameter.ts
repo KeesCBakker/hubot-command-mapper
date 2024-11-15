@@ -1,4 +1,4 @@
-import { ChoiceParameter } from "./ChoiceParameter"
+import { ChoiceParameter } from "./ChoiceParameter.js";
 
 /**
  * Matches a token. A token must be present.

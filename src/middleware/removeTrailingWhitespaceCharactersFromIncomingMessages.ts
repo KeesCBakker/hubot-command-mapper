@@ -1,8 +1,9 @@
-import { hasSwitch, setSwitch } from "../utils/switches"
+import { Robot } from "hubot"
+import { hasSwitch, setSwitch } from "../utils/switches.js"
 
 const SWITCH = "rtwcfim"
 
-export function removeTrailingWhitespaceCharactersFromIncomingMessages(robot: Hubot.Robot) {
+export function removeTrailingWhitespaceCharactersFromIncomingMessages(robot: Robot) {
   if (!robot) throw "Argument 'robot' is empty."
 
   if (hasSwitch(robot, SWITCH)) {

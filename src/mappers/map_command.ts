@@ -1,8 +1,9 @@
-import { IOptions, defaultOptions } from "../entities/options"
-import { IParameter, ICallback, ITool } from "../types"
-import { map_tool } from "./map_tool"
+import { Robot } from "hubot"
+import { IOptions, defaultOptions } from "../entities/options.js"
+import { map_tool } from "../index.js"
+import { IParameter, ICallback, ITool } from "../types.js"
 
-export function map_command(robot: Hubot.Robot, command: string, args: (IParameter | ICallback | IOptions)[]): void {
+export function map_command(robot: Robot, command: string, args: (IParameter | ICallback | IOptions)[]): void {
   let callback = args.find(a => a instanceof Function) as ICallback
   if (!callback) throw "Missing callback function."
 

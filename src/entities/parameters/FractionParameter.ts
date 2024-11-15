@@ -1,11 +1,12 @@
-import { NumberStyle } from "./NumberStyle"
-import { NumberParameter } from "./NumberParameter"
-import { FractionStyle } from "./FractionStyle"
+import { FractionStyle } from "./FractionStyle.js"
+import { NumberParameter } from "./NumberParameter.js"
+import { NumberStyle } from "./NumberStyle.js"
+
 
 export class FractionParameter extends NumberParameter {
   /**
    * Captures the sign (when specified), both numbers of the
-   * fraction and the sperator.
+   * fraction and the separator.
    *
    * @readonly
    * @memberof FractionParameter

@@ -1,4 +1,4 @@
-import { IParameter } from "../../types"
+import { IParameter } from "../../types.js";
 
 /**
  * Base class for a parameter.
