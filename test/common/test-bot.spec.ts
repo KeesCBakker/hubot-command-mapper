@@ -1,7 +1,7 @@
 import { expect } from "chai"
 import { TestBotContext, createTestBot } from "./test-bot.js"
 
-describe.only("test-bot testing", async () => {
+describe("test-bot testing", async () => {
   let context: TestBotContext
 
   beforeEach(async () => {

@@ -6,7 +6,7 @@
   "type": "module",
   "types": "dist/index.d.ts",
   "scripts": {
-    "test": "mocha -n=loader=ts-node/esm -n=es-module-specifier-resolution=node **/*.spec.ts --exit",
+    "test": "mocha -n=loader=ts-node/esm -n=es-module-specifier-resolution=node test/**/*.spec.ts --exit",
     "build": "del-cli dist && tsc",
     "prepublishOnly": "npm test",
     "postpublish": "git push origin --tags",
