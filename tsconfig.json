@@ -6,8 +6,5 @@
     "esModuleInterop": true,
     "declaration": true,
     "moduleResolution": "nodenext"
-  },
-  "typeAcquisition": {
-    "enable": true
   }
 }
