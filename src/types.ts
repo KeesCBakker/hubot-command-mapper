@@ -6,7 +6,7 @@ import { Robot, Response } from "hubot"
  * @export
  * @interface ICallback
  */
-interface ICallback {
+export interface ICallback {
   /**
    * The context contains all the information of
    * the command that was executed.
@@ -18,7 +18,7 @@ interface ICallback {
  * Models a command that can be invoked by the Hubot.
  * @interface ICommand
  */
-interface ICommand {
+export interface ICommand {
   /** The name of the command. Required property. */
   name: string
 
@@ -62,7 +62,7 @@ interface ICommand {
   validationRegex?: RegExp
 }
 
-interface IContext {
+export interface IContext {
   tool: ITool
   robot: Robot
   res: Response
@@ -80,7 +80,7 @@ interface IContext {
  * @export
  * @interface IParameter
  */
-interface IParameter {
+export interface IParameter {
   /**
    * The name of the parameter should uniquely
    * identify the parameter. It can be used
@@ -130,7 +130,7 @@ interface IParameter {
  *
  * @interface ITool
  */
-interface ITool {
+export interface ITool {
   /**
    * Name of the tool. A required property.
    *
@@ -158,7 +158,7 @@ interface ITool {
   auth?: string[]
 }
 
-type ICommandResolverResultDebugInfo = {
+export type ICommandResolverResultDebugInfo = {
   user: string
   userId: string
   authorized: Boolean

@@ -7,7 +7,7 @@ import { ITool } from "./types.js"
  * @export
  * @interface IMessageHandler
  */
-type IMessageHandler = {
+export type IMessageHandler = {
   /**
    * Indicates the handler can or cannot handle the given message.
    *
@@ -19,12 +19,12 @@ type IMessageHandler = {
   canHandle(msg: string): Boolean
 }
 
-type InternalRobot = Robot & {
+export type InternalRobot = Robot & {
   __tools?: IMessageHandler[]
   __switches?: string[]
 }
 
-type InternalTool = ITool & {
+export type InternalTool = ITool & {
   /**
    * A place where the debug registrations are kept. These registration
    * are used by the debug command.
