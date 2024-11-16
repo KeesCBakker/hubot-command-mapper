@@ -6,5 +6,6 @@
     "esModuleInterop": true,
     "declaration": true,
     "moduleResolution": "nodenext"
-  }
+  },
+  "include": ["src/**/*"],
 }

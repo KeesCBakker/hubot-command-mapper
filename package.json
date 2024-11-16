@@ -35,7 +35,7 @@
     "remove-markdown": "^0.5.5"
   },
   "peerDependencies": {
-    "hubot": "^11.3.2"
+    "hubot": "^11"
   },
   "devDependencies": {
     "@types/chai": "^5.0.1",
