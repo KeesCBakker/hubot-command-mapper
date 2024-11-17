@@ -7,5 +7,7 @@
     "declaration": true,
     "moduleResolution": "nodenext"
   },
-  "include": ["src/**/*.ts", "src/**/*.d.ts"],
+  "include": [
+    "src/**/*.mts"
+  ]
 }
