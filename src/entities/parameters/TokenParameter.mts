@@ -1,4 +1,4 @@
-import { ChoiceParameter } from "./ChoiceParameter.mjs";
+import { ChoiceParameter } from "./ChoiceParameter.mjs"
 
 /**
  * Matches a token. A token must be present.

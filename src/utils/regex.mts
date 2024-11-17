@@ -2,7 +2,6 @@
 
 import { ITool, ICommand, IParameter } from "../index.mjs"
 
-
 /**
  * Converts the specified tool into a regular expression
  * that can be used by the bot.

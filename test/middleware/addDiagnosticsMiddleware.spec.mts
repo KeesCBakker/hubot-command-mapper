@@ -1,5 +1,10 @@
 import { expect, should } from "chai"
-import { map_command, RestParameter, ICommandResolverResultDebugInfo, addDiagnosticsMiddleware } from "../../src/index.mjs"
+import {
+  map_command,
+  RestParameter,
+  ICommandResolverResultDebugInfo,
+  addDiagnosticsMiddleware
+} from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
 describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", () => {

@@ -1,7 +1,6 @@
 import { expect } from "chai"
 import { Options } from "../src/index.mjs"
 
-
 describe("options.spec.ts / Options", () => {
   it("ENV:HCM_ADD_DEBUG_COMMAND => false", () => {
     process.env["HCM_ADD_DEBUG_COMMAND"] = "false"

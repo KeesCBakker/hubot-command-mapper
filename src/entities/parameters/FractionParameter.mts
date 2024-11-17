@@ -2,7 +2,6 @@ import { FractionStyle } from "./FractionStyle.mjs"
 import { NumberParameter } from "./NumberParameter.mjs"
 import { NumberStyle } from "./NumberStyle.mjs"
 
-
 export class FractionParameter extends NumberParameter {
   /**
    * Captures the sign (when specified), both numbers of the

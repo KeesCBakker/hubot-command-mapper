@@ -1,4 +1,4 @@
-import { IParameter } from "../../types.mjs";
+import { IParameter } from "../../types.mjs"
 
 /**
  * Base class for a parameter.

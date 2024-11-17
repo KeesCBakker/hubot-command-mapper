@@ -2,7 +2,6 @@ import { expect } from "chai"
 import { Options, mapper } from "../src/index.mjs"
 import { TestBotContext, createTestBot } from "./common/test-bot.mjs"
 
-
 describe("commands.spec.ts / Default commands", function () {
   let context: TestBotContext
 

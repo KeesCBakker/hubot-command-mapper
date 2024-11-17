@@ -13,7 +13,7 @@
     "publish-patch": "npm run build && npm test && npm version patch && npm publish",
     "publish-minor": "npm run build && npm test && npm version minor && npm publish",
     "publish-major": "npm run build && npm test && npm version major && npm publish",
-    "format": "prettier --config .prettierrc {test,src}/**/*.ts --write"
+    "format": "prettier --config .prettierrc {test,src}/**/*.*ts --write"
   },
   "repository": {
     "type": "git",

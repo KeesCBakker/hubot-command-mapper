@@ -1,4 +1,3 @@
-
 import NamedRegExp from "named-regexp-groups"
 import { ITool, ICommand } from "../../types.mjs"
 import { convertCommandIntoRegexString } from "../../utils/regex.mjs"

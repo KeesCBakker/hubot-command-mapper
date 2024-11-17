@@ -1,8 +1,6 @@
-
 import { expect } from "chai"
 import { RestParameter, StringParameter, ChoiceParameter, IPv4Parameter, TokenParameter } from "../../src/index.mjs"
 import { createRegex, test } from "../_parameter-testing.mjs"
-
 
 describe("StringParameters.spec.ts", () => {
   describe("RestParameter", () => {

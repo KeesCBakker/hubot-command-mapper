@@ -1,4 +1,4 @@
-import { AnyParameter } from "./AnyParameter.mjs";
+import { AnyParameter } from "./AnyParameter.mjs"
 
 export class RestParameter extends AnyParameter {
   /**

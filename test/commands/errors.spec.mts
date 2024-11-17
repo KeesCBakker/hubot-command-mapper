@@ -2,7 +2,6 @@ import { expect } from "chai"
 import { mapper, alias } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
-
 describe("errors.spec.ts / Errors", () => {
   let context: TestBotContext
 

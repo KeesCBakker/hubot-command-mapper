@@ -2,7 +2,6 @@ import { expect } from "chai"
 import { NumberParameter, NumberStyle, FractionParameter } from "../../src/index.mjs"
 import { createRegex, test } from "../_parameter-testing.mjs"
 
-
 describe("NumberParameters.param.spec.ts / Default commands", () => {
   describe("NumberParameter", () => {
     it("Single Parameter", () => {

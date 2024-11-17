@@ -4,7 +4,11 @@ import createDebugCommand from "../entities/commands/debug.mjs"
 import createHelpCommand from "../entities/commands/help.mjs"
 import { IOptions, defaultOptions } from "../index.mjs"
 import { InternalTool, IMessageHandler, InternalRobot } from "../internals.mjs"
-import { convertCommandIntoRegexString, convertToolIntoRegexString, convertBotNameIntoRegexString } from "../utils/regex.mjs"
+import {
+  convertCommandIntoRegexString,
+  convertToolIntoRegexString,
+  convertBotNameIntoRegexString
+} from "../utils/regex.mjs"
 import validateToolAndThrowWhenInvalid from "./validation.mjs"
 
 /**
@@ -126,4 +130,3 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
     }
   })
 }
-

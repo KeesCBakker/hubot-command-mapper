@@ -2,7 +2,6 @@ import { expect } from "chai"
 import { RegExParameter, RestParameter } from "../../src/index.mjs"
 import { createRegex, exec, test } from "../_parameter-testing.mjs"
 
-
 describe("RegExParameters.spec.ts", () => {
   describe("RegexParameter+RestParameter", () => {
     it("Capture name and description", () => {
