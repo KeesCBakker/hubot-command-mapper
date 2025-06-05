@@ -24,7 +24,7 @@ export class MockAdapter extends Adapter {
     super.emit("play", envelope, ...strings)
   }
 
-  run() {
+  async run() {
     // This is required to get the scripts loaded
     super.emit("connected")
   }

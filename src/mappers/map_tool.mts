@@ -74,7 +74,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
 
   const resolver = new CommandResolver(robot)
 
-  robot.respond(toolRegex, res => {
+  robot.respond(toolRegex, async res => {
     var action = resolver.resolveFromTool(tool, res)
     if (!action || !action.tool) {
       return
