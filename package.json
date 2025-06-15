@@ -38,7 +38,7 @@
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
     "named-regexp-groups": "^1.0.6",
-    "remove-markdown": "^0.5.5"
+    "remove-markdown": "^0.6.0"
   },
   "devDependencies": {
     "@types/hubot": "^11.3.0",
