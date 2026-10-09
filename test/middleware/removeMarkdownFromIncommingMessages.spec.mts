@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { map_command, RestParameter, removeMarkdownFromIncomingMessages } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
@@ -21,21 +22,21 @@ describe("removeMarkdownFromIncomingMessages.spec.ts / remove markdown", () => {
 
   it("Bold removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with *bold*")
-    expect(response).to.eql('Got this: "this is a test with bold"')
+    assert.equal(response, 'Got this: "this is a test with bold"')
   })
 
   it("Code removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ping this is a `test` with `let code = true`")
-    expect(response).to.eql('Got this: "this is a test with let code = true"')
+    assert.equal(response, 'Got this: "this is a test with let code = true"')
   })
 
   it("Italics removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ping this is a _test_ with _italics_")
-    expect(response).to.eql('Got this: "this is a test with italics"')
+    assert.equal(response, 'Got this: "this is a test with italics"')
   })
 
   it("Multiple elements removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ping this is a *test* with _italics_ and `code`")
-    expect(response).to.eql('Got this: "this is a test with italics and code"')
+    assert.equal(response, 'Got this: "this is a test with italics and code"')
   })
 })

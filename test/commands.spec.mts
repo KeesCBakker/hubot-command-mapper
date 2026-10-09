@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { Options, mapper } from "../src/index.mjs"
 import { TestBotContext, createTestBot } from "./common/test-bot.mjs"
 
@@ -31,7 +32,7 @@ describe("commands.spec.ts / Default commands", function () {
 
   it("Debug", async () => {
     let response = await context.sendAndWaitForResponse("@hubot test debug")
-    expect(response).eql(
+    assert.equal(response,
       'The tool "test" uses the following commands:\n' +
         "- dummy: ^@?hubot test( dummy)$\n" +
         "- debug: ^@?hubot test( debug)$\n" +
@@ -41,6 +42,6 @@ describe("commands.spec.ts / Default commands", function () {
 
   it("Invalid command", async () => {
     let response = await context.sendAndWaitForResponse("@hubot test invalid")
-    expect(response).eql("invalid syntax.")
+    assert.equal(response, "invalid syntax.")
   })
 })

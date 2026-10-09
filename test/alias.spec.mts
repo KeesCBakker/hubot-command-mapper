@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { Options, map_command, alias, mapper, StringParameter } from "../src/index.mjs"
 import { TestBotContext, createTestBot } from "./common/test-bot.mjs"
 
@@ -43,21 +44,21 @@ describe("alias.spec.ts / Testing the alias features", () => {
 
   it("Map alias", async () => {
     let response = await context.sendAndWaitForResponse("@hubot AAA")
-    expect(response).to.eql("1")
+    assert.equal(response, "1")
   })
 
   it("Map * alias", async () => {
     let response = await context.sendAndWaitForResponse("@hubot zeg AAA")
-    expect(response).to.eql("AAA")
+    assert.equal(response, "AAA")
   })
 
   it("Map * alias with multiple words", async () => {
     let response = await context.sendAndWaitForResponse("@hubot scream and shout AAA")
-    expect(response).to.eql("AAA")
+    assert.equal(response, "AAA")
   })
 
   it("Map * alias with multiple words and multiple parameters", async () => {
     let response = await context.sendAndWaitForResponse("@hubot super doei Alpha Beta")
-    expect(response).to.eql("Byeeeeeee Alpha Beta!")
+    assert.equal(response, "Byeeeeeee Alpha Beta!")
   })
 })

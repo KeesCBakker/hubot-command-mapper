@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { mapper, RegExStringParameter, NumberParameter, TokenParameter, IPv4Parameter } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
@@ -37,27 +38,27 @@ describe("scenarios.spec.ts > wehkamp glitch", () => {
 
   it("Testing 2 parameters", async () => {
     let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com 150")
-    expect(response).to.eq(`{"url":"https://google.com","times":"150"}`)
+    assert.equal(response, `{"url":"https://google.com","times":"150"}`)
   })
 
   it("Testing default parameters", async () => {
     let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch")
-    expect(response).to.eq(`{"url":"https://wehkamp.nl","times":350}`)
+    assert.equal(response, `{"url":"https://wehkamp.nl","times":350}`)
   })
 
   it("Testing only 1st parameters", async () => {
     let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch https://google.com")
-    expect(response).to.eq(`{"url":"https://google.com","times":350}`)
+    assert.equal(response, `{"url":"https://google.com","times":350}`)
   })
 
   it("Testing only 2nd parameters", async () => {
     let response = await context.sendAndWaitForResponse("@hubot wehkamp glitch 70")
-    expect(response).to.eq(`{"url":"https://wehkamp.nl","times":"70"}`)
+    assert.equal(response, `{"url":"https://wehkamp.nl","times":"70"}`)
   })
 
   it("Test IPv4", async () => {
     let response = await context.sendAndWaitForResponse("@hubot wehkamp ip source 192.168.1.13 destination 10.0.0.13")
-    expect(response).to.eq(
+    assert.equal(response,
       `{"source":"source","sourceIp":"192.168.1.13","destination":"destination","destinationIp":"10.0.0.13"}`
     )
   })

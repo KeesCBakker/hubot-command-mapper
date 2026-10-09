@@ -17,7 +17,7 @@ export class Options implements IOptions {
   public invalidSyntaxMessage: string
   public invalidSyntaxHelpPrefix: string
   public notAuthorizedMessage: string
-  public replacedByBot: string
+  public replacedByBot?: string
 
   constructor() {
     this.addDebugCommand = getB("HCM_ADD_DEBUG_COMMAND", false)

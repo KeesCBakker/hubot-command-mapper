@@ -23,12 +23,12 @@ class AliasMapping implements IMessageHandler {
     let newText = bot + alias.value
 
     const match = alias.matcher.exec(command)
-    if (match.length > 1) newText = newText + " " + match[1]
+    if (match && match.length > 1) newText = newText + " " + match[1]
 
     return newText
   }
 
-  public canHandle(msg: string): Boolean {
+  public canHandle(msg: string): boolean {
     const data = this.splitter.exec(msg)
     if (!data) return false
 
@@ -58,6 +58,7 @@ export function alias(robot: Robot, map: any) {
 
   robot.receiveMiddleware(async context => {
     var text = context.response.message.text
+    if (!text) return true
     var newText = mapping.process(text)
     if (text != newText) {
       context.response.message.text = newText

@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { map_command, map_tool } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
@@ -22,7 +23,7 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
     })
 
     let response = await context.sendAndWaitForResponse("@hubot clear screen")
-    expect(response).to.eql("Sorry, this feature has been replaced by <@kz>. Please use:\n```\n@kz clear screen\n```\n")
+    assert.equal(response, "Sorry, this feature has been replaced by <@kz>. Please use:\n```\n@kz clear screen\n```\n")
   })
 
   it("Tool replacement", async () => {
@@ -41,6 +42,6 @@ describe("replaced_by.spec.ts / Replaced by another bot", () => {
     )
 
     let response = await context.sendAndWaitForResponse("@hubot c d")
-    expect(response).to.eql("Sorry, this feature has been replaced by <@kz>. Please use:\n```\n@kz c d\n```\n")
+    assert.equal(response, "Sorry, this feature has been replaced by <@kz>. Please use:\n```\n@kz c d\n```\n")
   })
 })

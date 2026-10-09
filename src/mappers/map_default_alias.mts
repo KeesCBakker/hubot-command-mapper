@@ -33,12 +33,14 @@ export function map_default_alias(robot: Robot, destination: string, skipRegexes
 
   robot.receiveMiddleware(async context => {
     let text = context.response.message.text
+    if (!text) return true
 
     if (isUnhandledMessage(robot, text)) {
       // should be skipped
       const shouldBeSkipped = skipRegexes.some(s => s.test(text))
       if (!shouldBeSkipped) {
         let data = splitter.exec(text)
+        if (!data) return true
         let robotName = data[1]
         let command = data[3].trim()
         let newText = robotName + " " + destination + " " + command

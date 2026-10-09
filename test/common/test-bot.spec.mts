@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { TestBotContext, createTestBot } from "./test-bot.mjs"
 
 describe("test-bot testing", async () => {
@@ -13,11 +14,11 @@ describe("test-bot testing", async () => {
 
   it("Should respond to the bot name and execute the command", async () => {
     let response = await context.sendAndWaitForResponse("@namebot ping")
-    expect(response).to.eql("pong")
+    assert.equal(response, "pong")
   })
 
   it("Should respond to the alias name and execute the command", async () => {
     let response = await context.sendAndWaitForResponse("@aliasbot ping")
-    expect(response).to.eql("pong")
+    assert.equal(response, "pong")
   })
 })

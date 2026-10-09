@@ -14,7 +14,7 @@ export function convertToolIntoRegexString<A>(robotName: string, robotAlias: str
   return regexString
 }
 
-export function convertBotNameIntoRegexString(robotName: string, robotAlias: string) {
+export function convertBotNameIntoRegexString(robotName: string, robotAlias: string | null) {
   let regexString = "^"
 
   if (robotName == robotAlias || !robotAlias) {
@@ -86,7 +86,7 @@ export function convertCommandIntoRegexString(
       //make sure capture does not interfere with other commands
       //as they take precedence over a capture.
       const commands: string[] = []
-      tool.commands.forEach(c => {
+      tool.commands?.forEach(c => {
         //if a command does not use capture, add string terminator
         //this prevents non-capture commands from flowing into
         //a capture command.

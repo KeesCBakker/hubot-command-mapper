@@ -21,7 +21,7 @@ export class AnyParameter extends ParameterBase {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof AnyParameter
    */
-  constructor(name: string, defaultValue: string = null) {
+  constructor(name: string, defaultValue: string | null = null) {
     super(name, defaultValue)
   }
 }

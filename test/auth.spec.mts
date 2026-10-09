@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { Options, mapper } from "../src/index.mjs"
 import { TestBotContext, createTestBot } from "./common/test-bot.mjs"
 
@@ -37,11 +38,11 @@ describe("auth.spec.ts / Default commands", () => {
 
   it("Authenticated for tool", async () => {
     let response = await context.sendAndWaitForResponse("@hubot test action1")
-    expect(response).to.eql("Hi!")
+    assert.equal(response, "Hi!")
   })
 
   it("Not authenticated for command", async () => {
     let response = await context.sendAndWaitForResponse("@hubot test action2")
-    expect(response).to.eql("sorry, you are not authorized to use this command.")
+    assert.equal(response, "sorry, you are not authorized to use this command.")
   })
 })

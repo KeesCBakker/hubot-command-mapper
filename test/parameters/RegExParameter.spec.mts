@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it } from "node:test"
 import { RegExParameter, RestParameter } from "../../src/index.mjs"
 import { createRegex, exec, test } from "../_parameter-testing.mjs"
 
@@ -9,11 +10,12 @@ describe("RegExParameters.spec.ts", () => {
 
       var r = createRegex(p)
 
-      expect(test(r, "hubot test cmd name-of-incident description of the incident")).to.eq(true)
+      assert.equal(test(r, "hubot test cmd name-of-incident description of the incident"), true)
 
       let result = exec(r, "hubot test cmd name-of-incident description of the incident")
-      expect(result![1] == "name-of-incident")
-      expect(result![2] == "description of the incident")
+      assert.ok(result)
+      assert.ok(result.includes("name-of-incident"))
+      assert.ok(result.includes("description of the incident"))
     })
   })
 })

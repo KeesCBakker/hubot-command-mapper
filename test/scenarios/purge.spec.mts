@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it } from "node:test"
 import { Robot } from "hubot"
 import { map_tool, RestParameter } from "../../src/index.mjs"
 import { createTestBot } from "../common/test-bot.mjs"
@@ -34,7 +35,7 @@ describe("purge.spec.ts > purge example", () => {
     let context = await createTestBot()
     mapPurge(context.robot)
     let response = await context.sendAndWaitForResponse("@hubot purge pers")
-    expect(response).to.eql("default")
+    assert.equal(response, "default")
     context.shutdown()
   })
 })

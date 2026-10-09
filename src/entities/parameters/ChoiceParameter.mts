@@ -30,7 +30,7 @@ export class ChoiceParameter extends ParameterBase {
   constructor(
     name: string,
     public values: string[],
-    public defaultValue: string = null
+    public defaultValue: string | null = null
   ) {
     super(name, defaultValue)
   }

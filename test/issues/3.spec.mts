@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { map_command, alias } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
@@ -15,11 +16,11 @@ describe("issues / 3.spec.ts / Testing problems with robot not responding to ali
 
   it("Should respond to the alias and execute the command", async () => {
     let response = await context.sendAndWaitForResponse("@aliasbot ping")
-    expect(response).to.eql("pong")
+    assert.equal(response, "pong")
   })
 
   it("Should respond to the alias and execute the command alias", async () => {
     let response = await context.sendAndWaitForResponse("@aliasbot pang")
-    expect(response).to.eql("pong")
+    assert.equal(response, "pong")
   })
 })

@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { Robot } from "hubot"
 import { map_tool, RestParameter } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
@@ -65,7 +66,7 @@ describe("todo.spec.ts > todo example", () => {
     await context.send("@hubot todo del er")
     await context.send("@hubot todo list")
 
-    expect(context.replies).to.eql([
+    assert.deepEqual(context.replies, [
       "Added _Boter halen_ to the list.",
       "Added _Kaas halen_ to the list.",
       "Added _Eieren halen_ to the list.",

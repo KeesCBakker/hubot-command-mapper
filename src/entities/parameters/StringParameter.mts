@@ -28,7 +28,7 @@ export class StringParameter extends ParameterBase {
    */
   constructor(
     name: string,
-    public defaultValue: string = null
+    public defaultValue: string | null = null
   ) {
     super(name, defaultValue)
   }

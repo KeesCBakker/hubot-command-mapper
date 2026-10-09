@@ -1,4 +1,5 @@
-import { expect, should } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import {
   map_command,
   RestParameter,
@@ -30,13 +31,13 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
 
     await context.send("@hubot ping 127.0.0.1")
 
-    expect(debug!.user).to.eql("mocha")
-    expect(debug!.authorized).to.eql(true)
-    expect(debug!.text).to.eql("@hubot ping 127.0.0.1")
-    expect(debug!.tool).to.eql("ping")
-    expect(debug!.command).to.eql("cmd")
-    expect(debug!.match[0]).to.eql("@hubot ping 127.0.0.1")
-    expect(debug!.values).to.eql({
+    assert.equal(debug!.user, "mocha")
+    assert.equal(debug!.authorized, true)
+    assert.equal(debug!.text, "@hubot ping 127.0.0.1")
+    assert.equal(debug!.tool, "ping")
+    assert.equal(debug!.command, "cmd")
+    assert.equal(debug!.match?.[0], "@hubot ping 127.0.0.1")
+    assert.deepEqual(debug!.values, {
       rest: "127.0.0.1"
     })
   })
@@ -48,13 +49,13 @@ describe("addDiagnosticsMiddleware.spec.ts / testing diagnostics middleware", ()
 
     await context.send("@hubot pong 127.0.0.1")
 
-    expect(debug!.user).to.eql("mocha")
-    expect(debug!.text).to.eql("@hubot pong 127.0.0.1")
+    assert.equal(debug!.user, "mocha")
+    assert.equal(debug!.text, "@hubot pong 127.0.0.1")
 
-    should().not.exist(debug!.authorized)
-    should().not.exist(debug!.tool)
-    should().not.exist(debug!.command)
-    should().not.exist(debug!.match)
-    should().not.exist(debug!.values)
+    assert.equal(debug!.authorized, undefined)
+    assert.equal(debug!.tool, null)
+    assert.equal(debug!.command, null)
+    assert.equal(debug!.match, null)
+    assert.equal(debug!.values, undefined)
   })
 })

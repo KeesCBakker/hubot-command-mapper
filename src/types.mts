@@ -66,7 +66,7 @@ export interface IContext {
   tool: ITool
   robot: Robot
   res: Response
-  match: RegExpMatchArray
+  match: RegExpMatchArray | null
   values: Record<string, any>
 }
 
@@ -159,12 +159,12 @@ export interface ITool {
 }
 
 export type ICommandResolverResultDebugInfo = {
-  user: string
-  userId: string
-  authorized: Boolean
+  user: string | null
+  userId: string | null
+  authorized: boolean | undefined
   text: string
-  tool: string
-  command: string
-  match: RegExpExecArray
-  values: Record<string, any>
+  tool: string | null
+  command: string | null
+  match: RegExpExecArray | null
+  values: Record<string, any> | undefined
 }

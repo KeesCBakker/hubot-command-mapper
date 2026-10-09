@@ -11,6 +11,18 @@ export default function validateToolAndThrowWhenInvalid(tool: ITool): void {
   if (!tool.commands || !tool.commands.length) throw `No commands found for "${tool.name}"`
 
   tool.commands.forEach(cmd => validateCommandAndThrowWhenInvalid(tool, cmd))
+
+  const names = new Set<string>()
+  for (const command of tool.commands) {
+    const commandNames = new Set([command.name, ...(command.alias ?? [])].filter(name => name !== ""))
+    for (const name of commandNames) {
+      const key = name.toLowerCase()
+      if (names.has(key)) {
+        throw `Cannot create command '${name}' for tool '${tool.name}'. Multiple commands with the same name or alias found.`
+      }
+      names.add(key)
+    }
+  }
 }
 
 /**
