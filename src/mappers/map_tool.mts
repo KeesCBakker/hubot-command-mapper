@@ -3,7 +3,7 @@ import { CommandResolver } from "../entities/CommandResolver.mjs"
 import createDebugCommand from "../entities/commands/debug.mjs"
 import createHelpCommand from "../entities/commands/help.mjs"
 import { IOptions, defaultOptions } from "../index.mjs"
-import { InternalTool, IMessageHandler, InternalRobot } from "../internals.mjs"
+import { InternalTool, InternalRobot } from "../internals.mjs"
 import {
   convertCommandIntoRegexString,
   convertToolIntoRegexString,
@@ -27,7 +27,8 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
   validateToolAndThrowWhenInvalid(tool)
 
   // add a debug command
-  tool.__registrations = []
+  const registrations: { commandName: string; messageRegex: string }[] = []
+  tool.__registrations = registrations
 
   if (options.addDebugCommand) {
     tool.commands.push(createDebugCommand())
@@ -53,7 +54,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
     }
 
     //needed for the debug command
-    tool.__registrations.push({
+    registrations.push({
       commandName: cmd.name,
       messageRegex: strValidationRegex
     })
@@ -64,8 +65,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
   const toolRegex = new RegExp(toolRegexString, "i")
   tool.__robotRegex = toolRegex
 
-  const handler = tool as any as IMessageHandler
-  handler.canHandle = (msg: string) => toolRegex.test(msg)
+  const handler = Object.assign(tool, { canHandle: (msg: string) => toolRegex.test(msg) })
 
   // add tool to robot - helps with middleware
   const bot = robot as InternalRobot
@@ -96,7 +96,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
           options.invalidSyntaxMessage
         )
       } else if (options.showInvalidSyntax) {
-        res.reply(options.invalidSyntaxMessage)
+        res.reply(options.invalidSyntaxMessage ?? defaultOptions.invalidSyntaxMessage)
       }
       return
     }
@@ -104,7 +104,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
     action.log(bot.logger)
 
     if (!action.authorized) {
-      res.reply(options.notAuthorizedMessage)
+      res.reply(options.notAuthorizedMessage ?? defaultOptions.notAuthorizedMessage)
       return
     }
 
@@ -125,7 +125,7 @@ export function map_tool(robot: Robot, tool: InternalTool, options: IOptions = d
         robot: robot,
         res: res,
         match: action.match,
-        values: action.values
+        values: action.values ?? {}
       })
     }
   })

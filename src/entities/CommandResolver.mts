@@ -1,5 +1,5 @@
 import { Log, Response, User } from "hubot"
-import { InternalRobot, InternalTool } from "../internals.mjs"
+import { InternalRobot } from "../internals.mjs"
 import { ITool, ICommand, ICommandResolverResultDebugInfo } from "../types.mjs"
 import { getValues } from "./parameters/ValueExtractor.mjs"
 
@@ -7,21 +7,20 @@ export class CommandResolver {
   constructor(private robot: InternalRobot) {}
 
   public resolve(res: Response): CommandResolverResult | null {
-    let tool: InternalTool = null
-
-    if (this.robot.__tools) {
-      tool = this.robot.__tools.find(t => t != null && t.canHandle(res.message.text)) as any as InternalTool
-    }
-
+    const text = res.message.text
+    if (!text) return null
+    const handler = this.robot.__tools?.find(t => t.canHandle(text))
+    const tool = handler && "name" in handler ? handler : null
     return this.resolveFromTool(tool, res)
   }
 
-  public resolveFromTool(tool: ITool, res: Response): CommandResolverResult {
-    if (!res.message.text) return null
+  public resolveFromTool(tool: ITool | null | undefined, res: Response): CommandResolverResult | null {
+    const text = res.message.text
+    if (!text) return null
 
     const result = new CommandResolverResult()
     result.user = res.message.user
-    result.text = res.message.text
+    result.text = text
 
     if (tool == null) {
       return result
@@ -29,35 +28,31 @@ export class CommandResolver {
 
     result.tool = tool
 
-    const matchingCommands = result.tool.commands.filter(cmd => cmd.validationRegex.test(res.message.text))
-
-    if (matchingCommands.length == 0) {
-      return result
-    }
-
-    result.command = matchingCommands[0]
+    const command = tool.commands?.find(cmd => cmd.validationRegex?.test(text))
+    if (!command?.validationRegex) return result
+    result.command = command
     result.authorized =
       (!result.tool.auth || result.tool.auth.length === 0 || result.tool.auth.indexOf(res.message.user.name) > -1) &&
       (!result.command.auth ||
         result.command.auth.length === 0 ||
         result.command.auth.indexOf(res.message.user.name) > -1)
 
-    result.match = result.command.validationRegex.exec(res.message.text)
-    result.values = getValues(this.robot.name, this.robot.alias, result.tool, result.command, res.message.text)
+    result.match = command.validationRegex.exec(text)
+    result.values = getValues(this.robot.name, this.robot.alias, result.tool, result.command, text)
 
     return result
   }
 }
 
 export class CommandResolverResult {
-  public tool: ITool
-  public command: ICommand
-  public authorized: Boolean
-  public match: RegExpExecArray
-  public values: Record<string, any>
+  public tool: ITool | null = null
+  public command: ICommand | null = null
+  public authorized?: boolean
+  public match: RegExpExecArray | null = null
+  public values?: Record<string, any>
 
-  public text: string
-  public user: User
+  public text: string = ""
+  public user: User | null = null
 
   public log(logger: Log): void {
     if (logger) {

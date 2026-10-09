@@ -7,7 +7,7 @@ export class RestParameter extends AnyParameter {
    * @param {any} [defaultValue=null] When a value is given, the parameter becomes optional.
    * @memberof RestParameter
    */
-  constructor(name: string, defaultValue: string = null) {
+  constructor(name: string, defaultValue: string | null = null) {
     super(name, defaultValue)
   }
 }

@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it } from "node:test"
 import { Robot, TextMessage, User } from "hubot"
 import mockAdapter from "./test-adapter.mjs"
 
@@ -49,7 +50,7 @@ describe("Eddie the shipboard computer - sendAndWaitForResponse", function () {
     context.robot.hear(/computer!/i, res => res.reply("Why hello there"))
 
     let response = await context.sendAndWaitForResponse("Computer!")
-    expect(response).match(/Why hello there/)
+    assert.match(response, /Why hello there/)
 
     context.robot.shutdown()
   })

@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it } from "node:test"
 import { Robot, TextMessage, User } from "hubot"
 import mockAdapter from "./test-adapter.mjs"
 
@@ -26,14 +27,14 @@ async function createTestBot() {
 }
 
 describe("Eddie the shipboard computer - smaller", function () {
-  it("responds when greeted", function (done) {
+  it("responds when greeted", function (_, done) {
     createTestBot().then(({ robot, user }) => {
       // 1. programmatically add command:
       robot.hear(/computer!/i, res => res.reply("Why hello there"))
 
       // here's where the magic happens!
       robot.adapter.on("reply", (envelope, msg) => {
-        expect(msg).match(/Why hello there/)
+        assert.match(msg, /Why hello there/)
 
         robot.shutdown()
         done()

@@ -1,19 +1,25 @@
 {
   "name": "hubot-command-mapper",
-  "version": "12.0.1",
+  "version": "13.0.0",
   "description": "Helps with mapping tools and commands to Hubot.",
   "main": "dist/index.mjs",
   "type": "module",
+  "engines": {
+    "node": ">=22.12.0"
+  },
   "types": "dist/index.d.mts",
   "exports": {
     ".": {
+      "types": "./dist/index.d.mts",
       "import": "./dist/index.mjs",
-      "types": "./dist/index.d.mts"
+      "require": "./dist/index.mjs"
     }
   },
   "scripts": {
-    "test": "cross-env NODE_OPTIONS='--no-warnings=ExperimentalWarning' mocha -n=loader=ts-node/esm -n=es-module-specifier-resolution=node test/**/*.spec.*ts --exit",
-    "build": "del-cli dist && tsc",
+    "test": "npm run build:test && node --test --test-timeout=10000 \".test-build/test/**/*.spec.mjs\" && npm run test:exports",
+    "build:test": "node -e \"require('node:fs').rmSync('.test-build', { recursive: true, force: true })\" && tsc -p tsconfig.test.json",
+    "build": "node -e \"require('node:fs').rmSync('dist', { recursive: true, force: true })\" && tsc",
+    "test:exports": "node --test test/package-exports.test.cjs",
     "prepublishOnly": "npm test",
     "postpublish": "git push origin --tags",
     "publish-patch": "npm run build && npm test && npm version patch && npm publish",
@@ -37,21 +43,14 @@
   },
   "homepage": "https://github.com/KeesCBakker/hubot-command-mapper#readme",
   "dependencies": {
-    "named-regexp-groups": "^1.0.6",
-    "remove-markdown": "^0.5.5"
+    "remove-markdown": "^0.8.0"
   },
   "devDependencies": {
     "@types/hubot": "^11.3.0",
-    "@types/chai": "^5.0.1",
-    "@types/mocha": "^10.0.9",
-    "@types/node": "^22.9.0",
-    "chai": "^5.1.2",
-    "cross-env": "^7.0.3",
-    "del-cli": "^6.0.0",
-    "hubot": "^13",
-    "mocha": "^10.8.2",
-    "prettier": "^3.3.3",
-    "ts-node": "^10.9.2"
+    "@types/node": "^22.20.5",
+    "hubot": "^14.1.0",
+    "prettier": "^3.9.9",
+    "typescript": "^7.0.2"
   },
   "files": [
     "dist/**/*.*js",

@@ -69,6 +69,7 @@ typings/
 
 # custom
 dist
+.test-build/
 .vs
 
 # documentation

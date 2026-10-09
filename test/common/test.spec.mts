@@ -1,14 +1,15 @@
-import { expect } from "chai"
-import { Robot } from "hubot"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
+import { Robot, User, Adapter } from "hubot"
 import { TextMessage } from "hubot"
 import mockAdapter from "./test-adapter.mjs"
 
 describe("Eddie the shipboard computer", function () {
-  var robot
-  var user
-  var adapter
+  var robot: Robot
+  var user: User
+  var adapter: Adapter
 
-  beforeEach(done => {
+  beforeEach((_, done) => {
     // create new robot, without http, using the mock adapter
     robot = new Robot(mockAdapter as any, false, "Eddie")
 
@@ -44,10 +45,10 @@ describe("Eddie the shipboard computer", function () {
     robot.shutdown()
   })
 
-  it("responds when greeted", function (done) {
+  it("responds when greeted", function (_, done) {
     // here's where the magic happens!
-    adapter.on("reply", (_, msg) => {
-      expect(msg).match(/Why hello there/)
+    adapter.on("reply", (_: unknown, msg: string) => {
+      assert.match(msg, /Why hello there/)
       done()
     })
 

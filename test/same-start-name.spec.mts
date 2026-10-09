@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { map_command } from "../src/index.mjs"
 import { TestBotContext, createTestBot } from "./common/test-bot.mjs"
 
@@ -17,16 +18,16 @@ describe("same-start-name.spec.ts > execute commands with the same start name", 
 
   it("Testing ci", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ci")
-    expect(response).to.eql("ci")
+    assert.equal(response, "ci")
   })
 
   it("Testing cd", async () => {
     let response = await context.sendAndWaitForResponse("@hubot cd")
-    expect(response).to.eql("cd")
+    assert.equal(response, "cd")
   })
 
   it("Testing cicd", async () => {
     let response = await context.sendAndWaitForResponse("@hubot cicd")
-    expect(response).to.eql("cicd")
+    assert.equal(response, "cicd")
   })
 })

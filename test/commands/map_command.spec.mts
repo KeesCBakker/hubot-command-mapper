@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { map_command, StringParameter, Options } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
@@ -18,7 +19,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
     })
 
     await context.send("@hubot clear screen")
-    expect(i).to.eq(1, "Message should increment i.")
+    assert.equal(i, 1, "Message should increment i.")
   })
 
   it("Basic command mapping and parameter", async () => {
@@ -28,7 +29,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
     })
 
     await context.send("@hubot hello world")
-    expect(x).to.eq("world", "Message should set 'world' to x.")
+    assert.equal(x, "world", "Message should set 'world' to x.")
   })
 
   it("Tool segregation with command mapping", async () => {
@@ -36,10 +37,10 @@ describe("map_command.spec.ts / Single command mapping", () => {
     map_command(context.robot, "cc", context => context.res.reply("r2"))
 
     let response = await context.sendAndWaitForResponse("@hubot c")
-    expect(response).to.eql("r1")
+    assert.equal(response, "r1")
 
     response = await context.sendAndWaitForResponse("@hubot cc")
-    expect(response).to.eql("r2")
+    assert.equal(response, "r2")
   })
 
   it("Test debug", async () => {
@@ -50,7 +51,7 @@ describe("map_command.spec.ts / Single command mapping", () => {
     map_command(context.robot, "my amazing command", options, () => {})
 
     let response = await context.sendAndWaitForResponse("@hubot my amazing command debug")
-    expect(response).to.eql(
+    assert.equal(response,
       'The tool "my amazing command" uses the following commands:\n' +
         "- cmd: ^@?hubot my amazing command( cmd)?$\n" +
         "- debug: ^@?hubot my amazing command( debug)$\n" +

@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it } from "node:test"
 import { map_command } from "../../src/index.mjs"
 import { createTestBot } from "../common/test-bot.mjs"
 
@@ -14,7 +15,7 @@ describe("clear-screen.spec.ts > clear screen example", () => {
 
     await context.send("@hubot clear screen")
 
-    expect(context.sends).to.eql([" ", " ", " ", " ", " ", " ", " ", " "])
+    assert.deepEqual(context.sends, [" ", " ", " ", " ", " ", " ", " ", " "])
     context.shutdown()
   })
 })

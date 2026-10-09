@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { map_command, RestParameter, removeTrailingWhitespaceCharactersFromIncomingMessages } from "../../src/index.mjs"
 import { TestBotContext, createTestBot } from "../common/test-bot.mjs"
 
@@ -21,12 +22,12 @@ describe("removeTrailingWhitespaceCharactersFromIncomingMessages.spec.ts / trail
 
   it("Trailing spaces should be removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ping this is a test with spaces     ")
-    expect(response).to.eq('Got this: "this is a test with spaces"')
+    assert.equal(response, 'Got this: "this is a test with spaces"')
   })
 
   it("Trailing tabs should be removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot ping this is a test with tabs           ")
-    expect(response).to.eq('Got this: "this is a test with tabs"')
+    assert.equal(response, 'Got this: "this is a test with tabs"')
   })
 
   it("Trailing enters should be removed", async () => {
@@ -35,6 +36,6 @@ describe("removeTrailingWhitespaceCharactersFromIncomingMessages.spec.ts / trail
 
 `
     )
-    expect(response).to.eq('Got this: "this is a test with enters"')
+    assert.equal(response, 'Got this: "this is a test with enters"')
   })
 })

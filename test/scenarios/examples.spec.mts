@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it } from "node:test"
 import { ITool, mapper, StringParameter } from "../../src/index.mjs"
 import { createTestBot } from "../common/test-bot.mjs"
 
@@ -16,6 +17,7 @@ describe("examples.spec.ts > check count/capture example", () => {
           name: "from",
           capture: "(\\d+) to (\\d+)",
           execute: context => {
+            if (!context.match) throw new Error("Expected a command match")
             const a = Number(context.match[context.match.length - 2])
             const b = Number(context.match[context.match.length - 1])
 
@@ -30,7 +32,7 @@ describe("examples.spec.ts > check count/capture example", () => {
     mapper(context.robot, tool)
 
     await context.send("@hb count from 1 to 3")
-    expect(context.replies).to.eql(["1!", "2!", "3!"])
+    assert.deepEqual(context.replies, ["1!", "2!", "3!"])
 
     context.shutdown()
   })
@@ -62,7 +64,7 @@ describe("examples.spec.ts > check norris impersonate / parameter", () => {
     mapper(context.robot, tool)
 
     let response = await context.sendAndWaitForResponse("@hb norris impersonate Cool Cat")
-    expect(response).to.eql("Cool Cat has counted to infinity. Twice!")
+    assert.equal(response, "Cool Cat has counted to infinity. Twice!")
 
     context.shutdown()
   })

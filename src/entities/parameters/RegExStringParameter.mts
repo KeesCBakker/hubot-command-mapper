@@ -29,7 +29,7 @@ export class RegExStringParameter extends ParameterBase {
   constructor(
     name: string,
     public regexString: string,
-    public defaultValue: string = null
+    public defaultValue: string | null = null
   ) {
     super(name, defaultValue)
   }
@@ -56,7 +56,7 @@ export class RegExParameter extends ParameterBase {
   constructor(
     name: string,
     public regexString: string,
-    public defaultValue: string = null
+    public defaultValue: string | null = null
   ) {
     super(name, defaultValue)
   }

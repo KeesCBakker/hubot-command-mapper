@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import { mapper, map_command, RestParameter } from "../src/index.mjs"
 import { TestBotContext, createTestBot } from "./common/test-bot.mjs"
 
@@ -22,14 +23,14 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
     await context.send("@hubot clear screen")
-    expect(i).to.eq(1, "Message should increment i.")
+    assert.equal(i, 1, "Message should increment i.")
   })
 
   it("Default command mapping", async () => {
     let i = 0
     map_command(context.robot, "cool", () => i++)
     await context.send("@hubot cool")
-    expect(i).to.eq(1, "Message should increment i.")
+    assert.equal(i, 1, "Message should increment i.")
   })
 
   it("Alias", async () => {
@@ -45,7 +46,7 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
     await context.send("@hubot clear scr")
-    expect(i).to.eq(1, "Message should increment i.")
+    assert.equal(i, 1, "Message should increment i.")
   })
 
   it("Empty alias", async () => {
@@ -61,7 +62,7 @@ describe("index.spec.ts / Command mapping", () => {
       ]
     })
     await context.send("@hubot clear")
-    expect(i).to.eq(1, "Message should increment i.")
+    assert.equal(i, 1, "Message should increment i.")
   })
 
   it("Multiple aliases", async () => {
@@ -78,13 +79,13 @@ describe("index.spec.ts / Command mapping", () => {
     })
 
     await context.send("@hubot clear screen")
-    expect(i).to.eq(1, "Message should increment i.")
+    assert.equal(i, 1, "Message should increment i.")
 
     await context.send("@hubot clear scr")
-    expect(i).to.eq(2, "Message should increment i.")
+    assert.equal(i, 2, "Message should increment i.")
 
     await context.send("@hubot clear")
-    expect(i).to.eq(3, "Message should increment i.")
+    assert.equal(i, 3, "Message should increment i.")
   })
 
   it("Multiple command mapping", async () => {
@@ -109,11 +110,11 @@ describe("index.spec.ts / Command mapping", () => {
     })
 
     await context.send("@hubot tool a")
-    expect(latest).to.eq("a", "'a' was not called.")
+    assert.equal(latest, "a", "'a' was not called.")
     await context.send("@hubot tool a")
-    expect(latest).to.eq("a", "'a' was not called.")
+    assert.equal(latest, "a", "'a' was not called.")
     await context.send("@hubot tool a")
-    expect(latest).to.eq("a", "'a' was not called.")
+    assert.equal(latest, "a", "'a' was not called.")
   })
 
   it("Tool segregation", async () => {
@@ -138,7 +139,7 @@ describe("index.spec.ts / Command mapping", () => {
     })
 
     let response = await context.sendAndWaitForResponse("@hubot t2 c1")
-    expect(response).to.eql("r2")
+    assert.equal(response, "r2")
   })
 
   it("Tool and command casing", async () => {
@@ -154,6 +155,6 @@ describe("index.spec.ts / Command mapping", () => {
     })
 
     let response = await context.sendAndWaitForResponse("@hubot TeStInG eVeRyThInG and maybe more!")
-    expect(response).to.eql("kewl!")
+    assert.equal(response, "kewl!")
   })
 })

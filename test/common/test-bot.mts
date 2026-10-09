@@ -33,8 +33,7 @@ export class TestBotContext {
   async send(message: string) {
     const id = (Math.random() + 1).toString(36).substring(7)
     const textMessage = new TextMessage(this.user, message, id)
-    this.robot.adapter.receive(textMessage)
-    await this.wait(1)
+    await this.robot.adapter.receive(textMessage)
   }
 
   async wait(ms: number) {
@@ -59,23 +58,14 @@ export type TestBotSettings = {
 export async function createTestBot(settings: TestBotSettings | null = null): Promise<TestBotContext> {
   process.env.HUBOT_LOG_LEVEL = settings?.logLevel || "silent"
 
-  return new Promise<TestBotContext>(done => {
-    // create new robot, without http, using the mock adapter
-    const botName = settings?.name || "hubot"
-    const botAlias = settings?.alias || null
-    const robot = new Robot(mockAdapter as any, false, botName, botAlias)
-
-    robot.loadAdapter().then(() => {
-      // create a user
-      const user = robot.brain.userForId("1", {
-        name: settings?.testUserName || "mocha",
-        room: "#mocha"
-      })
-
-      const context = new TestBotContext(robot as unknown as Robot, user)
-      done(context)
-    })
-
-    robot.run()
+  const botName = settings?.name || "hubot"
+  const robot = new Robot(mockAdapter, false, botName, settings?.alias)
+  await robot.loadAdapter()
+  const user = robot.brain.userForId("1", {
+    name: settings?.testUserName || "mocha",
+    room: "#mocha"
   })
+  const context = new TestBotContext(robot, user)
+  await robot.run()
+  return context
 }

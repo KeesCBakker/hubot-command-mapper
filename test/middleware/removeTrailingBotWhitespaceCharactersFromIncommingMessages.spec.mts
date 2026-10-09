@@ -1,4 +1,5 @@
-import { expect } from "chai"
+import assert from "node:assert/strict"
+import { describe, it, beforeEach, afterEach } from "node:test"
 import {
   map_command,
   RestParameter,
@@ -25,12 +26,12 @@ describe("removeTrailingBotWhitespaceCharactersFromIncomingMessages.spec.ts / tr
 
   it("Trailing spaces should be removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot     ping this is a test with spaces")
-    expect(response).to.eq('Got this: "this is a test with spaces"')
+    assert.equal(response, 'Got this: "this is a test with spaces"')
   })
 
   it("Trailing tabs should be removed", async () => {
     let response = await context.sendAndWaitForResponse("@hubot\t\tping this is a test with tabs")
-    expect(response).to.eq('Got this: "this is a test with tabs"')
+    assert.equal(response, 'Got this: "this is a test with tabs"')
   })
 
   it("Trailing enters should be removed", async () => {
@@ -40,6 +41,6 @@ describe("removeTrailingBotWhitespaceCharactersFromIncomingMessages.spec.ts / tr
 
 ping this is a test with enters`
     )
-    expect(response).to.eq('Got this: "this is a test with enters"')
+    assert.equal(response, 'Got this: "this is a test with enters"')
   })
 })

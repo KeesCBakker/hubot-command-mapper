@@ -16,11 +16,11 @@ export type IMessageHandler = {
    *
    * @memberOf IMessageHandler
    */
-  canHandle(msg: string): Boolean
+  canHandle(msg: string): boolean
 }
 
 export type InternalRobot = Robot & {
-  __tools?: IMessageHandler[]
+  __tools?: (IMessageHandler | (InternalTool & IMessageHandler))[]
   __switches?: string[]
 }
 
